@@ -12,7 +12,7 @@ public class PlayerMover2D : MonoBehaviour
     [Header("Ground Check")]
     public Transform groundCheck;      // 用来检测是否落地的空物体
     public float groundCheckRadius = 0.1f;
-    public LayerMask groundLayer;      // 指定地面图层（Ground）
+    public LayerMask groundLayer;      // 指定地面图层（Ground
 
     Rigidbody2D rb;
     float inputX;

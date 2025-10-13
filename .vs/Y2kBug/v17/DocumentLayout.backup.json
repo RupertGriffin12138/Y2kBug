@@ -5,6 +5,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\unity\\create with code\\y2kbug\\assets\\test\\playermover2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\test\\playermover2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\unity\\create with code\\y2kbug\\assets\\test\\camerafollow2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\test\\camerafollow2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,8 +18,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CameraFollow2D.cs",
+              "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\test\\CameraFollow2D.cs",
+              "RelativeDocumentMoniker": "Assets\\test\\CameraFollow2D.cs",
+              "ToolTip": "E:\\unity\\Create with code\\Y2kBug\\Assets\\test\\CameraFollow2D.cs",
+              "RelativeToolTip": "Assets\\test\\CameraFollow2D.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-12T08:34:10.183Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -24,7 +41,7 @@
               "RelativeDocumentMoniker": "Assets\\test\\PlayerMover2D.cs",
               "ToolTip": "E:\\unity\\Create with code\\Y2kBug\\Assets\\test\\PlayerMover2D.cs",
               "RelativeToolTip": "Assets\\test\\PlayerMover2D.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAABkAAAAAAAAAAAAQwCoAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-12T08:31:06.253Z",
               "EditorCaption": ""
