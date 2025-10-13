@@ -1,36 +1,28 @@
-using System.Collections;
+锘縰sing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraFollow2D : MonoBehaviour
 {
-
     public Transform target;
-    public float smoothTime = 0.15f;
-    public Vector2 offset; // 可选：镜头偏移
+    public Vector2 offset;
+    public float smoothTime = 0.2f;
+    public float deadZone = 0.02f; // 涓栫晫鍗曚綅
 
-    Vector3 velocity = Vector3.zero;
+    Vector3 vel;
 
     void LateUpdate()
     {
         if (!target) return;
-        var targetPos = new Vector3(
-            target.position.x + offset.x,
-            target.position.y + offset.y,
-            transform.position.z // 保持相机原有Z
-        );
-        transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, smoothTime);
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+        Vector3 cur = transform.position;
+        Vector3 dst = new(target.position.x + offset.x,
+                          target.position.y + offset.y,
+                          cur.z);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Vector2 d = new(dst.x - cur.x, dst.y - cur.y);
+        if (d.sqrMagnitude < deadZone * deadZone) return;
+
+        transform.position = Vector3.SmoothDamp(cur, dst, ref vel, smoothTime);
     }
 }
