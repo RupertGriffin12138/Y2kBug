@@ -99,6 +99,18 @@ public class UIButtonScale : MonoBehaviour,
         tweenCo = null;
     }
 
+    // 自动复位逻辑
+    void OnDisable()
+    {
+        // 当按钮所在面板被隐藏时自动重置状态
+        if (tweenCo != null) StopCoroutine(tweenCo);
+        tweenCo = null;
+
+        rt.localScale = baseScale;
+        isPointerOver = false;
+        isPointerDown = false;
+    }
+
     // 方便在运行时重置（比如换分辨率或需要恢复BaseScale）
     public void ResetBaseScaleToCurrent()
     {

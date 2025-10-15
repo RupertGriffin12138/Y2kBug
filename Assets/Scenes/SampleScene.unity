@@ -224,12 +224,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e0b3ab42fccd35438d9130c9b41f36f, type: 3}
+  m_Script: {fileID: 11500000, guid: be04865bb9fcf4946ae4b28c6ccd9ba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 2107596710}
   offset: {x: 0, y: 0}
-  smoothTime: 0.15
+  smoothTime: 0.2
   deadZone: 0.02
 --- !u!1 &1405780057
 GameObject:
@@ -517,11 +517,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2107596708}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79888110ef7867b40b9700fc7cda0efc, type: 3}
+  m_Script: {fileID: 11500000, guid: 7a4f74ad65b20124fa35a3e26beab939, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 6
-  jumpForce: 12
+  jumpForce: 100
   groundCheck: {fileID: 1405780058}
   groundCheckRadius: 0.1
   groundLayer:
