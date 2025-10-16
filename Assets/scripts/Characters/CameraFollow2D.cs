@@ -15,6 +15,7 @@ public class CameraFollow2D : MonoBehaviour
     {
         if (!target) return;
 
+
         Vector3 cur = transform.position;
         Vector3 dst = new(target.position.x + offset.x,
                           target.position.y + offset.y,

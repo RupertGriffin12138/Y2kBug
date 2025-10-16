@@ -39,6 +39,9 @@ public class UIButtonScale : MonoBehaviour,
     public void OnPointerEnter(PointerEventData eventData)
     {
         isPointerOver = true;
+        // 清除当前选中对象，避免Selected状态遮挡Hover
+        if (EventSystem.current && EventSystem.current.currentSelectedGameObject != null)
+            EventSystem.current.SetSelectedGameObject(null);
         UpdateTargetScale();
     }
 

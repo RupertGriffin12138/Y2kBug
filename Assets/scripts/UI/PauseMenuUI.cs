@@ -52,7 +52,7 @@ public class PauseMenuUI : MonoBehaviour
 
         // 为键盘/手柄高亮默认按钮
         if (btnBackToGame)
-            EventSystem.current?.SetSelectedGameObject(btnBackToGame.gameObject);
+            EventSystem.current?.SetSelectedGameObject(null);
     }
 
     public void ResumeGame()
