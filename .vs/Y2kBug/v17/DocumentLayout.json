@@ -1,26 +1,22 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "E:\\AllUnityProjects\\Y2kBug\\",
+  "WorkspaceRootPath": "E:\\unity\\Create with code\\Y2kBug\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\allunityprojects\\y2kbug\\assets\\scripts\\riddle\\abacus\\bead.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\riddle\\abacus\\bead.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\unity\\Create with code\\Y2kBug\\assets\\scripts\\ui\\pausemenuui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\pausemenuui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\allunityprojects\\y2kbug\\assets\\scripts\\riddle\\abacus\\beadupper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\riddle\\abacus\\beadupper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\unity\\Create with code\\Y2kBug\\assets\\scripts\\core\\bgmaudiobootstrap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\core\\bgmaudiobootstrap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\AllUnityProjects\\Y2kBug\\assets\\scripts\\riddle\\abacus\\beadshiningstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\riddle\\abacus\\beadshiningstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\unity\\Create with code\\Y2kBug\\assets\\scripts\\core\\settingsaudioui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\core\\settingsaudioui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\AllUnityProjects\\Y2kBug\\assets\\scripts\\riddle\\abacus\\beadstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\riddle\\abacus\\beadstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\AllUnityProjects\\Y2kBug\\assets\\scripts\\riddle\\abacus\\beadstatemachine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\riddle\\abacus\\beadstatemachine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\unity\\create with code\\y2kbug\\assets\\scripts\\ui\\audiosettingsbus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\audiosettingsbus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,72 +26,58 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Bead.cs",
-              "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Riddle\\Abacus\\Bead.cs",
-              "RelativeDocumentMoniker": "Assets\\scripts\\Riddle\\Abacus\\Bead.cs",
-              "ToolTip": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Riddle\\Abacus\\Bead.cs",
-              "RelativeToolTip": "Assets\\scripts\\Riddle\\Abacus\\Bead.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAAAAwCgAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "AudioSettingsBus.cs",
+              "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\UI\\AudioSettingsBus.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\UI\\AudioSettingsBus.cs",
+              "ToolTip": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\UI\\AudioSettingsBus.cs",
+              "RelativeToolTip": "Assets\\scripts\\UI\\AudioSettingsBus.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-17T06:22:55.499Z",
-              "IsPinned": true,
+              "WhenOpened": "2025-10-18T15:56:54.108Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "BeadStateMachine.cs",
-              "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Riddle\\Abacus\\BeadStateMachine.cs",
-              "RelativeDocumentMoniker": "Assets\\scripts\\Riddle\\Abacus\\BeadStateMachine.cs",
-              "ToolTip": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Riddle\\Abacus\\BeadStateMachine.cs",
-              "RelativeToolTip": "Assets\\scripts\\Riddle\\Abacus\\BeadStateMachine.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "BgmAudioBootstrap.cs",
+              "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Core\\BgmAudioBootstrap.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\Core\\BgmAudioBootstrap.cs",
+              "ToolTip": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Core\\BgmAudioBootstrap.cs",
+              "RelativeToolTip": "Assets\\scripts\\Core\\BgmAudioBootstrap.cs",
+              "ViewState": "AgIAADgAAAAAAAAAAAAkwEkAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-17T06:23:22.528Z",
-              "IsPinned": true
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "BeadState.cs",
-              "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Riddle\\Abacus\\BeadState.cs",
-              "RelativeDocumentMoniker": "Assets\\scripts\\Riddle\\Abacus\\BeadState.cs",
-              "ToolTip": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Riddle\\Abacus\\BeadState.cs",
-              "RelativeToolTip": "Assets\\scripts\\Riddle\\Abacus\\BeadState.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAAwBwAAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-17T06:23:21.483Z",
-              "IsPinned": true
+              "WhenOpened": "2025-10-18T12:41:03.549Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "BeadShiningState.cs",
-              "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Riddle\\Abacus\\BeadShiningState.cs",
-              "RelativeDocumentMoniker": "Assets\\scripts\\Riddle\\Abacus\\BeadShiningState.cs",
-              "ToolTip": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Riddle\\Abacus\\BeadShiningState.cs",
-              "RelativeToolTip": "Assets\\scripts\\Riddle\\Abacus\\BeadShiningState.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAADwvwwAAAAVAAAAAAAAAA==",
+              "Title": "SettingsAudioUI.cs",
+              "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Core\\SettingsAudioUI.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\Core\\SettingsAudioUI.cs",
+              "ToolTip": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Core\\SettingsAudioUI.cs",
+              "RelativeToolTip": "Assets\\scripts\\Core\\SettingsAudioUI.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAwC8AAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-17T06:53:27.675Z",
-              "IsPinned": true
+              "WhenOpened": "2025-10-18T12:06:46.923Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "BeadUpper.cs",
-              "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Riddle\\Abacus\\BeadUpper.cs",
-              "RelativeDocumentMoniker": "Assets\\scripts\\Riddle\\Abacus\\BeadUpper.cs",
-              "ToolTip": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Riddle\\Abacus\\BeadUpper.cs",
-              "RelativeToolTip": "Assets\\scripts\\Riddle\\Abacus\\BeadUpper.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAADwvwQAAAAZAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "PauseMenuUI.cs",
+              "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\UI\\PauseMenuUI.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\UI\\PauseMenuUI.cs",
+              "ToolTip": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\UI\\PauseMenuUI.cs",
+              "RelativeToolTip": "Assets\\scripts\\UI\\PauseMenuUI.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwDQAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-17T06:57:32.212Z",
+              "WhenOpened": "2025-10-18T05:59:03.149Z",
               "EditorCaption": ""
             }
           ]
