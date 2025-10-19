@@ -12,7 +12,9 @@ public class MainMenuUI : MonoBehaviour
     [Header("Buttons")]
     public Button newGameButton;
     public Button settingsButton;
-    public Button backButton;
+    //public Button backButton;
+
+    public KeyCode toggleKey = KeyCode.Escape;
 
     void Start()
     {
@@ -22,7 +24,7 @@ public class MainMenuUI : MonoBehaviour
         // 绑定按钮事件
         newGameButton.onClick.AddListener(OnNewGameClicked);
         settingsButton.onClick.AddListener(() => StartCoroutine(OpenSettingsDelayed()));
-        backButton.onClick.AddListener(CloseSettings);
+        //backButton.onClick.AddListener(CloseSettings);
     }
 
     // 点击“New Game”时加载场景
@@ -51,7 +53,20 @@ public class MainMenuUI : MonoBehaviour
         settingsPanel.SetActive(true);
     }
 
-    void CloseSettings()
+    void Update()
+    {
+        if (Input.GetKeyDown(toggleKey))
+        {
+            // 若当前处于设置界面，Esc 返回暂停菜单
+            if (settingsPanel != null && settingsPanel.activeSelf)
+            {
+                BackFromSettings();
+                return;
+            }
+        }
+    }
+
+    void BackFromSettings()
     {
         settingsPanel.SetActive(false);
         bottomGroup.SetActive(true);
