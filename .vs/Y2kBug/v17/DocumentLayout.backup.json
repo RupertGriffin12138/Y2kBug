@@ -1,26 +1,22 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "E:\\unity\\Create with code\\Y2kBug\\",
+  "WorkspaceRootPath": "E:\\AllUnityProjects\\Y2kBug\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\unity\\create with code\\y2kbug\\assets\\scripts\\ui\\mainmenuui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\mainmenuui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\allunityprojects\\y2kbug\\assets\\scripts\\characters\\boundaryfollowcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\characters\\boundaryfollowcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\unity\\Create with code\\Y2kBug\\assets\\scripts\\ui\\pausemenuui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\pausemenuui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\AllUnityProjects\\Y2kBug\\assets\\scripts\\characters\\player\\playerstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\characters\\player\\playerstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\unity\\Create with code\\Y2kBug\\assets\\scripts\\core\\bgmaudiobootstrap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\core\\bgmaudiobootstrap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\AllUnityProjects\\Y2kBug\\assets\\scripts\\characters\\player\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\characters\\player\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\unity\\Create with code\\Y2kBug\\assets\\scripts\\core\\settingsaudioui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\core\\settingsaudioui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\unity\\Create with code\\Y2kBug\\assets\\scripts\\ui\\audiosettingsbus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\audiosettingsbus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\AllUnityProjects\\Y2kBug\\assets\\scripts\\characters\\entity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\characters\\entity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,68 +26,69 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "MainMenuUI.cs",
-              "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\UI\\MainMenuUI.cs",
-              "RelativeDocumentMoniker": "Assets\\scripts\\UI\\MainMenuUI.cs",
-              "ToolTip": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\UI\\MainMenuUI.cs",
-              "RelativeToolTip": "Assets\\scripts\\UI\\MainMenuUI.cs",
-              "ViewState": "AgIAACsAAAAAAAAAAAAkwEQAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T07:45:58.018Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "AudioSettingsBus.cs",
-              "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\UI\\AudioSettingsBus.cs",
-              "RelativeDocumentMoniker": "Assets\\scripts\\UI\\AudioSettingsBus.cs",
-              "ToolTip": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\UI\\AudioSettingsBus.cs",
-              "RelativeToolTip": "Assets\\scripts\\UI\\AudioSettingsBus.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-18T15:56:54.108Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "BgmAudioBootstrap.cs",
-              "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Core\\BgmAudioBootstrap.cs",
-              "RelativeDocumentMoniker": "Assets\\scripts\\Core\\BgmAudioBootstrap.cs",
-              "ToolTip": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Core\\BgmAudioBootstrap.cs",
-              "RelativeToolTip": "Assets\\scripts\\Core\\BgmAudioBootstrap.cs",
-              "ViewState": "AgIAADgAAAAAAAAAAAAkwEkAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-18T12:41:03.549Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "SettingsAudioUI.cs",
-              "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Core\\SettingsAudioUI.cs",
-              "RelativeDocumentMoniker": "Assets\\scripts\\Core\\SettingsAudioUI.cs",
-              "ToolTip": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Core\\SettingsAudioUI.cs",
-              "RelativeToolTip": "Assets\\scripts\\Core\\SettingsAudioUI.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAAwC8AAAA9AAAAAAAAAA==",
+              "Title": "Entity.cs",
+              "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Characters\\Entity.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\Characters\\Entity.cs",
+              "ToolTip": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Characters\\Entity.cs",
+              "RelativeToolTip": "Assets\\scripts\\Characters\\Entity.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAQwCYAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-18T12:06:46.923Z"
+              "WhenOpened": "2025-10-19T14:56:22.509Z",
+              "IsPinned": true
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "PauseMenuUI.cs",
-              "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\UI\\PauseMenuUI.cs",
-              "RelativeDocumentMoniker": "Assets\\scripts\\UI\\PauseMenuUI.cs",
-              "ToolTip": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\UI\\PauseMenuUI.cs",
-              "RelativeToolTip": "Assets\\scripts\\UI\\PauseMenuUI.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAuAAAAAAAAAA==",
+              "Title": "PlayerState.cs",
+              "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Characters\\Player\\PlayerState.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\Characters\\Player\\PlayerState.cs",
+              "ToolTip": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Characters\\Player\\PlayerState.cs",
+              "RelativeToolTip": "Assets\\scripts\\Characters\\Player\\PlayerState.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAAAACUAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-18T05:59:03.149Z"
+              "WhenOpened": "2025-10-19T15:02:51.267Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Player.cs",
+              "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Characters\\Player\\Player.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\Characters\\Player\\Player.cs",
+              "ToolTip": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Characters\\Player\\Player.cs",
+              "RelativeToolTip": "Assets\\scripts\\Characters\\Player\\Player.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAAwA4AAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-19T14:54:55.929Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BoundaryFollowController.cs",
+              "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Characters\\BoundaryFollowController.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\Characters\\BoundaryFollowController.cs",
+              "ToolTip": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Characters\\BoundaryFollowController.cs",
+              "RelativeToolTip": "Assets\\scripts\\Characters\\BoundaryFollowController.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAIwDgAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-19T17:17:31.059Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 84,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             }
           ]
         }
