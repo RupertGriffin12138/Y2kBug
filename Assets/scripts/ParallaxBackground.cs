@@ -27,9 +27,6 @@ public class NewBehaviourScript : MonoBehaviour
 
         transform.position = new Vector3(xPosition + distanceToMove, transform.position.y);
 
-        if (distanceMove > xPosition + length)
-        {
-            xPosition = xPosition + length;
-        }
+        
     }
 }
