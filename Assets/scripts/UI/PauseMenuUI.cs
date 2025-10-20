@@ -10,6 +10,8 @@ public class PauseMenuUI : MonoBehaviour
     public GameObject pausePanel;
     public GameObject settingsPanel;
     public GameObject savePanel;
+    public GameObject textPage;
+
     public Button btnBackToGame;
     public Button btnBackToMenu;
     public Button btnSettings;
@@ -40,6 +42,13 @@ public class PauseMenuUI : MonoBehaviour
     {
         if (Input.GetKeyDown(toggleKey))
         {
+            // --- 优先判断 TextPage 是否打开 ---
+            if (textPage != null && textPage.activeSelf)
+            {
+                textPage.SetActive(false);
+                return; // 不再继续执行暂停逻辑
+            }
+
             // 若当前处于设置界面，Esc 返回暂停菜单
             if (settingsPanel != null && settingsPanel.activeSelf)
             {
