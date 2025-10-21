@@ -31,7 +31,7 @@ public class MainMenuUI : MonoBehaviour
     void OnNewGameClicked()
     {
         // 可选：播放点击音效或动画延迟加载
-        StartCoroutine(LoadSceneAfterDelay("C1S0", 0.1f));
+        StartCoroutine(LoadSceneAfterDelay("C1S1", 0.1f));
     }
 
     IEnumerator LoadSceneAfterDelay(string sceneName, float delay)

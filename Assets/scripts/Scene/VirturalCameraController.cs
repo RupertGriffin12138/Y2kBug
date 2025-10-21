@@ -4,11 +4,12 @@ using System.Collections;
 
 public class VirtualCameraController : MonoBehaviour
 {
+    public CinemachineVirtualCamera virtualCamera0; // 虚拟摄像机0
     public CinemachineVirtualCamera virtualCamera1; // 虚拟摄像机1
     public CinemachineVirtualCamera virtualCamera2; // 虚拟摄像机2
     public GameObject blackblack; // 黑色遮罩对象
 
-    private float[,] transitionTimes = new float[3, 3]; // 三维数组来存储过渡时间
+    private float[,] transitionTimes = new float[6, 6]; // 三维数组来存储过渡时间
 
     private CanvasGroup canvasGroup;
     private bool isTransitioning = false;
