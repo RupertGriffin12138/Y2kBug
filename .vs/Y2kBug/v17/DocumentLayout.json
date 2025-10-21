@@ -3,11 +3,15 @@
   "WorkspaceRootPath": "E:\\AllUnityProjects\\Y2kBug\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\allunityprojects\\y2kbug\\assets\\scripts\\sceneswitcher\\virturalcameracontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\sceneswitcher\\virturalcameracontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\allunityprojects\\y2kbug\\assets\\scripts\\parallaxbackground.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\parallaxbackground.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\allunityprojects\\y2kbug\\assets\\scripts\\characters\\player\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\AllUnityProjects\\Y2kBug\\assets\\scripts\\characters\\player\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\characters\\player\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -38,7 +42,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Player.cs",
               "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Characters\\Player\\Player.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\Characters\\Player\\Player.cs",
@@ -47,25 +51,37 @@
               "ViewState": "AgIAACwAAAAAAAAAAAAQwDkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-19T14:54:55.929Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "VirturalCameraController.cs",
+              "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\SceneSwitcher\\VirturalCameraController.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\SceneSwitcher\\VirturalCameraController.cs",
+              "ToolTip": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\SceneSwitcher\\VirturalCameraController.cs",
+              "RelativeToolTip": "Assets\\scripts\\SceneSwitcher\\VirturalCameraController.cs",
+              "ViewState": "AgIAACUAAAAAAAAAAAAAwA8AAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T06:26:53.751Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "ParallaxBackground.cs",
               "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\ParallaxBackground.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\ParallaxBackground.cs",
               "ToolTip": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\ParallaxBackground.cs",
               "RelativeToolTip": "Assets\\scripts\\ParallaxBackground.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAywB0AAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAAwB0AAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-20T17:47:06.958Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "InteractableObject.cs",
               "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Characters\\Player\\Inventory\\InteractableObject.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\Characters\\Player\\Inventory\\InteractableObject.cs",
@@ -77,7 +93,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "PlayerController.cs",
               "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Characters\\Player\\PlayerController.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\Characters\\Player\\PlayerController.cs",
@@ -89,7 +105,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Item.cs",
               "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Characters\\Player\\Inventory\\Item.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\Characters\\Player\\Inventory\\Item.cs",
@@ -101,7 +117,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "InventoryManager.cs",
               "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Characters\\Player\\Inventory\\InventoryManager.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\Characters\\Player\\Inventory\\InventoryManager.cs",
