@@ -9,3 +9,6 @@
 [Mm]emoryCaptures/
 [Pp]ackages/com.unity.package-manager/
 .vs/
+*.suo
+*.user
+*.backup.json
