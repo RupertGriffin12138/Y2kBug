@@ -9,3 +9,5 @@
 [Mm]emoryCaptures/
 [Pp]ackages/com.unity.package-manager/
 .vs/
+Assembly-CSharp.csproj
+*.csproj
