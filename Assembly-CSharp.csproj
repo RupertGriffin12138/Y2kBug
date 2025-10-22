@@ -66,6 +66,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
+    <Compile Include="Assets\scripts\Items\InventoryUILite_Package.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Assets\scripts\Characters\Player\PlayerStateMachine.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
+    <Compile Include="Assets\scripts\Items\ItemDB.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
     <Compile Include="Assets\scripts\Riddle\Abacus\BeadUpper.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
@@ -84,6 +86,7 @@
     <Compile Include="Assets\scripts\UI\AudioSettingsBus.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\scripts\Characters\CameraFollow2D.cs" />
+    <Compile Include="Assets\scripts\Items\InventorySlotViewLite.cs" />
     <Compile Include="Assets\scripts\Riddle\Abacus\BeadState.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
     <Compile Include="Assets\scripts\Riddle\Abacus\FrameControl.cs" />
@@ -101,6 +104,7 @@
     <Compile Include="Assets\scripts\Characters\Player\PlayerMoveState.cs" />
     <Compile Include="Assets\scripts\Characters\Player\Player.cs" />
     <Compile Include="Assets\scripts\Characters\Player\PlayerState.cs" />
+    <Compile Include="Assets\scripts\UI\InfoDialogUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\scripts\Characters\Player\PlayerAnimationTriggers.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
@@ -118,6 +122,7 @@
     <Compile Include="Assets\scripts\Characters\Player\PlayerFrontState.cs" />
     <Compile Include="Assets\scripts\Characters\Player\PlayerIdleState.cs" />
     <Compile Include="Assets\scripts\Characters\Entity.cs" />
+    <Compile Include="Assets\scripts\Items\InventoryLite.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
   </ItemGroup>
   <ItemGroup>

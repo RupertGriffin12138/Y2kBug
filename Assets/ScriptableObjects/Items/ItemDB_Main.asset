@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3059834919036244888a82da2d741957, type: 3}
+  m_Name: ItemDB_Main
+  m_EditorClassIdentifier: 
+  items:
+  - id: key_school_door
+    displayName: "\u5C0F\u94A5\u5319"
+    icon: {fileID: 21300000, guid: e1b6ed5be24a6d14b96e2776dad588ec, type: 3}
+  - id: key_strange_door
+    displayName: "\u5947\u602A\u7684\u94A5\u5319"
+    icon: {fileID: 21300000, guid: f4675857f02c3854996ed1feee05d462, type: 3}
+  - id: school_uniform
+    displayName: "\u6821\u670D"
+    icon: {fileID: 21300000, guid: e14b24092aea12d4687ec540ac74ed21, type: 3}
+  - id: second_hand
+    displayName: "\u79D2\u9488"
+    icon: {fileID: 21300000, guid: 0e1d5ecee8994c440bdf201a256a8610, type: 3}
+  - id: sparkler
+    displayName: "\u70DF\u82B1\u68D2"
+    icon: {fileID: 21300000, guid: 519f4f34c38e3964881ec8d5949debe0, type: 3}
