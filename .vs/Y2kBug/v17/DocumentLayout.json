@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "E:\\AllUnityProjects\\Y2kBug\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\allunityprojects\\y2kbug\\assets\\scripts\\characters\\player_25d\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\characters\\player_25d\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\AllUnityProjects\\Y2kBug\\assets\\scripts\\scene\\facingcamera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\scene\\facingcamera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\allunityprojects\\y2kbug\\assets\\scripts\\scene\\facingcamera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\scene\\facingcamera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\allunityprojects\\y2kbug\\assets\\scripts\\characters\\player_25d\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\characters\\player_25d\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\AllUnityProjects\\Y2kBug\\assets\\scripts\\ui\\mainmenuui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -22,11 +22,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "PlayerMovement.cs",
               "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Characters\\PLayer_25D\\PlayerMovement.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\Characters\\PLayer_25D\\PlayerMovement.cs",
@@ -39,13 +39,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "FacingCamera.cs",
               "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Scene\\FacingCamera.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\Scene\\FacingCamera.cs",
               "ToolTip": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Scene\\FacingCamera.cs",
               "RelativeToolTip": "Assets\\scripts\\Scene\\FacingCamera.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAcAAAAEAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-21T10:36:31.431Z",
               "EditorCaption": ""
