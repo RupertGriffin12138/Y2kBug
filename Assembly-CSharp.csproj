@@ -74,6 +74,7 @@
     <Compile Include="Assets\scripts\UI\UIButtonScale.cs" />
     <Compile Include="Assets\scripts\Characters\Player\PlayerStateMachine.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
+    <Compile Include="Assets\scripts\Scene\FacingCamera.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\scripts\Items\ItemDB.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Assets\scripts\Core\BgmAudioBootstrap.cs" />
     <Compile Include="Assets\scripts\Core\SettingsAudioUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
+    <Compile Include="Assets\scripts\Characters\PLayer_25D\PlayerMovement.cs" />
     <Compile Include="Assets\scripts\Characters\Player\PlayerFrontState.cs" />
     <Compile Include="Assets\scripts\Characters\Player\PlayerIdleState.cs" />
     <Compile Include="Assets\scripts\Characters\Entity.cs" />
