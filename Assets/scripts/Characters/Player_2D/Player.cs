@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Player : Entity
 {
-    [Header("Attack details")]
-    public Vector2[] attackMovement;
 
     public bool isBusy { get; private set; }
 
@@ -15,12 +13,6 @@ public class Player : Entity
     public float belowSpeed = 0;
     public float jumpForce;
 
-    [Header("Dash Info")]
-    [SerializeField] private float dashCooldowm;
-    private float dashUsageTimer;
-    public float dashSpeed;
-    public float dashDuration;
-    public float dashDir { get; private set; }
 
     #region States
     public PlayerStateMachine stateMachine { get; private set; }
@@ -63,6 +55,7 @@ public class Player : Entity
         
 
     }
+
 
     //coroutine 协程 并行程序流
     //僵直

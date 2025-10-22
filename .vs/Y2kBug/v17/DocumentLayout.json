@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "E:\\AllUnityProjects\\Y2kBug\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\AllUnityProjects\\Y2kBug\\assets\\scripts\\characters\\entity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\characters\\entity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\AllUnityProjects\\Y2kBug\\assets\\scripts\\scene\\facingcamera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\scene\\facingcamera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\AllUnityProjects\\Y2kBug\\assets\\scripts\\characters\\player\\playerstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\characters\\player\\playerstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\allunityprojects\\y2kbug\\assets\\scripts\\characters\\player_25d\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\characters\\player_25d\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\AllUnityProjects\\Y2kBug\\assets\\scripts\\characters\\player\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\characters\\player\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\AllUnityProjects\\Y2kBug\\assets\\scripts\\ui\\mainmenuui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\mainmenuui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,47 +22,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Entity.cs",
-              "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Characters\\Entity.cs",
-              "RelativeDocumentMoniker": "Assets\\scripts\\Characters\\Entity.cs",
-              "ToolTip": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Characters\\Entity.cs",
-              "RelativeToolTip": "Assets\\scripts\\Characters\\Entity.cs",
-              "ViewState": "AgIAAAEAAAAAAAAAAAAAwCYAAAAEAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "PlayerMovement.cs",
+              "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Characters\\PLayer_25D\\PlayerMovement.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\Characters\\PLayer_25D\\PlayerMovement.cs",
+              "ToolTip": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Characters\\PLayer_25D\\PlayerMovement.cs",
+              "RelativeToolTip": "Assets\\scripts\\Characters\\PLayer_25D\\PlayerMovement.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAADwvwgAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T14:56:22.509Z",
-              "IsPinned": true,
+              "WhenOpened": "2025-10-22T06:10:24.368Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "PlayerState.cs",
-              "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Characters\\Player\\PlayerState.cs",
-              "RelativeDocumentMoniker": "Assets\\scripts\\Characters\\Player\\PlayerState.cs",
-              "ToolTip": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Characters\\Player\\PlayerState.cs",
-              "RelativeToolTip": "Assets\\scripts\\Characters\\Player\\PlayerState.cs",
-              "ViewState": "AgIAABoAAAAAAAAAAAAAACUAAAAlAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "FacingCamera.cs",
+              "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Scene\\FacingCamera.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\Scene\\FacingCamera.cs",
+              "ToolTip": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Scene\\FacingCamera.cs",
+              "RelativeToolTip": "Assets\\scripts\\Scene\\FacingCamera.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T15:02:51.267Z",
-              "IsPinned": true
+              "WhenOpened": "2025-10-21T10:36:31.431Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Player.cs",
-              "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Characters\\Player\\Player.cs",
-              "RelativeDocumentMoniker": "Assets\\scripts\\Characters\\Player\\Player.cs",
-              "ToolTip": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Characters\\Player\\Player.cs",
-              "RelativeToolTip": "Assets\\scripts\\Characters\\Player\\Player.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAAwA4AAAAfAAAAAAAAAA==",
+              "Title": "MainMenuUI.cs",
+              "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\UI\\MainMenuUI.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\UI\\MainMenuUI.cs",
+              "ToolTip": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\UI\\MainMenuUI.cs",
+              "RelativeToolTip": "Assets\\scripts\\UI\\MainMenuUI.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T14:54:55.929Z",
-              "IsPinned": true
+              "WhenOpened": "2025-10-21T09:26:49.478Z"
             }
           ]
         },
