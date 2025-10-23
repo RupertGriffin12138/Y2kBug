@@ -1,33 +1,37 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "E:\\AllUnityProjects\\Y2kBug\\",
+  "WorkspaceRootPath": "E:\\unity\\Create with code\\Y2kBug\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\allunityprojects\\y2kbug\\assets\\scripts\\riddle\\blackboard\\switchcirclecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\riddle\\blackboard\\switchcirclecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\unity\\create with code\\y2kbug\\assets\\scripts\\items\\docuilite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\items\\docuilite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\allunityprojects\\y2kbug\\assets\\scripts\\scene\\c1s2 corridor\\lightswitchcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\scene\\c1s2 corridor\\lightswitchcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\unity\\create with code\\y2kbug\\assets\\scripts\\items\\docslotviewlite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\items\\docslotviewlite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\AllUnityProjects\\Y2kBug\\assets\\scripts\\characters\\player_25d\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\characters\\player_25d\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\unity\\Create with code\\Y2kBug\\assets\\scripts\\items\\docinventorylite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\items\\docinventorylite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\AllUnityProjects\\Y2kBug\\assets\\scripts\\items\\inventorylite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\items\\inventorylite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\unity\\Create with code\\Y2kBug\\assets\\scripts\\items\\docdb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\items\\docdb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\AllUnityProjects\\Y2kBug\\assets\\scripts\\items\\inventoryuilite_package.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\unity\\Create with code\\Y2kBug\\assets\\scripts\\items\\inventoryuilite_package.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\items\\inventoryuilite_package.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\AllUnityProjects\\Y2kBug\\assets\\scripts\\items\\inventoryslotviewlite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\unity\\Create with code\\Y2kBug\\assets\\scripts\\items\\inventoryslotviewlite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\items\\inventoryslotviewlite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\AllUnityProjects\\Y2kBug\\assets\\scripts\\items\\itemdb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\unity\\Create with code\\Y2kBug\\assets\\scripts\\items\\inventorylite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\items\\inventorylite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\unity\\Create with code\\Y2kBug\\assets\\scripts\\items\\itemdb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\items\\itemdb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -43,50 +47,62 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "SwitchCircleController.cs",
-              "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Riddle\\Blackboard\\SwitchCircleController.cs",
-              "RelativeDocumentMoniker": "Assets\\scripts\\Riddle\\Blackboard\\SwitchCircleController.cs",
-              "ToolTip": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Riddle\\Blackboard\\SwitchCircleController.cs",
-              "RelativeToolTip": "Assets\\scripts\\Riddle\\Blackboard\\SwitchCircleController.cs",
-              "ViewState": "AgIAACIAAAAAAAAAAAAAwCkAAAAKAAAAAAAAAA==",
+              "Title": "DocUILite.cs",
+              "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Items\\DocUILite.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\Items\\DocUILite.cs",
+              "ToolTip": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Items\\DocUILite.cs",
+              "RelativeToolTip": "Assets\\scripts\\Items\\DocUILite.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-23T09:34:47.102Z",
+              "WhenOpened": "2025-10-23T13:22:41.273Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DocSlotViewLite.cs",
+              "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Items\\DocSlotViewLite.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\Items\\DocSlotViewLite.cs",
+              "ToolTip": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Items\\DocSlotViewLite.cs",
+              "RelativeToolTip": "Assets\\scripts\\Items\\DocSlotViewLite.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAAwBwAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-23T12:51:46.372Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "PlayerMovement.cs",
-              "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Characters\\PLayer_25D\\PlayerMovement.cs",
-              "RelativeDocumentMoniker": "Assets\\scripts\\Characters\\PLayer_25D\\PlayerMovement.cs",
-              "ToolTip": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Characters\\PLayer_25D\\PlayerMovement.cs",
-              "RelativeToolTip": "Assets\\scripts\\Characters\\PLayer_25D\\PlayerMovement.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAowDAAAAAAAAAAAAAAAA==",
+              "Title": "DocInventoryLite.cs",
+              "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Items\\DocInventoryLite.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\Items\\DocInventoryLite.cs",
+              "ToolTip": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Items\\DocInventoryLite.cs",
+              "RelativeToolTip": "Assets\\scripts\\Items\\DocInventoryLite.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAAwEkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-23T08:33:33.923Z"
+              "WhenOpened": "2025-10-23T12:51:05.85Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "LightSwitchController.cs",
-              "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Scene\\C1S2 corridor\\LightSwitchController.cs",
-              "RelativeDocumentMoniker": "Assets\\scripts\\Scene\\C1S2 corridor\\LightSwitchController.cs",
-              "ToolTip": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Scene\\C1S2 corridor\\LightSwitchController.cs",
-              "RelativeToolTip": "Assets\\scripts\\Scene\\C1S2 corridor\\LightSwitchController.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAAwCAAAAAOAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "DocDB.cs",
+              "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Items\\DocDB.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\Items\\DocDB.cs",
+              "ToolTip": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Items\\DocDB.cs",
+              "RelativeToolTip": "Assets\\scripts\\Items\\DocDB.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-23T07:55:55.27Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-23T12:45:49.253Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "InventoryUILite_Package.cs",
-              "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Items\\InventoryUILite_Package.cs",
+              "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Items\\InventoryUILite_Package.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\Items\\InventoryUILite_Package.cs",
-              "ToolTip": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Items\\InventoryUILite_Package.cs",
+              "ToolTip": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Items\\InventoryUILite_Package.cs",
               "RelativeToolTip": "Assets\\scripts\\Items\\InventoryUILite_Package.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAAwCYAAAA2AAAAAAAAAA==",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAAAEUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-22T11:06:51.936Z"
             },
@@ -94,47 +110,37 @@
               "$type": "Document",
               "DocumentIndex": 5,
               "Title": "InventorySlotViewLite.cs",
-              "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Items\\InventorySlotViewLite.cs",
+              "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Items\\InventorySlotViewLite.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\Items\\InventorySlotViewLite.cs",
-              "ToolTip": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Items\\InventorySlotViewLite.cs",
+              "ToolTip": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Items\\InventorySlotViewLite.cs",
               "RelativeToolTip": "Assets\\scripts\\Items\\InventorySlotViewLite.cs",
-              "ViewState": "AgIAADgAAAAAAAAAAAAAAFcAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAowFUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-22T10:48:52.411Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "InventoryLite.cs",
-              "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Items\\InventoryLite.cs",
+              "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Items\\InventoryLite.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\Items\\InventoryLite.cs",
-              "ToolTip": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Items\\InventoryLite.cs",
+              "ToolTip": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Items\\InventoryLite.cs",
               "RelativeToolTip": "Assets\\scripts\\Items\\InventoryLite.cs",
-              "ViewState": "AgIAAHkAAAAAAAAAAAAswJkAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAHQAAAAAAAAAAAAowJsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-22T10:38:39.119Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "ItemDB.cs",
-              "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Items\\ItemDB.cs",
+              "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Items\\ItemDB.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\Items\\ItemDB.cs",
-              "ToolTip": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Items\\ItemDB.cs",
+              "ToolTip": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Items\\ItemDB.cs",
               "RelativeToolTip": "Assets\\scripts\\Items\\ItemDB.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAABRAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-21T14:24:40.638Z"
-            }
-          ]
-        },
-        {
-          "DockedWidth": 84,
-          "SelectedChildIndex": -1,
-          "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             }
           ]
         }

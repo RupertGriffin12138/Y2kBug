@@ -32,18 +32,18 @@ public class SlotUIController : MonoBehaviour
         packageButton.onClick.AddListener(ShowPackageSlot);
 
         // 绑定 FileSlot/ButtonGroup 下所有 Button 的点击 → 打开 TextPage
-        if (fileSlotButtonGroup)
-        {
-            var buttons = fileSlotButtonGroup.GetComponentsInChildren<Button>(true);
-            foreach (var btn in buttons)
-            {
-                btn.onClick.AddListener(OpenTextPage);
-            }
-        }
-        else
-        {
-            Debug.LogWarning("[SlotUIController] 未设置 fileSlotButtonGroup，将无法自动为其子按钮绑定打开 TextPage 的逻辑。");
-        }
+        //if (fileSlotButtonGroup)
+        //{
+        //    var buttons = fileSlotButtonGroup.GetComponentsInChildren<Button>(true);
+        //    foreach (var btn in buttons)
+        //    {
+        //        btn.onClick.AddListener(OpenTextPage);
+        //    }
+        //}
+        //else
+        //{
+        //    Debug.LogWarning("[SlotUIController] 未设置 fileSlotButtonGroup，将无法自动为其子按钮绑定打开 TextPage 的逻辑。");
+        //}
     }
 
     void Start()
@@ -71,6 +71,18 @@ public class SlotUIController : MonoBehaviour
         SetActiveSafe(packageSlot, false);
 
         if (closeTextPageOnTabSwitch) SetActiveSafe(textPage, false);
+
+        // 新显示时，统一把“打开阅读面板”的回调补一遍（幂等）
+        if (fileSlotButtonGroup)
+        {
+            var slots = fileSlotButtonGroup.GetComponentsInChildren<DocSlotViewLite>(true);
+            foreach (var slot in slots)
+            {
+                // 先解绑，避免重复（DocSlotViewLite里把 OnClicked 暴露为 public event<string>）
+                slot.OnClicked -= HandleDocClicked;
+                slot.OnClicked += HandleDocClicked;
+            }
+        }
     }
 
     public void ShowPackageSlot()
@@ -81,15 +93,22 @@ public class SlotUIController : MonoBehaviour
         if (closeTextPageOnTabSwitch) SetActiveSafe(textPage, false);
     }
 
-    public void OpenTextPage()
-    {
-        SetActiveSafe(textPage, true);
-    }
+    //public void OpenTextPage()
+    //{
+    //    SetActiveSafe(textPage, true);
+    //}
 
     // --- 小工具 ---
 
     private void SetActiveSafe(GameObject go, bool active)
     {
         if (go && go.activeSelf != active) go.SetActive(active);
+    }
+
+    void HandleDocClicked(string docId)
+    {
+        // 你原来 DocUILite 里做的事：打开阅读面板
+        // readerPanel.OpenById(docId);
+        SetActiveSafe(textPage, true); // 如果你是用 textPage 开关
     }
 }
