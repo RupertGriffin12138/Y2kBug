@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public float speed;
 
-    new private Rigidbody2D rb;
+    private Rigidbody2D rb;
     private Animator animator;
     private float inputX;
     private float inputY;
