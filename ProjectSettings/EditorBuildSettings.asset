@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/TestMenu.unity
     guid: babe0c12643a2ee4e819958714cdf95e
   - enabled: 1
-    path: Assets/Scenes/C1S1.unity
+    path: Assets/Scenes/C1S1 campus.unity
     guid: 72d0274450ca5434c9da47f6a3952bd3
   m_configObjects: {}
