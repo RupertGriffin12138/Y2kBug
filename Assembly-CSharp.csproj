@@ -121,6 +121,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\scripts\Riddle\Abacus\BeadShiningState.cs" />
     <Compile Include="Assets\scripts\Core\BgmAudioBootstrap.cs" />
+    <Compile Include="Assets\scripts\Riddle\Blackboard\SwitchCircleController.cs" />
     <Compile Include="Assets\scripts\Core\SettingsAudioUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\scripts\Characters\PLayer_25D\PlayerMovement.cs" />
