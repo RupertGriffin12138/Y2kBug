@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 405244380a97c9f45aea410d71d75ef0, type: 3}
+  m_Name: DocDB_Main
+  m_EditorClassIdentifier: 
+  docs:
+  - id: note1
+    displayName: "\u5947\u602A\u7684\u7EB8\u67611"
+    content: "\u4E0D-\u4E16\u62D2-\u6765-\u8981-\u7EAA\u5230\u5DF2-\u6297-\u670D-\u4ECE\u65B0-\u7ECF\n"
+  - id: notice
+    displayName: "\u5143\u65E6\u653E\u5047\u901A\u77E5"
+    content: "\u4E0D-\u4E16\u62D2-\u6765-\u8981-\u7EAA\u5230\u5DF2-\u6297-\u670D-\u4ECE\u65B0-\u7ECF\n"
+  - id: diary1
+    displayName: "\u65E5\u8BB0\u98751"
+    content: "\u4E0D-\u4E16\u62D2-\u6765-\u8981-\u7EAA\u5230\u5DF2-\u6297-\u670D-\u4ECE\u65B0-\u7ECF\n"
+  - id: note2
+    displayName: "\u5947\u602A\u7684\u7EB8\u67612"
+    content: "\u4E0D-\u4E16\u62D2-\u6765-\u8981-\u7EAA\u5230\u5DF2-\u6297-\u670D-\u4ECE\u65B0-\u7ECF\n"
+  - id: diary2
+    displayName: "\u65E5\u8BB0\u98752"
+    content: "\u4E0D-\u4E16\u62D2-\u6765-\u8981-\u7EAA\u5230\u5DF2-\u6297-\u670D-\u4ECE\u65B0-\u7ECF\n"
+  - id: teach
+    displayName: "1900\u5E74\u7684\u6559\u6848"
+    content: "\u4E0D-\u4E16\u62D2-\u6765-\u8981-\u7EAA\u5230\u5DF2-\u6297-\u670D-\u4ECE\u65B0-\u7ECF\n"
+  - id: guard
+    displayName: "\u95E8\u536B\u4EA4\u73ED\u65E5\u5FD7"
+    content: "\u4E0D-\u4E16\u62D2-\u6765-\u8981-\u7EAA\u5230\u5DF2-\u6297-\u670D-\u4ECE\u65B0-\u7ECF\n"
+  - id: service
+    displayName: "\u7EF4\u62A4\u65E5\u5FD7"
+    content: "\u4E0D-\u4E16\u62D2-\u6765-\u8981-\u7EAA\u5230\u5DF2-\u6297-\u670D-\u4ECE\u65B0-\u7ECF\n"
