@@ -366,7 +366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2be6352bba374f642881605cc3876001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  specifiedFontAsset: {fileID: 0}
+  specifiedFontAsset: {fileID: 11400000, guid: 09f933a8f2fce0a4682da9475ee12431, type: 2}
   delayBetweenLines: 2
   fadeDuration: 1
 --- !u!114 &1521966702

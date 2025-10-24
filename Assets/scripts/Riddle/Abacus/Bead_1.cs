@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Bead : MonoBehaviour
+public class Bead_1 : MonoBehaviour
 {
     #region Components
     public Animator anim { get; private set; }
@@ -12,24 +12,12 @@ public class Bead : MonoBehaviour
 
     //算盘珠位置记录，检测是否是正确位置解密
     private int[,] beadRecard = new int[9, 2];
+    [SerializeField] private bool isSolved = false;
 
     private GameObject[] upperObjects;
     private GameObject[] lowerObjects;
     public int[,] clickCount = new int[10,3];
 
-    #region States
-    public BeadStateMachine stateMachine { get; private set; }
-
-    public BeadShiningState shiningState { get; private set; }
-
-    #endregion
-
-    protected virtual void Awake()
-    {
-        stateMachine = new BeadStateMachine();
-
-        shiningState = new BeadShiningState(stateMachine, this, "Shining");
-    }
 
     protected virtual void Start()
     {
@@ -96,6 +84,19 @@ public class Bead : MonoBehaviour
             HandleClick();
         }
 
+        if(beadRecard[0,0]==0 && beadRecard[1,0]==0 && beadRecard[2,0]==0 &&
+           beadRecard[3,0]==0 && beadRecard[4,0]==0 && beadRecard[5,0]==0 &&
+           beadRecard[6,0]==0 && beadRecard[7,0]==0 && beadRecard[8,0]==0 &&
+           beadRecard[0,1]==0 && beadRecard[1,1]==0 && beadRecard[2,1]==0 &&
+           beadRecard[3,1]==0 && beadRecard[4,1]==0 && beadRecard[5,1]==0 &&
+           beadRecard[6,1]==0 && beadRecard[7,1]==1 && beadRecard[8,1]==3)
+        {
+            isSolved = true;
+        }
+        else
+        {
+            isSolved = false;
+        }
 
     }
 

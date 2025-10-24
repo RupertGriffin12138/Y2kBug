@@ -1903,6 +1903,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bbddb6ed0de9024c8665ee33e04c3f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSolved: 0
 --- !u!4 &632178531
 Transform:
   m_ObjectHideFlags: 0
@@ -5004,7 +5005,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: ac8a93030a18eca4ab04c2b666eea0a3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 23d5e288c521e294b9cb53a03de89755, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
