@@ -12,6 +12,12 @@ EditorBuildSettings:
     path: Assets/Scenes/TestMenu.unity
     guid: babe0c12643a2ee4e819958714cdf95e
   - enabled: 1
+    path: Assets/Scenes/C1S0.unity
+    guid: 82144c5995de21a48b0e4e9d3e9a9e2c
+  - enabled: 1
+    path: Assets/Scenes/C1S0 firework.unity
+    guid: f4c3dd3867f1aba4781669d215c1ffc8
+  - enabled: 1
     path: Assets/Scenes/C1S1 campus.unity
     guid: 72d0274450ca5434c9da47f6a3952bd3
   m_configObjects: {}
