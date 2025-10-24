@@ -82,7 +82,7 @@ public class CreditsScroll : MonoBehaviour
         }
 
         // 所有文字显示完毕后加载下一个场景
-        LoadSceneAfterDelay("C1S1 firework", 2f); 
+        LoadSceneAfterDelay("C1S1 firework", 2f);
     }
 
     #region Fade Coroutines
