@@ -11,8 +11,8 @@ public class PickupItem2D : MonoBehaviour
     public bool destroyOnPickup = true;       // 拾取后销毁该物体；否则可改为SetActive(false)
 
     [Header("提示UI（可选）")]
-    public GameObject promptRoot;             // 放一个世界空间Canvas作为子物体，挂一段“按E拾取”文字
-    public TMP_Text promptText;               // 如果留空就不改写文字
+    //public GameObject promptRoot;             // 放一个世界空间Canvas作为子物体，挂一段“按E拾取”文字
+    //public TMP_Text promptText;               // 如果留空就不改写文字
     [TextArea] public string promptString = "按 <b>E</b> 拾取";
 
     [Header("引用（可留空自动找）")]
@@ -29,7 +29,7 @@ public class PickupItem2D : MonoBehaviour
 
     void Awake()
     {
-        if (promptRoot) promptRoot.SetActive(false);
+        //if (promptRoot) promptRoot.SetActive(false);
     }
 
     void Start()
@@ -39,8 +39,8 @@ public class PickupItem2D : MonoBehaviour
         if (!itemDB && inventory)
             itemDB = inventory.itemDB;
 
-        if (promptRoot && promptText && !string.IsNullOrWhiteSpace(promptString))
-            promptText.text = promptString;
+        //if (promptRoot && promptText && !string.IsNullOrWhiteSpace(promptString))
+        //    promptText.text = promptString;
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -49,7 +49,10 @@ public class PickupItem2D : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             _playerInRange = true;
-            if (promptRoot) promptRoot.SetActive(true);
+
+            // [MOD] 进入范围时，把提示显示到下方的 InfoDialogUI
+            if (InfoDialogUI.Instance)
+                InfoDialogUI.Instance.ShowMessage(promptString);
         }
     }
 
@@ -59,7 +62,13 @@ public class PickupItem2D : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             _playerInRange = false;
-            if (promptRoot) promptRoot.SetActive(false);
+
+            // [MOD] 离开范围时，恢复默认提示
+            if (InfoDialogUI.Instance)
+                InfoDialogUI.Instance.Clear();
+
+            // [REMOVED] 不再隐藏世界空间提示
+            // if (promptRoot) promptRoot.SetActive(false);
         }
     }
 

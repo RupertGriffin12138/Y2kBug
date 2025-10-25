@@ -16,8 +16,8 @@ public class PickupDoc2D : MonoBehaviour
     public KeyCode pickupKey = KeyCode.E;
 
     [Header("提示UI（世界空间）")]
-    public GameObject promptRoot;              // 头顶小Canvas
-    public TMP_Text promptText;                // “按E阅读/收录”
+    //public GameObject promptRoot;              // 头顶小Canvas
+    //public TMP_Text promptText;                // “按E阅读/收录”
     [TextArea] public string promptString = "按 <b>E</b> 阅读/收录";
 
     [Header("引用（可留空自动找）")]
@@ -39,7 +39,7 @@ public class PickupDoc2D : MonoBehaviour
 
     void Awake()
     {
-        if (promptRoot) promptRoot.SetActive(false);
+        //if (promptRoot) promptRoot.SetActive(false);
     }
 
     void Start()
@@ -48,18 +48,18 @@ public class PickupDoc2D : MonoBehaviour
         if (!docDB && docInventory) docDB = docInventory.docDB;
         if (!readerPanel) readerPanel = FindObjectOfType<DocReaderPanel>(true);
 
-        if (promptText && !string.IsNullOrWhiteSpace(promptString))
-        {
-            promptText.text = promptString;
-            // 外扩描边，增强可读性（可按需微调）
-            var mat = promptText.fontMaterial;
-            if (mat)
-            {
-                mat.SetFloat(ShaderUtilities.ID_OutlineWidth, 0.2f);
-                mat.SetColor(ShaderUtilities.ID_OutlineColor, Color.black);
-                mat.SetFloat(ShaderUtilities.ID_FaceDilate, 0.12f);
-            }
-        }
+        //if (promptText && !string.IsNullOrWhiteSpace(promptString))
+        //{
+        //    promptText.text = promptString;
+        //    // 外扩描边，增强可读性（可按需微调）
+        //    var mat = promptText.fontMaterial;
+        //    if (mat)
+        //    {
+        //        mat.SetFloat(ShaderUtilities.ID_OutlineWidth, 0.2f);
+        //        mat.SetColor(ShaderUtilities.ID_OutlineColor, Color.black);
+        //        mat.SetFloat(ShaderUtilities.ID_FaceDilate, 0.12f);
+        //    }
+        //}
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -67,7 +67,10 @@ public class PickupDoc2D : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             _inRange = true;
-            if (promptRoot) promptRoot.SetActive(true);
+
+            // 显示提示到下方 InfoDialogUI
+            if (InfoDialogUI.Instance)
+                InfoDialogUI.Instance.ShowMessage(promptString);
         }
     }
 
@@ -76,7 +79,10 @@ public class PickupDoc2D : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             _inRange = false;
-            if (promptRoot) promptRoot.SetActive(false);
+
+            // 离开后恢复默认提示
+            if (InfoDialogUI.Instance)
+                InfoDialogUI.Instance.Clear();
         }
     }
 
@@ -129,7 +135,7 @@ public class PickupDoc2D : MonoBehaviour
 
         // 处理场景中的纸条
         if (destroyAfterPickup) Destroy(gameObject);
-        else if (promptRoot) promptRoot.SetActive(false); // 不销毁就隐藏提示
+        //else if (promptRoot) promptRoot.SetActive(false); // 不销毁就隐藏提示
     }
 
     IEnumerator OpenReaderStable(DocDB.DocDef def)

@@ -3,28 +3,40 @@
   "WorkspaceRootPath": "E:\\unity\\Create with code\\Y2kBug\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\unity\\create with code\\y2kbug\\assets\\scripts\\items\\docinventorylite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\items\\docinventorylite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\unity\\create with code\\y2kbug\\assets\\scripts\\interact\\pickupitem2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\interact\\pickupitem2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\unity\\create with code\\y2kbug\\assets\\scripts\\items\\docreaderpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\unity\\Create with code\\Y2kBug\\assets\\scripts\\interact\\pickupdoc2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\interact\\pickupdoc2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\unity\\Create with code\\Y2kBug\\assets\\scripts\\ui\\slotuicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\slotuicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\unity\\Create with code\\Y2kBug\\assets\\scripts\\ui\\infodialogui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\infodialogui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\unity\\Create with code\\Y2kBug\\assets\\scripts\\items\\docreaderpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\items\\docreaderpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\unity\\create with code\\y2kbug\\assets\\scripts\\items\\docslotviewlite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\items\\docslotviewlite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\unity\\create with code\\y2kbug\\assets\\scripts\\items\\docuilite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\unity\\Create with code\\Y2kBug\\assets\\scripts\\items\\docuilite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\items\\docuilite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\unity\\create with code\\y2kbug\\assets\\scripts\\items\\docdb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\items\\docdb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\unity\\Create with code\\Y2kBug\\assets\\scripts\\items\\docinventorylite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\items\\docinventorylite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\unity\\create with code\\y2kbug\\assets\\scripts\\interact\\pickupitem2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\interact\\pickupitem2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\unity\\Create with code\\Y2kBug\\assets\\scripts\\items\\docslotviewlite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\items\\docslotviewlite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\unity\\Create with code\\Y2kBug\\assets\\scripts\\items\\docdb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\items\\docdb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,24 +46,72 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "DocUILite.cs",
-              "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Items\\DocUILite.cs",
-              "RelativeDocumentMoniker": "Assets\\scripts\\Items\\DocUILite.cs",
-              "ToolTip": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Items\\DocUILite.cs",
-              "RelativeToolTip": "Assets\\scripts\\Items\\DocUILite.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAA==",
+              "Title": "InfoDialogUI.cs",
+              "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\UI\\InfoDialogUI.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\UI\\InfoDialogUI.cs",
+              "ToolTip": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\UI\\InfoDialogUI.cs",
+              "RelativeToolTip": "Assets\\scripts\\UI\\InfoDialogUI.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAgwB0AAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-24T15:32:40.058Z",
+              "WhenOpened": "2025-10-25T06:23:30.513Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PickupItem2D.cs",
+              "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Interact\\PickupItem2D.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\Interact\\PickupItem2D.cs",
+              "ToolTip": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Interact\\PickupItem2D.cs",
+              "RelativeToolTip": "Assets\\scripts\\Interact\\PickupItem2D.cs",
+              "ViewState": "AgIAAFQAAAAAAAAAAAAAAHAAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T11:44:08.856Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "SlotUIController.cs",
+              "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\UI\\SlotUIController.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\UI\\SlotUIController.cs",
+              "ToolTip": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\UI\\SlotUIController.cs",
+              "RelativeToolTip": "Assets\\scripts\\UI\\SlotUIController.cs",
+              "ViewState": "AgIAAE8AAAAAAAAAAAAAAG4AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T16:23:00.093Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PickupDoc2D.cs",
+              "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Interact\\PickupDoc2D.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\Interact\\PickupDoc2D.cs",
+              "ToolTip": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Interact\\PickupDoc2D.cs",
+              "RelativeToolTip": "Assets\\scripts\\Interact\\PickupDoc2D.cs",
+              "ViewState": "AgIAAIwAAAAAAAAAAAAAAKEAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T15:41:48.726Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DocUILite.cs",
+              "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Items\\DocUILite.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\Items\\DocUILite.cs",
+              "ToolTip": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Items\\DocUILite.cs",
+              "RelativeToolTip": "Assets\\scripts\\Items\\DocUILite.cs",
+              "ViewState": "AgIAAI8AAAAAAAAAAAAAAI8AAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T15:32:40.058Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "DocSlotViewLite.cs",
               "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Items\\DocSlotViewLite.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\Items\\DocSlotViewLite.cs",
@@ -59,38 +119,35 @@
               "RelativeToolTip": "Assets\\scripts\\Items\\DocSlotViewLite.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-24T15:32:39.098Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-24T15:32:39.098Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "DocReaderPanel.cs",
               "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Items\\DocReaderPanel.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\Items\\DocReaderPanel.cs",
               "ToolTip": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Items\\DocReaderPanel.cs",
               "RelativeToolTip": "Assets\\scripts\\Items\\DocReaderPanel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAABPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-24T15:32:37.84Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-24T15:32:37.84Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 6,
               "Title": "DocInventoryLite.cs",
               "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Items\\DocInventoryLite.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\Items\\DocInventoryLite.cs",
               "ToolTip": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Items\\DocInventoryLite.cs",
               "RelativeToolTip": "Assets\\scripts\\Items\\DocInventoryLite.cs",
-              "ViewState": "AgIAACMAAAAAAAAAAAAkwEkAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-24T15:32:36.563Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-24T15:32:36.563Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "DocDB.cs",
               "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Items\\DocDB.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\Items\\DocDB.cs",
@@ -98,21 +155,7 @@
               "RelativeToolTip": "Assets\\scripts\\Items\\DocDB.cs",
               "ViewState": "AgIAAAQAAAAAAAAAAAAkwCoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-24T15:32:35.441Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "PickupItem2D.cs",
-              "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Interact\\PickupItem2D.cs",
-              "RelativeDocumentMoniker": "Assets\\scripts\\Interact\\PickupItem2D.cs",
-              "ToolTip": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Interact\\PickupItem2D.cs",
-              "RelativeToolTip": "Assets\\scripts\\Interact\\PickupItem2D.cs",
-              "ViewState": "AgIAAEcAAAAAAAAAAAAswF8AAABNAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-24T11:44:08.856Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-24T15:32:35.441Z"
             }
           ]
         }
