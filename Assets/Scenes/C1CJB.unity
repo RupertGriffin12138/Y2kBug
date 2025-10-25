@@ -10246,17 +10246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8606b5768c0dcb94caca32c793f02429, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entries:
-  - id: key_school_door
-    count: 1
-  - id: key_strange_door
-    count: 1
-  - id: school_uniform
-    count: 1
-  - id: second_hand
-    count: 1
-  - id: sparkler
-    count: 1
+  entries: []
   itemDB: {fileID: 11400000, guid: 7b1b3d2fd4a6c2a46a4463c4eacc5404, type: 2}
 --- !u!61 &1345317927
 BoxCollider2D:
