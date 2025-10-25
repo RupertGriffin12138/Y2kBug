@@ -4923,7 +4923,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 460943e4032885d4e841cae176ff6875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  docInventory: {fileID: 0}
+  docInventory: {fileID: 107007609}
   slots:
   - {fileID: 417525087}
   - {fileID: 82239439}
@@ -5115,7 +5115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 012bbd5c804aa5f4cacc3ced7b1da090, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 0}
+  inventory: {fileID: 107007610}
   slots:
   - {fileID: 59050672}
   - {fileID: 660522849}
@@ -6142,7 +6142,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2059125852}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.74833673
+  m_Size: 0.7483368
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7090,10 +7090,7 @@ PrefabInstance:
     - {fileID: 7635248713962944717, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2442323815896114703, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1672319833}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
 --- !u!1 &905089530
 GameObject:
@@ -12798,29 +12795,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1672319831 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2442323815896114703, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
-  m_PrefabInstance: {fileID: 901597326}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1672319832 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8279079002776250371, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
   m_PrefabInstance: {fileID: 901597326}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1672319833
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1672319831}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fdfca25d24652844995fc318a21824b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parallaxEffect: 0.5
 --- !u!1 &1679803302
 GameObject:
   m_ObjectHideFlags: 0
