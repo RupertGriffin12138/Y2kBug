@@ -47,11 +47,11 @@ TagManager:
   - name: Middleground
     uniqueID: 1220388865
     locked: 0
-  - name: Player
-    uniqueID: 2319768297
-    locked: 0
   - name: Enemy
     uniqueID: 1548418115
+    locked: 0
+  - name: Player
+    uniqueID: 2319768297
     locked: 0
   - name: Foreground
     uniqueID: 695642939
