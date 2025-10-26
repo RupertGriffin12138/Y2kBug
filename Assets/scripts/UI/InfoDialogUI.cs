@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections;
 
 public class InfoDialogUI : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class InfoDialogUI : MonoBehaviour
     [Header("无悬停时的默认提示")]
     [TextArea]
     public string idleHint = "将鼠标移到物品上查看信息";
+
+    [Header("卡通对象")]
+    public GameObject[] cartoonObjects; // Array of cartoon objects (T_cartoon_1, T_cartoon_2, etc.)
 
     private bool isShowingDialogue = false;
 
@@ -56,6 +60,7 @@ public class InfoDialogUI : MonoBehaviour
         textBoxText.text = idleHint;
         nameBoxText.text = "";
         HideArrow();
+        DisableCartoons();
         isShowingDialogue = false;
     }
 
@@ -73,6 +78,7 @@ public class InfoDialogUI : MonoBehaviour
         textBoxText.text = ""; // 清除默认提示
         nameBoxText.text = ""; // 确保名字框为空
         HideArrow();
+        DisableCartoons();
     }
 
     /// <summary>结束显示对话。</summary>
@@ -97,6 +103,85 @@ public class InfoDialogUI : MonoBehaviour
         if (arrowImage != null)
         {
             arrowImage.enabled = false;
+        }
+    }
+
+    /// <summary>禁用所有卡通对象。</summary>
+    public void DisableCartoons()
+    {
+        foreach (GameObject obj in cartoonObjects)
+        {
+            if (obj != null)
+            {
+                SpriteRenderer renderer = obj.GetComponent<SpriteRenderer>();
+                if (renderer != null)
+                {
+                    renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, 0f);
+                }
+            }
+        }
+    }
+
+    /// <summary>启用指定的卡通对象并使其逐渐变得不透明。</summary>
+    public void EnableCartoon(int index)
+    {
+        if (index >= 0 && index < cartoonObjects.Length)
+        {
+            GameObject obj = cartoonObjects[index];
+            if (obj != null)
+            {
+                StartCoroutine(FadeIn(obj));
+            }
+         
+        }
+    }
+
+    /// <summary>使物体逐渐变得不透明。</summary>
+    IEnumerator FadeIn(GameObject obj)
+    {
+        SpriteRenderer renderer = obj.GetComponent<SpriteRenderer>();
+        if (renderer != null)
+        {
+            float duration = 1f; // 淡入持续时间
+            float elapsedTime = 0f;
+            while (elapsedTime < duration)
+            {
+                float alpha = Mathf.Lerp(0f, 1f, elapsedTime / duration);
+                renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, alpha);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+            renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, 1f);
+        }
+    }
+
+    IEnumerator FadeOut(GameObject obj)
+    {
+        SpriteRenderer renderer = obj.GetComponent<SpriteRenderer>();
+        if (renderer != null)
+        {
+            float duration = 1f; // 淡出持续时间
+            float elapsedTime = 0f;
+            while (elapsedTime < duration)
+            {
+                float alpha = Mathf.Lerp(1f, 0f, elapsedTime / duration);
+                renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, alpha);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+            renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, 0f);
+        }
+    }
+
+    /// <summary>使所有卡通对象逐渐变得透明。</summary>
+    public void DisableAllCartoonsWithFadeOut()
+    {
+        foreach (GameObject obj in cartoonObjects)
+        {
+            if (obj != null)
+            {
+                StartCoroutine(FadeOut(obj));
+            }
         }
     }
 }

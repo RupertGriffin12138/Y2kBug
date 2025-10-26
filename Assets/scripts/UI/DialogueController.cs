@@ -1,5 +1,5 @@
-using System.Collections;
 using UnityEngine;
+using System.Collections;
 
 public class DialogueController : MonoBehaviour
 {
@@ -12,13 +12,13 @@ public class DialogueController : MonoBehaviour
         "祝榆：丁家俊，刚到现在就三分钟，你问了不下十次了，该来的总会来的，老这么急干嘛。",
         "丁家俊：我这不是激动坏了嘛......",
         "陈雪莹：小宁，烟花在你那儿吗，我想许个愿。",
-        "旁白：戴细框眼镜的女生看向一旁，声音和轻风一同灌入众人耳中，像是刚刚一直远望的天空中，几颗星星间的私语。",
-        "姜宁：那当然，我带着呢，来，给你们！",
+        "旁白：戴细框眼镜的女生看向一旁，声音和轻风一同灌入众人耳中，像是刚刚一直远望的天空中，几颗星星间的私语",
+        "姜宁（开心表情）：那当然，我带着呢，来，给你们！",
         "丁家俊：我我我我！给我一个，我妈说这叫世纪愿望，准灵！",
         "祝榆：别挤我。",
         "旁白：烟花棒被传着递到每一双手里。夜空下，四个高中生闭上双眼，任思绪在新世纪的畅想中漫游，静候那个注定载入历史的时刻。",
         "旁白：......",
-        "丁家俊：快别许愿了，睁眼！时间马上到了！",
+        "丁家俊：快别许愿了，睁眼！时间马上到了！ ",
         "旁白：衔着短促的话语，高中生们一齐睁开双眼，目光落处不知是地面、远方，还是近处的钟楼。新的时代，就要到来了。",
         "[烟花棒画面]",
         "姜宁：十。",
@@ -27,6 +27,9 @@ public class DialogueController : MonoBehaviour
         "陈雪莹：七。",
         "姜宁：六。五。四..三...二...一！21世纪快......"
     };
+
+    // 对应每个卡通对象的台词索引
+    private int[] cartoonIndices = { 0, 4, 6, 9, 11, 13 }; // 根据需要调整索引
 
     private int currentIndex = 0; // 当前对话索引
 
@@ -65,7 +68,9 @@ public class DialogueController : MonoBehaviour
             // 处理特殊情况 "[烟花棒画面]"
             if (dialogue == "[烟花棒画面]")
             {
-                infoDialogUI.SetNameText("");
+                infoDialogUI.DisableAllCartoonsWithFadeOut();
+                infoDialogUI.EnableCartoon(infoDialogUI.cartoonObjects.Length - 1); // 启用最后一个卡通对象 (T_cartoon_6)
+
                 infoDialogUI.ShowMessage(dialogue);
                 yield return new WaitForSeconds(2f); // 等待一段时间后继续
                 currentIndex++;
@@ -77,12 +82,25 @@ public class DialogueController : MonoBehaviour
             {
                 infoDialogUI.SetNameText("");
             }
+            else if (name == "姜宁（开心表情）" || name == "姜宁" || name == "姜宁（恐惧表情）")
+            {
+                infoDialogUI.SetNameText("姜宁");
+            }
             else
             {
                 infoDialogUI.SetNameText(name);
             }
 
+
             infoDialogUI.textBoxText.text = "";
+
+            // 检查当前索引是否对应某个卡通对象
+            if (System.Array.IndexOf(cartoonIndices, currentIndex) >= 0)
+            {
+                int cartoonIndex = System.Array.IndexOf(cartoonIndices, currentIndex);
+                infoDialogUI.EnableCartoon(cartoonIndex);
+               
+            }
 
             // 逐字显示对话内容
             foreach (char c in dialogue.ToCharArray())
