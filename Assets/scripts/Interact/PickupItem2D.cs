@@ -1,4 +1,7 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 [RequireComponent(typeof(Collider2D))]
@@ -19,12 +22,16 @@ public class PickupItem2D : MonoBehaviour
     public InventoryLite inventory;           // 若不手动拖拽，会在场景中自动Find
     public ItemDB itemDB;                     // 若不设，则尝试用 inventory.itemDB
 
+    [Header("Save")]
+    public SaveTag tag;               // 可选；没有则仍可拾取，但无法跨读档隐藏
+
     bool _playerInRange = false;
 
     void Reset()
     {
         var col = GetComponent<Collider2D>();
         if (col) col.isTrigger = true;
+        tag = GetComponent<SaveTag>(); // 方便自动挂上
     }
 
     void Awake()
@@ -39,8 +46,15 @@ public class PickupItem2D : MonoBehaviour
         if (!itemDB && inventory)
             itemDB = inventory.itemDB;
 
-        //if (promptRoot && promptText && !string.IsNullOrWhiteSpace(promptString))
-        //    promptText.text = promptString;
+        // === 读档应用：若已被禁用，则直接隐藏自己 ===
+        if (tag && !string.IsNullOrEmpty(tag.id) && GameState.Current != null)
+        {
+            if (GameState.IsObjectDisabled(tag.id))
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -83,16 +97,11 @@ public class PickupItem2D : MonoBehaviour
 
     void TryPickup()
     {
-        if (!inventory)
-        {
-            //Debug.LogWarning("[PickupItem2D] 未找到 InventoryLite，无法拾取。");
-            return;
-        }
+        if (!inventory) return;
 
-        // 加入背包
+        // 1) 背包 + 你已有的逻辑
         int newCount = inventory.Add(itemId, amount);
 
-        // 弹出“获得xxx”
         string displayName = itemId;
         if (itemDB)
         {
@@ -101,22 +110,24 @@ public class PickupItem2D : MonoBehaviour
                 displayName = def.displayName;
         }
         if (InfoDialogUI.Instance)
-        {
             InfoDialogUI.Instance.ShowMessage($"获得 {displayName} x{amount}");
-            // 可选：若想几秒后恢复默认提示，可启动一个协程在n秒后 InfoDialogUI.Instance.Clear();
-        }
-
-        // 可选：保存背包
-        // inventory.Save();
 
         if (SlotUIController.Instance)
             SlotUIController.Instance.ShowPackageSlotFromPickup();
 
+        // 2) === 存档：写回 GameState（禁用该对象 + 记录物品） ===
+        if (tag && !string.IsNullOrEmpty(tag.id))
+            GameState.AddDisabledObject(tag.id);    // 下次读档时不再出现
+        GameState.AddItem(itemId, amount);
 
-        // 处理物体
-        if (destroyOnPickup)
-            Destroy(gameObject);
-        else
-            gameObject.SetActive(false);
+        // 更新“当前场景名”（方便继续游戏回到此关）
+        if (GameState.Current != null)
+            GameState.Current.lastScene = SceneManager.GetActiveScene().name;
+
+        GameState.SaveNow(); // 立刻存一手（Demo 简单可靠）
+
+        // 3) 处理物体
+        if (destroyOnPickup) Destroy(gameObject);
+        else gameObject.SetActive(false);
     }
 }

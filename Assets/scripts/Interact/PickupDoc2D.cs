@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.UI;              // ScrollRect
 using UnityEngine.EventSystems;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Collider2D))]
 public class PickupDoc2D : MonoBehaviour
@@ -29,12 +30,16 @@ public class PickupDoc2D : MonoBehaviour
     public AudioSource sfxSource;
     public AudioClip pickupSfx;
 
+    [Header("Save")]
+    public SaveTag tag;
+
     bool _inRange;
 
     void Reset()
     {
         var col = GetComponent<Collider2D>();
         if (col) col.isTrigger = true;
+        tag = GetComponent<SaveTag>();
     }
 
     void Awake()
@@ -48,18 +53,15 @@ public class PickupDoc2D : MonoBehaviour
         if (!docDB && docInventory) docDB = docInventory.docDB;
         if (!readerPanel) readerPanel = FindObjectOfType<DocReaderPanel>(true);
 
-        //if (promptText && !string.IsNullOrWhiteSpace(promptString))
-        //{
-        //    promptText.text = promptString;
-        //    // 外扩描边，增强可读性（可按需微调）
-        //    var mat = promptText.fontMaterial;
-        //    if (mat)
-        //    {
-        //        mat.SetFloat(ShaderUtilities.ID_OutlineWidth, 0.2f);
-        //        mat.SetColor(ShaderUtilities.ID_OutlineColor, Color.black);
-        //        mat.SetFloat(ShaderUtilities.ID_FaceDilate, 0.12f);
-        //    }
-        //}
+        // === 读档应用：若已被禁用，则直接隐藏自己 ===
+        if (tag && !string.IsNullOrEmpty(tag.id) && GameState.Current != null)
+        {
+            if (GameState.IsObjectDisabled(tag.id))
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -108,7 +110,7 @@ public class PickupDoc2D : MonoBehaviour
 
         bool isNew = docInventory.AddOnce(docId);   // 已有则不重复添加
 
-        // 提示：“获得/已收录《xxx》”
+        // 提示
         if (InfoDialogUI.Instance)
         {
             string msg = isNew ? $"获得《{display}》" : $"已收录《{display}》";
@@ -123,48 +125,58 @@ public class PickupDoc2D : MonoBehaviour
         if (SlotUIController.Instance)
             SlotUIController.Instance.ShowFileSlotFromPickup();
 
-        // 打开阅读面板
+        // === 存档：写回 GameState（收录 + （可选）禁用实体） ===
+        GameState.CollectDoc(docId); // 文档加入“已收录”
+        // 若你的文档实体只出现一次，建议直接禁用它：
+        if (tag && !string.IsNullOrEmpty(tag.id))
+            GameState.AddDisabledObject(tag.id);
+
+        // 记录当前场景名，便于继续游戏回到本关
+        if (GameState.Current != null)
+            GameState.Current.lastScene = SceneManager.GetActiveScene().name;
+
+        // 打开阅读面板（保留你原本的流程）
         if (openReaderOnPickup && readerPanel && def != null)
         {
-            // 如果有 UI 控制器，让它来启动协程（不会因销毁中断）
             if (SlotUIController.Instance)
                 SlotUIController.Instance.StartCoroutine(OpenReaderStable(def));
             else
                 StartCoroutine(OpenReaderStable(def));
         }
 
+        // 立刻保存
+        GameState.SaveNow();
+
         // 处理场景中的纸条
         if (destroyAfterPickup) Destroy(gameObject);
-        //else if (promptRoot) promptRoot.SetActive(false); // 不销毁就隐藏提示
+        // 如果不销毁，可以保留激活状态；下次读档时会因禁用列表而不再出现
     }
 
     IEnumerator OpenReaderStable(DocDB.DocDef def)
     {
-        // 1) 先确保面板处于激活状态（有些布局在未激活时不会建立）
         if (readerPanel.rootPanel && !readerPanel.rootPanel.activeSelf)
             readerPanel.rootPanel.SetActive(true);
 
-        // 2) 立即强刷一次 Canvas，建立首帧布局
         Canvas.ForceUpdateCanvases();
-
-        // 3) 等待到下一帧（让激活/布局真正生效）
         yield return null;
 
-        // 4) 真正打开并填充内容（此时 UI 已经 ready）
         readerPanel.Open(def);
 
-        // 5) 再强刷一次，避免首次填充大文本的延迟
         Canvas.ForceUpdateCanvases();
-
-        // 6) 再等一帧，确保 ScrollRect 可正确定位到顶部（一些版本需要）
         yield return null;
 
-        // 7) 兜底：把滚动条推回顶部（若 Open 里已做，这里也无妨）
         var scrollRect = readerPanel.contentText ?
             readerPanel.contentText.GetComponentInParent<ScrollRect>() : null;
         if (scrollRect) scrollRect.normalizedPosition = new Vector2(0, 1);
+    }
 
-        // （可选）把焦点给关闭按钮或滚动区域，避免首帧键盘事件被别的 UI 截走
-        // EventSystem.current?.SetSelectedGameObject(scrollRect?.gameObject);
+    // 如果在阅读面板里点击“标记已读”，可直接调用这个
+    public void MarkReadNow()
+    {
+        if (!string.IsNullOrEmpty(docId))
+        {
+            GameState.MarkDocRead(docId);
+            GameState.SaveNow();
+        }
     }
 }

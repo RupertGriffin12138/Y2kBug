@@ -2464,8 +2464,14 @@ MonoBehaviour:
   bottomGroup: {fileID: 2075632581}
   settingsPanel: {fileID: 1772078034}
   newGameButton: {fileID: 717815163}
+  continueButton: {fileID: 2044652918}
   settingsButton: {fileID: 308210283}
+  clearSaveButton: {fileID: 1086011160}
+  firstSceneName: C1S0
   toggleKey: 27
+  backend: 0
+  saveKey: SaveSlot_1
+  fileName: demo_save.json
 --- !u!1 &1187184017
 GameObject:
   m_ObjectHideFlags: 0
