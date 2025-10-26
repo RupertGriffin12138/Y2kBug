@@ -96,4 +96,9 @@ public static class GameState
         if (Array.IndexOf(Current.docReadIds, docId) < 0)
             ArrayUtility.Add(ref Current.docReadIds, docId);
     }
+
+    public static void ReplaceWith(SaveData data)
+    {
+        Current = data;  // 这个类内部可以写入 private set 的属性
+    }
 }

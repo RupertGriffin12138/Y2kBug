@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,7 +10,6 @@ public class PauseMenuUI : MonoBehaviour
     [Header("UI")]
     public GameObject pausePanel;
     public GameObject settingsPanel;
-    public GameObject savePanel;
     public GameObject textPage;
 
     public Button btnBackToGame;
@@ -22,6 +22,12 @@ public class PauseMenuUI : MonoBehaviour
     public KeyCode toggleKey = KeyCode.Escape;
     public bool pauseAudio = true;
 
+    [Header("Save Config")]
+    public Transform player;          // 可选：保存玩家坐标
+    public bool savePlayerPos = true; // 勾选则保存玩家2D坐标
+    [Tooltip("如果没有从主菜单设置 SaveSlotContext.CurrentKey，则使用此默认槽键。例：SaveSlot_1")]
+    public string defaultSaveKey = "SaveSlot_1";
+
     bool isPaused;
 
     void Start()
@@ -29,13 +35,12 @@ public class PauseMenuUI : MonoBehaviour
         // 初始隐藏
         if (pausePanel) pausePanel.SetActive(false);
         if (settingsPanel) settingsPanel.SetActive(false);
-        if (savePanel) savePanel.SetActive(false);
 
         // 绑定按钮
         if (btnBackToGame) btnBackToGame.onClick.AddListener(ResumeGame);
         if (btnBackToMenu) btnBackToMenu.onClick.AddListener(BackToMenu);
         if (btnSettings) btnSettings.onClick.AddListener(OpenSettings);
-        if (btnSave) btnSave.onClick.AddListener(OpenSave);
+        if (btnSave) btnSave.onClick.AddListener(SaveNowToCurrentSlot);
     }
 
     void Update()
@@ -53,13 +58,6 @@ public class PauseMenuUI : MonoBehaviour
             if (settingsPanel != null && settingsPanel.activeSelf)
             {
                 BackFromSettings();
-                return;
-            }
-
-            // 若当前处于save界面，Esc 返回暂停菜单
-            if (savePanel != null && savePanel.activeSelf)
-            {
-                BackFromSave();
                 return;
             }
 
@@ -125,19 +123,6 @@ public class PauseMenuUI : MonoBehaviour
         if (pausePanel) pausePanel.SetActive(true);
     }
 
-    void OpenSave()
-    {
-        if (pausePanel) pausePanel.SetActive(false);
-        if (savePanel) savePanel.SetActive(true);
-    }
-
-    // 从设置面板返回暂停菜单
-    public void BackFromSave()
-    {
-        if (savePanel) savePanel.SetActive(false);
-        if (pausePanel) pausePanel.SetActive(true);
-    }
-
     IEnumerator LoadMenuAfterFrame()
     {
         // 等一帧，避免点击抬起事件在切场景时丢失
@@ -155,4 +140,40 @@ public class PauseMenuUI : MonoBehaviour
             isPaused = false;
         }
     }
+    // =========================
+    //   保存到“当前存档槽”
+    // =========================
+    void SaveNowToCurrentSlot()
+    {
+        // 1) 确保 GameState 存在
+        if (GameState.Current == null)
+            GameState.LoadGameOrNew(SceneManager.GetActiveScene().name);
+
+        // 2) 写入当前场景名与（可选）玩家坐标
+        GameState.Current.lastScene = SceneManager.GetActiveScene().name;
+        if (savePlayerPos && player != null)
+        {
+            GameState.Current.playerX = player.position.x;
+            GameState.Current.playerY = player.position.y;
+        }
+
+        // 3) 选择当前存档槽 Key
+        string slotKey = !string.IsNullOrEmpty(SaveSlotContext.CurrentKey)
+            ? SaveSlotContext.CurrentKey
+            : defaultSaveKey;
+
+        // 4) 切换存储后端到该槽并保存
+        SaveManager.UsePlayerPrefs(slotKey);
+        GameState.SaveNow();
+
+        // 5) 写“场景+时间”元信息（主菜单显示会用到）
+        PlayerPrefs.SetString(slotKey + "_metaScene", GameState.Current.lastScene ?? "");
+        PlayerPrefs.SetString(slotKey + "_metaTime", DateTime.Now.ToString("yyyy-MM-dd HH:mm"));
+        PlayerPrefs.Save();
+
+        // 6) 反馈提示
+        if (InfoDialogUI.Instance)
+            InfoDialogUI.Instance.ShowMessage($"已保存到当前存档：{slotKey}");
+    }
 }
+
