@@ -20,4 +20,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/C1S1 campus.unity
     guid: 72d0274450ca5434c9da47f6a3952bd3
+  - enabled: 1
+    path: Assets/Scenes/C1S2 corridor.unity
+    guid: e821f23a070deef479061d389ccdf413
+  - enabled: 1
+    path: Assets/Scenes/C1CJA.unity
+    guid: e648a024de89e7048abd2f4994600e06
   m_configObjects: {}

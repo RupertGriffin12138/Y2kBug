@@ -13,8 +13,9 @@ public class InfoDialogUI : MonoBehaviour
     [Header("名字框文本（TMP）")]
     public TMP_Text nameBoxText; // NameBoxText UI Text component
 
-    [Header("箭头图像")]
-    public Image arrowImage; // Arrow image to indicate pressing E key
+    [Header("箭头动画（UGUI）")]
+    public GameObject arrowGO;            // 有 Image + Animator 的那个对象
+    public Animator arrowAnimator;        // 指向箭头的 Animator（可选：自动 Get）
 
     [Header("无悬停时的默认提示")]
     [TextArea]
@@ -33,6 +34,9 @@ public class InfoDialogUI : MonoBehaviour
 
     void Start()
     {
+        // 防御：若忘了拖引用，自动取一次
+        if (!arrowAnimator && arrowGO) arrowAnimator = arrowGO.GetComponent<Animator>();
+
         Clear(); // 初始显示默认提示
     }
 
@@ -88,22 +92,30 @@ public class InfoDialogUI : MonoBehaviour
         Clear();
     }
 
-    /// <summary>显示箭头。</summary>
+    /// <summary>显示箭头（开始循环动画）。</summary>
     public void ShowArrow()
     {
-        if (arrowImage != null)
+        if (!arrowGO) return;
+
+        arrowGO.SetActive(true);                 // 显示对象
+        if (arrowAnimator)
         {
-            arrowImage.enabled = true;
+            arrowAnimator.speed = 1f;            // 确保动画在播放
+            // 可选：强制从头播放
+            // arrowAnimator.Play("Arrow_Loop", 0, 0f);
         }
     }
 
-    /// <summary>隐藏箭头。</summary>
+    /// <summary>隐藏箭头（停止动画）。</summary>
     public void HideArrow()
     {
-        if (arrowImage != null)
-        {
-            arrowImage.enabled = false;
-        }
+        if (!arrowGO) return;
+
+        // 方式1：直接隐藏（简单稳妥）
+        arrowGO.SetActive(false);
+
+        // 方式2：不隐藏对象，仅暂停（如需保持布局）
+        // if (arrowAnimator) arrowAnimator.speed = 0f;
     }
 
     /// <summary>禁用所有卡通对象。</summary>
