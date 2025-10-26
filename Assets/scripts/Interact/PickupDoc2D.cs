@@ -3,43 +3,43 @@ using TMPro;
 using UnityEngine.UI;              // ScrollRect
 using UnityEngine.EventSystems;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Collider2D))]
 public class PickupDoc2D : MonoBehaviour
 {
     [Header("文档配置")]
-    public string docId = "note1";          // 必须与 DocDB 中 id 一致
-    public bool openReaderOnPickup = true;     // 拾取后立即打开阅读面板
-    public bool destroyAfterPickup = false;    // 收录后是否移除场景中的纸条
+    public string docId = "note1";              // 必须与 DocDB 中 id 一致
+    public bool openReaderOnPickup = true;      // 拾取后立即打开阅读面板
+    public bool destroyAfterPickup = false;     // 收录后是否移除场景中的纸条
 
     [Header("输入")]
     public KeyCode pickupKey = KeyCode.E;
 
     [Header("提示UI（世界空间）")]
-    //public GameObject promptRoot;              // 头顶小Canvas
-    //public TMP_Text promptText;                // “按E阅读/收录”
     [TextArea] public string promptString = "按 <b>E</b> 阅读/收录";
 
     [Header("引用（可留空自动找）")]
     public DocInventoryLite docInventory;      // 场景里的 DocInventoryLite
     public DocDB docDB;                        // 若不设，优先从 docInventory.docDB 获取
-    public DocReaderPanel readerPanel;         // 可选：阅读面板（下面提供示例）
+    public DocReaderPanel readerPanel;         // 可选：阅读面板
 
     [Header("可选音效")]
     public AudioSource sfxSource;
     public AudioClip pickupSfx;
 
+    [Header("Save")]
+    public SaveTag tag;                        // 一次性实体的稳定 id
+    public bool autoSaveOnPickup = true;       // 拾取后是否立刻存档（推荐开启）
+
     bool _inRange;
+    bool _consumed;                            // 防重复触发
 
     void Reset()
     {
         var col = GetComponent<Collider2D>();
         if (col) col.isTrigger = true;
-    }
-
-    void Awake()
-    {
-        //if (promptRoot) promptRoot.SetActive(false);
+        tag = GetComponent<SaveTag>();
     }
 
     void Start()
@@ -48,27 +48,25 @@ public class PickupDoc2D : MonoBehaviour
         if (!docDB && docInventory) docDB = docInventory.docDB;
         if (!readerPanel) readerPanel = FindObjectOfType<DocReaderPanel>(true);
 
-        //if (promptText && !string.IsNullOrWhiteSpace(promptString))
-        //{
-        //    promptText.text = promptString;
-        //    // 外扩描边，增强可读性（可按需微调）
-        //    var mat = promptText.fontMaterial;
-        //    if (mat)
-        //    {
-        //        mat.SetFloat(ShaderUtilities.ID_OutlineWidth, 0.2f);
-        //        mat.SetColor(ShaderUtilities.ID_OutlineColor, Color.black);
-        //        mat.SetFloat(ShaderUtilities.ID_FaceDilate, 0.12f);
-        //    }
-        //}
+        // 确保存档已初始化（防止从特殊入口进入导致 GameState 为 null）
+        if (GameState.Current == null)
+            GameState.LoadGameOrNew(SceneManager.GetActiveScene().name);
+
+        // 读档应用：若该实体已被禁用，则直接隐藏自己并失效
+        if (tag && !string.IsNullOrEmpty(tag.id) && GameState.IsObjectDisabled(tag.id))
+        {
+            gameObject.SetActive(false);
+            _consumed = true;
+            return;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (_consumed) return;
         if (other.CompareTag("Player"))
         {
             _inRange = true;
-
-            // 显示提示到下方 InfoDialogUI
             if (InfoDialogUI.Instance)
                 InfoDialogUI.Instance.ShowMessage(promptString);
         }
@@ -76,11 +74,10 @@ public class PickupDoc2D : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
+        if (_consumed) return;
         if (other.CompareTag("Player"))
         {
             _inRange = false;
-
-            // 离开后恢复默认提示
             if (InfoDialogUI.Instance)
                 InfoDialogUI.Instance.Clear();
         }
@@ -88,14 +85,15 @@ public class PickupDoc2D : MonoBehaviour
 
     void Update()
     {
+        if (_consumed) return;
         if (_inRange && Input.GetKeyDown(pickupKey))
-        {
             TryPickupDoc();
-        }
     }
 
     void TryPickupDoc()
     {
+        if (_consumed) return;
+
         if (!docInventory)
         {
             Debug.LogWarning("[PickupDoc2D] 未找到 DocInventoryLite。", this);
@@ -106,9 +104,16 @@ public class PickupDoc2D : MonoBehaviour
         string display = def != null && !string.IsNullOrWhiteSpace(def.displayName)
                          ? def.displayName : docId;
 
+        // 1) 先写运行态数据库（避免 UI 延迟）
         bool isNew = docInventory.AddOnce(docId);   // 已有则不重复添加
 
-        // 提示：“获得/已收录《xxx》”
+        // 2) —— 写回 GameState（权威存档）——
+        GameState.CollectDoc(docId);                // 文档加入“已收录”
+        if (tag && !string.IsNullOrEmpty(tag.id))   // 一次性实体：加入禁用列表
+            GameState.AddDisabledObject(tag.id);
+        GameState.Current.lastScene = SceneManager.GetActiveScene().name;
+
+        // 3) UI 提示与音效
         if (InfoDialogUI.Instance)
         {
             string msg = isNew ? $"获得《{display}》" : $"已收录《{display}》";
@@ -116,55 +121,53 @@ public class PickupDoc2D : MonoBehaviour
             InfoDialogUI.Instance.CancelInvoke(nameof(InfoDialogUI.Clear));
             InfoDialogUI.Instance.Invoke(nameof(InfoDialogUI.Clear), 2f);
         }
-
-        // 音效
         if (sfxSource && pickupSfx) sfxSource.PlayOneShot(pickupSfx);
+        if (SlotUIController.Instance) SlotUIController.Instance.ShowFileSlotFromPickup();
 
-        if (SlotUIController.Instance)
-            SlotUIController.Instance.ShowFileSlotFromPickup();
-
-        // 打开阅读面板
+        // 4) 阅读面板（如果需要）
         if (openReaderOnPickup && readerPanel && def != null)
         {
-            // 如果有 UI 控制器，让它来启动协程（不会因销毁中断）
             if (SlotUIController.Instance)
                 SlotUIController.Instance.StartCoroutine(OpenReaderStable(def));
             else
                 StartCoroutine(OpenReaderStable(def));
         }
 
-        // 处理场景中的纸条
+        // 5) 立即保存（可选）
+        if (autoSaveOnPickup)
+            GameState.SaveNow();
+
+        // 6) 处理实体并防重入
+        _consumed = true;
         if (destroyAfterPickup) Destroy(gameObject);
-        //else if (promptRoot) promptRoot.SetActive(false); // 不销毁就隐藏提示
+        // 不销毁时保持激活；下次读档会因禁用列表而不再出现
     }
 
     IEnumerator OpenReaderStable(DocDB.DocDef def)
     {
-        // 1) 先确保面板处于激活状态（有些布局在未激活时不会建立）
         if (readerPanel.rootPanel && !readerPanel.rootPanel.activeSelf)
             readerPanel.rootPanel.SetActive(true);
 
-        // 2) 立即强刷一次 Canvas，建立首帧布局
         Canvas.ForceUpdateCanvases();
-
-        // 3) 等待到下一帧（让激活/布局真正生效）
         yield return null;
 
-        // 4) 真正打开并填充内容（此时 UI 已经 ready）
         readerPanel.Open(def);
 
-        // 5) 再强刷一次，避免首次填充大文本的延迟
         Canvas.ForceUpdateCanvases();
-
-        // 6) 再等一帧，确保 ScrollRect 可正确定位到顶部（一些版本需要）
         yield return null;
 
-        // 7) 兜底：把滚动条推回顶部（若 Open 里已做，这里也无妨）
         var scrollRect = readerPanel.contentText ?
             readerPanel.contentText.GetComponentInParent<ScrollRect>() : null;
         if (scrollRect) scrollRect.normalizedPosition = new Vector2(0, 1);
+    }
 
-        // （可选）把焦点给关闭按钮或滚动区域，避免首帧键盘事件被别的 UI 截走
-        // EventSystem.current?.SetSelectedGameObject(scrollRect?.gameObject);
+    // 如果在阅读面板里点击“标记已读”，可直接调用这个（只更新 GameState）
+    public void MarkReadNow()
+    {
+        if (!string.IsNullOrEmpty(docId))
+        {
+            GameState.MarkDocRead(docId);
+            GameState.SaveNow();
+        }
     }
 }
