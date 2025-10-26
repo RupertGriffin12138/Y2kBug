@@ -3,11 +3,19 @@
   "WorkspaceRootPath": "E:\\AllUnityProjects\\Y2kBug\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\allunityprojects\\y2kbug\\assets\\scripts\\scene\\rotatearoundcustompivot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\scene\\rotatearoundcustompivot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\allunityprojects\\y2kbug\\assets\\scripts\\ui\\dialoguecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\dialoguecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\allunityprojects\\y2kbug\\assets\\scripts\\core\\gameprogress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\allunityprojects\\y2kbug\\assets\\scripts\\ui\\infodialogui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\infodialogui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Scene\\RotateAroundCustomPivot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\scripts\\Scene\\RotateAroundCustomPivot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\AllUnityProjects\\Y2kBug\\assets\\scripts\\core\\gameprogress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\core\\gameprogress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -23,19 +31,43 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "RotateAroundCustomPivot.cs",
-              "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Scene\\RotateAroundCustomPivot.cs",
-              "RelativeDocumentMoniker": "Assets\\scripts\\Scene\\RotateAroundCustomPivot.cs",
-              "ToolTip": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Scene\\RotateAroundCustomPivot.cs*",
-              "RelativeToolTip": "Assets\\scripts\\Scene\\RotateAroundCustomPivot.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFQAAAAAAAAAAAAAAA==",
+              "Title": "DialogueController.cs",
+              "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\UI\\DialogueController.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\UI\\DialogueController.cs",
+              "ToolTip": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\UI\\DialogueController.cs",
+              "RelativeToolTip": "Assets\\scripts\\UI\\DialogueController.cs",
+              "ViewState": "AgIAACkAAAAAAAAAAAAowEgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-26T14:47:24.56Z",
+              "WhenOpened": "2025-10-26T16:41:40.643Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "InfoDialogUI.cs",
+              "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\UI\\InfoDialogUI.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\UI\\InfoDialogUI.cs",
+              "ToolTip": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\UI\\InfoDialogUI.cs",
+              "RelativeToolTip": "Assets\\scripts\\UI\\InfoDialogUI.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAowD4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-26T16:11:07.547Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "RotateAroundCustomPivot.cs",
+              "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Scene\\RotateAroundCustomPivot.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\Scene\\RotateAroundCustomPivot.cs",
+              "ToolTip": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Scene\\RotateAroundCustomPivot.cs",
+              "RelativeToolTip": "Assets\\scripts\\Scene\\RotateAroundCustomPivot.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-26T14:47:24.56Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "GameProgress.cs",
               "DocumentMoniker": "E:\\AllUnityProjects\\Y2kBug\\Assets\\scripts\\Core\\GameProgress.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\Core\\GameProgress.cs",
@@ -43,8 +75,7 @@
               "RelativeToolTip": "Assets\\scripts\\Core\\GameProgress.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-25T15:15:01.443Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-25T15:15:01.443Z"
             }
           ]
         },
