@@ -1,9 +1,18 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;   // 新增
 
 public class DialogueController : MonoBehaviour
 {
     public InfoDialogUI infoDialogUI; // 引用InfoDialogUI实例
+
+    [Header("对白完成后要加载的场景")]
+    public string nextSceneName = "C1S1 campus";  // 这里填你的目标场景名（需加入 Build Settings）
+
+    [Header("对话结束后是否先等待/淡出")]
+    public float afterDialogueDelay = 0.5f;       // 小停顿（可为0）
+    public bool useFadeOut = false;               // 若你有全屏CanvasGroup做黑场，可勾上
+    public CanvasGroup fadeCanvas;                // （可选）全屏黑幕的CanvasGroup（alpha 0→1）
 
     // 剧本内容数组，格式为 "人物名称：台词"
     private string[] scriptLines = {
@@ -91,7 +100,6 @@ public class DialogueController : MonoBehaviour
                 infoDialogUI.SetNameText(name);
             }
 
-
             infoDialogUI.textBoxText.text = "";
 
             // 检查当前索引是否对应某个卡通对象
@@ -99,7 +107,6 @@ public class DialogueController : MonoBehaviour
             {
                 int cartoonIndex = System.Array.IndexOf(cartoonIndices, currentIndex);
                 infoDialogUI.EnableCartoon(cartoonIndex);
-               
             }
 
             // 逐字显示对话内容
@@ -112,7 +119,7 @@ public class DialogueController : MonoBehaviour
             // 显示箭头
             infoDialogUI.ShowArrow();
 
-            // 等待玩家按下 E 键
+            // 等待玩家按下 E 键（你当前逻辑就是 E 继续）
             yield return new WaitUntil(() => Input.GetKeyUp(KeyCode.E));
 
             // 隐藏箭头
@@ -121,8 +128,39 @@ public class DialogueController : MonoBehaviour
             currentIndex++; // 移动到下一个对话
         }
 
+        // 对话结束 → 关闭对话UI
         infoDialogUI.EndDialogue();
+
+        // 可选：小等待 / 淡出
+        if (afterDialogueDelay > 0f)
+            yield return new WaitForSeconds(afterDialogueDelay);
+
+        if (useFadeOut && fadeCanvas != null)
+            yield return StartCoroutine(FadeToBlack(fadeCanvas, 0.35f));
+
+        // 加载下一个场景
+        if (!string.IsNullOrEmpty(nextSceneName))
+        {
+            SceneManager.LoadScene(nextSceneName);
+        }
+        else
+        {
+            Debug.LogWarning("[DialogueController] nextSceneName 为空，未切换场景。");
+        }
+    }
+
+    // （可选）淡出到黑
+    IEnumerator FadeToBlack(CanvasGroup cg, float duration)
+    {
+        cg.blocksRaycasts = true;
+        float t = 0f;
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+            float a = Mathf.Clamp01(t / duration);
+            cg.alpha = a;
+            yield return null;
+        }
+        cg.alpha = 1f;
     }
 }
-
-
