@@ -3,11 +3,15 @@
   "WorkspaceRootPath": "E:\\unity\\Create with code\\Y2kBug\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\unity\\create with code\\y2kbug\\assets\\scripts\\interact\\autodialogueonacquire.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\interact\\autodialogueonacquire.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\unity\\Create with code\\Y2kBug\\assets\\scripts\\interact\\sceneportal2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\interact\\sceneportal2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\unity\\create with code\\y2kbug\\assets\\scripts\\save\\playerscenerestore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\unity\\Create with code\\Y2kBug\\assets\\scripts\\save\\playerscenerestore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\save\\playerscenerestore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -15,7 +19,7 @@
       "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\items\\inventorylite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|e:\\unity\\create with code\\y2kbug\\assets\\scripts\\items\\inventoryuilite_package.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\unity\\Create with code\\Y2kBug\\assets\\scripts\\items\\inventoryuilite_package.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\items\\inventoryuilite_package.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -73,6 +77,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|E:\\unity\\Create with code\\Y2kBug\\assets\\scripts\\save\\scenesaveapplier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F9AB21DD-B206-C366-85A4-DD422B4C2C2E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\save\\scenesaveapplier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|e:\\unity\\create with code\\y2kbug\\assets\\scripts\\interact\\newbehaviourscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:assets\\scripts\\interact\\newbehaviourscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -82,11 +90,36 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
+              "Title": "AutoDialogueOnAcquire.cs",
+              "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Interact\\AutoDialogueOnAcquire.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\Interact\\AutoDialogueOnAcquire.cs",
+              "ToolTip": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Interact\\AutoDialogueOnAcquire.cs",
+              "RelativeToolTip": "Assets\\scripts\\Interact\\AutoDialogueOnAcquire.cs",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAYwGoAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T12:35:53.604Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "NewBehaviourScript.cs",
+              "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Interact\\NewBehaviourScript.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\Interact\\NewBehaviourScript.cs",
+              "ToolTip": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Interact\\NewBehaviourScript.cs",
+              "RelativeToolTip": "Assets\\scripts\\Interact\\NewBehaviourScript.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T12:35:46.695Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "InventoryUILite_Package.cs",
               "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Items\\InventoryUILite_Package.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\Items\\InventoryUILite_Package.cs",
@@ -94,12 +127,11 @@
               "RelativeToolTip": "Assets\\scripts\\Items\\InventoryUILite_Package.cs",
               "ViewState": "AgIAAA4AAAAAAAAAAAAcwCAAAABOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-27T10:35:03.074Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-27T10:35:03.074Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "PlayerSceneRestore.cs",
               "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Save\\PlayerSceneRestore.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\Save\\PlayerSceneRestore.cs",
@@ -107,12 +139,11 @@
               "RelativeToolTip": "Assets\\scripts\\Save\\PlayerSceneRestore.cs",
               "ViewState": "AgIAAEkAAAAAAAAAAAAAwG4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-27T09:42:05.348Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-27T09:42:05.348Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "SaveData.cs",
               "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Save\\SaveData.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\Save\\SaveData.cs",
@@ -120,12 +151,11 @@
               "RelativeToolTip": "Assets\\scripts\\Save\\SaveData.cs",
               "ViewState": "AgIAABkAAAAAAAAAAAAAwD4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-27T09:38:50.73Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-27T09:38:50.73Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "ScenePortal2D.cs",
               "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Interact\\ScenePortal2D.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\Interact\\ScenePortal2D.cs",
@@ -133,12 +163,11 @@
               "RelativeToolTip": "Assets\\scripts\\Interact\\ScenePortal2D.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAHwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-27T09:33:26.48Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-27T09:33:26.48Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "ParallaxBackground.cs",
               "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Scene\\ParallaxBackground.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\Scene\\ParallaxBackground.cs",
@@ -150,7 +179,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "DialogueTrigger2D_Save.cs",
               "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Interact\\DialogueTrigger2D_Save.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\Interact\\DialogueTrigger2D_Save.cs",
@@ -162,7 +191,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "DialogueController.cs",
               "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Dialog\\DialogueController.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\Dialog\\DialogueController.cs",
@@ -174,7 +203,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "InfoDialogUI.cs",
               "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\UI\\InfoDialogUI.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\UI\\InfoDialogUI.cs",
@@ -186,7 +215,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "DocInventoryLite.cs",
               "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Items\\DocInventoryLite.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\Items\\DocInventoryLite.cs",
@@ -198,7 +227,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "InventoryLite.cs",
               "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Items\\InventoryLite.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\Items\\InventoryLite.cs",
@@ -206,12 +235,11 @@
               "RelativeToolTip": "Assets\\scripts\\Items\\InventoryLite.cs",
               "ViewState": "AgIAAF0BAAAAAAAAAAAmwFgBAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-26T18:07:45.086Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-26T18:07:45.086Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "PickupDoc2D.cs",
               "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Interact\\PickupDoc2D.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\Interact\\PickupDoc2D.cs",
@@ -223,7 +251,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "PickupItem2D.cs",
               "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Interact\\PickupItem2D.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\Interact\\PickupItem2D.cs",
@@ -235,7 +263,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "GameState.cs",
               "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Save\\GameState.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\Save\\GameState.cs",
@@ -247,7 +275,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "MainMenuUI.cs",
               "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\UI\\MainMenuUI.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\UI\\MainMenuUI.cs",
@@ -259,7 +287,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "PauseMenuUI.cs",
               "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\UI\\PauseMenuUI.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\UI\\PauseMenuUI.cs",
@@ -271,7 +299,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "SceneSaveApplier.cs",
               "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Save\\SceneSaveApplier.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\Save\\SceneSaveApplier.cs",
@@ -283,7 +311,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "SavePanelUI.cs",
               "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\UI\\SavePanelUI.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\UI\\SavePanelUI.cs",
@@ -295,7 +323,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "GameProgress.cs",
               "DocumentMoniker": "E:\\unity\\Create with code\\Y2kBug\\Assets\\scripts\\Core\\GameProgress.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\Core\\GameProgress.cs",
