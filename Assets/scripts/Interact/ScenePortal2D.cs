@@ -73,10 +73,26 @@ public class ScenePortal2D : MonoBehaviour
             InfoDialogUI.Instance.ShowMessage("正在进入…");
         }
 
-        // 如需过场动画/淡出可在这里 yield 等待
-        yield return null;
+        // === 关键：进入下一场景前，记录当前场景的玩家坐标 ===
+        StorePlayerPosOfCurrentScene();
 
-        SceneManager.LoadScene(sceneName);
+        yield return null;
+        SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+    }
+
+    void StorePlayerPosOfCurrentScene()
+    {
+        // 找到玩家
+        GameObject player = GameObject.FindGameObjectWithTag(playerTag);
+        if (!player) return;
+
+        Vector3 pos = player.transform.position;
+
+        // 载入存档并写入
+        var currentScene = SceneManager.GetActiveScene().name;
+        var save = SaveManager.LoadOrDefault(currentScene);
+        save.SetPlayerPos(currentScene, pos);
+        SaveManager.Save(save);
     }
 
     // 可视化触发范围（选中时显示）
@@ -85,36 +101,13 @@ public class ScenePortal2D : MonoBehaviour
         var col = GetComponent<Collider2D>();
         if (!col) return;
 
-        // 保存原矩阵
-        Matrix4x4 prev = Gizmos.matrix;
+        var prev = Gizmos.matrix;
         Gizmos.color = new Color(0f, 1f, 0f, 0.25f);
-
-        // 使用物体的变换矩阵绘制
         Gizmos.matrix = transform.localToWorldMatrix;
 
-        // BoxCollider2D
-        var box = col as BoxCollider2D;
-        if (box)
-        {
-            // 注意：offset/size 是局部空间
+        if (col is BoxCollider2D box)
             Gizmos.DrawCube((Vector3)box.offset, (Vector3)box.size);
-            Gizmos.matrix = prev;
-            return;
-        }
 
-        // CircleCollider2D（可选）
-        //var circle = col as CircleCollider2D;
-        //if (circle)
-        //{
-        //    // 用球近似一个圆的填充体
-        //    Gizmos.DrawSphere((Vector3)circle.offset, circle.radius);
-        //    Gizmos.matrix = prev;
-        //    return;
-        //}
-
-        // 其他 2D 碰撞体可以按需添加...
-
-        // 还原矩阵
         Gizmos.matrix = prev;
     }
 }
