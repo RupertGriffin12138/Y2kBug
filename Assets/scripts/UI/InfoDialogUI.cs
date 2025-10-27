@@ -13,9 +13,8 @@ public class InfoDialogUI : MonoBehaviour
     [Header("名字框文本（TMP）")]
     public TMP_Text nameBoxText; // NameBoxText UI Text component
 
-    [Header("箭头动画（UGUI）")]
-    public GameObject arrowGO;            // 有 Image + Animator 的那个对象
-    public Animator arrowAnimator;        // 指向箭头的 Animator（可选：自动 Get）
+    [Header("箭头图像")]
+    public Image arrowImage; // Arrow image to indicate pressing E key
 
     [Header("无悬停时的默认提示")]
     [TextArea]
@@ -23,6 +22,9 @@ public class InfoDialogUI : MonoBehaviour
 
     [Header("卡通对象")]
     public GameObject[] cartoonObjects; // Array of cartoon objects (T_cartoon_1, T_cartoon_2, etc.)
+
+    [Header("角色背景图像")]
+    public GameObject[] characterBackgrounds; // Array of character background images
 
     private bool isShowingDialogue = false;
 
@@ -34,9 +36,6 @@ public class InfoDialogUI : MonoBehaviour
 
     void Start()
     {
-        // 防御：若忘了拖引用，自动取一次
-        if (!arrowAnimator && arrowGO) arrowAnimator = arrowGO.GetComponent<Animator>();
-
         Clear(); // 初始显示默认提示
     }
 
@@ -65,6 +64,7 @@ public class InfoDialogUI : MonoBehaviour
         nameBoxText.text = "";
         HideArrow();
         DisableCartoons();
+        DisableAllCharacterBackgrounds();
         isShowingDialogue = false;
     }
 
@@ -83,6 +83,7 @@ public class InfoDialogUI : MonoBehaviour
         nameBoxText.text = ""; // 确保名字框为空
         HideArrow();
         DisableCartoons();
+        DisableAllCharacterBackgrounds();
     }
 
     /// <summary>结束显示对话。</summary>
@@ -92,30 +93,22 @@ public class InfoDialogUI : MonoBehaviour
         Clear();
     }
 
-    /// <summary>显示箭头（开始循环动画）。</summary>
+    /// <summary>显示箭头。</summary>
     public void ShowArrow()
     {
-        if (!arrowGO) return;
-
-        arrowGO.SetActive(true);                 // 显示对象
-        if (arrowAnimator)
+        if (arrowImage != null)
         {
-            arrowAnimator.speed = 1f;            // 确保动画在播放
-            // 可选：强制从头播放
-            // arrowAnimator.Play("Arrow_Loop", 0, 0f);
+            arrowImage.enabled = true;
         }
     }
 
-    /// <summary>隐藏箭头（停止动画）。</summary>
+    /// <summary>隐藏箭头。</summary>
     public void HideArrow()
     {
-        if (!arrowGO) return;
-
-        // 方式1：直接隐藏（简单稳妥）
-        arrowGO.SetActive(false);
-
-        // 方式2：不隐藏对象，仅暂停（如需保持布局）
-        // if (arrowAnimator) arrowAnimator.speed = 0f;
+        if (arrowImage != null)
+        {
+            arrowImage.enabled = false;
+        }
     }
 
     /// <summary>禁用所有卡通对象。</summary>
@@ -144,7 +137,6 @@ public class InfoDialogUI : MonoBehaviour
             {
                 StartCoroutine(FadeIn(obj));
             }
-         
         }
     }
 
@@ -167,6 +159,19 @@ public class InfoDialogUI : MonoBehaviour
         }
     }
 
+    /// <summary>使所有卡通对象逐渐变得透明。</summary>
+    public void DisableAllCartoonsWithFadeOut()
+    {
+        foreach (GameObject obj in cartoonObjects)
+        {
+            if (obj != null)
+            {
+                StartCoroutine(FadeOut(obj));
+            }
+        }
+    }
+
+    /// <summary>使物体逐渐变得透明。</summary>
     IEnumerator FadeOut(GameObject obj)
     {
         SpriteRenderer renderer = obj.GetComponent<SpriteRenderer>();
@@ -185,14 +190,31 @@ public class InfoDialogUI : MonoBehaviour
         }
     }
 
-    /// <summary>使所有卡通对象逐渐变得透明。</summary>
-    public void DisableAllCartoonsWithFadeOut()
+    /// <summary>禁用所有角色背景图像。</summary>
+    public void DisableAllCharacterBackgrounds()
     {
-        foreach (GameObject obj in cartoonObjects)
+        foreach (GameObject bg in characterBackgrounds)
         {
-            if (obj != null)
+            if (bg != null)
             {
-                StartCoroutine(FadeOut(obj));
+                bg.SetActive(false);
+            }
+        }
+    }
+
+    /// <summary>启用指定的角色背景图像。</summary>
+    public void EnableCharacterBackground(string characterName)
+    {
+        Debug.Log("Enabling character background for: " + characterName);
+        for (int i = 0; i < characterBackgrounds.Length; i++)
+        {
+            if (characterBackgrounds[i] != null && characterBackgrounds[i].name.Contains(characterName))
+            {
+                characterBackgrounds[i].SetActive(true);
+            }
+            else
+            {
+                characterBackgrounds[i].SetActive(false);
             }
         }
     }
