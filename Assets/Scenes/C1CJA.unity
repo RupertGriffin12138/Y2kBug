@@ -601,8 +601,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entries: []
   itemDB: {fileID: 11400000, guid: 7b1b3d2fd4a6c2a46a4463c4eacc5404, type: 2}
-  totalSlotCount: 12
-  progress: {fileID: 11400000, guid: c10ef93731561c946846b50d79c73a82, type: 2}
+  slotCountWhenLocked: 1
+  slotCountWhenUnlocked: 6
   useGameStateSource: 1
   ignoreCapacityWhenLoading: 1
   debugLog: 1
@@ -3028,7 +3028,6 @@ MonoBehaviour:
   destroyOnPickup: 1
   promptString: "\u6309 <b>E</b> \u62FE\u53D6\u80CC\u5305"
   obtainedString: "-\u5DF2\u89E3\u9501\u201C\u80CC\u5305\u201D\uFF0C\u53EF\u901A\u8FC7\u9F20\u6807\u67E5\u770B/\u4F7F\u7528\u7269\u54C1-"
-  progress: {fileID: 11400000, guid: c10ef93731561c946846b50d79c73a82, type: 2}
   inventory: {fileID: 107007610}
   sfxSource: {fileID: 0}
   pickupSfx: {fileID: 0}
@@ -3138,6 +3137,10 @@ PrefabInstance:
     - target: {fileID: 2808267952940001299, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6305279910839724799, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
+      propertyPath: nextKey
+      value: 101
       objectReference: {fileID: 0}
     - target: {fileID: 6305279910839724799, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
       propertyPath: dialogueId
@@ -3827,6 +3830,10 @@ PrefabInstance:
     - target: {fileID: 2808267952940001299, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6305279910839724799, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
+      propertyPath: nextKey
+      value: 101
       objectReference: {fileID: 0}
     - target: {fileID: 6305279910839724799, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
       propertyPath: dialogueId

@@ -500,6 +500,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6305279910839724799, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
+      propertyPath: nextKey
+      value: 101
+      objectReference: {fileID: 0}
+    - target: {fileID: 6305279910839724799, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
       propertyPath: dialogueId
       value: dlg_025
       objectReference: {fileID: 0}
@@ -2006,6 +2010,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6305279910839724799, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
+      propertyPath: nextKey
+      value: 101
+      objectReference: {fileID: 0}
+    - target: {fileID: 6305279910839724799, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
       propertyPath: dialogueId
       value: dlg_024
       objectReference: {fileID: 0}
@@ -2153,6 +2161,10 @@ PrefabInstance:
     - target: {fileID: 2808267952940001299, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6305279910839724799, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
+      propertyPath: nextKey
+      value: 101
       objectReference: {fileID: 0}
     - target: {fileID: 6305279910839724799, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
       propertyPath: dialogueId
@@ -2724,6 +2736,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6305279910839724799, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
+      propertyPath: nextKey
+      value: 101
+      objectReference: {fileID: 0}
+    - target: {fileID: 6305279910839724799, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
       propertyPath: dialogueId
       value: dlg_022
       objectReference: {fileID: 0}
@@ -2881,8 +2897,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entries: []
   itemDB: {fileID: 11400000, guid: 7b1b3d2fd4a6c2a46a4463c4eacc5404, type: 2}
-  totalSlotCount: 6
-  progress: {fileID: 11400000, guid: c10ef93731561c946846b50d79c73a82, type: 2}
+  slotCountWhenLocked: 1
+  slotCountWhenUnlocked: 6
   useGameStateSource: 1
   ignoreCapacityWhenLoading: 1
   debugLog: 1
@@ -2951,7 +2967,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   attackMovement: []
-  moveSpeed: 3
+  moveSpeed: 5
   frontSpeed: 0
   belowSpeed: 0
   jumpForce: 0
@@ -3188,6 +3204,10 @@ PrefabInstance:
       propertyPath: tag
       value: 
       objectReference: {fileID: 2116842678}
+    - target: {fileID: 7924437373647818284, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
+      propertyPath: nextKey
+      value: 101
+      objectReference: {fileID: 0}
     - target: {fileID: 7924437373647818284, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
       propertyPath: lines.Array.size
       value: 1
@@ -3527,6 +3547,10 @@ PrefabInstance:
     - target: {fileID: 2808267952940001299, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6305279910839724799, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
+      propertyPath: nextKey
+      value: 101
       objectReference: {fileID: 0}
     - target: {fileID: 6305279910839724799, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
       propertyPath: dialogueId

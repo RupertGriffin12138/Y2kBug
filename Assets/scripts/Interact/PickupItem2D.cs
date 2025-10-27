@@ -50,23 +50,28 @@ public class PickupItem2D : MonoBehaviour
 
     [Header("对话参数")]
     public KeyCode nextKey = KeyCode.Space;
+
     [Tooltip("逐字机每个字符的延时（秒），使用实时计时，不受 Time.timeScale 影响")]
     public float typeCharDelay = 0.04f;
 
-    [Tooltip("最后一句打完后是否自动关闭对话（无需再按一次键）")]
-    public bool autoCloseOnLastLine = true;
-    [Tooltip("最后一句自动关闭前的延时（秒，实时）")]
-    public float autoCloseDelay = 0.3f;
+    [Tooltip("最后一句打完后是否自动关闭（否则显示箭头，等待你按键结束）")]
+    public bool autoCloseOnLastLine = false;   // 默认：不自动关，显示箭头等待按键
+
+    [Tooltip("仅当自动关闭开启时有效：最后一句自动关闭前的延时（秒，实时）")]
+    public float autoCloseDelay = 0.8f;
+
+    [Header("输入防穿透")]
+    [Tooltip("进入新一句后，忽略该时长内的按键（秒，实时）")]
+    public float inputLockDuration = 0.15f;
 
     // ===== 内部状态 =====
     bool _playerInRange = false;
-    bool _consumed = false;           // 防止重复执行
-
-    // 打字机状态
+    bool _consumed = false;           // 防止重复执行（仅指拾取逻辑）
     Coroutine typeRoutine;
     bool lineFullyShown;
     int idx; // 当前对话索引
     bool _talking = false;
+    float _inputLockUntil = 0f;       // 防按键穿透
 
     void Reset()
     {
@@ -112,23 +117,26 @@ public class PickupItem2D : MonoBehaviour
         {
             _playerInRange = false;
             if (InfoDialogUI.Instance)
-                InfoDialogUI.Instance.Clear();
+                InfoDialogUI.Instance.Clear(); // 这里只清“提示”，不会影响对话框
         }
     }
 
     void Update()
     {
-        if (_consumed) return;
-
-        if (_playerInRange && Input.GetKeyDown(pickupKey))
-            TryPickup();
-
-        // 对话推进（只有在本脚本触发的对话期间才处理 Space）
-        if (_talking && Input.GetKeyDown(nextKey))
+        // —— 1) 对话推进（即使已consumed也允许推进） —— //
+        if (_talking && Time.unscaledTime >= _inputLockUntil && Input.GetKeyDown(nextKey))
         {
             if (!lineFullyShown) ShowLineInstant();
             else NextLine();
+            return;
         }
+
+        // —— 2) 已拾取后，不再进入拾取逻辑 —— //
+        if (_consumed) return;
+
+        // —— 3) 正常拾取入口 —— //
+        if (_playerInRange && Input.GetKeyDown(pickupKey))
+            TryPickup();
     }
 
     void TryPickup()
@@ -193,12 +201,14 @@ public class PickupItem2D : MonoBehaviour
             _talking = true;
             idx = 0;
             InfoDialogUI.Instance.StartDialogue();
+
+            // 进入第一句前，短暂锁输入，避免“拾取键”穿透
+            _inputLockUntil = Time.unscaledTime + inputLockDuration;
+
             ShowCurrentLineTyped();
 
             // 等待对话结束
             while (_talking) yield return null;
-
-            // 这里可不必再次 EndDialogue（EndNow 内已调用）
         }
 
         // 最后处理自身
@@ -228,6 +238,9 @@ public class PickupItem2D : MonoBehaviour
         InfoDialogUI.Instance.HideArrow();
         lineFullyShown = false;
 
+        // 进入新一句时，加一小段输入冷却，避免上一帧按键穿透
+        _inputLockUntil = Time.unscaledTime + inputLockDuration;
+
         typeRoutine = StartCoroutine(Typewriter(line.content));
     }
 
@@ -242,7 +255,7 @@ public class PickupItem2D : MonoBehaviour
             while (t < typeCharDelay)
             {
                 // 允许用户中途快进
-                if (Input.GetKeyDown(nextKey))
+                if (Time.unscaledTime >= _inputLockUntil && Input.GetKeyDown(nextKey))
                 {
                     InfoDialogUI.Instance.textBoxText.text = content;
                     t = typeCharDelay; // 结束外层循环
@@ -255,11 +268,10 @@ public class PickupItem2D : MonoBehaviour
 
         lineFullyShown = true;
 
-        // —— 如果是最后一句并启用自动关闭 —— 
         bool isLast = (idx >= lines.Count - 1);
         if (isLast && autoCloseOnLastLine)
         {
-            // 不再显示箭头，稍等后自动结束
+            // 自动关闭分支：不再显示箭头，稍等后自动结束
             InfoDialogUI.Instance.HideArrow();
             if (autoCloseDelay > 0f)
                 yield return new WaitForSecondsRealtime(autoCloseDelay);
@@ -267,6 +279,7 @@ public class PickupItem2D : MonoBehaviour
         }
         else
         {
+            // 非自动关闭（或不是最后一句）→ 显示箭头等待玩家按键
             InfoDialogUI.Instance.ShowArrow();
         }
 
@@ -310,8 +323,15 @@ public class PickupItem2D : MonoBehaviour
     void NextLine()
     {
         idx++;
-        if (idx < lines.Count) ShowCurrentLineTyped();
-        else EndNow();
+        if (idx < lines.Count)
+        {
+            ShowCurrentLineTyped();
+        }
+        else
+        {
+            // 最后一行：如果不自动关闭，则此处由玩家按键来到这里 → 正常结束
+            EndNow();
+        }
     }
 
     void EndNow()

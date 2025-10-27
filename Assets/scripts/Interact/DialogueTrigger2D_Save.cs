@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// 2D 对话触发器（自动触发 + 多说话人 + 背景切换 + 打字机）
-/// 进入触发区即开始，空格推进；每句包含 speaker 与 content；结束写入存档；是否销毁由 destroyAfterFinish 决定。
-/// 依赖：InfoDialogUI(Instance/StartDialogue/EndDialogue/SetNameText/ShowMessage/textBoxText/EnableCharacterBackground/ShowArrow/HideArrow)、SaveManager、SaveData
+/// 进入触发区即开始，空格推进；每句包含 speaker 与 content；结束写入存档；可选销毁自身。
+/// 依赖：InfoDialogUI(Instance/StartDialogue/EndDialogue/SetNameText/ShowMessage/textBoxText/EnableCharacterBackground/ShowArrow/HideArrow)、GameState、SaveData
 /// </summary>
 [RequireComponent(typeof(Collider2D))]
 public class DialogueTrigger2D_Save : MonoBehaviour
@@ -42,13 +43,13 @@ public class DialogueTrigger2D_Save : MonoBehaviour
     [Tooltip("每个字符的延时（秒）")]
     public float typeCharDelay = 0.05f;
 
+    // 运行时状态
     private bool talking;
     private int idx;
-    private SaveData save;
-
-    // 打字机状态
     private Coroutine typeRoutine;
     private bool lineFullyShown;
+    private bool begun;                 // 已经触发过（防止多次 BeginTalk）
+    private Collider2D triggerCol;      // 用于谈话期间禁用，避免重复进入
 
     void Reset()
     {
@@ -56,39 +57,49 @@ public class DialogueTrigger2D_Save : MonoBehaviour
         col.isTrigger = true;
     }
 
+    void Awake()
+    {
+        triggerCol = GetComponent<Collider2D>();
+    }
+
     void Start()
     {
-        save = SaveManager.LoadOrDefault("Town");
-        if (save.HasSeenDialogue(dialogueId))
+        // 确保存档已加载到 GameState（全局唯一真相）
+        if (GameState.Current == null)
+            GameState.LoadGameOrNew(SceneManager.GetActiveScene().name);
+
+        // 已看过则直接移除
+        if (GameState.Current != null && GameState.Current.HasSeenDialogue(dialogueId))
         {
-            Destroy(gameObject);
+            if (destroyAfterFinish) Destroy(gameObject);
+            else gameObject.SetActive(false);
         }
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (begun) return;
         if (!other.CompareTag(playerTag)) return;
-        if (save != null && save.HasSeenDialogue(dialogueId)) return;
-        if (talking) return;
+
+        // 再次判重（避免极端生命周期顺序问题）
+        if (GameState.Current != null && GameState.Current.HasSeenDialogue(dialogueId)) return;
 
         BeginTalk();
     }
 
     void Update()
     {
-        if (blockWhenPaused && Time.timeScale == 0f) return;
         if (!talking) return;
+        if (blockWhenPaused && Time.timeScale == 0f) return;
 
         if (Input.GetKeyDown(nextKey))
         {
             if (!lineFullyShown)
             {
-                // 第一次按下：立刻补全当前行
                 ShowLineInstant();
             }
             else
             {
-                // 第二次按下：进入下一句
                 NextLine();
             }
         }
@@ -98,13 +109,15 @@ public class DialogueTrigger2D_Save : MonoBehaviour
     {
         if (lines == null || lines.Count == 0) return;
 
+        begun = true;
         talking = true;
         idx = 0;
 
+        // 谈话期间禁用触发器，避免重复触发
+        if (triggerCol) triggerCol.enabled = false;
+
         if (InfoDialogUI.Instance)
-        {
             InfoDialogUI.Instance.StartDialogue();
-        }
 
         ShowCurrentLineTyped();
     }
@@ -113,13 +126,9 @@ public class DialogueTrigger2D_Save : MonoBehaviour
     {
         idx++;
         if (idx < lines.Count)
-        {
             ShowCurrentLineTyped();
-        }
         else
-        {
             EndTalk();
-        }
     }
 
     void ShowCurrentLineTyped()
@@ -136,19 +145,15 @@ public class DialogueTrigger2D_Save : MonoBehaviour
         var line = lines[idx];
 
         // 名字框：旁白不显示名字
-        if (string.Equals(line.speaker, "旁白"))
-            InfoDialogUI.Instance.SetNameText("");
-        else
-            InfoDialogUI.Instance.SetNameText(line.speaker);
+        InfoDialogUI.Instance.SetNameText(string.Equals(line.speaker, "旁白") ? "" : line.speaker);
 
-        // 按人物名称切换背景
+        // 按人物名称切换背景（如果实现了）
         InfoDialogUI.Instance.EnableCharacterBackground(line.speaker);
 
         // 清空并开始打字
         InfoDialogUI.Instance.textBoxText.text = "";
         lineFullyShown = false;
 
-        // 正确：直接调用方法
         InfoDialogUI.Instance.HideArrow();
 
         typeRoutine = StartCoroutine(Typewriter(line.content));
@@ -156,7 +161,6 @@ public class DialogueTrigger2D_Save : MonoBehaviour
 
     IEnumerator Typewriter(string content)
     {
-        // 逐字输出
         foreach (char c in content)
         {
             InfoDialogUI.Instance.textBoxText.text += c;
@@ -165,18 +169,13 @@ public class DialogueTrigger2D_Save : MonoBehaviour
             // 若在打字中按键，交由 Update 的逻辑立即补全
             if (Input.GetKeyDown(nextKey))
             {
-                // 立即补全
                 InfoDialogUI.Instance.textBoxText.text = content;
                 break;
             }
         }
 
-        // 打字完成
         lineFullyShown = true;
-
-        // 正确：直接调用方法
         InfoDialogUI.Instance.ShowArrow();
-
         typeRoutine = null;
     }
 
@@ -193,8 +192,6 @@ public class DialogueTrigger2D_Save : MonoBehaviour
 
         InfoDialogUI.Instance.textBoxText.text = lines[idx].content;
         lineFullyShown = true;
-
-        // 正确：直接调用方法
         InfoDialogUI.Instance.ShowArrow();
     }
 
@@ -202,11 +199,13 @@ public class DialogueTrigger2D_Save : MonoBehaviour
     {
         talking = false;
 
-        // 存档标记
-        if (save == null) save = SaveManager.LoadOrDefault("Town");
-        if (save.TryMarkDialogueSeen(dialogueId))
+        // —— 用 GameState 作为唯一真相写入 & 保存 —— //
+        if (GameState.Current == null)
+            GameState.LoadGameOrNew(SceneManager.GetActiveScene().name);
+
+        if (GameState.Current != null && GameState.Current.TryMarkDialogueSeen(dialogueId))
         {
-            SaveManager.Save(save);
+            GameState.SaveNow(); // 与全局系统一致的保存方式，避免被覆盖
         }
 
         if (InfoDialogUI.Instance)
@@ -214,7 +213,8 @@ public class DialogueTrigger2D_Save : MonoBehaviour
 
         if (destroyAfterFinish)
             Destroy(gameObject);
-        // else 保留在场景中（再次进入若 save 判重仍为未看过则可再次触发）
+        else
+            gameObject.SetActive(false);
     }
 
     // 选中时可视化触发范围
