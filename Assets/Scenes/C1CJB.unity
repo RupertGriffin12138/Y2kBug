@@ -361,7 +361,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 713585173}
-  - {fileID: 944650371}
   m_Father: {fileID: 1206839383}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &142151055
@@ -461,6 +460,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &172177426 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6809079327128226047, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
+  m_PrefabInstance: {fileID: 1896318296}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &216768083
 GameObject:
   m_ObjectHideFlags: 0
@@ -796,6 +800,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &416752448 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7405427039516544724, guid: f1da7c30a2036354eb25b625e62095e0, type: 3}
+  m_PrefabInstance: {fileID: 1952914133}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6361736c8fb33be4ea9963e48bbba98c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &521664146
 GameObject:
   m_ObjectHideFlags: 0
@@ -1219,17 +1234,33 @@ PrefabInstance:
       value: -0.673257
       objectReference: {fileID: 0}
     - target: {fileID: 7924437373647818284, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
+      propertyPath: tag
+      value: 
+      objectReference: {fileID: 1964482064}
+    - target: {fileID: 7924437373647818284, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
       propertyPath: docId
-      value: notice
+      value: diary1
       objectReference: {fileID: 0}
     - target: {fileID: 7924437373647818284, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
       propertyPath: readerPanel
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 416752448}
     - target: {fileID: 7924437373647818284, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
       propertyPath: docInventory
       value: 
       objectReference: {fileID: 1345317931}
+    - target: {fileID: 7924437373647818284, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
+      propertyPath: lines.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7924437373647818284, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
+      propertyPath: lines.Array.data[0].content
+      value: "\uFF08\u8C01\u7684\u65E5\u8BB0\u5417\uFF0C\u6628\u5929\u624D\u5199\u7684\uFF0C\u600E\u4E48\u4F1A\u51FA\u73B0\u5728\u8FD9\u91CC\uFF0C\u8FD9\u4E48\u5947\u602A\u7684\u5730\u65B9\u3002\uFF09"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7924437373647818284, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
+      propertyPath: lines.Array.data[0].speaker
+      value: "\u59DC\u5B81"
+      objectReference: {fileID: 0}
     - target: {fileID: 8279079002776250371, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.2386936
@@ -1285,8 +1316,14 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 7635248713962944717, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8279079002776250371, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 944650371}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2442323815896114703, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1964482064}
   m_SourcePrefab: {fileID: 100100000, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
 --- !u!4 &713585173 stripped
 Transform:
@@ -1519,6 +1556,7 @@ GameObject:
   - component: {fileID: 944650371}
   - component: {fileID: 944650373}
   - component: {fileID: 944650372}
+  - component: {fileID: 944650374}
   m_Layer: 0
   m_Name: CJ_B_file
   m_TagString: Untagged
@@ -1535,11 +1573,11 @@ Transform:
   m_GameObject: {fileID: 944650370}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.20999998, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.20109455, y: 0.22204252, z: 0}
+  m_LocalScale: {x: 4.1894712, y: 4.1894712, z: 2.8211927}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 142151054}
+  m_Father: {fileID: 713585173}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &944650372
 BoxCollider2D:
@@ -1638,6 +1676,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &944650374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 944650370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc96f4212144cfc46aae86aaa96bd2b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: c1cjb.pickup.CJ_B_file_(5a61bf)
+  categoryHint: pickup
 --- !u!1 &1172870667
 GameObject:
   m_ObjectHideFlags: 0
@@ -2757,6 +2809,10 @@ PrefabInstance:
       value: "\u773C\u524D\u7684\u666F\u8C61\u548C\u6B63\u5E38\u7684\u6559\u5BA4\u5927\u76F8\u5F84\u5EAD\uFF0C\u5806\u53E0\u7684\u684C\u6905\u548C\u51CC\u4E71\u7684\u5730\u9762\uFF0C\u53D1\u751F\u4E86\u4EC0\u4E48\uFF1F"
       objectReference: {fileID: 0}
     - target: {fileID: 6305279910839724799, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
+      propertyPath: lines.Array.data[0].speaker
+      value: "\u65C1\u767D"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6305279910839724799, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
       propertyPath: lines.Array.data[1].content
       value: "\u5973\u5B69\u6781\u529B\u63A7\u5236\u4F4F\u6251\u901A\u6251\u901A\u7684\u5FC3\u8DF3\uFF0C\u5C1D\u8BD5\u4E3A\u9762\u524D\u7684\u4E00\u5207\u627E\u5230\u4E00\u4E2A\u5408\u7406\u7684\u89E3\u91CA\u3002"
       objectReference: {fileID: 0}
@@ -2815,13 +2871,30 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6809079327128226047, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1896318298}
   m_SourcePrefab: {fileID: 100100000, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
 --- !u!4 &1896318297 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2808267952940001299, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
   m_PrefabInstance: {fileID: 1896318296}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1896318298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172177426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc96f4212144cfc46aae86aaa96bd2b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: c1cjb.pickup.DialogueOnEnter_(927363)
+  categoryHint: pickup
 --- !u!1001 &1935315281
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3156,6 +3229,25 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1da7c30a2036354eb25b625e62095e0, type: 3}
+--- !u!1 &1964482063 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2442323815896114703, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
+  m_PrefabInstance: {fileID: 713585172}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1964482064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1964482063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc96f4212144cfc46aae86aaa96bd2b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: c1cjb.pickup.Doc_Notice_(bf4239)
+  categoryHint: pickup
 --- !u!4 &1985240268 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2808240036853684072, guid: deb62d56fa8969545ba988a68a90cf78, type: 3}

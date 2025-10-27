@@ -43,9 +43,9 @@ public static class SaveManager
         {
             if (store.TryLoad(out var json))
             {
-                var data = JsonUtility.FromJson<SaveData>(json);
-                if (data == null) return CreateDefault(fallbackFirstScene);
+                var data = JsonUtility.FromJson<SaveData>(json) ?? CreateDefault(fallbackFirstScene);
                 data.EnsureArraysNotNull();
+                MigrateLegacyPlayerPrefs(data);   // <--- NEW
                 return data;
             }
         }
@@ -53,7 +53,10 @@ public static class SaveManager
         {
             Debug.LogWarning($"[SaveManager] 读取存档失败，将使用默认数据。Exception: {e}");
         }
-        return CreateDefault(fallbackFirstScene);
+
+        var def = CreateDefault(fallbackFirstScene);
+        MigrateLegacyPlayerPrefs(def);            // <--- NEW
+        return def;
     }
 
     /// <summary>保存到持久化存储。</summary>
@@ -90,6 +93,20 @@ public static class SaveManager
         catch (Exception e)
         {
             Debug.LogError($"[SaveManager] 清除失败：{e}");
+        }
+    }
+
+    // SaveManager.cs 追加：
+    static void MigrateLegacyPlayerPrefs(SaveData data)
+    {
+        const string PF_BACKPACK = "pf_backpack_unlocked";
+        if (PlayerPrefs.HasKey(PF_BACKPACK))
+        {
+            // 把旧值迁入新存档
+            data.backpackUnlocked = PlayerPrefs.GetInt(PF_BACKPACK, 0) != 0;
+            PlayerPrefs.DeleteKey(PF_BACKPACK);   // 迁移后清除
+            PlayerPrefs.Save();
+            Debug.Log("[SaveManager] Migrated legacy PlayerPrefs -> SaveData.backpackUnlocked");
         }
     }
 }

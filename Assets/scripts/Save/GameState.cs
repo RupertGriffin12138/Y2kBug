@@ -101,4 +101,19 @@ public static class GameState
     {
         Current = data;  // 这个类内部可以写入 private set 的属性
     }
+
+    public static bool BackpackUnlocked
+    {
+        get { return Current != null && Current.backpackUnlocked; }
+    }
+
+    public static bool UnlockBackpack(bool autosave = true)
+    {
+        if (Current == null) Current = SaveManager.CreateDefault();
+        if (Current.backpackUnlocked) return false;
+        Current.backpackUnlocked = true;
+        if (autosave) SaveManager.Save(Current);
+        return true;
+    }
+
 }
