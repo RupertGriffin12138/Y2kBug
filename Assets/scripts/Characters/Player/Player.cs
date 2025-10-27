@@ -1,80 +1,84 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class Player : Entity
+namespace Characters.Player
 {
-    [Header("Attack details")]
-    public Vector2[] attackMovement;
-
-    public bool isBusy { get; private set; }
-
-    [Header("Move Info")]
-    public float moveSpeed = 12f;
-    public float frontSpeed = 0;
-    public float belowSpeed = 0;
-    public float jumpForce;
-
-    [Header("Dash Info")]
-    [SerializeField] private float dashCooldowm;
-    private float dashUsageTimer;
-    public float dashSpeed;
-    public float dashDuration;
-    public float dashDir { get; private set; }
-
-    #region States
-    public PlayerStateMachine stateMachine { get; private set; }
-
-    public PlayerIdleState idleState { get; private set; }
-    public PlayerMoveState moveState { get; private set; }
-    public PlayerFrontState frontState { get; private set; }
-    public PlayerBelowState belowState { get; private set; }
-
-
-    #endregion
-
-
-    //Awake ÊÇÒ»¸öÉúÃüÖÜÆÚ·½·¨£¬ÔÚ½Å±¾ÊµÀý±»¼ÓÔØÊ±µ÷ÓÃ£¬ÇÒ½öµ÷ÓÃÒ»´Î¡£Õâ¸ö·½·¨Í¨³£ÓÃÓÚ³õÊ¼»¯Ò»Ð©±äÁ¿»òÕßÉèÖÃ¶ÔÏóµÄ×´Ì¬¡£
-    protected override void Awake()
+    public class Player : Entity
     {
-        base.Awake();
+        [Header("Attack details")]
+        public Vector2[] attackMovement;
 
-        stateMachine = new PlayerStateMachine();
+        public bool isBusy { get; private set; }
 
-        idleState = new PlayerIdleState(stateMachine, this, "Idle");
-        moveState = new PlayerMoveState(stateMachine, this, "Move");
-        frontState = new PlayerFrontState(stateMachine, this, "Front");
-        belowState = new PlayerBelowState(stateMachine, this, "Below");
+        [Header("Move Info")]
+        public float moveSpeed = 12f;
+        public float frontSpeed = 0;
+        public float belowSpeed = 0;
+        public float jumpForce;
 
-    }
+        [FormerlySerializedAs("dashCooldown")]
+        [Header("Dash Info")]
+        [SerializeField] private float dashCooldown;
+        private float dashUsageTimer;
+        public float dashSpeed;
+        public float dashDuration;
+        public float dashDir { get; private set; }
 
-    protected override void Start()
-    {
-        base.Start();
-        stateMachine.Initialize(idleState);
-    }
+        #region States
+        public PlayerStateMachine stateMachine { get; private set; }
+
+        public PlayerIdleState idleState { get; private set; }
+        public PlayerMoveState moveState { get; private set; }
+        public PlayerFrontState frontState { get; private set; }
+        public PlayerBelowState belowState { get; private set; }
 
 
-    protected override void Update()
-    {
-        base.Update();
-        stateMachine.currentState.Update();
+        #endregion
+
+
+        //Awake ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú½Å±ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ã£ï¿½ï¿½Ò½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½Î¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½Ú³ï¿½Ê¼ï¿½ï¿½Ò»Ð©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½
+        protected override void Awake()
+        {
+            base.Awake();
+
+            stateMachine = new PlayerStateMachine();
+
+            idleState = new PlayerIdleState(stateMachine, this, "Idle");
+            moveState = new PlayerMoveState(stateMachine, this, "Move");
+            frontState = new PlayerFrontState(stateMachine, this, "Front");
+            belowState = new PlayerBelowState(stateMachine, this, "Below");
+
+        }
+
+        protected override void Start()
+        {
+            base.Start();
+            stateMachine.Initialize(idleState);
+        }
+
+
+        protected override void Update()
+        {
+            base.Update();
+            stateMachine.currentState.Update();
 
         
 
-    }
+        }
 
-    //coroutine Ð­³Ì ²¢ÐÐ³ÌÐòÁ÷
-    //½©Ö±
-    public IEnumerator BusyFor(float _seconds)
-    {
-        isBusy = true;
+        //coroutine Ð­ï¿½ï¿½ ï¿½ï¿½ï¿½Ð³ï¿½ï¿½ï¿½ï¿½ï¿½
+        //ï¿½ï¿½Ö±
+        public IEnumerator BusyFor(float _seconds)
+        {
+            isBusy = true;
 
-        yield return new WaitForSeconds(_seconds);
+            yield return new WaitForSeconds(_seconds);
 
-        isBusy = false;
-    }
+            isBusy = false;
+        }
 
-    public void AnimationTrigger() => stateMachine.currentState.AnimationFinishTrigger();
+        public void AnimationTrigger() => stateMachine.currentState.AnimationFinishTrigger();
     
+    }
 }

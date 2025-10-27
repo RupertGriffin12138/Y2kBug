@@ -1,18 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class BeadUpper : MonoBehaviour
+namespace Riddle.Abacus
 {
-    // Start is called before the first frame update
-    void Start()
+    public class BeadUpper : MonoBehaviour
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

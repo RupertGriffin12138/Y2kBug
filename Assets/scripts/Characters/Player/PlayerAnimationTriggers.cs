@@ -1,13 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnimationTriggers : MonoBehaviour
+namespace Characters.Player
 {
-    private Player player => GetComponentInParent<Player>();
-
-    private void AnimationTrigger()
+    public class PlayerAnimationTriggers : MonoBehaviour
     {
-        player.AnimationTrigger();
+        private Player player => GetComponentInParent<Player>();
+
+        private void AnimationTrigger()
+        {
+            player.AnimationTrigger();
+        }
     }
 }

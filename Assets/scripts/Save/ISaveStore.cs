@@ -1,6 +1,9 @@
-public interface ISaveStore
+namespace Save
 {
-    bool TryLoad(out string json);
-    void Save(string json);
-    void Wipe();
+    public interface ISaveStore
+    {
+        bool TryLoad(out string json);
+        void Save(string json);
+        void Wipe();
+    }
 }

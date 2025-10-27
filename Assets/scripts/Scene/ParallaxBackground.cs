@@ -1,32 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+namespace Scene
 {
-    private GameObject cam;
-
-    [SerializeField] private float parallaxEffect;
-
-    private float length;
-    private float xPosition;
-
-    void Start()
+    public class NewBehaviourScript : MonoBehaviour
     {
-        cam = GameObject.Find("Main Camera");
+        private GameObject cam;
 
-        length = GetComponent<SpriteRenderer>().bounds.size.x;
-        xPosition = transform.position.x;
-    }
+        [SerializeField] private float parallaxEffect;
+
+        private float length;
+        private float xPosition;
+
+        void Start()
+        {
+            cam = GameObject.Find("Main Camera");
+
+            length = GetComponent<SpriteRenderer>().bounds.size.x;
+            xPosition = transform.position.x;
+        }
 
 
-    void Update()
-    {
-        float distanceMove = cam.transform.position.x * (1 - parallaxEffect);
-        float distanceToMove = cam.transform.position.x * parallaxEffect;
+        void Update()
+        {
+            float distanceMove = cam.transform.position.x * (1 - parallaxEffect);
+            float distanceToMove = cam.transform.position.x * parallaxEffect;
 
-        transform.position = new Vector3(xPosition + distanceToMove, transform.position.y);
+            transform.position = new Vector3(xPosition + distanceToMove, transform.position.y);
 
         
+        }
     }
 }

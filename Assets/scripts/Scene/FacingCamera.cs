@@ -1,26 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class FacingCamera : MonoBehaviour
+namespace Scene
 {
-    Transform[] childs;
-    
-    void Start()
+    public class FacingCamera : MonoBehaviour
     {
-        childs = new Transform[transform.childCount];
-        for (int i = 0; i < transform.childCount; i++)
+        Transform[] childs;
+    
+        void Start()
         {
-            childs[i] = transform.GetChild(i);
+            childs = new Transform[transform.childCount];
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                childs[i] = transform.GetChild(i);
+            }
         }
-    }
 
     
-    void Update()
-    {
-        for(int i = 0; i < childs.Length; i++)
+        void Update()
         {
-            childs[i].rotation = Camera.main.transform.rotation;
+            for(int i = 0; i < childs.Length; i++)
+            {
+                childs[i].rotation = Camera.main.transform.rotation;
+            }
         }
     }
 }

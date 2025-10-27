@@ -1,232 +1,235 @@
 using UnityEngine;
+#pragma warning disable CS0414 // 字段已被赋值，但它的值从未被使用
 
-public class SwitchCircleController : MonoBehaviour
+namespace Riddle.Blackboard
 {
-    [SerializeField] private bool isAnswer = false;
-    [SerializeField] private int count_heng = 0; // 横向计数
-    [SerializeField] private int count_zong = 0;  // 纵向计数
-    [SerializeField] private int count_num = 0;   // 综合计数
-    [SerializeField] private float moveDistance = 1f; // 移动距离
-
-    private Vector3 initialPosition; // 初始位置
-
-    // 二维数组用于映射 count_heng 和 count_zong 到 count_num
-    private int[,] circleNum = {
-        { 0, 3, 6 },
-        { 1, 4, 7 },
-        { 2, 5, 8 }
-    };
-
-    private int[] answerNum = { 5, 1, 3, 9, 9, 6, 4, 5, 8 };
-
-    public GameObject block; // Block 对象
-
-    private int previousCountNum = -1; // 上一个 count_num 的值
-
-    void Start()
+    public class SwitchCircleController : MonoBehaviour
     {
-        // 记录初始位置
-        initialPosition = transform.position;
-        // 初始化 count_num
-        UpdateCountNum();
-        // 初始化 Answer 组显示状态
-        InitializeAnswers();
-    }
+        [SerializeField] private bool isAnswer = false;
+        [SerializeField] private int count_heng = 0; // 横向计数
+        [SerializeField] private int count_zong = 0;  // 纵向计数
+        [SerializeField] private int count_num = 0;   // 综合计数
+        [SerializeField] private float moveDistance = 1f; // 移动距离
 
-    void Update()
-    {
-        // 处理按键输入
-        getNumandKeyDown();
+        private Vector3 initialPosition; // 初始位置
 
-        // 输出当前计数值
-        //Debug.Log($"Count Heng: {count_heng}, Count Zong: {count_zong}, Count Num: {count_num}");
-    }
+        // 二维数组用于映射 count_heng 和 count_zong 到 count_num
+        private int[,] circleNum = {
+            { 0, 3, 6 },
+            { 1, 4, 7 },
+            { 2, 5, 8 }
+        };
 
-    private void getNumandKeyDown()
-    {
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            MoveRight();
-        }
-        else if (Input.GetKeyDown(KeyCode.A))
-        {
-            MoveLeft();
-        }
-        else if (Input.GetKeyDown(KeyCode.W))
-        {
-            MoveUp();
-        }
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            MoveDown();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            ShowAnswer(1);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            ShowAnswer(2);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            ShowAnswer(3);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            ShowAnswer(4);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            ShowAnswer(5);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            ShowAnswer(6);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            ShowAnswer(7);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha8))
-        {
-            ShowAnswer(8);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha9))
-        {
-            ShowAnswer(9);
-        }
-    }
+        private int[] answerNum = { 5, 1, 3, 9, 9, 6, 4, 5, 8 };
 
-    #region  Move Control
-    void MoveRight()
-    {
-        transform.position += Vector3.right * moveDistance;
-        count_heng = (count_heng + 1) % 3;
-        UpdateCountNum();
-    }
+        public GameObject block; // Block 对象
 
-    void MoveLeft()
-    {
-        if (!(count_zong == 0 && count_heng == 0))
+        private int previousCountNum = -1; // 上一个 count_num 的值
+
+        void Start()
         {
-            transform.position += Vector3.left * moveDistance;
-            count_heng = (count_heng - 1 + 3) % 3; // 使用模运算确保结果非负
+            // 记录初始位置
+            initialPosition = transform.position;
+            // 初始化 count_num
+            UpdateCountNum();
+            // 初始化 Answer 组显示状态
+            InitializeAnswers();
+        }
+
+        void Update()
+        {
+            // 处理按键输入
+            getNumandKeyDown();
+
+            // 输出当前计数值
+            //Debug.Log($"Count Heng: {count_heng}, Count Zong: {count_zong}, Count Num: {count_num}");
+        }
+
+        private void getNumandKeyDown()
+        {
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                MoveRight();
+            }
+            else if (Input.GetKeyDown(KeyCode.A))
+            {
+                MoveLeft();
+            }
+            else if (Input.GetKeyDown(KeyCode.W))
+            {
+                MoveUp();
+            }
+            else if (Input.GetKeyDown(KeyCode.S))
+            {
+                MoveDown();
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                ShowAnswer(1);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                ShowAnswer(2);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                ShowAnswer(3);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                ShowAnswer(4);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                ShowAnswer(5);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                ShowAnswer(6);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha7))
+            {
+                ShowAnswer(7);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha8))
+            {
+                ShowAnswer(8);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha9))
+            {
+                ShowAnswer(9);
+            }
+        }
+
+        #region  Move Control
+        void MoveRight()
+        {
+            transform.position += Vector3.right * moveDistance;
+            count_heng = (count_heng + 1) % 3;
             UpdateCountNum();
         }
-        else
-        {
-            Debug.Log("Cannot move left when count_zong == 0 && count_heng == 0");
-        }
-    }
 
-    void MoveUp()
-    {
-        if (!(count_zong == 0 && count_heng == 0))
+        void MoveLeft()
         {
-            transform.position += Vector3.up * moveDistance;
-            count_zong = (count_zong - 1 + 3) % 3; // 使用模运算确保结果非负
+            if (!(count_zong == 0 && count_heng == 0))
+            {
+                transform.position += Vector3.left * moveDistance;
+                count_heng = (count_heng - 1 + 3) % 3; // 使用模运算确保结果非负
+                UpdateCountNum();
+            }
+            else
+            {
+                Debug.Log("Cannot move left when count_zong == 0 && count_heng == 0");
+            }
+        }
+
+        void MoveUp()
+        {
+            if (!(count_zong == 0 && count_heng == 0))
+            {
+                transform.position += Vector3.up * moveDistance;
+                count_zong = (count_zong - 1 + 3) % 3; // 使用模运算确保结果非负
+                UpdateCountNum();
+            }
+            else
+            {
+                Debug.Log("Cannot move up when count_zong == 0 && count_heng == 0");
+            }
+        }
+
+        void MoveDown()
+        {
+            transform.position += Vector3.down * moveDistance;
+            count_zong = (count_zong + 1) % 3;
             UpdateCountNum();
         }
-        else
+
+        #endregion
+
+        void UpdateCountNum()
         {
-            Debug.Log("Cannot move up when count_zong == 0 && count_heng == 0");
+            if (circleNum != null) count_num = circleNum[count_heng, count_zong];
         }
-    }
 
-    void MoveDown()
-    {
-        transform.position += Vector3.down * moveDistance;
-        count_zong = (count_zong + 1) % 3;
-        UpdateCountNum();
-    }
-
-    #endregion
-
-    void UpdateCountNum()
-    {
-        count_num = circleNum[count_heng, count_zong];
-
-    }
-
-    void InitializeAnswers()
-    {
-        for (int i = 0; i < 9; i++)
+        void InitializeAnswers()
         {
-            GameObject answerGroup = GetAnswerGroup(i);
+            for (int i = 0; i < 9; i++)
+            {
+                GameObject answerGroup = GetAnswerGroup(i);
+                if (answerGroup != null)
+                {
+                    foreach (Transform child in answerGroup.transform)
+                    {
+                        child.gameObject.SetActive(false);
+                    }
+                }
+            }
+        }
+
+        void ShowAnswer(int number)
+        {
+            GameObject answerGroup = GetAnswerGroup(count_num);
             if (answerGroup != null)
             {
                 foreach (Transform child in answerGroup.transform)
                 {
-                    child.gameObject.SetActive(false);
+                    if (child.name == number.ToString())
+                        child.gameObject.SetActive(true);
+                    else
+                        child.gameObject.SetActive(false);
+
                 }
             }
-        }
-    }
 
-    void ShowAnswer(int number)
-    {
-        GameObject answerGroup = GetAnswerGroup(count_num);
-        if (answerGroup != null)
+            CheckAllAnswers();
+        }
+
+        void CheckAllAnswers()
         {
-            foreach (Transform child in answerGroup.transform)
+            isAnswer = true;
+            for (int i = 0; i < 9; i++)
             {
-                if (child.name == number.ToString())
-                    child.gameObject.SetActive(true);
+                GameObject answerGroup = GetAnswerGroup(i);
+                if (answerGroup != null)
+                {
+                    Transform correctAnswer = answerGroup.transform.Find(answerNum[i].ToString());
+                    if (correctAnswer == null || !correctAnswer.gameObject.activeSelf)
+                    {
+                        isAnswer = false;
+                        break;
+                    }
+                }
                 else
-                    child.gameObject.SetActive(false);
-
-            }
-        }
-
-        CheckAllAnswers();
-    }
-
-    void CheckAllAnswers()
-    {
-        isAnswer = true;
-        for (int i = 0; i < 9; i++)
-        {
-            GameObject answerGroup = GetAnswerGroup(i);
-            if (answerGroup != null)
-            {
-                Transform correctAnswer = answerGroup.transform.Find(answerNum[i].ToString());
-                if (correctAnswer == null || !correctAnswer.gameObject.activeSelf)
                 {
                     isAnswer = false;
                     break;
                 }
             }
-            else
+        }
+
+        GameObject GetAnswerGroup(int index)
+        {
+            Transform blockChild = block.transform.GetChild(index);
+            if (blockChild != null)
             {
-                isAnswer = false;
-                break;
+                return blockChild.Find("Answer")?.gameObject;
             }
-        }
-    }
-
-    GameObject GetAnswerGroup(int index)
-    {
-        Transform blockChild = block.transform.GetChild(index);
-        if (blockChild != null)
-        {
-            return blockChild.Find("Answer")?.gameObject;
-        }
-        return null;
-    }
-
-    void LateUpdate()
-    {
-        // 当 count_heng == 0 时，横坐标回到初始位置
-        if (count_heng == 0)
-        {
-            transform.position = new Vector3(initialPosition.x, transform.position.y, transform.position.z);
+            return null;
         }
 
-        // 当 count_zong == 0 时，纵坐标回到初始位置
-        if (count_zong == 0)
+        void LateUpdate()
         {
-            transform.position = new Vector3(transform.position.x, initialPosition.y, transform.position.z);
+            // 当 count_heng == 0 时，横坐标回到初始位置
+            if (count_heng == 0)
+            {
+                transform.position = new Vector3(initialPosition.x, transform.position.y, transform.position.z);
+            }
+
+            // 当 count_zong == 0 时，纵坐标回到初始位置
+            if (count_zong == 0)
+            {
+                transform.position = new Vector3(transform.position.x, initialPosition.y, transform.position.z);
+            }
         }
     }
 }

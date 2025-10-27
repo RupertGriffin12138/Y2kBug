@@ -1,28 +1,31 @@
 using UnityEngine;
 
-public class PlayerPrefsSaveStore : ISaveStore
+namespace Save
 {
-    private readonly string key;
-
-    public PlayerPrefsSaveStore(string key = "SaveSlot_1")
+    public class PlayerPrefsSaveStore : ISaveStore
     {
-        this.key = key;
-    }
+        private readonly string key;
 
-    public bool TryLoad(out string json)
-    {
-        json = PlayerPrefs.GetString(key, "");
-        return !string.IsNullOrEmpty(json);
-    }
+        public PlayerPrefsSaveStore(string key = "SaveSlot_1")
+        {
+            this.key = key;
+        }
 
-    public void Save(string json)
-    {
-        PlayerPrefs.SetString(key, json);
-        PlayerPrefs.Save();
-    }
+        public bool TryLoad(out string json)
+        {
+            json = PlayerPrefs.GetString(key, "");
+            return !string.IsNullOrEmpty(json);
+        }
 
-    public void Wipe()
-    {
-        PlayerPrefs.DeleteKey(key);
+        public void Save(string json)
+        {
+            PlayerPrefs.SetString(key, json);
+            PlayerPrefs.Save();
+        }
+
+        public void Wipe()
+        {
+            PlayerPrefs.DeleteKey(key);
+        }
     }
 }
