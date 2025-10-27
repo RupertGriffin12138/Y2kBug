@@ -1647,6 +1647,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   docId: note2
   openReaderOnPickup: 1
+  openReaderAfterDialogue: 1
   destroyAfterPickup: 1
   pickupKey: 101
   promptString: "\u6309 <b>E</b> \u9605\u8BFB/\u6536\u5F55"
@@ -1657,6 +1658,20 @@ MonoBehaviour:
   pickupSfx: {fileID: 0}
   tag: {fileID: 0}
   autoSaveOnPickup: 1
+  triggerDialogueOnPickup: 1
+  showPickupToast: 1
+  lines:
+  - speaker: "\u65C1\u767D"
+    content: "\u4F60\u6536\u5F55\u4E86\u4E00\u4EFD\u91CD\u8981\u7684\u6587\u4EF6\u2026\u2026"
+  - speaker: "\u65C1\u767D"
+    content: "\u4E5F\u8BB8\u80FD\u4ECE\u4E2D\u53D1\u73B0\u7EBF\u7D22\u3002"
+  nextKey: 32
+  typeCharDelay: 0.04
+  autoCloseOnLastLine: 1
+  autoCloseDelay: 0.3
+  lastLineMinHold: 0.7
+  advanceCooldown: 0.15
+  logDebug: 0
 --- !u!114 &552639915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2945,7 +2960,7 @@ MonoBehaviour:
   frontSpeed: 0
   belowSpeed: 0
   jumpForce: 0
-  dashCooldowm: 0
+  dashCooldown: 0
   dashSpeed: 0
   dashDuration: 0
 --- !u!61 &1407957338
@@ -4325,7 +4340,7 @@ Transform:
   m_GameObject: {fileID: 1927331252}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.04561138, y: -0.02098298, z: -10}
+  m_LocalPosition: {x: 1.0093279, y: -0.02098298, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

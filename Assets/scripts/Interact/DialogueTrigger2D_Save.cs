@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Save;
 using UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Interact
 {
@@ -25,11 +26,11 @@ namespace Interact
         }
 
         [Header("对话内容（每句包含人物+内容）")]
-        public List<DialogueLine> lines = new List<DialogueLine>
+        public List<DialogueLine> lines = new()
         {
-            new DialogueLine{ speaker = "旁白", content = "操场边上的男孩来回踱步……" },
-            new DialogueLine{ speaker = "姜宁", content = "十。" },
-            new DialogueLine{ speaker = "祝榆", content = "别急。" }
+            new DialogueLine { speaker = "旁白", content = "操场边上的男孩来回踱步……" },
+            new DialogueLine { speaker = "姜宁", content = "十。" },
+            new DialogueLine { speaker = "祝榆", content = "别急。" }
         };
 
         [Header("按键")]
@@ -92,10 +93,17 @@ namespace Interact
                 }
                 else
                 {
+                    if (SceneManager.GetActiveScene().name == "C1S3 guard")
+                    {
+                        // 每一次按下按键判断一次是否需要播放Gif
+                        ControlGif();
+                    }
                     // 第二次按下：进入下一句
                     NextLine();
                 }
             }
+
+           
         }
 
         void BeginTalk()
@@ -235,6 +243,40 @@ namespace Interact
             if (col is CircleCollider2D c) Gizmos.DrawSphere((Vector3)c.offset, c.radius);
 
             Gizmos.matrix = prev;
+        }
+
+        void ControlGif()
+        {
+            switch (idx)
+            {
+                case 1:
+                    InfoDialogUI.Instance.ShowGif("Dialog/gif/prefab/mouth1",new Vector2(540,370),new Vector2(545,357));
+                    InfoDialogUI.Instance.SpawnMultiple(false);
+                    break;
+                case 7:
+                    InfoDialogUI.Instance.ShowGif("Dialog/gif/prefab/heart1",new Vector2(-333,0),new Vector2(266,361));
+                    InfoDialogUI.Instance.SpawnMultiple(false);
+                    break;
+                case 9:
+                    InfoDialogUI.Instance.ShowGif("Dialog/gif/prefab/eye1",new Vector2(-345,209),new Vector2(457,262));
+                    InfoDialogUI.Instance.SpawnMultiple(false);
+                    break;
+                case 16:
+                    InfoDialogUI.Instance.ShowGif("Dialog/gif/prefab/mouth2_2",new Vector2(108,155),new Vector2(504,311));
+                    InfoDialogUI.Instance.SpawnMultiple(false);
+                    break;
+                case 20:
+                    InfoDialogUI.Instance.HideGif();
+                    InfoDialogUI.Instance.SpawnMultiple(true);
+                    break;
+                case 21:
+                    InfoDialogUI.Instance.SpawnMultiple(false);
+                    break;
+                case 29:
+                    InfoDialogUI.Instance.ShowGif("Dialog/gif/prefab/bug",new Vector2(1,1),new Vector2(1,1),true);
+                    InfoDialogUI.Instance.SpawnMultiple(false);
+                    break;
+            }
         }
     }
 }
