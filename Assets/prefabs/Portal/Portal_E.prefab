@@ -92,7 +92,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42d96c4f5f875f94298950f0dcd25286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: C1S2 corridor
+  portalId: C1S1_corridor
+  nextSceneName: C1S2 corridor
+  targetPortalIdInNextScene: C1S2_in
+  arrivalOffset: {x: 48, y: 0}
+  overrideArrivalZ: 0
+  arrivalZ: 0
+  anchorOverride: {fileID: 0}
+  autoUseAnchorOnParallax: 1
   hint: "\u6309 <b>E</b> \u8FDB\u5165"
   playerTag: Player
   displayName: 

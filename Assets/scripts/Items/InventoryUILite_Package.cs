@@ -18,8 +18,8 @@ public class InventoryUILite_Package : MonoBehaviour
     [Header("ต๗สิ")]
     public bool warnOnMissingItem = true;
 
-    [Header("Debug")]
-    public bool debugLog = true; // [DBG]
+    //[Header("Debug")]
+    //public bool debugLog = true; // [DBG]
 
     void OnEnable()
     {
@@ -28,22 +28,22 @@ public class InventoryUILite_Package : MonoBehaviour
 
         if (inventory) inventory.OnChanged += Refresh;     // [MOD]
 
-        if (debugLog)
-        {
-            Debug.Log($"[PackageUI.OnEnable] this={GetInstanceID()}", this);
-            if (inventory)
-            {
-                Debug.Log($"[PackageUI.OnEnable] inv={inventory.GetInstanceID()}, unlocked={inventory.UnlockedSlotCount}, isUnlocked={inventory.IsBackpackUnlocked}", inventory);
-                if (inventory.progress)
-                    Debug.Log($"[PackageUI.OnEnable] progress id={inventory.progress.GetInstanceID()}, unlocked={inventory.progress.backpackUnlocked}", inventory.progress);
-                else
-                    Debug.LogWarning("[PackageUI.OnEnable] inventory.progress is NULL", this);
-            }
-            else
-            {
-                Debug.LogWarning("[PackageUI.OnEnable] inventory is NULL", this);
-            }
-        }
+        //if (debugLog)
+        //{
+        //    Debug.Log($"[PackageUI.OnEnable] this={GetInstanceID()}", this);
+        //    if (inventory)
+        //    {
+        //        Debug.Log($"[PackageUI.OnEnable] inv={inventory.GetInstanceID()}, unlocked={inventory.UnlockedSlotCount}, isUnlocked={inventory.IsBackpackUnlocked}", inventory);
+        //        if (inventory.progress)
+        //            Debug.Log($"[PackageUI.OnEnable] progress id={inventory.progress.GetInstanceID()}, unlocked={inventory.progress.backpackUnlocked}", inventory.progress);
+        //        else
+        //            Debug.LogWarning("[PackageUI.OnEnable] inventory.progress is NULL", this);
+        //    }
+        //    else
+        //    {
+        //        Debug.LogWarning("[PackageUI.OnEnable] inventory is NULL", this);
+        //    }
+        //}
         Refresh();
     }
 
@@ -71,8 +71,8 @@ public class InventoryUILite_Package : MonoBehaviour
         var entries = inv ? inv.entries : new List<InventoryLite.Entry>();
         int unlocked = inv ? inv.UnlockedSlotCount : 1;     // [MOD]
 
-        if (debugLog)
-            Debug.Log($"[PackageUI.Refresh] unlocked={unlocked}, entries={entries.Count}, slots={slots.Count}", this);
+        //if (debugLog)
+        //    Debug.Log($"[PackageUI.Refresh] unlocked={unlocked}, entries={entries.Count}, slots={slots.Count}", this);
 
 
         for (int i = 0; i < slots.Count; i++)
