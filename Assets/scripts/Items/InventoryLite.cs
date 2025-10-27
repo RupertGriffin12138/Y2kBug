@@ -70,24 +70,24 @@ public class InventoryLite : MonoBehaviour
             Load(); // 兼容旧流程（PlayerPrefs 本地存取）
         }
 
-        if (debugLog)
-        {
-            Debug.Log($"[InventoryLite.Start] this={GetInstanceID()}, entries={entries?.Count ?? 0}", this);
-            if (progress)
-                Debug.Log($"[InventoryLite.Start] progress id={progress.GetInstanceID()}, unlocked={progress.backpackUnlocked}", progress);
-            else
-                Debug.LogWarning("[InventoryLite.Start] progress is NULL", this);
-        }
+        //if (debugLog)
+        //{
+        //    Debug.Log($"[InventoryLite.Start] this={GetInstanceID()}, entries={entries?.Count ?? 0}", this);
+        //    if (progress)
+        //        Debug.Log($"[InventoryLite.Start] progress id={progress.GetInstanceID()}, unlocked={progress.backpackUnlocked}", progress);
+        //    else
+        //        Debug.LogWarning("[InventoryLite.Start] progress is NULL", this);
+        //}
 
         Invoke(nameof(_DBG_LogAfterOneFrame), 0f);
     }
 
     void _DBG_LogAfterOneFrame()
     {
-        if (debugLog)
-        {
-            Debug.Log($"[InventoryLite.PostFrame] unlockedSlotCount={UnlockedSlotCount}, occupied={GetOccupiedStacks()}", this);
-        }
+        //if (debugLog)
+        //{
+        //    Debug.Log($"[InventoryLite.PostFrame] unlockedSlotCount={UnlockedSlotCount}, occupied={GetOccupiedStacks()}", this);
+        //}
     }
 
     // ====================== 对外 API ======================
@@ -116,8 +116,8 @@ public class InventoryLite : MonoBehaviour
                 bool needCheckCapacity = !(_suppressChanged && ignoreCapacityWhenLoading);
                 if (needCheckCapacity && !CanCreateNewStack())
                 {
-                    if (debugLog) Debug.LogWarning("[InventoryLite.SetCount] capacity full, skip create new stack", this);
-                    return;
+                    //if (debugLog) Debug.LogWarning("[InventoryLite.SetCount] capacity full, skip create new stack", this);
+                    //return;
                 }
                 entries.Add(new Entry { id = id, count = count });
             }
@@ -154,8 +154,8 @@ public class InventoryLite : MonoBehaviour
     /// </summary>
     public int Add(string id, int amount = 1)
     {
-        if (debugLog)
-            Debug.Log($"[InventoryLite.Add] id={id}, amount={amount}, canCreateNew={CanCreateNewStack()}, unlocked={UnlockedSlotCount}", this);
+        //if (debugLog)
+        //    Debug.Log($"[InventoryLite.Add] id={id}, amount={amount}, canCreateNew={CanCreateNewStack()}, unlocked={UnlockedSlotCount}", this);
 
         if (string.IsNullOrWhiteSpace(id) || amount == 0) return GetCount(id);
 
@@ -168,7 +168,7 @@ public class InventoryLite : MonoBehaviour
                 bool needCheckCapacity = !(_suppressChanged && ignoreCapacityWhenLoading);
                 if (needCheckCapacity && !CanCreateNewStack())
                 {
-                    if (debugLog) Debug.LogWarning("[InventoryLite.Add] capacity full, skip create new stack", this);
+                    //if (debugLog) Debug.LogWarning("[InventoryLite.Add] capacity full, skip create new stack", this);
                     return 0;
                 }
                 entries.Add(new Entry { id = id, count = amount });
@@ -252,12 +252,12 @@ public class InventoryLite : MonoBehaviour
     /// </summary>
     public void NotifyCapacityChanged()
     {
-        if (debugLog)
-        {
-            Debug.Log($"[InventoryLite.NotifyCapacityChanged] unlocked={UnlockedSlotCount}, isBackpackUnlocked={IsBackpackUnlocked}", this);
-            if (progress)
-                Debug.Log($"[InventoryLite.NotifyCapacityChanged] progress id={progress.GetInstanceID()}, unlocked={progress.backpackUnlocked}", progress);
-        }
+        //if (debugLog)
+        //{
+        //    Debug.Log($"[InventoryLite.NotifyCapacityChanged] unlocked={UnlockedSlotCount}, isBackpackUnlocked={IsBackpackUnlocked}", this);
+        //    if (progress)
+        //        Debug.Log($"[InventoryLite.NotifyCapacityChanged] progress id={progress.GetInstanceID()}, unlocked={progress.backpackUnlocked}", progress);
+        //}
         if (!_suppressChanged) OnChanged?.Invoke();
     }
 
@@ -313,8 +313,8 @@ public class InventoryLite : MonoBehaviour
         _suppressChanged = false;
         OnChanged?.Invoke();
 
-        if (debugLog)
-            Debug.Log($"[InventoryLite.LoadFromGameState] loaded {entries.Count} stacks from GameState", this);
+        //if (debugLog)
+        //    Debug.Log($"[InventoryLite.LoadFromGameState] loaded {entries.Count} stacks from GameState", this);
     }
 
     /// <summary>
@@ -342,8 +342,8 @@ public class InventoryLite : MonoBehaviour
             k++;
         }
 
-        if (debugLog)
-            Debug.Log($"[InventoryLite.SnapshotToGameState] snapshot {n} stacks to GameState", this);
+        //if (debugLog)
+        //    Debug.Log($"[InventoryLite.SnapshotToGameState] snapshot {n} stacks to GameState", this);
     }
 
     /// <summary>
