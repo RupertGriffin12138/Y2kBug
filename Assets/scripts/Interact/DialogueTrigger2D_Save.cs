@@ -1,9 +1,11 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 2D 对话触发器：靠近提示E，E开始对话，空格下一句；结束写入SaveManager并可销毁自身。
-/// 依赖：InfoDialogUI, SaveManager, SaveData(dialogueSeenIds/HasSeenDialogue/TryMarkDialogueSeen)
+/// 2D 对话触发器（自动触发 + 多说话人 + 背景切换 + 打字机）
+/// 进入触发区即开始，空格推进；每句包含 speaker 与 content；结束写入存档；是否销毁由 destroyAfterFinish 决定。
+/// 依赖：InfoDialogUI(Instance/StartDialogue/EndDialogue/SetNameText/ShowMessage/textBoxText/EnableCharacterBackground/ShowArrow/HideArrow)、SaveManager、SaveData
 /// </summary>
 [RequireComponent(typeof(Collider2D))]
 public class DialogueTrigger2D_Save : MonoBehaviour
@@ -11,21 +13,22 @@ public class DialogueTrigger2D_Save : MonoBehaviour
     [Header("唯一ID（用于存档判重）")]
     public string dialogueId = "dlg_001";
 
-    [Header("名字框（可空）")]
-    public string speakerName = "NPC";
-
-    [Header("对话内容（逐句）")]
-    [TextArea(2, 3)]
-    public List<string> lines = new List<string>
+    [System.Serializable]
+    public class DialogueLine
     {
-        "你好，旅行者。",
-        "按空格继续下一句。",
-        "祝你旅途顺利！"
+        public string speaker;
+        [TextArea(2, 3)] public string content;
+    }
+
+    [Header("对话内容（每句包含人物+内容）")]
+    public List<DialogueLine> lines = new List<DialogueLine>
+    {
+        new DialogueLine{ speaker = "旁白", content = "操场边上的男孩来回踱步……" },
+        new DialogueLine{ speaker = "姜宁", content = "十。" },
+        new DialogueLine{ speaker = "祝榆", content = "别急。" }
     };
 
-    [Header("提示与按键")]
-    [TextArea] public string hintPressE = "按 <b>E</b> 对话";
-    public KeyCode interactKey = KeyCode.E;
+    [Header("按键")]
     public KeyCode nextKey = KeyCode.Space;
 
     [Header("过滤")]
@@ -35,12 +38,17 @@ public class DialogueTrigger2D_Save : MonoBehaviour
     public bool blockWhenPaused = true;
     public bool destroyAfterFinish = true;
 
-    private bool inside;
+    [Header("打字机参数")]
+    [Tooltip("每个字符的延时（秒）")]
+    public float typeCharDelay = 0.05f;
+
     private bool talking;
     private int idx;
-
-    // 本地缓存一次SaveData，避免每次都反序列化
     private SaveData save;
+
+    // 打字机状态
+    private Coroutine typeRoutine;
+    private bool lineFullyShown;
 
     void Reset()
     {
@@ -50,10 +58,7 @@ public class DialogueTrigger2D_Save : MonoBehaviour
 
     void Start()
     {
-        // 载入存档（若无则给出默认：可按需改 firstSceneName）
         save = SaveManager.LoadOrDefault("Town");
-
-        // 已完成过该对话则不再出现
         if (save.HasSeenDialogue(dialogueId))
         {
             Destroy(gameObject);
@@ -64,41 +69,28 @@ public class DialogueTrigger2D_Save : MonoBehaviour
     {
         if (!other.CompareTag(playerTag)) return;
         if (save != null && save.HasSeenDialogue(dialogueId)) return;
+        if (talking) return;
 
-        inside = true;
-
-        if (InfoDialogUI.Instance)
-        {
-            if (!string.IsNullOrEmpty(speakerName))
-                InfoDialogUI.Instance.SetNameText(speakerName);
-
-            InfoDialogUI.Instance.ShowMessage(hintPressE);
-            InfoDialogUI.Instance.ShowArrow();
-        }
-    }
-
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (!other.CompareTag(playerTag)) return;
-        inside = false;
-
-        if (!talking && InfoDialogUI.Instance)
-            InfoDialogUI.Instance.Clear();
+        BeginTalk();
     }
 
     void Update()
     {
         if (blockWhenPaused && Time.timeScale == 0f) return;
+        if (!talking) return;
 
-        if (!talking)
+        if (Input.GetKeyDown(nextKey))
         {
-            if (inside && Input.GetKeyDown(interactKey))
-                BeginTalk();
-        }
-        else
-        {
-            if (Input.GetKeyDown(nextKey))
+            if (!lineFullyShown)
+            {
+                // 第一次按下：立刻补全当前行
+                ShowLineInstant();
+            }
+            else
+            {
+                // 第二次按下：进入下一句
                 NextLine();
+            }
         }
     }
 
@@ -111,12 +103,10 @@ public class DialogueTrigger2D_Save : MonoBehaviour
 
         if (InfoDialogUI.Instance)
         {
-            InfoDialogUI.Instance.StartDialogue(); // 清空idle/箭头
-            if (!string.IsNullOrEmpty(speakerName))
-                InfoDialogUI.Instance.SetNameText(speakerName);
-
-            InfoDialogUI.Instance.ShowMessage(lines[idx]);
+            InfoDialogUI.Instance.StartDialogue();
         }
+
+        ShowCurrentLineTyped();
     }
 
     void NextLine()
@@ -124,8 +114,7 @@ public class DialogueTrigger2D_Save : MonoBehaviour
         idx++;
         if (idx < lines.Count)
         {
-            if (InfoDialogUI.Instance)
-                InfoDialogUI.Instance.ShowMessage(lines[idx]);
+            ShowCurrentLineTyped();
         }
         else
         {
@@ -133,11 +122,87 @@ public class DialogueTrigger2D_Save : MonoBehaviour
         }
     }
 
+    void ShowCurrentLineTyped()
+    {
+        if (!InfoDialogUI.Instance) return;
+
+        // 停掉上一次的打字协程
+        if (typeRoutine != null)
+        {
+            StopCoroutine(typeRoutine);
+            typeRoutine = null;
+        }
+
+        var line = lines[idx];
+
+        // 名字框：旁白不显示名字
+        if (string.Equals(line.speaker, "旁白"))
+            InfoDialogUI.Instance.SetNameText("");
+        else
+            InfoDialogUI.Instance.SetNameText(line.speaker);
+
+        // 按人物名称切换背景
+        InfoDialogUI.Instance.EnableCharacterBackground(line.speaker);
+
+        // 清空并开始打字
+        InfoDialogUI.Instance.textBoxText.text = "";
+        lineFullyShown = false;
+
+        // 正确：直接调用方法
+        InfoDialogUI.Instance.HideArrow();
+
+        typeRoutine = StartCoroutine(Typewriter(line.content));
+    }
+
+    IEnumerator Typewriter(string content)
+    {
+        // 逐字输出
+        foreach (char c in content)
+        {
+            InfoDialogUI.Instance.textBoxText.text += c;
+            yield return new WaitForSeconds(typeCharDelay);
+
+            // 若在打字中按键，交由 Update 的逻辑立即补全
+            if (Input.GetKeyDown(nextKey))
+            {
+                // 立即补全
+                InfoDialogUI.Instance.textBoxText.text = content;
+                break;
+            }
+        }
+
+        // 打字完成
+        lineFullyShown = true;
+
+        // 正确：直接调用方法
+        InfoDialogUI.Instance.ShowArrow();
+
+        typeRoutine = null;
+    }
+
+    void ShowLineInstant()
+    {
+        if (!InfoDialogUI.Instance) return;
+        if (idx < 0 || idx >= lines.Count) return;
+
+        if (typeRoutine != null)
+        {
+            StopCoroutine(typeRoutine);
+            typeRoutine = null;
+        }
+
+        InfoDialogUI.Instance.textBoxText.text = lines[idx].content;
+        lineFullyShown = true;
+
+        // 正确：直接调用方法
+        InfoDialogUI.Instance.ShowArrow();
+    }
+
     void EndTalk()
     {
         talking = false;
 
-        // 标记进度并保存
+        // 存档标记
         if (save == null) save = SaveManager.LoadOrDefault("Town");
         if (save.TryMarkDialogueSeen(dialogueId))
         {
@@ -149,8 +214,7 @@ public class DialogueTrigger2D_Save : MonoBehaviour
 
         if (destroyAfterFinish)
             Destroy(gameObject);
-        else
-            inside = false; // 保底：不再重复提示
+        // else 保留在场景中（再次进入若 save 判重仍为未看过则可再次触发）
     }
 
     // 选中时可视化触发范围
