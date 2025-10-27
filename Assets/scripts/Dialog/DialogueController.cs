@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using System.IO;
 using UnityEngine.SceneManagement;
 
 public class DialogueController : MonoBehaviour
@@ -11,6 +10,11 @@ public class DialogueController : MonoBehaviour
     private int[] cartoonIndices; // 对应每个卡通对象的台词索引
     private int currentIndex = 0; // 当前对话索引
 
+    [Header("Scene Transition")]
+    public bool loadNextSceneOnEnd = false;     // 播放结束后是否跳转
+    public string nextSceneName = "";           // 下一个场景名（需在 Build Settings 中添加）
+    public float nextSceneDelay = 0f;           // 跳转前延时（秒）
+
     void Start()
     {
         if (infoDialogUI == null)
@@ -19,28 +23,50 @@ public class DialogueController : MonoBehaviour
             return;
         }
 
-        LoadScriptFromJson();
+        // 改为 Resources 读取，避免打包后路径读盘失败
+        if (!LoadScriptFromResources())
+        {
+            // 读不到剧本就直接结束，避免后续空引用
+            infoDialogUI.EndDialogue();
+            TryLoadNextSceneIfNeeded(); // 允许没有对话也跳场景
+            return;
+        }
+
         infoDialogUI.StartDialogue();
         StartCoroutine(ShowDialogue());
     }
 
-    void LoadScriptFromJson()
+    // ================== 改动 1：使用 Resources 读取 ==================
+    // 需要把 json 放到 Assets/Resources/Dialog/ 下，文件名 = 场景名，不带 .json
+    bool LoadScriptFromResources()
     {
         string sceneName = SceneManager.GetActiveScene().name;
-        string filePath = $"Assets/Scripts/Dialog/{sceneName}.json";
+        string resPath = $"Dialog/{sceneName}"; // 对应 Assets/Resources/Dialog/{sceneName}.json
 
-        if (!File.Exists(filePath))
+        TextAsset jsonAsset = Resources.Load<TextAsset>(resPath);
+        if (jsonAsset == null)
         {
-            Debug.LogError($"JSON file for scene '{sceneName}' does not exist at path: {filePath}");
-            return;
+            Debug.LogError($"[Dialogue] TextAsset not found at Resources/{resPath}.json (place JSON at Assets/Resources/Dialog/)");
+            return false;
         }
 
-        string jsonContent = File.ReadAllText(filePath);
-        var scriptData = JsonUtility.FromJson<ScriptData>(jsonContent);
+        var scriptData = JsonUtility.FromJson<ScriptData>(jsonAsset.text);
+        if (scriptData == null)
+        {
+            Debug.LogError("[Dialogue] JSON parse failed.");
+            return false;
+        }
 
-        scriptLines = scriptData.lines;
-        cartoonIndices = scriptData.cartoonIndices;
+        scriptLines = scriptData.lines ?? new string[0];
+        cartoonIndices = scriptData.cartoonIndices ?? new int[0];
+
+        if (scriptLines.Length == 0)
+        {
+            Debug.LogWarning("[Dialogue] lines is empty.");
+        }
+        return true;
     }
+    // ===============================================================
 
     IEnumerator ShowDialogue()
     {
@@ -78,6 +104,7 @@ public class DialogueController : MonoBehaviour
             infoDialogUI.textBoxText.text = "";
 
             // 处理特殊情况 "[烟花棒画面]"
+            // 这里保持你的原有判断，不改其他逻辑
             if (dialogue == "姜宁：十。")
             {
                 infoDialogUI.DisableAllCartoonsWithFadeOut();
@@ -112,7 +139,28 @@ public class DialogueController : MonoBehaviour
         }
 
         infoDialogUI.EndDialogue();
+
+        // ========= 改动 2：结束后可选择切到下一个场景 =========
+        TryLoadNextSceneIfNeeded();
     }
+
+    void TryLoadNextSceneIfNeeded()
+    {
+        if (loadNextSceneOnEnd && !string.IsNullOrEmpty(nextSceneName))
+        {
+            StartCoroutine(LoadNextSceneCoroutine());
+        }
+    }
+
+    IEnumerator LoadNextSceneCoroutine()
+    {
+        if (nextSceneDelay > 0f)
+            yield return new WaitForSeconds(nextSceneDelay);
+
+        // 确保在 Build Settings 中已添加 nextSceneName
+        SceneManager.LoadScene(nextSceneName, LoadSceneMode.Single);
+    }
+    // =============================================================
 
     [System.Serializable]
     private class ScriptData
@@ -121,5 +169,3 @@ public class DialogueController : MonoBehaviour
         public int[] cartoonIndices;
     }
 }
-
-
