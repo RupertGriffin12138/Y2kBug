@@ -23,8 +23,10 @@ namespace Interact
         [Header("可选：固定锚点（当父级做视差/相机跟随时建议设置）")]
         public Transform anchorOverride;
 
+        
         [Tooltip("勾选后仅在检测到 Parallax 脚本时才启用锚点；未检测到则用门本体位置")]
         public bool autoUseAnchorOnParallax = true;
+        
 
         [Header("提示文本（会显示在对话框）")]
         [TextArea] public string hint = "按 <b>E</b> 进入";

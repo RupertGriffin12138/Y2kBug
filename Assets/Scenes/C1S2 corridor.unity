@@ -148,7 +148,7 @@ Transform:
   m_GameObject: {fileID: 24261303}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -22.41, y: 0.21, z: 0}
+  m_LocalPosition: {x: -22.4, y: 0.21, z: 0}
   m_LocalScale: {x: 1.3, y: 1.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2955,7 +2955,7 @@ MonoBehaviour:
   frontSpeed: 0
   belowSpeed: 0
   jumpForce: 0
-  dashCooldowm: 0
+  dashCooldown: 0
   dashSpeed: 0
   dashDuration: 0
 --- !u!50 &1748198836
