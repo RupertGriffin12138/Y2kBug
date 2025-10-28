@@ -1,0 +1,30 @@
+fileFormatVersion: 2
+guid: 816dcc46376c71a488051db43d2309e0
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _UIHover: {fileID: 8300000, guid: 13d63f3c51142344382a8720443f17f9, type: 3}
+  - _UIClick: {fileID: 8300000, guid: 5dabb76f05c22ea42a7f12b78d9a790b, type: 3}
+  - _Dialogue: {instanceID: 0}
+  - _Burning: {instanceID: 0}
+  - _PickUpItems: {instanceID: 0}
+  - _PickUpPaper: {instanceID: 0}
+  - _ClassroomLocked: {instanceID: 0}
+  - _WoodenDoorLocked: {instanceID: 0}
+  - _SchoolGateLocked: {instanceID: 0}
+  - _Footsteps: {instanceID: 0}
+  - _ManWhisper: {instanceID: 0}
+  - _WoodenDoorUnlock: {instanceID: 0}
+  - _SchoolGateUnlock: {instanceID: 0}
+  - _WipeTheBlackboard: {instanceID: 0}
+  - _ChalkWriting: {instanceID: 0}
+  - _SuanPan: {instanceID: 0}
+  - _WoodenStructure: {instanceID: 0}
+  - _SecondHand: {instanceID: 0}
+  - _IronCabinet: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
