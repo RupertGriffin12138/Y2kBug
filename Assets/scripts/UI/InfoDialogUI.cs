@@ -20,7 +20,7 @@ namespace UI
 
         [Header("无悬停时的默认提示")]
         [TextArea]
-        public string idleHint = "将鼠标移到物品上查看信息";
+        public string idleHint = "";    //将鼠标移到物品上查看信息
 
         [Header("卡通对象")]
         public GameObject[] cartoonObjects; // Array of cartoon objects (T_cartoon_1, T_cartoon_2, etc.)
@@ -57,7 +57,7 @@ namespace UI
         /// <summary>显示物品名称 + 第二行提示。</summary>
         public void ShowItem(string displayName, bool showUseTip = true)
         {
-            if (!textBoxText || !nameBoxText) return;
+            if (isShowingDialogue) return;
             if (showUseTip)
                 textBoxText.text = $"{displayName}\n<size=90%>－点击调查/使用－</size>";
             else

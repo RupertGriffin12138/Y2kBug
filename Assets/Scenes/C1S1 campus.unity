@@ -668,6 +668,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6509721587519348041, guid: f1da7c30a2036354eb25b625e62095e0, type: 3}
+      propertyPath: idleHint
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6509721587519348041, guid: f1da7c30a2036354eb25b625e62095e0, type: 3}
       propertyPath: arrowImage
       value: 
       objectReference: {fileID: 119244947}
@@ -3196,7 +3200,7 @@ MonoBehaviour:
   frontSpeed: 0
   belowSpeed: 0
   jumpForce: 0
-  dashCooldowm: 0
+  dashCooldown: 0
   dashSpeed: 0
   dashDuration: 0
 --- !u!61 &1407957338
@@ -4576,7 +4580,7 @@ Transform:
   m_GameObject: {fileID: 1927331252}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.04561138, y: -0.02098298, z: -10}
+  m_LocalPosition: {x: 0.047639847, y: -0.02098298, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

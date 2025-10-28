@@ -569,7 +569,6 @@ MonoBehaviour:
   - {fileID: 2072146409}
   hideLockedSlots: 1
   warnOnMissingItem: 1
-  debugLog: 1
 --- !u!1 &87283400
 GameObject:
   m_ObjectHideFlags: 0
@@ -4700,6 +4699,12 @@ MonoBehaviour:
   - {fileID: 1390332929}
   - {fileID: 2023567910}
   - {fileID: 1604863139}
+  moveSpeedMin: 60
+  moveSpeedMax: 100
+  lifetimeMin: 1
+  lifetimeMax: 2
+  spawnIntervalMin: 0.1
+  spawnIntervalMax: 1
 --- !u!114 &674262910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14154,8 +14159,8 @@ Transform:
   m_GameObject: {fileID: 2113939593}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.2, y: 1.6, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.2, y: 1.47, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 354838481}

@@ -109,8 +109,9 @@ namespace Dialog
 
                 // 处理特殊情况 "[烟花棒画面]"
                 // 这里保持你的原有判断，不改其他逻辑
-                if (dialogue == "姜宁：十。")
+                if (currentIndex == 13)
                 {
+                    Debug.Log("[Dialogue] Special case: Fireworks scene.");
                     infoDialogUI.DisableAllCartoonsWithFadeOut();
                     infoDialogUI.EnableCartoon(infoDialogUI.cartoonObjects.Length - 1); // 启用最后一个卡通对象 (T_cartoon_6)
 
@@ -136,7 +137,7 @@ namespace Dialog
                 }
 
                 infoDialogUI.ShowArrow();
-                yield return new WaitUntil(() => Input.GetKeyUp(KeyCode.E));
+                yield return new WaitUntil(() => (Input.GetKeyUp(KeyCode.E)) || Input.GetKeyDown(KeyCode.Mouse0));
                 infoDialogUI.HideArrow();
 
                 currentIndex++;
