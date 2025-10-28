@@ -1,25 +1,30 @@
 using System;
 using System.Collections;
+using Scene;
 using UI;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Dialog
 {
     public class DialogueController : MonoBehaviour
     {
-        public InfoDialogUI infoDialogUI; // ÒıÓÃInfoDialogUIÊµÀı
+        public InfoDialogUI infoDialogUI; // å¼•ç”¨InfoDialogUIå®ä¾‹
 
-        private string[] scriptLines; // ¾ç±¾ÄÚÈİÊı×é
-        private int[] cartoonIndices; // ¶ÔÓ¦Ã¿¸ö¿¨Í¨¶ÔÏóµÄÌ¨´ÊË÷Òı
-        private int currentIndex = 0; // µ±Ç°¶Ô»°Ë÷Òı
+        private string[] scriptLines; // å‰§æœ¬å†…å®¹æ•°ç»„
+        private int[] cartoonIndices; // å¯¹åº”æ¯ä¸ªå¡é€šå¯¹è±¡çš„å°è¯ç´¢å¼•
+        private int currentIndex = 0; // å½“å‰å¯¹è¯ç´¢å¼•
 
         [Header("Scene Transition")]
-        public bool loadNextSceneOnEnd = false;     // ²¥·Å½áÊøºóÊÇ·ñÌø×ª
-        public string nextSceneName = "";           // ÏÂÒ»¸ö³¡¾°Ãû£¨ĞèÔÚ Build Settings ÖĞÌí¼Ó£©
-        public float nextSceneDelay = 0f;           // Ìø×ªÇ°ÑÓÊ±£¨Ãë£©
-
-        void Start()
+        public bool loadNextSceneOnEnd = false;     // æ’­æ”¾ç»“æŸåæ˜¯å¦è·³è½¬
+        public string nextSceneName = "";           // ä¸‹ä¸€ä¸ªåœºæ™¯åï¼ˆéœ€åœ¨ Build Settings ä¸­æ·»åŠ ï¼‰
+        public float nextSceneDelay = 0f;           // è·³è½¬å‰å»¶æ—¶ï¼ˆç§’ï¼‰
+        
+        private bool isArrowClicked = false;
+        
+        private void Start()
         {
             if (infoDialogUI == null)
             {
@@ -27,25 +32,42 @@ namespace Dialog
                 return;
             }
 
-            // ¸ÄÎª Resources ¶ÁÈ¡£¬±ÜÃâ´ò°üºóÂ·¾¶¶ÁÅÌÊ§°Ü
+            // æ”¹ä¸º Resources è¯»å–ï¼Œé¿å…æ‰“åŒ…åè·¯å¾„è¯»ç›˜å¤±è´¥
             if (!LoadScriptFromResources())
             {
-                // ¶Á²»µ½¾ç±¾¾ÍÖ±½Ó½áÊø£¬±ÜÃâºóĞø¿ÕÒıÓÃ
+                // è¯»ä¸åˆ°å‰§æœ¬å°±ç›´æ¥ç»“æŸï¼Œé¿å…åç»­ç©ºå¼•ç”¨
                 infoDialogUI.EndDialogue();
-                TryLoadNextSceneIfNeeded(); // ÔÊĞíÃ»ÓĞ¶Ô»°Ò²Ìø³¡¾°
+                TryLoadNextSceneIfNeeded(); // å…è®¸æ²¡æœ‰å¯¹è¯ä¹Ÿè·³åœºæ™¯
                 return;
             }
 
             infoDialogUI.StartDialogue();
+            InitArrowBtn();
             StartCoroutine(ShowDialogue());
         }
+        
+        public void InitArrowBtn()
+        {
+            if (!InfoDialogUI.Instance.arrowImage.TryGetComponent<Button>(out var image))
+            {
+                Button btn = InfoDialogUI.Instance.arrowImage.AddComponent<Button>();
+                btn.onClick.AddListener(OnArrowClicked);
+            }
+        }
+        
+        // ç»™ UI è°ƒç”¨çš„å‡½æ•°ï¼ˆåœ¨ç‚¹å‡»ç®­å¤´æ—¶è°ƒç”¨ï¼‰
+        public void OnArrowClicked()
+        {
+            isArrowClicked = true;
+        }
 
-        // ================== ¸Ä¶¯ 1£ºÊ¹ÓÃ Resources ¶ÁÈ¡ ==================
-        // ĞèÒª°Ñ json ·Åµ½ Assets/Resources/Dialog/ ÏÂ£¬ÎÄ¼şÃû = ³¡¾°Ãû£¬²»´ø .json
-        bool LoadScriptFromResources()
+
+        // ================== æ”¹åŠ¨ 1ï¼šä½¿ç”¨ Resources è¯»å– ==================
+        // éœ€è¦æŠŠ json æ”¾åˆ° Assets/Resources/Dialog/ ä¸‹ï¼Œæ–‡ä»¶å = åœºæ™¯åï¼Œä¸å¸¦ .json
+        private bool LoadScriptFromResources()
         {
             string sceneName = SceneManager.GetActiveScene().name;
-            string resPath = $"Dialog/{sceneName}"; // ¶ÔÓ¦ Assets/Resources/Dialog/{sceneName}.json
+            string resPath = $"Dialog/{sceneName}"; // å¯¹åº” Assets/Resources/Dialog/{sceneName}.json
 
             TextAsset jsonAsset = Resources.Load<TextAsset>(resPath);
             if (jsonAsset == null)
@@ -72,7 +94,7 @@ namespace Dialog
         }
         // ===============================================================
 
-        IEnumerator ShowDialogue()
+        private IEnumerator ShowDialogue()
         {
             while (currentIndex < scriptLines.Length)
             {
@@ -80,48 +102,48 @@ namespace Dialog
                 string name = "";
                 string dialogue = "";
 
-                int colonIndex = line.IndexOf('£º');
+                int colonIndex = line.IndexOf('ï¼š');
                 if (colonIndex >= 0)
                 {
-                    name = line.Substring(0, colonIndex).Trim();
-                    dialogue = line.Substring(colonIndex + 1).Trim();
+                    name = line[..colonIndex].Trim();
+                    dialogue = line[(colonIndex + 1)..].Trim();
                 }
                 else
                 {
                     dialogue = line.Trim();
                 }
 
-                // ÉèÖÃÃû×ÖÎÄ±¾
-                if (name == "ÅÔ°×")
+                switch (name)
                 {
-                    infoDialogUI.SetNameText("");
-                }
-                else if (name == "½ªÄş£¨¿ªĞÄ±íÇé£©" || name == "½ªÄş" || name == "½ªÄş£¨¿Ö¾å±íÇé£©")
-                {
-                    infoDialogUI.SetNameText("½ªÄş");
-                }
-                else
-                {
-                    infoDialogUI.SetNameText(name);
+                    // è®¾ç½®åå­—æ–‡æœ¬
+                    case "æ—ç™½":
+                        infoDialogUI.SetNameText("");
+                        break;
+                    case "å§œå®ï¼ˆå¼€å¿ƒè¡¨æƒ…ï¼‰" or "å§œå®" or "å§œå®ï¼ˆææƒ§è¡¨æƒ…ï¼‰":
+                        infoDialogUI.SetNameText("å§œå®");
+                        break;
+                    default:
+                        infoDialogUI.SetNameText(name);
+                        break;
                 }
 
                 infoDialogUI.textBoxText.text = "";
 
-                // ´¦ÀíÌØÊâÇé¿ö "[ÑÌ»¨°ô»­Ãæ]"
-                // ÕâÀï±£³ÖÄãµÄÔ­ÓĞÅĞ¶Ï£¬²»¸ÄÆäËûÂß¼­
+                // å¤„ç†ç‰¹æ®Šæƒ…å†µ "[çƒŸèŠ±æ£’ç”»é¢]"
+                // è¿™é‡Œä¿æŒä½ çš„åŸæœ‰åˆ¤æ–­ï¼Œä¸æ”¹å…¶ä»–é€»è¾‘
                 if (currentIndex == 13)
                 {
                     Debug.Log("[Dialogue] Special case: Fireworks scene.");
                     infoDialogUI.DisableAllCartoonsWithFadeOut();
-                    infoDialogUI.EnableCartoon(infoDialogUI.cartoonObjects.Length - 1); // ÆôÓÃ×îºóÒ»¸ö¿¨Í¨¶ÔÏó (T_cartoon_6)
+                    infoDialogUI.EnableCartoon(infoDialogUI.cartoonObjects.Length - 1); // å¯ç”¨æœ€åä¸€ä¸ªå¡é€šå¯¹è±¡ (T_cartoon_6)
 
                     infoDialogUI.ShowMessage(dialogue);
-                    yield return new WaitForSeconds(2f); // µÈ´ıÒ»¶ÎÊ±¼äºó¼ÌĞø
+                    yield return new WaitForSeconds(2f); // ç­‰å¾…ä¸€æ®µæ—¶é—´åç»§ç»­
                     currentIndex++;
                     continue;
                 }
 
-                // ¸ù¾İÈËÎïÃû³ÆÆôÓÃÏàÓ¦µÄ±³¾°Í¼Ïñ
+                // æ ¹æ®äººç‰©åç§°å¯ç”¨ç›¸åº”çš„èƒŒæ™¯å›¾åƒ
                 infoDialogUI.EnableCharacterBackground(name);
 
                 if (Array.IndexOf(cartoonIndices, currentIndex) >= 0)
@@ -137,7 +159,8 @@ namespace Dialog
                 }
 
                 infoDialogUI.ShowArrow();
-                yield return new WaitUntil(() => (Input.GetKeyUp(KeyCode.E)) || Input.GetKeyDown(KeyCode.Mouse0));
+                yield return new WaitUntil(() => Input.GetKeyUp(KeyCode.E) || isArrowClicked);
+                isArrowClicked = false; // é‡ç½®æ ‡å¿—
                 infoDialogUI.HideArrow();
 
                 currentIndex++;
@@ -145,27 +168,18 @@ namespace Dialog
 
             infoDialogUI.EndDialogue();
 
-            // ========= ¸Ä¶¯ 2£º½áÊøºó¿ÉÑ¡ÔñÇĞµ½ÏÂÒ»¸ö³¡¾° =========
+            // ========= æ”¹åŠ¨ 2ï¼šç»“æŸåå¯é€‰æ‹©åˆ‡åˆ°ä¸‹ä¸€ä¸ªåœºæ™¯ =========
             TryLoadNextSceneIfNeeded();
         }
 
-        void TryLoadNextSceneIfNeeded()
+        private void TryLoadNextSceneIfNeeded()
         {
             if (loadNextSceneOnEnd && !string.IsNullOrEmpty(nextSceneName))
             {
-                StartCoroutine(LoadNextSceneCoroutine());
+                // æ”¹ä¸ºå¸¦æ·¡å‡ºæ•ˆæœ
+                SceneFadeEffect.Instance.FadeOutAndLoad(nextSceneName,1.5f,2f);
             }
         }
-
-        IEnumerator LoadNextSceneCoroutine()
-        {
-            if (nextSceneDelay > 0f)
-                yield return new WaitForSeconds(nextSceneDelay);
-
-            // È·±£ÔÚ Build Settings ÖĞÒÑÌí¼Ó nextSceneName
-            SceneManager.LoadScene(nextSceneName, LoadSceneMode.Single);
-        }
-        // =============================================================
 
         [Serializable]
         private class ScriptData

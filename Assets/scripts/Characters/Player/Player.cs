@@ -1,29 +1,20 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Characters.Player
 {
     public class Player : Entity
-    {
-        [Header("Attack details")]
-        public Vector2[] attackMovement;
-
-        public bool isBusy { get; private set; }
+    { 
+        public bool isBusy  { get; set; }
 
         [Header("Move Info")]
         public float moveSpeed = 12f;
         public float frontSpeed = 0;
         public float belowSpeed = 0;
-        public float jumpForce;
 
-        [FormerlySerializedAs("dashCooldown")]
         [Header("Dash Info")]
         [SerializeField] private float dashCooldown;
         private float dashUsageTimer;
-        public float dashSpeed;
-        public float dashDuration;
-        public float dashDir { get; private set; }
 
         #region States
         public PlayerStateMachine stateMachine { get; private set; }
@@ -35,9 +26,7 @@ namespace Characters.Player
 
 
         #endregion
-
-
-        //Awake ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú½Å±ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ã£ï¿½ï¿½Ò½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½Î¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½Ú³ï¿½Ê¼ï¿½ï¿½Ò»Ð©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½
+        
         protected override void Awake()
         {
             base.Awake();
@@ -61,14 +50,27 @@ namespace Characters.Player
         protected override void Update()
         {
             base.Update();
+            // Èç¹û´¦ÓÚÃ¦Âµ×´Ì¬£¨±ÈÈçÔÚÄ³Ð©¶Ô»°ÖÐ£©£¬Ö±½Ó²»¸üÐÂ×´Ì¬ Í¬Ê±Ò²½ûÖ¹ÒÆ¶¯
+            if (isBusy) return;
             stateMachine.currentState.Update();
-
-        
-
         }
 
-        //coroutine Ð­ï¿½ï¿½ ï¿½ï¿½ï¿½Ð³ï¿½ï¿½ï¿½ï¿½ï¿½
-        //ï¿½ï¿½Ö±
+        public void LockControl()
+        {
+            isBusy = true;
+
+            // Èôµ±Ç°×´Ì¬²»ÊÇ idle£¬ÔòÇ¿ÖÆÇÐ»»
+            if (stateMachine.currentState != idleState)
+            {
+                stateMachine.ChangeState(idleState);
+            }
+            // === ÐÂÔö£º³¹µ×Í£ÏÂÎïÀíËÙ¶È ===
+            if (rb != null)
+                rb.velocity = Vector2.zero;
+
+        }
+        public void UnlockControl() => isBusy = false;
+        
         public IEnumerator BusyFor(float _seconds)
         {
             isBusy = true;

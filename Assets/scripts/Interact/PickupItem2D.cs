@@ -64,23 +64,23 @@ namespace Interact
         public float autoCloseDelay = 0.3f;
 
         // ===== 内部状态 =====
-        bool _playerInRange = false;
-        bool _consumed = false;           // 防止重复执行
+        private bool _playerInRange = false;
+        private bool _consumed = false;           // 防止重复执行
 
         // 打字机状态
-        Coroutine typeRoutine;
-        bool lineFullyShown;
-        int idx; // 当前对话索引
-        bool _talking = false;
+        private Coroutine typeRoutine;
+        private bool lineFullyShown;
+        private int idx; // 当前对话索引
+        private bool _talking = false;
 
-        void Reset()
+        private void Reset()
         {
             var col = GetComponent<Collider2D>();
             if (col) col.isTrigger = true;
             tag = GetComponent<SaveTag>(); // 方便自动挂上
         }
 
-        void Start()
+        private void Start()
         {
             // 自动补引用
             if (!inventory) inventory = FindObjectOfType<InventoryLite>();
