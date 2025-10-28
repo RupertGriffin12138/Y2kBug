@@ -28,6 +28,19 @@ namespace UI
         [Header("角色背景图像")]
         public GameObject[] characterBackgrounds; // Array of character background images
 
+        [Header("GIF动画效果")]
+        public float moveSpeedMin = 60f;
+        public float moveSpeedMax = 100f;
+        public float lifetimeMin = 1f;
+        public float lifetimeMax = 2f;
+        public float spawnIntervalMin = 0.1f;
+        public float spawnIntervalMax = 1f;
+        
+        private Canvas mainCanvas; // UI的主canvas
+        private Coroutine spawnLoopCoroutine; // 用来保存当前协程引用
+        private GameObject activeGifObj; // 需要激活的动图对象
+        private bool keepSpawning = false; // 控制是否持续生成
+        
         private bool isShowingDialogue = false;
 
         void Awake()
@@ -98,7 +111,7 @@ namespace UI
         /// <summary>显示箭头。</summary>
         public void ShowArrow()
         {
-            if (arrowImage != null)
+            if (arrowImage)
             {
                 arrowImage.enabled = true;
             }
@@ -107,7 +120,7 @@ namespace UI
         /// <summary>隐藏箭头。</summary>
         public void HideArrow()
         {
-            if (arrowImage != null)
+            if (arrowImage)
             {
                 arrowImage.enabled = false;
             }
@@ -118,10 +131,10 @@ namespace UI
         {
             foreach (GameObject obj in cartoonObjects)
             {
-                if (obj != null)
+                if (obj)
                 {
                     SpriteRenderer renderer = obj.GetComponent<SpriteRenderer>();
-                    if (renderer != null)
+                    if (renderer)
                     {
                         renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, 0f);
                     }
@@ -135,7 +148,7 @@ namespace UI
             if (index >= 0 && index < cartoonObjects.Length)
             {
                 GameObject obj = cartoonObjects[index];
-                if (obj != null)
+                if (obj)
                 {
                     StartCoroutine(FadeIn(obj));
                 }
@@ -146,7 +159,7 @@ namespace UI
         IEnumerator FadeIn(GameObject obj)
         {
             SpriteRenderer renderer = obj.GetComponent<SpriteRenderer>();
-            if (renderer != null)
+            if (renderer)
             {
                 float duration = 1f; // 淡入持续时间
                 float elapsedTime = 0f;
@@ -166,7 +179,7 @@ namespace UI
         {
             foreach (GameObject obj in cartoonObjects)
             {
-                if (obj != null)
+                if (obj)
                 {
                     StartCoroutine(FadeOut(obj));
                 }
@@ -177,7 +190,7 @@ namespace UI
         IEnumerator FadeOut(GameObject obj)
         {
             SpriteRenderer renderer = obj.GetComponent<SpriteRenderer>();
-            if (renderer != null)
+            if (renderer)
             {
                 float duration = 1f; // 淡出持续时间
                 float elapsedTime = 0f;
@@ -197,7 +210,7 @@ namespace UI
         {
             foreach (GameObject bg in characterBackgrounds)
             {
-                if (bg != null)
+                if (bg)
                 {
                     bg.SetActive(false);
                 }
@@ -210,7 +223,7 @@ namespace UI
             Debug.Log("Enabling character background for: " + characterName);
             for (int i = 0; i < characterBackgrounds.Length; i++)
             {
-                if (characterBackgrounds[i] != null && characterBackgrounds[i].name.Contains(characterName))
+                if (characterBackgrounds[i] && characterBackgrounds[i].name.Contains(characterName))
                 {
                     characterBackgrounds[i].SetActive(true);
                 }
@@ -218,6 +231,201 @@ namespace UI
                 {
                     characterBackgrounds[i].SetActive(false);
                 }
+            }
+        }
+        
+        /// <summary>
+        /// 从 prefab 实例化一个 GIF并播放
+        /// </summary>
+        /// <param name="resPath">资源路径（不带扩展名）</param>
+        /// <param name="screenPos">屏幕空间位置</param>
+        public void ShowGif(string resPath, Vector2 screenPos,Vector2 textureSize,bool isFullscreen = false)
+        {
+            // 缓存或查找 Canvas
+            if (!mainCanvas)
+                mainCanvas = FindObjectOfType<Canvas>();
+
+            if (!mainCanvas)
+            {
+                Debug.LogError("[InfoDialogUI] 场景内未发现主Canvas!");
+                return;
+            }
+
+            // 清除旧 GIF（防止重复）
+            if (activeGifObj)
+                Destroy(activeGifObj);
+            
+            // 加载 prefab
+            GameObject prefab = Resources.Load<GameObject>(resPath);
+            if (!prefab)
+            {
+                Debug.LogWarning($"[InfoDialogUI] {resPath} 未发现GIF预制体");
+                return;
+            }
+
+            // 创建新的 Image
+            activeGifObj = Instantiate(prefab, mainCanvas.transform);
+            RectTransform rect = activeGifObj.GetComponent<RectTransform>();
+            Animator animator = activeGifObj.GetComponent<Animator>();
+            if (rect && !isFullscreen)
+            {
+                rect.anchoredPosition = screenPos;
+                rect.sizeDelta = textureSize;
+            }
+            else if (isFullscreen)
+            {
+                // 让它锚定到父级 Canvas 的四个角
+                rect.anchorMin = Vector2.zero;     // 左下角 (0, 0)
+                rect.anchorMax = Vector2.one;      // 右上角 (1, 1)
+                rect.offsetMin = Vector2.zero;     // 左下角偏移清零
+                rect.offsetMax = Vector2.zero;     // 右上角偏移清零
+
+                // 确保在最上层（如果想压过别的 UI）
+                rect.SetAsLastSibling();
+            }
+
+            if (animator)
+            {
+                // 立刻从头播放
+                animator.Play(0, 0, 0f);
+                animator.Update(0f); // 立刻刷新一帧，防止延迟显示
+                if (isFullscreen)
+                {
+                    // 全屏动画仅播放一次后销毁
+                    float animLength = 0f;
+                    if (animator.runtimeAnimatorController && animator.runtimeAnimatorController.animationClips.Length > 0)
+                    {
+                        animLength = animator.runtimeAnimatorController.animationClips[0].length;
+                    }
+
+                    // 确保不为0，防止无动画报错
+                    if (animLength <= 0f) animLength = 3f;
+
+                    StartCoroutine(DestroyAfter(animLength));
+                }
+            }
+            Debug.Log($"[InfoDialogUI] 展示Gif动图中:{resPath} 位置: {screenPos}");
+        }
+
+        /// <summary>
+        /// 隐藏当前 GIF / 图片
+        /// </summary>
+        public void HideGif()
+        {
+            if (activeGifObj)
+            {
+                Destroy(activeGifObj);
+                activeGifObj = null;
+            }
+        }
+        
+        IEnumerator DestroyAfter(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            HideGif();
+        }
+        
+        /// <summary>
+        /// 随机生成一个 GIF（自动播放 + 随机移动 + 自动销毁）
+        /// </summary>
+        private void SpawnRandomGif()
+        {
+            string[] gifNames = { "heart1", "heart2", "mouth1", "mouth2_2", "eye1", "eye2", "eye3" };
+            // 缓存或查找 Canvas
+            if (!mainCanvas)
+                mainCanvas = FindObjectOfType<Canvas>();
+
+            if (!mainCanvas)
+            {
+                Debug.LogError("[InfoDialogUI] 场景内未发现主Canvas!");
+                return;
+            }
+
+            // 随机选择 prefab 名称
+            string name = gifNames[Random.Range(0, gifNames.Length)];
+            string gifFolder = "Dialog/gif/prefab/";
+            string resPath = gifFolder + name;
+
+            // 加载 prefab
+            GameObject prefab = Resources.Load<GameObject>(resPath);
+            if (!prefab)
+            {
+                Debug.LogWarning($"[GifSpawner] 未找到 GIF prefab: {resPath}");
+                return;
+            }
+
+            // 实例化到 Canvas
+            GameObject obj = Instantiate(prefab, mainCanvas.transform);
+            RectTransform rect = obj.GetComponent<RectTransform>();
+
+            // 随机生成位置（UI 坐标）
+            float x = Random.Range(-600f, 600f);
+            float y = Random.Range(-300f, 300f);
+            rect.anchoredPosition = new Vector2(x, y);
+
+            // 随机大小
+            float size = Random.Range(200f, 400f);
+            rect.sizeDelta = new Vector2(size, size);
+
+            // 开始移动协程
+            float life = Random.Range(lifetimeMin, lifetimeMax);
+            Vector2 moveDir = Random.insideUnitCircle.normalized; // 随机方向
+            float moveSpeed = Random.Range(moveSpeedMin, moveSpeedMax);
+
+            obj.AddComponent<GifMover>().Init(moveDir, moveSpeed, life);
+        }
+
+        /// <summary>
+        /// 连续生成 N 个随机 GIF
+        /// 传入有限个数量
+        /// </summary>
+        public void SpawnMultiple(int count)
+        { 
+            StartCoroutine(SpawnMultipleRoutine(count));
+        }
+        
+        /// <summary>
+        /// 连续生成 N 个随机 GIF
+        /// 当传入 true 时持续生成；传入 false 时立即停止。
+        /// </summary>
+        public void SpawnMultiple(bool enable)
+        {
+            if (enable)
+            {
+                if (!keepSpawning)
+                {
+                    keepSpawning = true;
+                    spawnLoopCoroutine = StartCoroutine(SpawnLoop());
+                }
+            }
+            else
+            {
+                if (!keepSpawning) return; // 已停止则忽略
+                keepSpawning = false;
+                if (spawnLoopCoroutine != null)
+                {
+                    StopCoroutine(spawnLoopCoroutine);
+                    spawnLoopCoroutine = null;
+                }
+            }
+            
+        }
+
+        IEnumerator SpawnMultipleRoutine(int count)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                SpawnRandomGif();
+                yield return new WaitForSeconds(Random.Range(spawnIntervalMin, spawnIntervalMax));
+            }
+        }
+        
+        IEnumerator SpawnLoop()
+        {
+            while (keepSpawning)
+            {
+                SpawnRandomGif(); // 生成一个随机 GIF
+                yield return new WaitForSeconds(Random.Range(spawnIntervalMin, spawnIntervalMax));
             }
         }
     }

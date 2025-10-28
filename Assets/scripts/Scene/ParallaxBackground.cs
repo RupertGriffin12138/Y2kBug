@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Scene
 {
-    public class NewBehaviourScript : MonoBehaviour
+    public class ParallaxBackground : MonoBehaviour
     {
         private GameObject cam;
 
