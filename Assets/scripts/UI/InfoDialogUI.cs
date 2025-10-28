@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace UI
 {
@@ -17,10 +18,9 @@ namespace UI
 
         [Header("箭头图像")]
         public Image arrowImage; // Arrow image to indicate pressing E key
-
         [Header("无悬停时的默认提示")]
         [TextArea]
-        public string idleHint = "将鼠标移到物品上查看信息";
+        public string idleHint = "";
 
         [Header("卡通对象")]
         public GameObject[] cartoonObjects; // Array of cartoon objects (T_cartoon_1, T_cartoon_2, etc.)
@@ -35,21 +35,22 @@ namespace UI
         public float lifetimeMax = 2f;
         public float spawnIntervalMin = 0.1f;
         public float spawnIntervalMax = 1f;
-        
+
         private Canvas mainCanvas; // UI的主canvas
         private Coroutine spawnLoopCoroutine; // 用来保存当前协程引用
         private GameObject activeGifObj; // 需要激活的动图对象
         private bool keepSpawning = false; // 控制是否持续生成
         
         private bool isShowingDialogue = false;
+        private Coroutine _dialogueRoutine;
 
-        void Awake()
+        private void Awake()
         {
             if (Instance == null) Instance = this;
             else if (Instance != this) Destroy(gameObject);
         }
 
-        void Start()
+        private void Start()
         {
             Clear(); // 初始显示默认提示
         }
@@ -64,13 +65,17 @@ namespace UI
                 textBoxText.text = displayName;
         }
 
-        /// <summary>显示任意文本（可用于系统消息）。</summary>
+        /// <summary>
+        /// 显示任意文本（可用于系统消息）
+        /// </summary>
         public void ShowMessage(string message)
         {
             if (!textBoxText) return;
+
+            // 显示消息
             textBoxText.text = message;
         }
-
+        
         /// <summary>恢复默认提示。</summary>
         public void Clear()
         {
@@ -156,12 +161,12 @@ namespace UI
         }
 
         /// <summary>使物体逐渐变得不透明。</summary>
-        IEnumerator FadeIn(GameObject obj)
+        private IEnumerator FadeIn(GameObject obj)
         {
             SpriteRenderer renderer = obj.GetComponent<SpriteRenderer>();
             if (renderer)
             {
-                float duration = 1f; // 淡入持续时间
+                const float duration = 1f; // 淡入持续时间
                 float elapsedTime = 0f;
                 while (elapsedTime < duration)
                 {
@@ -187,23 +192,24 @@ namespace UI
         }
 
         /// <summary>使物体逐渐变得透明。</summary>
-        IEnumerator FadeOut(GameObject obj)
+        private IEnumerator FadeOut(GameObject obj)
         {
-            SpriteRenderer renderer = obj.GetComponent<SpriteRenderer>();
-            if (renderer)
+            SpriteRenderer spriteRenderer = obj.GetComponent<SpriteRenderer>();
+            if (spriteRenderer)
             {
                 float duration = 1f; // 淡出持续时间
                 float elapsedTime = 0f;
                 while (elapsedTime < duration)
                 {
                     float alpha = Mathf.Lerp(1f, 0f, elapsedTime / duration);
-                    renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, alpha);
+                    spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, alpha);
                     elapsedTime += Time.deltaTime;
                     yield return null;
                 }
-                renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, 0f);
+                spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0f);
             }
         }
+        
 
         /// <summary>禁用所有角色背景图像。</summary>
         public void DisableAllCharacterBackgrounds()
@@ -221,15 +227,15 @@ namespace UI
         public void EnableCharacterBackground(string characterName)
         {
             Debug.Log("Enabling character background for: " + characterName);
-            for (int i = 0; i < characterBackgrounds.Length; i++)
+            foreach (var background in characterBackgrounds)
             {
-                if (characterBackgrounds[i] && characterBackgrounds[i].name.Contains(characterName))
+                if (background && background.name.Contains(characterName))
                 {
-                    characterBackgrounds[i].SetActive(true);
+                    background.SetActive(true);
                 }
                 else
                 {
-                    characterBackgrounds[i].SetActive(false);
+                    background.SetActive(false);
                 }
             }
         }
@@ -411,7 +417,7 @@ namespace UI
             
         }
 
-        IEnumerator SpawnMultipleRoutine(int count)
+        private IEnumerator SpawnMultipleRoutine(int count)
         {
             for (int i = 0; i < count; i++)
             {
@@ -419,8 +425,8 @@ namespace UI
                 yield return new WaitForSeconds(Random.Range(spawnIntervalMin, spawnIntervalMax));
             }
         }
-        
-        IEnumerator SpawnLoop()
+
+        private IEnumerator SpawnLoop()
         {
             while (keepSpawning)
             {
@@ -428,6 +434,8 @@ namespace UI
                 yield return new WaitForSeconds(Random.Range(spawnIntervalMin, spawnIntervalMax));
             }
         }
+        
+        
     }
 }
 

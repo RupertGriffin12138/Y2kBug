@@ -23,7 +23,7 @@ namespace UI
 
         public static SlotUIController Instance { get; private set; }
 
-        void Awake()
+        private void Awake()
         {
             Instance = this;
 
@@ -38,7 +38,7 @@ namespace UI
             packageButton.onClick.AddListener(ShowPackageSlot);
         }
 
-        void Start()
+        private void Start()
         {
             // ≥ı º£∫œ‘ æ PackageSlot£¨“˛≤ÿ FileSlot & TextPage
             SetActiveSafe(packageSlot, true);

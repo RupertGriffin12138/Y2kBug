@@ -1,3 +1,4 @@
+using System.Collections;
 using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -37,17 +38,21 @@ namespace Interact
 
         [Header("在暂停时禁止触发")]
         public bool blockWhenPaused = true;
+        
+        [Header("是否可进入（条件开关）")]
+        public bool canEnter;
 
         private bool inside;
         private bool loading;
+        private bool doorLockedHintShown = false; // 是否已经显示过锁住提示
 
-        void Reset()
+        private void Reset()
         {
             var col = GetComponent<Collider2D>();
             col.isTrigger = true; // 自动勾选触发
         }
 
-        void OnTriggerEnter2D(Collider2D other)
+        private void OnTriggerEnter2D(Collider2D other)
         {
             if (!other.CompareTag(playerTag)) return;
             inside = true;
@@ -62,7 +67,7 @@ namespace Interact
             }
         }
 
-        void OnTriggerExit2D(Collider2D other)
+        private void OnTriggerExit2D(Collider2D other)
         {
             if (!other.CompareTag(playerTag)) return;
             inside = false;
@@ -71,16 +76,39 @@ namespace Interact
                 InfoDialogUI.Instance.Clear();
         }
 
-        void Update()
+
+        private void Update()
         {
             if (!inside || loading) return;
             if (blockWhenPaused && Time.timeScale == 0f) return;
 
             if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (!canEnter)
+                {
+                    if (InfoDialogUI.Instance)
+                    {
+                        if (!doorLockedHintShown)
+                        {
+                            InfoDialogUI.Instance.ShowMessage("- 门被锁上了 -");
+                            doorLockedHintShown = true;
+                        }
+                        else
+                        {
+                            InfoDialogUI.Instance.ShowMessage("");
+                            doorLockedHintShown = false;
+                        }
+                    }
+                    return;
+                }
+
                 StartCoroutine(LoadRoutine());
+            }
+                
         }
 
-        System.Collections.IEnumerator LoadRoutine()
+
+        private IEnumerator LoadRoutine()
         {
             loading = true;
 

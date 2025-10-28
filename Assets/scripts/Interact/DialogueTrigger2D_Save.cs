@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Characters.Player;
 using Save;
 using UI;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Interact
 {
@@ -33,9 +36,6 @@ namespace Interact
             new DialogueLine { speaker = "祝榆", content = "别急。" }
         };
 
-        [Header("按键")]
-        public KeyCode nextKey = KeyCode.Space;
-
         [Header("过滤")]
         public string playerTag = "Player";
 
@@ -46,31 +46,37 @@ namespace Interact
         [Header("打字机参数")]
         [Tooltip("每个字符的延时（秒）")]
         public float typeCharDelay = 0.05f;
+        
+        private const KeyCode nextKey = KeyCode.E;
 
         private bool talking;
         private int idx;
         private SaveData save;
 
+        private Player player;
+
         // 打字机状态
         private Coroutine typeRoutine;
         private bool lineFullyShown;
 
-        void Reset()
+        private void Reset()
         {
             var col = GetComponent<Collider2D>();
             col.isTrigger = true;
         }
 
-        void Start()
+        private void Start()
         {
             save = SaveManager.LoadOrDefault("Town");
             if (save.HasSeenDialogue(dialogueId))
             {
                 Destroy(gameObject);
             }
+            
+            InitArrowBtn();
         }
 
-        void OnTriggerEnter2D(Collider2D other)
+        private void OnTriggerEnter2D(Collider2D other)
         {
             if (!other.CompareTag(playerTag)) return;
             if (save != null && save.HasSeenDialogue(dialogueId)) return;
@@ -79,39 +85,58 @@ namespace Interact
             BeginTalk();
         }
 
-        void Update()
+        private void Update()
         {
             if (blockWhenPaused && Time.timeScale == 0f) return;
-            if (!talking) return;
-
             if (Input.GetKeyDown(nextKey))
             {
-                if (!lineFullyShown)
-                {
-                    // 第一次按下：立刻补全当前行
-                    ShowLineInstant();
-                }
-                else
-                {
-                    if (SceneManager.GetActiveScene().name == "C1S3 guard")
-                    {
-                        // 每一次按下按键判断一次是否需要播放Gif
-                        ControlGif();
-                    }
-                    // 第二次按下：进入下一句
-                    NextLine();
-                }
+                HandleNext();
             }
+        }
+        
+        /// <summary>
+        /// 处理 推进对话
+        /// </summary>
+        private void HandleNext()
+        {
+            if (!talking) return;
 
-           
+            if (!lineFullyShown)
+            {
+                // 当前句还在打字 → 补全
+                ShowLineInstant();
+            }
+            else
+            {
+                if (SceneManager.GetActiveScene().name == "C1S3 guard")
+                    ControlGif();
+                NextLine();
+            }
+        }
+        
+        public void InitArrowBtn()
+        {
+            if (!InfoDialogUI.Instance.arrowImage.TryGetComponent<Button>(out var image))
+            {
+                Button btn = InfoDialogUI.Instance.arrowImage.AddComponent<Button>();
+                btn.onClick.AddListener(HandleNext);
+            }
         }
 
-        void BeginTalk()
+        private void BeginTalk()
         {
             if (lines == null || lines.Count == 0) return;
 
             talking = true;
             idx = 0;
+
+            // === 禁止玩家移动 ===
+            if (player == null)
+                player = FindObjectOfType<Player>();
+            if (player != null)
+                player.LockControl(); 
+            
+            
 
             if (InfoDialogUI.Instance)
             {
@@ -121,7 +146,7 @@ namespace Interact
             ShowCurrentLineTyped();
         }
 
-        void NextLine()
+        private void NextLine()
         {
             idx++;
             if (idx < lines.Count)
@@ -130,11 +155,25 @@ namespace Interact
             }
             else
             {
-                EndTalk();
+                // 仅当不是教学场景时才立即 EndTalk()
+                if (SceneManager.GetActiveScene().name == "C1S1 campus")
+                {
+                    // 显示教学提示（不要立刻 EndTalk）
+                    if (InfoDialogUI.Instance)
+                        InfoDialogUI.Instance.ShowMessage("按 “A” 或 “D” 进行移动");
+
+                    // 启动监听协程
+                    StartCoroutine(WaitForMoveInputToHideHint());
+                }
+                else
+                {
+                    // 正常对白 → 立即结束
+                    EndTalk();
+                }
             }
         }
 
-        void ShowCurrentLineTyped()
+        private void ShowCurrentLineTyped()
         {
             if (!InfoDialogUI.Instance) return;
 
@@ -166,7 +205,7 @@ namespace Interact
             typeRoutine = StartCoroutine(Typewriter(line.content));
         }
 
-        IEnumerator Typewriter(string content)
+        private IEnumerator Typewriter(string content)
         {
             // 逐字输出
             foreach (char c in content)
@@ -192,7 +231,7 @@ namespace Interact
             typeRoutine = null;
         }
 
-        void ShowLineInstant()
+        private void ShowLineInstant()
         {
             if (!InfoDialogUI.Instance) return;
             if (idx < 0 || idx >= lines.Count) return;
@@ -210,9 +249,15 @@ namespace Interact
             InfoDialogUI.Instance.ShowArrow();
         }
 
-        void EndTalk()
+        private void EndTalk()
         {
             talking = false;
+
+            // === 恢复玩家移动 ===
+            if (!player)
+                player = FindObjectOfType<Player>();
+            if (player)
+                player.isBusy = false; 
 
             // 存档标记
             if (save == null) save = SaveManager.LoadOrDefault("Town");
@@ -245,7 +290,7 @@ namespace Interact
             Gizmos.matrix = prev;
         }
 
-        void ControlGif()
+        private void ControlGif()
         {
             switch (idx)
             {
@@ -277,6 +322,19 @@ namespace Interact
                     InfoDialogUI.Instance.SpawnMultiple(false);
                     break;
             }
+        }
+        // <summary>
+        /// 等待玩家按下移动键后隐藏提示
+        /// </summary>
+        private IEnumerator WaitForMoveInputToHideHint()
+        {
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D));
+
+            if (InfoDialogUI.Instance)
+                InfoDialogUI.Instance.ShowMessage(""); // 清空提示
+
+            // 现在才真正结束对白
+            EndTalk();
         }
     }
 }

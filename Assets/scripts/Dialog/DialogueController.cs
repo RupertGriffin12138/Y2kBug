@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
+using Scene;
 using UI;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Dialog
 {
@@ -18,8 +21,10 @@ namespace Dialog
         public bool loadNextSceneOnEnd = false;     // 播放结束后是否跳转
         public string nextSceneName = "";           // 下一个场景名（需在 Build Settings 中添加）
         public float nextSceneDelay = 0f;           // 跳转前延时（秒）
-
-        void Start()
+        
+        private bool isArrowClicked = false;
+        
+        private void Start()
         {
             if (infoDialogUI == null)
             {
@@ -37,12 +42,29 @@ namespace Dialog
             }
 
             infoDialogUI.StartDialogue();
+            InitArrowBtn();
             StartCoroutine(ShowDialogue());
         }
+        
+        public void InitArrowBtn()
+        {
+            if (!InfoDialogUI.Instance.arrowImage.TryGetComponent<Button>(out var image))
+            {
+                Button btn = InfoDialogUI.Instance.arrowImage.AddComponent<Button>();
+                btn.onClick.AddListener(OnArrowClicked);
+            }
+        }
+        
+        // 给 UI 调用的函数（在点击箭头时调用）
+        public void OnArrowClicked()
+        {
+            isArrowClicked = true;
+        }
+
 
         // ================== 改动 1：使用 Resources 读取 ==================
         // 需要把 json 放到 Assets/Resources/Dialog/ 下，文件名 = 场景名，不带 .json
-        bool LoadScriptFromResources()
+        private bool LoadScriptFromResources()
         {
             string sceneName = SceneManager.GetActiveScene().name;
             string resPath = $"Dialog/{sceneName}"; // 对应 Assets/Resources/Dialog/{sceneName}.json
@@ -72,7 +94,7 @@ namespace Dialog
         }
         // ===============================================================
 
-        IEnumerator ShowDialogue()
+        private IEnumerator ShowDialogue()
         {
             while (currentIndex < scriptLines.Length)
             {
@@ -83,33 +105,33 @@ namespace Dialog
                 int colonIndex = line.IndexOf('：');
                 if (colonIndex >= 0)
                 {
-                    name = line.Substring(0, colonIndex).Trim();
-                    dialogue = line.Substring(colonIndex + 1).Trim();
+                    name = line[..colonIndex].Trim();
+                    dialogue = line[(colonIndex + 1)..].Trim();
                 }
                 else
                 {
                     dialogue = line.Trim();
                 }
 
-                // 设置名字文本
-                if (name == "旁白")
+                switch (name)
                 {
-                    infoDialogUI.SetNameText("");
-                }
-                else if (name == "姜宁（开心表情）" || name == "姜宁" || name == "姜宁（恐惧表情）")
-                {
-                    infoDialogUI.SetNameText("姜宁");
-                }
-                else
-                {
-                    infoDialogUI.SetNameText(name);
+                    // 设置名字文本
+                    case "旁白":
+                        infoDialogUI.SetNameText("");
+                        break;
+                    case "姜宁（开心表情）" or "姜宁" or "姜宁（恐惧表情）":
+                        infoDialogUI.SetNameText("姜宁");
+                        break;
+                    default:
+                        infoDialogUI.SetNameText(name);
+                        break;
                 }
 
                 infoDialogUI.textBoxText.text = "";
 
                 // 处理特殊情况 "[烟花棒画面]"
                 // 这里保持你的原有判断，不改其他逻辑
-                if (dialogue == "姜宁：十。")
+                if (currentIndex == 13)
                 {
                     infoDialogUI.DisableAllCartoonsWithFadeOut();
                     infoDialogUI.EnableCartoon(infoDialogUI.cartoonObjects.Length - 1); // 启用最后一个卡通对象 (T_cartoon_6)
@@ -136,7 +158,8 @@ namespace Dialog
                 }
 
                 infoDialogUI.ShowArrow();
-                yield return new WaitUntil(() => Input.GetKeyUp(KeyCode.E));
+                yield return new WaitUntil(() => Input.GetKeyUp(KeyCode.E) || isArrowClicked);
+                isArrowClicked = false; // 重置标志
                 infoDialogUI.HideArrow();
 
                 currentIndex++;
@@ -148,23 +171,14 @@ namespace Dialog
             TryLoadNextSceneIfNeeded();
         }
 
-        void TryLoadNextSceneIfNeeded()
+        private void TryLoadNextSceneIfNeeded()
         {
             if (loadNextSceneOnEnd && !string.IsNullOrEmpty(nextSceneName))
             {
-                StartCoroutine(LoadNextSceneCoroutine());
+                // 改为带淡出效果
+                SceneFadeEffect.Instance.FadeOutAndLoad(nextSceneName,1.5f,2f);
             }
         }
-
-        IEnumerator LoadNextSceneCoroutine()
-        {
-            if (nextSceneDelay > 0f)
-                yield return new WaitForSeconds(nextSceneDelay);
-
-            // 确保在 Build Settings 中已添加 nextSceneName
-            SceneManager.LoadScene(nextSceneName, LoadSceneMode.Single);
-        }
-        // =============================================================
 
         [Serializable]
         private class ScriptData

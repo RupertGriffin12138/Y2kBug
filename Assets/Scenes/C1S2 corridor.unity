@@ -738,7 +738,7 @@ Transform:
   m_GameObject: {fileID: 475060941}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.124150276, y: -10.223669, z: -10}
+  m_LocalPosition: {x: 5.609835, y: -10.22961, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1785,7 +1785,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4259393679208922407, guid: deb62d56fa8969545ba988a68a90cf78, type: 3}
       propertyPath: arrivalOffset.x
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4259393679208922407, guid: deb62d56fa8969545ba988a68a90cf78, type: 3}
       propertyPath: targetPortalIdInNextScene
@@ -2858,7 +2858,7 @@ Transform:
   m_GameObject: {fileID: 1748198831}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -63.5628, y: -1, z: 0}
+  m_LocalPosition: {x: -57.8, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2950,14 +2950,10 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
-  attackMovement: []
   moveSpeed: 3
   frontSpeed: 0
   belowSpeed: 0
-  jumpForce: 0
-  dashCooldowm: 0
-  dashSpeed: 0
-  dashDuration: 0
+  dashCooldown: 0
 --- !u!50 &1748198836
 Rigidbody2D:
   serializedVersion: 4
@@ -3056,7 +3052,7 @@ Transform:
   m_GameObject: {fileID: 1751905320}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -63.5628, y: 0.47000122, z: -10}
+  m_LocalPosition: {x: -57.8, y: 0.47000122, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
