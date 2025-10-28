@@ -8,27 +8,27 @@ namespace UI
 {
     public class InfoDialogUI : MonoBehaviour
     {
-        public static InfoDialogUI Instance;  // ·½±ã²ÛÎ»Ö±½Óµ÷ÓÃ£¨Ò²¿É×ß Inspector ÒıÓÃ£©
+        public static InfoDialogUI Instance;  // æ–¹ä¾¿æ§½ä½ç›´æ¥è°ƒç”¨ï¼ˆä¹Ÿå¯èµ° Inspector å¼•ç”¨ï¼‰
 
-        [Header("¶Ô»°¿òÎÄ±¾£¨TMP£©")]
+        [Header("å¯¹è¯æ¡†æ–‡æœ¬ï¼ˆTMPï¼‰")]
         public TMP_Text textBoxText; // TextBoxText UI Text component
 
-        [Header("Ãû×Ö¿òÎÄ±¾£¨TMP£©")]
+        [Header("åå­—æ¡†æ–‡æœ¬ï¼ˆTMPï¼‰")]
         public TMP_Text nameBoxText; // NameBoxText UI Text component
 
-        [Header("¼ıÍ·Í¼Ïñ")]
+        [Header("ç®­å¤´å›¾åƒ")]
         public Image arrowImage; // Arrow image to indicate pressing E key
-        [Header("ÎŞĞüÍ£Ê±µÄÄ¬ÈÏÌáÊ¾")]
+        [Header("æ— æ‚¬åœæ—¶çš„é»˜è®¤æç¤º")]
         [TextArea]
         public string idleHint = "";
 
-        [Header("¿¨Í¨¶ÔÏó")]
+        [Header("å¡é€šå¯¹è±¡")]
         public GameObject[] cartoonObjects; // Array of cartoon objects (T_cartoon_1, T_cartoon_2, etc.)
 
-        [Header("½ÇÉ«±³¾°Í¼Ïñ")]
+        [Header("è§’è‰²èƒŒæ™¯å›¾åƒ")]
         public GameObject[] characterBackgrounds; // Array of character background images
 
-        [Header("GIF¶¯»­Ğ§¹û")]
+        [Header("GIFåŠ¨ç”»æ•ˆæœ")]
         public float moveSpeedMin = 60f;
         public float moveSpeedMax = 100f;
         public float lifetimeMin = 1f;
@@ -36,10 +36,10 @@ namespace UI
         public float spawnIntervalMin = 0.1f;
         public float spawnIntervalMax = 1f;
 
-        private Canvas mainCanvas; // UIµÄÖ÷canvas
-        private Coroutine spawnLoopCoroutine; // ÓÃÀ´±£´æµ±Ç°Ğ­³ÌÒıÓÃ
-        private GameObject activeGifObj; // ĞèÒª¼¤»îµÄ¶¯Í¼¶ÔÏó
-        private bool keepSpawning = false; // ¿ØÖÆÊÇ·ñ³ÖĞøÉú³É
+        private Canvas mainCanvas; // UIçš„ä¸»canvas
+        private Coroutine spawnLoopCoroutine; // ç”¨æ¥ä¿å­˜å½“å‰åç¨‹å¼•ç”¨
+        private GameObject activeGifObj; // éœ€è¦æ¿€æ´»çš„åŠ¨å›¾å¯¹è±¡
+        private bool keepSpawning = false; // æ§åˆ¶æ˜¯å¦æŒç»­ç”Ÿæˆ
         
         private bool isShowingDialogue = false;
         private Coroutine _dialogueRoutine;
@@ -52,31 +52,31 @@ namespace UI
 
         private void Start()
         {
-            Clear(); // ³õÊ¼ÏÔÊ¾Ä¬ÈÏÌáÊ¾
+            Clear(); // åˆå§‹æ˜¾ç¤ºé»˜è®¤æç¤º
         }
 
-        /// <summary>ÏÔÊ¾ÎïÆ·Ãû³Æ + µÚ¶şĞĞÌáÊ¾¡£</summary>
+        /// <summary>æ˜¾ç¤ºç‰©å“åç§° + ç¬¬äºŒè¡Œæç¤ºã€‚</summary>
         public void ShowItem(string displayName, bool showUseTip = true)
         {
-            if (!textBoxText || !nameBoxText) return;
+            if (isShowingDialogue) return;
             if (showUseTip)
-                textBoxText.text = $"{displayName}\n<size=90%>£­µã»÷µ÷²é/Ê¹ÓÃ£­</size>";
+                textBoxText.text = $"{displayName}\n<size=90%>ï¼ç‚¹å‡»è°ƒæŸ¥/ä½¿ç”¨ï¼</size>";
             else
                 textBoxText.text = displayName;
         }
 
         /// <summary>
-        /// ÏÔÊ¾ÈÎÒâÎÄ±¾£¨¿ÉÓÃÓÚÏµÍ³ÏûÏ¢£©
+        /// æ˜¾ç¤ºä»»æ„æ–‡æœ¬ï¼ˆå¯ç”¨äºç³»ç»Ÿæ¶ˆæ¯ï¼‰
         /// </summary>
         public void ShowMessage(string message)
         {
             if (!textBoxText) return;
 
-            // ÏÔÊ¾ÏûÏ¢
+            // æ˜¾ç¤ºæ¶ˆæ¯
             textBoxText.text = message;
         }
         
-        /// <summary>»Ö¸´Ä¬ÈÏÌáÊ¾¡£</summary>
+        /// <summary>æ¢å¤é»˜è®¤æç¤ºã€‚</summary>
         public void Clear()
         {
             if (isShowingDialogue) return;
@@ -88,32 +88,32 @@ namespace UI
             isShowingDialogue = false;
         }
 
-        /// <summary>ÉèÖÃÃû×ÖÎÄ±¾¡£</summary>
+        /// <summary>è®¾ç½®åå­—æ–‡æœ¬ã€‚</summary>
         public void SetNameText(string name)
         {
             if (!nameBoxText) return;
             nameBoxText.text = name;
         }
 
-        /// <summary>¿ªÊ¼ÏÔÊ¾¶Ô»°¡£</summary>
+        /// <summary>å¼€å§‹æ˜¾ç¤ºå¯¹è¯ã€‚</summary>
         public void StartDialogue()
         {
             isShowingDialogue = true;
-            textBoxText.text = ""; // Çå³ıÄ¬ÈÏÌáÊ¾
-            nameBoxText.text = ""; // È·±£Ãû×Ö¿òÎª¿Õ
+            textBoxText.text = ""; // æ¸…é™¤é»˜è®¤æç¤º
+            nameBoxText.text = ""; // ç¡®ä¿åå­—æ¡†ä¸ºç©º
             HideArrow();
             DisableCartoons();
             DisableAllCharacterBackgrounds();
         }
 
-        /// <summary>½áÊøÏÔÊ¾¶Ô»°¡£</summary>
+        /// <summary>ç»“æŸæ˜¾ç¤ºå¯¹è¯ã€‚</summary>
         public void EndDialogue()
         {
             isShowingDialogue = false;
             Clear();
         }
 
-        /// <summary>ÏÔÊ¾¼ıÍ·¡£</summary>
+        /// <summary>æ˜¾ç¤ºç®­å¤´ã€‚</summary>
         public void ShowArrow()
         {
             if (arrowImage)
@@ -122,7 +122,7 @@ namespace UI
             }
         }
 
-        /// <summary>Òş²Ø¼ıÍ·¡£</summary>
+        /// <summary>éšè—ç®­å¤´ã€‚</summary>
         public void HideArrow()
         {
             if (arrowImage)
@@ -131,7 +131,7 @@ namespace UI
             }
         }
 
-        /// <summary>½ûÓÃËùÓĞ¿¨Í¨¶ÔÏó¡£</summary>
+        /// <summary>ç¦ç”¨æ‰€æœ‰å¡é€šå¯¹è±¡ã€‚</summary>
         public void DisableCartoons()
         {
             foreach (GameObject obj in cartoonObjects)
@@ -147,7 +147,7 @@ namespace UI
             }
         }
 
-        /// <summary>ÆôÓÃÖ¸¶¨µÄ¿¨Í¨¶ÔÏó²¢Ê¹ÆäÖğ½¥±äµÃ²»Í¸Ã÷¡£</summary>
+        /// <summary>å¯ç”¨æŒ‡å®šçš„å¡é€šå¯¹è±¡å¹¶ä½¿å…¶é€æ¸å˜å¾—ä¸é€æ˜ã€‚</summary>
         public void EnableCartoon(int index)
         {
             if (index >= 0 && index < cartoonObjects.Length)
@@ -160,13 +160,13 @@ namespace UI
             }
         }
 
-        /// <summary>Ê¹ÎïÌåÖğ½¥±äµÃ²»Í¸Ã÷¡£</summary>
+        /// <summary>ä½¿ç‰©ä½“é€æ¸å˜å¾—ä¸é€æ˜ã€‚</summary>
         private IEnumerator FadeIn(GameObject obj)
         {
             SpriteRenderer renderer = obj.GetComponent<SpriteRenderer>();
             if (renderer)
             {
-                const float duration = 1f; // µ­Èë³ÖĞøÊ±¼ä
+                const float duration = 1f; // æ·¡å…¥æŒç»­æ—¶é—´
                 float elapsedTime = 0f;
                 while (elapsedTime < duration)
                 {
@@ -179,7 +179,7 @@ namespace UI
             }
         }
 
-        /// <summary>Ê¹ËùÓĞ¿¨Í¨¶ÔÏóÖğ½¥±äµÃÍ¸Ã÷¡£</summary>
+        /// <summary>ä½¿æ‰€æœ‰å¡é€šå¯¹è±¡é€æ¸å˜å¾—é€æ˜ã€‚</summary>
         public void DisableAllCartoonsWithFadeOut()
         {
             foreach (GameObject obj in cartoonObjects)
@@ -191,13 +191,13 @@ namespace UI
             }
         }
 
-        /// <summary>Ê¹ÎïÌåÖğ½¥±äµÃÍ¸Ã÷¡£</summary>
+        /// <summary>ä½¿ç‰©ä½“é€æ¸å˜å¾—é€æ˜ã€‚</summary>
         private IEnumerator FadeOut(GameObject obj)
         {
             SpriteRenderer spriteRenderer = obj.GetComponent<SpriteRenderer>();
             if (spriteRenderer)
             {
-                float duration = 1f; // µ­³ö³ÖĞøÊ±¼ä
+                float duration = 1f; // æ·¡å‡ºæŒç»­æ—¶é—´
                 float elapsedTime = 0f;
                 while (elapsedTime < duration)
                 {
@@ -211,7 +211,7 @@ namespace UI
         }
         
 
-        /// <summary>½ûÓÃËùÓĞ½ÇÉ«±³¾°Í¼Ïñ¡£</summary>
+        /// <summary>ç¦ç”¨æ‰€æœ‰è§’è‰²èƒŒæ™¯å›¾åƒã€‚</summary>
         public void DisableAllCharacterBackgrounds()
         {
             foreach (GameObject bg in characterBackgrounds)
@@ -223,7 +223,7 @@ namespace UI
             }
         }
 
-        /// <summary>ÆôÓÃÖ¸¶¨µÄ½ÇÉ«±³¾°Í¼Ïñ¡£</summary>
+        /// <summary>å¯ç”¨æŒ‡å®šçš„è§’è‰²èƒŒæ™¯å›¾åƒã€‚</summary>
         public void EnableCharacterBackground(string characterName)
         {
             Debug.Log("Enabling character background for: " + characterName);
@@ -241,35 +241,35 @@ namespace UI
         }
         
         /// <summary>
-        /// ´Ó prefab ÊµÀı»¯Ò»¸ö GIF²¢²¥·Å
+        /// ä» prefab å®ä¾‹åŒ–ä¸€ä¸ª GIFå¹¶æ’­æ”¾
         /// </summary>
-        /// <param name="resPath">×ÊÔ´Â·¾¶£¨²»´øÀ©Õ¹Ãû£©</param>
-        /// <param name="screenPos">ÆÁÄ»¿Õ¼äÎ»ÖÃ</param>
+        /// <param name="resPath">èµ„æºè·¯å¾„ï¼ˆä¸å¸¦æ‰©å±•åï¼‰</param>
+        /// <param name="screenPos">å±å¹•ç©ºé—´ä½ç½®</param>
         public void ShowGif(string resPath, Vector2 screenPos,Vector2 textureSize,bool isFullscreen = false)
         {
-            // »º´æ»ò²éÕÒ Canvas
+            // ç¼“å­˜æˆ–æŸ¥æ‰¾ Canvas
             if (!mainCanvas)
                 mainCanvas = FindObjectOfType<Canvas>();
 
             if (!mainCanvas)
             {
-                Debug.LogError("[InfoDialogUI] ³¡¾°ÄÚÎ´·¢ÏÖÖ÷Canvas!");
+                Debug.LogError("[InfoDialogUI] åœºæ™¯å†…æœªå‘ç°ä¸»Canvas!");
                 return;
             }
 
-            // Çå³ı¾É GIF£¨·ÀÖ¹ÖØ¸´£©
+            // æ¸…é™¤æ—§ GIFï¼ˆé˜²æ­¢é‡å¤ï¼‰
             if (activeGifObj)
                 Destroy(activeGifObj);
             
-            // ¼ÓÔØ prefab
+            // åŠ è½½ prefab
             GameObject prefab = Resources.Load<GameObject>(resPath);
             if (!prefab)
             {
-                Debug.LogWarning($"[InfoDialogUI] {resPath} Î´·¢ÏÖGIFÔ¤ÖÆÌå");
+                Debug.LogWarning($"[InfoDialogUI] {resPath} æœªå‘ç°GIFé¢„åˆ¶ä½“");
                 return;
             }
 
-            // ´´½¨ĞÂµÄ Image
+            // åˆ›å»ºæ–°çš„ Image
             activeGifObj = Instantiate(prefab, mainCanvas.transform);
             RectTransform rect = activeGifObj.GetComponent<RectTransform>();
             Animator animator = activeGifObj.GetComponent<Animator>();
@@ -280,41 +280,41 @@ namespace UI
             }
             else if (isFullscreen)
             {
-                // ÈÃËüÃª¶¨µ½¸¸¼¶ Canvas µÄËÄ¸ö½Ç
-                rect.anchorMin = Vector2.zero;     // ×óÏÂ½Ç (0, 0)
-                rect.anchorMax = Vector2.one;      // ÓÒÉÏ½Ç (1, 1)
-                rect.offsetMin = Vector2.zero;     // ×óÏÂ½ÇÆ«ÒÆÇåÁã
-                rect.offsetMax = Vector2.zero;     // ÓÒÉÏ½ÇÆ«ÒÆÇåÁã
+                // è®©å®ƒé”šå®šåˆ°çˆ¶çº§ Canvas çš„å››ä¸ªè§’
+                rect.anchorMin = Vector2.zero;     // å·¦ä¸‹è§’ (0, 0)
+                rect.anchorMax = Vector2.one;      // å³ä¸Šè§’ (1, 1)
+                rect.offsetMin = Vector2.zero;     // å·¦ä¸‹è§’åç§»æ¸…é›¶
+                rect.offsetMax = Vector2.zero;     // å³ä¸Šè§’åç§»æ¸…é›¶
 
-                // È·±£ÔÚ×îÉÏ²ã£¨Èç¹ûÏëÑ¹¹ı±ğµÄ UI£©
+                // ç¡®ä¿åœ¨æœ€ä¸Šå±‚ï¼ˆå¦‚æœæƒ³å‹è¿‡åˆ«çš„ UIï¼‰
                 rect.SetAsLastSibling();
             }
 
             if (animator)
             {
-                // Á¢¿Ì´ÓÍ·²¥·Å
+                // ç«‹åˆ»ä»å¤´æ’­æ”¾
                 animator.Play(0, 0, 0f);
-                animator.Update(0f); // Á¢¿ÌË¢ĞÂÒ»Ö¡£¬·ÀÖ¹ÑÓ³ÙÏÔÊ¾
+                animator.Update(0f); // ç«‹åˆ»åˆ·æ–°ä¸€å¸§ï¼Œé˜²æ­¢å»¶è¿Ÿæ˜¾ç¤º
                 if (isFullscreen)
                 {
-                    // È«ÆÁ¶¯»­½ö²¥·ÅÒ»´ÎºóÏú»Ù
+                    // å…¨å±åŠ¨ç”»ä»…æ’­æ”¾ä¸€æ¬¡åé”€æ¯
                     float animLength = 0f;
                     if (animator.runtimeAnimatorController && animator.runtimeAnimatorController.animationClips.Length > 0)
                     {
                         animLength = animator.runtimeAnimatorController.animationClips[0].length;
                     }
 
-                    // È·±£²»Îª0£¬·ÀÖ¹ÎŞ¶¯»­±¨´í
+                    // ç¡®ä¿ä¸ä¸º0ï¼Œé˜²æ­¢æ— åŠ¨ç”»æŠ¥é”™
                     if (animLength <= 0f) animLength = 3f;
 
                     StartCoroutine(DestroyAfter(animLength));
                 }
             }
-            Debug.Log($"[InfoDialogUI] Õ¹Ê¾Gif¶¯Í¼ÖĞ:{resPath} Î»ÖÃ: {screenPos}");
+            Debug.Log($"[InfoDialogUI] å±•ç¤ºGifåŠ¨å›¾ä¸­:{resPath} ä½ç½®: {screenPos}");
         }
 
         /// <summary>
-        /// Òş²Øµ±Ç° GIF / Í¼Æ¬
+        /// éšè—å½“å‰ GIF / å›¾ç‰‡
         /// </summary>
         public void HideGif()
         {
@@ -332,58 +332,58 @@ namespace UI
         }
         
         /// <summary>
-        /// Ëæ»úÉú³ÉÒ»¸ö GIF£¨×Ô¶¯²¥·Å + Ëæ»úÒÆ¶¯ + ×Ô¶¯Ïú»Ù£©
+        /// éšæœºç”Ÿæˆä¸€ä¸ª GIFï¼ˆè‡ªåŠ¨æ’­æ”¾ + éšæœºç§»åŠ¨ + è‡ªåŠ¨é”€æ¯ï¼‰
         /// </summary>
         private void SpawnRandomGif()
         {
             string[] gifNames = { "heart1", "heart2", "mouth1", "mouth2_2", "eye1", "eye2", "eye3" };
-            // »º´æ»ò²éÕÒ Canvas
+            // ç¼“å­˜æˆ–æŸ¥æ‰¾ Canvas
             if (!mainCanvas)
                 mainCanvas = FindObjectOfType<Canvas>();
 
             if (!mainCanvas)
             {
-                Debug.LogError("[InfoDialogUI] ³¡¾°ÄÚÎ´·¢ÏÖÖ÷Canvas!");
+                Debug.LogError("[InfoDialogUI] åœºæ™¯å†…æœªå‘ç°ä¸»Canvas!");
                 return;
             }
 
-            // Ëæ»úÑ¡Ôñ prefab Ãû³Æ
+            // éšæœºé€‰æ‹© prefab åç§°
             string name = gifNames[Random.Range(0, gifNames.Length)];
             string gifFolder = "Dialog/gif/prefab/";
             string resPath = gifFolder + name;
 
-            // ¼ÓÔØ prefab
+            // åŠ è½½ prefab
             GameObject prefab = Resources.Load<GameObject>(resPath);
             if (!prefab)
             {
-                Debug.LogWarning($"[GifSpawner] Î´ÕÒµ½ GIF prefab: {resPath}");
+                Debug.LogWarning($"[GifSpawner] æœªæ‰¾åˆ° GIF prefab: {resPath}");
                 return;
             }
 
-            // ÊµÀı»¯µ½ Canvas
+            // å®ä¾‹åŒ–åˆ° Canvas
             GameObject obj = Instantiate(prefab, mainCanvas.transform);
             RectTransform rect = obj.GetComponent<RectTransform>();
 
-            // Ëæ»úÉú³ÉÎ»ÖÃ£¨UI ×ø±ê£©
+            // éšæœºç”Ÿæˆä½ç½®ï¼ˆUI åæ ‡ï¼‰
             float x = Random.Range(-600f, 600f);
             float y = Random.Range(-300f, 300f);
             rect.anchoredPosition = new Vector2(x, y);
 
-            // Ëæ»ú´óĞ¡
+            // éšæœºå¤§å°
             float size = Random.Range(200f, 400f);
             rect.sizeDelta = new Vector2(size, size);
 
-            // ¿ªÊ¼ÒÆ¶¯Ğ­³Ì
+            // å¼€å§‹ç§»åŠ¨åç¨‹
             float life = Random.Range(lifetimeMin, lifetimeMax);
-            Vector2 moveDir = Random.insideUnitCircle.normalized; // Ëæ»ú·½Ïò
+            Vector2 moveDir = Random.insideUnitCircle.normalized; // éšæœºæ–¹å‘
             float moveSpeed = Random.Range(moveSpeedMin, moveSpeedMax);
 
             obj.AddComponent<GifMover>().Init(moveDir, moveSpeed, life);
         }
 
         /// <summary>
-        /// Á¬ĞøÉú³É N ¸öËæ»ú GIF
-        /// ´«ÈëÓĞÏŞ¸öÊıÁ¿
+        /// è¿ç»­ç”Ÿæˆ N ä¸ªéšæœº GIF
+        /// ä¼ å…¥æœ‰é™ä¸ªæ•°é‡
         /// </summary>
         public void SpawnMultiple(int count)
         { 
@@ -391,8 +391,8 @@ namespace UI
         }
         
         /// <summary>
-        /// Á¬ĞøÉú³É N ¸öËæ»ú GIF
-        /// µ±´«Èë true Ê±³ÖĞøÉú³É£»´«Èë false Ê±Á¢¼´Í£Ö¹¡£
+        /// è¿ç»­ç”Ÿæˆ N ä¸ªéšæœº GIF
+        /// å½“ä¼ å…¥ true æ—¶æŒç»­ç”Ÿæˆï¼›ä¼ å…¥ false æ—¶ç«‹å³åœæ­¢ã€‚
         /// </summary>
         public void SpawnMultiple(bool enable)
         {
@@ -406,7 +406,7 @@ namespace UI
             }
             else
             {
-                if (!keepSpawning) return; // ÒÑÍ£Ö¹ÔòºöÂÔ
+                if (!keepSpawning) return; // å·²åœæ­¢åˆ™å¿½ç•¥
                 keepSpawning = false;
                 if (spawnLoopCoroutine != null)
                 {
@@ -430,7 +430,7 @@ namespace UI
         {
             while (keepSpawning)
             {
-                SpawnRandomGif(); // Éú³ÉÒ»¸öËæ»ú GIF
+                SpawnRandomGif(); // ç”Ÿæˆä¸€ä¸ªéšæœº GIF
                 yield return new WaitForSeconds(Random.Range(spawnIntervalMin, spawnIntervalMax));
             }
         }

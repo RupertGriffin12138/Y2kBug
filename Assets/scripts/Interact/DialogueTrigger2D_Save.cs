@@ -11,14 +11,14 @@ using UnityEngine.UI;
 namespace Interact
 {
     /// <summary>
-    /// 2D ¶Ô»°´¥·¢Æ÷£¨×Ô¶¯´¥·¢ + ¶àËµ»°ÈË + ±³¾°ÇĞ»» + ´ò×Ö»ú£©
-    /// ½øÈë´¥·¢Çø¼´¿ªÊ¼£¬¿Õ¸ñÍÆ½ø£»Ã¿¾ä°üº¬ speaker Óë content£»½áÊøĞ´Èë´æµµ£»ÊÇ·ñÏú»ÙÓÉ destroyAfterFinish ¾ö¶¨¡£
-    /// ÒÀÀµ£ºInfoDialogUI(Instance/StartDialogue/EndDialogue/SetNameText/ShowMessage/textBoxText/EnableCharacterBackground/ShowArrow/HideArrow)¡¢SaveManager¡¢SaveData
+    /// 2D å¯¹è¯è§¦å‘å™¨ï¼ˆè‡ªåŠ¨è§¦å‘ + å¤šè¯´è¯äºº + èƒŒæ™¯åˆ‡æ¢ + æ‰“å­—æœºï¼‰
+    /// è¿›å…¥è§¦å‘åŒºå³å¼€å§‹ï¼Œç©ºæ ¼æ¨è¿›ï¼›æ¯å¥åŒ…å« speaker ä¸ contentï¼›ç»“æŸå†™å…¥å­˜æ¡£ï¼›æ˜¯å¦é”€æ¯ç”± destroyAfterFinish å†³å®šã€‚
+    /// ä¾èµ–ï¼šInfoDialogUI(Instance/StartDialogue/EndDialogue/SetNameText/ShowMessage/textBoxText/EnableCharacterBackground/ShowArrow/HideArrow)ã€SaveManagerã€SaveData
     /// </summary>
     [RequireComponent(typeof(Collider2D))]
     public class DialogueTrigger2D_Save : MonoBehaviour
     {
-        [Header("Î¨Ò»ID£¨ÓÃÓÚ´æµµÅĞÖØ£©")]
+        [Header("å”¯ä¸€IDï¼ˆç”¨äºå­˜æ¡£åˆ¤é‡ï¼‰")]
         public string dialogueId = "dlg_001";
 
         [System.Serializable]
@@ -28,23 +28,23 @@ namespace Interact
             [TextArea(2, 3)] public string content;
         }
 
-        [Header("¶Ô»°ÄÚÈİ£¨Ã¿¾ä°üº¬ÈËÎï+ÄÚÈİ£©")]
+        [Header("å¯¹è¯å†…å®¹ï¼ˆæ¯å¥åŒ…å«äººç‰©+å†…å®¹ï¼‰")]
         public List<DialogueLine> lines = new()
         {
-            new DialogueLine { speaker = "ÅÔ°×", content = "²Ù³¡±ßÉÏµÄÄĞº¢À´»Øõâ²½¡­¡­" },
-            new DialogueLine { speaker = "½ªÄş", content = "Ê®¡£" },
-            new DialogueLine { speaker = "×£ÓÜ", content = "±ğ¼±¡£" }
+            new DialogueLine { speaker = "æ—ç™½", content = "æ“åœºè¾¹ä¸Šçš„ç”·å­©æ¥å›è¸±æ­¥â€¦â€¦" },
+            new DialogueLine { speaker = "å§œå®", content = "åã€‚" },
+            new DialogueLine { speaker = "ç¥æ¦†", content = "åˆ«æ€¥ã€‚" }
         };
 
-        [Header("¹ıÂË")]
+        [Header("è¿‡æ»¤")]
         public string playerTag = "Player";
 
-        [Header("ĞĞÎª")]
+        [Header("è¡Œä¸º")]
         public bool blockWhenPaused = true;
         public bool destroyAfterFinish = true;
 
-        [Header("´ò×Ö»ú²ÎÊı")]
-        [Tooltip("Ã¿¸ö×Ö·ûµÄÑÓÊ±£¨Ãë£©")]
+        [Header("æ‰“å­—æœºå‚æ•°")]
+        [Tooltip("æ¯ä¸ªå­—ç¬¦çš„å»¶æ—¶ï¼ˆç§’ï¼‰")]
         public float typeCharDelay = 0.05f;
         
         private const KeyCode nextKey = KeyCode.E;
@@ -55,7 +55,7 @@ namespace Interact
 
         private Player player;
 
-        // ´ò×Ö»ú×´Ì¬
+        // æ‰“å­—æœºçŠ¶æ€
         private Coroutine typeRoutine;
         private bool lineFullyShown;
 
@@ -95,7 +95,7 @@ namespace Interact
         }
         
         /// <summary>
-        /// ´¦Àí ÍÆ½ø¶Ô»°
+        /// å¤„ç† æ¨è¿›å¯¹è¯
         /// </summary>
         private void HandleNext()
         {
@@ -103,7 +103,7 @@ namespace Interact
 
             if (!lineFullyShown)
             {
-                // µ±Ç°¾ä»¹ÔÚ´ò×Ö ¡ú ²¹È«
+                // å½“å‰å¥è¿˜åœ¨æ‰“å­— â†’ è¡¥å…¨
                 ShowLineInstant();
             }
             else
@@ -130,7 +130,7 @@ namespace Interact
             talking = true;
             idx = 0;
 
-            // === ½ûÖ¹Íæ¼ÒÒÆ¶¯ ===
+            // === ç¦æ­¢ç©å®¶ç§»åŠ¨ ===
             if (player == null)
                 player = FindObjectOfType<Player>();
             if (player != null)
@@ -155,19 +155,19 @@ namespace Interact
             }
             else
             {
-                // ½öµ±²»ÊÇ½ÌÑ§³¡¾°Ê±²ÅÁ¢¼´ EndTalk()
+                // ä»…å½“ä¸æ˜¯æ•™å­¦åœºæ™¯æ—¶æ‰ç«‹å³ EndTalk()
                 if (SceneManager.GetActiveScene().name == "C1S1 campus")
                 {
-                    // ÏÔÊ¾½ÌÑ§ÌáÊ¾£¨²»ÒªÁ¢¿Ì EndTalk£©
+                    // æ˜¾ç¤ºæ•™å­¦æç¤ºï¼ˆä¸è¦ç«‹åˆ» EndTalkï¼‰
                     if (InfoDialogUI.Instance)
-                        InfoDialogUI.Instance.ShowMessage("°´ ¡°A¡± »ò ¡°D¡± ½øĞĞÒÆ¶¯");
+                        InfoDialogUI.Instance.ShowMessage("æŒ‰ â€œAâ€ æˆ– â€œDâ€ è¿›è¡Œç§»åŠ¨");
 
-                    // Æô¶¯¼àÌıĞ­³Ì
+                    // å¯åŠ¨ç›‘å¬åç¨‹
                     StartCoroutine(WaitForMoveInputToHideHint());
                 }
                 else
                 {
-                    // Õı³£¶Ô°× ¡ú Á¢¼´½áÊø
+                    // æ­£å¸¸å¯¹ç™½ â†’ ç«‹å³ç»“æŸ
                     EndTalk();
                 }
             }
@@ -177,7 +177,7 @@ namespace Interact
         {
             if (!InfoDialogUI.Instance) return;
 
-            // Í£µôÉÏÒ»´ÎµÄ´ò×ÖĞ­³Ì
+            // åœæ‰ä¸Šä¸€æ¬¡çš„æ‰“å­—åç¨‹
             if (typeRoutine != null)
             {
                 StopCoroutine(typeRoutine);
@@ -186,20 +186,20 @@ namespace Interact
 
             var line = lines[idx];
 
-            // Ãû×Ö¿ò£ºÅÔ°×²»ÏÔÊ¾Ãû×Ö
-            if (string.Equals(line.speaker, "ÅÔ°×"))
+            // åå­—æ¡†ï¼šæ—ç™½ä¸æ˜¾ç¤ºåå­—
+            if (string.Equals(line.speaker, "æ—ç™½"))
                 InfoDialogUI.Instance.SetNameText("");
             else
                 InfoDialogUI.Instance.SetNameText(line.speaker);
 
-            // °´ÈËÎïÃû³ÆÇĞ»»±³¾°
+            // æŒ‰äººç‰©åç§°åˆ‡æ¢èƒŒæ™¯
             InfoDialogUI.Instance.EnableCharacterBackground(line.speaker);
 
-            // Çå¿Õ²¢¿ªÊ¼´ò×Ö
+            // æ¸…ç©ºå¹¶å¼€å§‹æ‰“å­—
             InfoDialogUI.Instance.textBoxText.text = "";
             lineFullyShown = false;
 
-            // ÕıÈ·£ºÖ±½Óµ÷ÓÃ·½·¨
+            // æ­£ç¡®ï¼šç›´æ¥è°ƒç”¨æ–¹æ³•
             InfoDialogUI.Instance.HideArrow();
 
             typeRoutine = StartCoroutine(Typewriter(line.content));
@@ -207,25 +207,25 @@ namespace Interact
 
         private IEnumerator Typewriter(string content)
         {
-            // Öğ×ÖÊä³ö
+            // é€å­—è¾“å‡º
             foreach (char c in content)
             {
                 InfoDialogUI.Instance.textBoxText.text += c;
                 yield return new WaitForSeconds(typeCharDelay);
 
-                // ÈôÔÚ´ò×ÖÖĞ°´¼ü£¬½»ÓÉ Update µÄÂß¼­Á¢¼´²¹È«
-                if (Input.GetKeyDown(nextKey))
+                // è‹¥åœ¨æ‰“å­—ä¸­æŒ‰é”®ï¼Œäº¤ç”± Update çš„é€»è¾‘ç«‹å³è¡¥å…¨
+                if (Input.GetKeyDown(nextKey_1) || Input.GetKeyDown(nextKey_2))
                 {
-                    // Á¢¼´²¹È«
+                    // ç«‹å³è¡¥å…¨
                     InfoDialogUI.Instance.textBoxText.text = content;
                     break;
                 }
             }
 
-            // ´ò×ÖÍê³É
+            // æ‰“å­—å®Œæˆ
             lineFullyShown = true;
 
-            // ÕıÈ·£ºÖ±½Óµ÷ÓÃ·½·¨
+            // æ­£ç¡®ï¼šç›´æ¥è°ƒç”¨æ–¹æ³•
             InfoDialogUI.Instance.ShowArrow();
 
             typeRoutine = null;
@@ -245,7 +245,7 @@ namespace Interact
             InfoDialogUI.Instance.textBoxText.text = lines[idx].content;
             lineFullyShown = true;
 
-            // ÕıÈ·£ºÖ±½Óµ÷ÓÃ·½·¨
+            // æ­£ç¡®ï¼šç›´æ¥è°ƒç”¨æ–¹æ³•
             InfoDialogUI.Instance.ShowArrow();
         }
 
@@ -253,13 +253,13 @@ namespace Interact
         {
             talking = false;
 
-            // === »Ö¸´Íæ¼ÒÒÆ¶¯ ===
+            // === æ¢å¤ç©å®¶ç§»åŠ¨ ===
             if (!player)
                 player = FindObjectOfType<Player>();
             if (player)
                 player.isBusy = false; 
 
-            // ´æµµ±ê¼Ç
+            // å­˜æ¡£æ ‡è®°
             if (save == null) save = SaveManager.LoadOrDefault("Town");
             if (save.TryMarkDialogueSeen(dialogueId))
             {
@@ -271,10 +271,10 @@ namespace Interact
 
             if (destroyAfterFinish)
                 Destroy(gameObject);
-            // else ±£ÁôÔÚ³¡¾°ÖĞ£¨ÔÙ´Î½øÈëÈô save ÅĞÖØÈÔÎªÎ´¿´¹ıÔò¿ÉÔÙ´Î´¥·¢£©
+            // else ä¿ç•™åœ¨åœºæ™¯ä¸­ï¼ˆå†æ¬¡è¿›å…¥è‹¥ save åˆ¤é‡ä»ä¸ºæœªçœ‹è¿‡åˆ™å¯å†æ¬¡è§¦å‘ï¼‰
         }
 
-        // Ñ¡ÖĞÊ±¿ÉÊÓ»¯´¥·¢·¶Î§
+        // é€‰ä¸­æ—¶å¯è§†åŒ–è§¦å‘èŒƒå›´
         void OnDrawGizmosSelected()
         {
             var col = GetComponent<Collider2D>();
@@ -324,16 +324,16 @@ namespace Interact
             }
         }
         // <summary>
-        /// µÈ´ıÍæ¼Ò°´ÏÂÒÆ¶¯¼üºóÒş²ØÌáÊ¾
+        /// ç­‰å¾…ç©å®¶æŒ‰ä¸‹ç§»åŠ¨é”®åéšè—æç¤º
         /// </summary>
         private IEnumerator WaitForMoveInputToHideHint()
         {
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D));
 
             if (InfoDialogUI.Instance)
-                InfoDialogUI.Instance.ShowMessage(""); // Çå¿ÕÌáÊ¾
+                InfoDialogUI.Instance.ShowMessage(""); // æ¸…ç©ºæç¤º
 
-            // ÏÖÔÚ²ÅÕæÕı½áÊø¶Ô°×
+            // ç°åœ¨æ‰çœŸæ­£ç»“æŸå¯¹ç™½
             EndTalk();
         }
     }
