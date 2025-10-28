@@ -37,12 +37,15 @@ namespace Scene
 
             fadeImage = new GameObject("FadeImage").AddComponent<Image>();
             fadeImage.transform.SetParent(canvas.transform, false);
+            // 让它在 Canvas 的第 2 个位置（下标从 0 开始）
+            fadeImage.transform.SetSiblingIndex(1);
             RectTransform rect = fadeImage.rectTransform;
             rect.anchorMin = Vector2.zero;
             rect.anchorMax = Vector2.one;
             rect.offsetMin = Vector2.zero;
             rect.offsetMax = Vector2.zero;
             fadeImage.color = new Color(0, 0, 0, 0); // 初始透明
+            fadeImage.raycastTarget = false;
         }
 
         /// <summary>

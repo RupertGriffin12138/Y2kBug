@@ -136,7 +136,6 @@ namespace Dialog
                     Debug.Log("[Dialogue] Special case: Fireworks scene.");
                     infoDialogUI.DisableAllCartoonsWithFadeOut();
                     infoDialogUI.EnableCartoon(infoDialogUI.cartoonObjects.Length - 1); // 启用最后一个卡通对象 (T_cartoon_6)
-
                     infoDialogUI.ShowMessage(dialogue);
                     yield return new WaitForSeconds(2f); // 等待一段时间后继续
                     currentIndex++;
@@ -166,8 +165,8 @@ namespace Dialog
                 currentIndex++;
             }
 
+            infoDialogUI.StartCoroutine(InfoDialogUI.Instance.FadeOut(infoDialogUI.cartoonObjects[^1]));
             infoDialogUI.EndDialogue();
-
             // ========= 改动 2：结束后可选择切到下一个场景 =========
             TryLoadNextSceneIfNeeded();
         }
@@ -177,7 +176,7 @@ namespace Dialog
             if (loadNextSceneOnEnd && !string.IsNullOrEmpty(nextSceneName))
             {
                 // 改为带淡出效果
-                SceneFadeEffect.Instance.FadeOutAndLoad(nextSceneName,1.5f,2f);
+                SceneFadeEffect.Instance.FadeOutAndLoad(nextSceneName,0.5f,2f);
             }
         }
 

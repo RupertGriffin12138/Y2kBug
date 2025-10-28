@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Characters.PLayer_25D;
 using Characters.Player;
 using Save;
 using UI;
@@ -47,6 +48,12 @@ namespace Interact
         [Tooltip("每个字符的延时（秒）")]
         public float typeCharDelay = 0.05f;
         
+        [Header("控制选项")]
+        [Tooltip("是否在对话期间锁住玩家的移动和操作（默认：是）")]
+        public bool lockPlayerDuringDialogue = true;
+        [Tooltip("是否允许对话在退出触发区后重置（再次进入可从头开始）")]
+        public bool resetOnExit = false;
+        
         private const KeyCode nextKey = KeyCode.E;
 
         private bool talking;
@@ -54,6 +61,7 @@ namespace Interact
         private SaveData save;
 
         private Player player;
+        private PlayerMovement playerMovement;
 
         // 打字机状态
         private Coroutine typeRoutine;
@@ -68,21 +76,43 @@ namespace Interact
         private void Start()
         {
             save = SaveManager.LoadOrDefault("Town");
-            if (save.HasSeenDialogue(dialogueId))
+            if (!resetOnExit && save.HasSeenDialogue(dialogueId))
             {
                 Destroy(gameObject);
             }
-            
             InitArrowBtn();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (!other.CompareTag(playerTag)) return;
-            if (save != null && save.HasSeenDialogue(dialogueId)) return;
+            if (!resetOnExit && save != null && save.HasSeenDialogue(dialogueId)) return;
             if (talking) return;
-
             BeginTalk();
+        }
+        
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (!resetOnExit) return;
+            if (!other.CompareTag(playerTag)) return;
+            if (!talking) return;
+
+            // === 清空当前对话 ===
+            StopAllCoroutines(); // 停止打字机协程等
+            talking = false;
+            idx = 0;
+            lineFullyShown = false;
+
+            // 恢复玩家控制
+            if (lockPlayerDuringDialogue)
+            {
+                if (player) player.UnlockControl();
+                if (playerMovement) playerMovement.UnlockControl();
+            }
+
+            // 清空 UI
+            if (InfoDialogUI.Instance)
+                InfoDialogUI.Instance.EndDialogue();
         }
 
         private void Update()
@@ -130,13 +160,19 @@ namespace Interact
             talking = true;
             idx = 0;
 
-            // === 禁止玩家移动 ===
-            if (player == null)
-                player = FindObjectOfType<Player>();
-            if (player != null)
-                player.LockControl(); 
-            
-            
+            // === 若启用锁定，则禁止玩家移动 ===
+            if (lockPlayerDuringDialogue)
+            {
+                if (!player)
+                    player = FindObjectOfType<Player>();
+                if (player)
+                    player.LockControl();
+
+                if (!playerMovement)
+                    playerMovement = FindObjectOfType<PlayerMovement>();
+                if (playerMovement)
+                    playerMovement.LockControl();
+            }
 
             if (InfoDialogUI.Instance)
             {
@@ -156,7 +192,7 @@ namespace Interact
             else
             {
                 // 仅当不是教学场景时才立即 EndTalk()
-                if (SceneManager.GetActiveScene().name == "C1S1 campus")
+                if (SceneManager.GetActiveScene().name == "C1S1 campus" && !resetOnExit)
                 {
                     // 显示教学提示（不要立刻 EndTalk）
                     if (InfoDialogUI.Instance)
@@ -214,7 +250,7 @@ namespace Interact
                 yield return new WaitForSeconds(typeCharDelay);
 
                 // 若在打字中按键，交由 Update 的逻辑立即补全
-                if (Input.GetKeyDown(nextKey_1) || Input.GetKeyDown(nextKey_2))
+                if (Input.GetKeyDown(nextKey))
                 {
                     // 立即补全
                     InfoDialogUI.Instance.textBoxText.text = content;
@@ -253,23 +289,34 @@ namespace Interact
         {
             talking = false;
 
-            // === 恢复玩家移动 ===
-            if (!player)
-                player = FindObjectOfType<Player>();
-            if (player)
-                player.isBusy = false; 
-
-            // 存档标记
-            if (save == null) save = SaveManager.LoadOrDefault("Town");
-            if (save.TryMarkDialogueSeen(dialogueId))
+            // === 若启用锁定，则在结束时恢复移动 ===
+            if (lockPlayerDuringDialogue)
             {
-                SaveManager.Save(save);
+                if (!player)
+                    player = FindObjectOfType<Player>();
+                if (player)
+                    player.UnlockControl();
+
+                if (!playerMovement)
+                    playerMovement = FindObjectOfType<PlayerMovement>();
+                if (playerMovement)
+                    playerMovement.UnlockControl();
+            }
+            
+            // === 存档标记（仅当非 reset 模式时）===
+            if (!resetOnExit)
+            {
+                if (save == null) save = SaveManager.LoadOrDefault("Town");
+                if (save.TryMarkDialogueSeen(dialogueId))
+                {
+                    SaveManager.Save(save);
+                }
             }
 
             if (InfoDialogUI.Instance)
                 InfoDialogUI.Instance.EndDialogue();
 
-            if (destroyAfterFinish)
+            if (destroyAfterFinish && !resetOnExit)
                 Destroy(gameObject);
             // else 保留在场景中（再次进入若 save 判重仍为未看过则可再次触发）
         }

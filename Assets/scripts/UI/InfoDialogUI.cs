@@ -192,7 +192,7 @@ namespace UI
         }
 
         /// <summary>使物体逐渐变得透明。</summary>
-        private IEnumerator FadeOut(GameObject obj)
+        public IEnumerator FadeOut(GameObject obj)
         {
             SpriteRenderer spriteRenderer = obj.GetComponent<SpriteRenderer>();
             if (spriteRenderer)
