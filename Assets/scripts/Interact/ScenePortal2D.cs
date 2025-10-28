@@ -1,7 +1,7 @@
 using System.Collections;
+using Scene;
 using UI;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Interact
 {
@@ -124,7 +124,7 @@ namespace Interact
             PortalSpawnBuffer.SetTargetPortal(targetPortalIdInNextScene);
 
             yield return null;
-            SceneManager.LoadScene(nextSceneName, LoadSceneMode.Single);
+            SceneFadeEffect.Instance.FadeOutAndLoad(nextSceneName,0.5f,1f);
         }
     }
 
