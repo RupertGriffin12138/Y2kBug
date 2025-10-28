@@ -34,7 +34,8 @@ namespace Interact
         };
 
         [Header("按键")]
-        public KeyCode nextKey = KeyCode.Space;
+        public KeyCode nextKey_1 = KeyCode.E;
+        public KeyCode nextKey_2 = KeyCode.Mouse0;
 
         [Header("过滤")]
         public string playerTag = "Player";
@@ -84,7 +85,7 @@ namespace Interact
             if (blockWhenPaused && Time.timeScale == 0f) return;
             if (!talking) return;
 
-            if (Input.GetKeyDown(nextKey))
+            if (Input.GetKeyDown(nextKey_1) || Input.GetKeyDown(nextKey_2))
             {
                 if (!lineFullyShown)
                 {
@@ -175,7 +176,7 @@ namespace Interact
                 yield return new WaitForSeconds(typeCharDelay);
 
                 // 若在打字中按键，交由 Update 的逻辑立即补全
-                if (Input.GetKeyDown(nextKey))
+                if (Input.GetKeyDown(nextKey_1) || Input.GetKeyDown(nextKey_2))
                 {
                     // 立即补全
                     InfoDialogUI.Instance.textBoxText.text = content;

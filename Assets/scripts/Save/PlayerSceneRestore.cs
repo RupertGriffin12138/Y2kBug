@@ -69,13 +69,14 @@ namespace Save
                 if (!string.Equals(p.portalId?.Trim(), targetPortalId.Trim(), System.StringComparison.Ordinal))
                     continue;
 
+                
                 // —— 是否检测到 Parallax（或名为 ParallaxBackground 的脚本）？——
                 bool hasParallax =
                     p.GetComponent("ParallaxBackground") ||
                     (p.transform.parent && p.transform.parent.GetComponent("ParallaxBackground") != null);
 
                 // —— 选择基准：有锚点 &&（未要求自动检测 || 检测到 Parallax）——
-                Transform basis = (p.anchorOverride && (!p.autoUseAnchorOnParallax || hasParallax))
+                Transform basis = (p.anchorOverride && (hasParallax))
                     ? p.anchorOverride
                     : p.transform;
 
