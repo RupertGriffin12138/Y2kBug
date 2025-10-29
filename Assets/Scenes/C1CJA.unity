@@ -4359,6 +4359,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4259393679208922407, guid: deb62d56fa8969545ba988a68a90cf78, type: 3}
+      propertyPath: canEnter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4259393679208922407, guid: deb62d56fa8969545ba988a68a90cf78, type: 3}
       propertyPath: portalId
       value: JA_Exit
       objectReference: {fileID: 0}
@@ -4394,7 +4398,8 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: -0.11935997
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7051986941150172040, guid: deb62d56fa8969545ba988a68a90cf78, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

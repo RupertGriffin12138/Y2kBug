@@ -260,6 +260,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4259393679208922407, guid: deb62d56fa8969545ba988a68a90cf78, type: 3}
+      propertyPath: canEnter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4259393679208922407, guid: deb62d56fa8969545ba988a68a90cf78, type: 3}
       propertyPath: portalId
       value: JB
       objectReference: {fileID: 0}
@@ -287,7 +291,8 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7051986941150172040, guid: deb62d56fa8969545ba988a68a90cf78, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -414,6 +419,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4259393679208922407, guid: deb62d56fa8969545ba988a68a90cf78, type: 3}
+      propertyPath: canEnter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4259393679208922407, guid: deb62d56fa8969545ba988a68a90cf78, type: 3}
       propertyPath: portalId
       value: JA
       objectReference: {fileID: 0}
@@ -441,7 +450,8 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7051986941150172040, guid: deb62d56fa8969545ba988a68a90cf78, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -524,7 +534,7 @@ SpriteRenderer:
   m_SortingLayerID: 2006874641
   m_SortingLayer: 1
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 81dd585e43b4a4244b729e3067e4d533, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 14ba0e1649ca19d458dc5ee1b3e19984, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -830,7 +840,7 @@ Transform:
   m_GameObject: {fileID: 475060941}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.124150276, y: -10.223669, z: -10}
+  m_LocalPosition: {x: 5.284767, y: -10.229357, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -924,6 +934,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 981360871268829581, guid: f1da7c30a2036354eb25b625e62095e0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7298901669a92a840ac7bda94f9d99e4, type: 3}
     - target: {fileID: 1091827908111235510, guid: f1da7c30a2036354eb25b625e62095e0, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1051,6 +1065,14 @@ PrefabInstance:
     - target: {fileID: 5642649487201466506, guid: f1da7c30a2036354eb25b625e62095e0, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6652978974814433853, guid: f1da7c30a2036354eb25b625e62095e0, type: 3}
+      propertyPath: m_Size.x
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 6652978974814433853, guid: f1da7c30a2036354eb25b625e62095e0, type: 3}
+      propertyPath: m_Size.y
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 7055705210521891763, guid: f1da7c30a2036354eb25b625e62095e0, type: 3}
       propertyPath: m_Name
@@ -1084,7 +1106,8 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6652978974814433853, guid: f1da7c30a2036354eb25b625e62095e0, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -2283,7 +2306,7 @@ SpriteRenderer:
   m_SortingLayerID: 2006874641
   m_SortingLayer: 1
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 81dd585e43b4a4244b729e3067e4d533, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 14ba0e1649ca19d458dc5ee1b3e19984, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

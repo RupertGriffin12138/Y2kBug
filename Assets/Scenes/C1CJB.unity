@@ -2944,6 +2944,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4259393679208922407, guid: deb62d56fa8969545ba988a68a90cf78, type: 3}
+      propertyPath: canEnter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4259393679208922407, guid: deb62d56fa8969545ba988a68a90cf78, type: 3}
       propertyPath: portalId
       value: JB_Exit
       objectReference: {fileID: 0}
