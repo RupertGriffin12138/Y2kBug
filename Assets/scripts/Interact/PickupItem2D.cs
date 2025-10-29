@@ -52,21 +52,12 @@ namespace Interact
         [Tooltip("是否先弹一句『获得 XXX xN』，然后再进入下面的正式对话")]
         public bool showPickupToast = true;
 
-        public List<DialogueLine> lines = new List<DialogueLine>
+        public List<DialogueLine> lines = new()
         {
             new DialogueLine{ speaker="旁白", content="你捡起了某样重要的东西……" },
             new DialogueLine{ speaker="？？？", content="这也许会派上用场。" },
         };
-
-        [Header("对话参数")]
-        public KeyCode nextKey = KeyCode.Space;
-        [Tooltip("逐字机每个字符的延时（秒），使用实时计时，不受 Time.timeScale 影响")]
-        public float typeCharDelay = 0.04f;
-
-        [Tooltip("最后一句打完后是否自动关闭对话（无需再按一次键）")]
-        public bool autoCloseOnLastLine = true;
-        [Tooltip("最后一句自动关闭前的延时（秒，实时）")]
-        public float autoCloseDelay = 0.3f;
+        
 
         // ===== 内部状态 =====
         private bool _playerInRange = false;

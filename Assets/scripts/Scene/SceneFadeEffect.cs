@@ -78,6 +78,9 @@ namespace Scene
             // 黑屏停留（可选）
             if (holdDuration > 0f)
                 yield return new WaitForSeconds(holdDuration);
+            
+            if (nextScene != "C1S1 campus")
+                AudioClipHelper.Instance.Stop_Footsteps();
 
             // 加载新场景
             AsyncOperation async = SceneManager.LoadSceneAsync(nextScene, LoadSceneMode.Single);
@@ -86,8 +89,7 @@ namespace Scene
             while (!async.isDone)
                 yield return null;
 
-            if (nextScene != "C1S1 campus")
-                AudioClipHelper.Instance.Stop_Footsteps();
+        
 
             // 场景加载完成后从黑幕淡入
             yield return StartCoroutine(FadeRoutine(1f, 0f, fadeDuration));

@@ -18,11 +18,11 @@ namespace Items
         [Serializable]
         public class SaveData
         {
-            public List<Entry> entries = new List<Entry>();
+            public List<Entry> entries = new();
         }
 
         [Header("数据")]
-        public List<Entry> entries = new List<Entry>(); // 运行时数据（Inspector 可直改）
+        public List<Entry> entries = new(); // 运行时数据（Inspector 可直改）
         public ItemDB itemDB;
 
         // ====================== 容量/解锁（由全局变量控制） ======================
@@ -36,11 +36,11 @@ namespace Items
 
         // 当前可用槽位数：未解锁=1，解锁=totalSlotCount
         public int UnlockedSlotCount => Mathf.Clamp(
-            (progress != null && progress.backpackUnlocked) ? totalSlotCount : 1,
+            (GameState.BackpackUnlocked ? totalSlotCount : 1),
             1, Mathf.Max(1, totalSlotCount)
         );
 
-        public bool IsBackpackUnlocked => (progress != null && progress.backpackUnlocked);
+        public bool IsBackpackUnlocked => GameState.BackpackUnlocked;
 
         // ====================== 存档来源选择 ======================
         [Header("存档来源")]
