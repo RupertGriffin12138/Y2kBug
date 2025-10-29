@@ -88,6 +88,11 @@ public class AudioManager : MonoSingleton<AudioManager>
                 CreatAudioObj(clip);
             }
 
+            bool canPlayAudio = PlayerPrefs.GetInt("pf_sfx_on", 1) == 1;
+            if (canPlayAudio)
+                audioSources[clip.name].GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("pf_sfx_vol", 1f);
+            else
+                audioSources[clip.name].GetComponent<AudioSource>().volume = 0;
             audioSources[clip.name].GetComponent<AudioSource>().Play();
 
         }
