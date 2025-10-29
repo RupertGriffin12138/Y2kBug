@@ -4,10 +4,8 @@ using Characters.PLayer_25D;
 using Characters.Player;
 using Save;
 using UI;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 namespace Interact
 {
@@ -29,7 +27,7 @@ namespace Interact
             [TextArea(2, 3)] public string content;
         }
 
-        [Header("对话内容（每句包含人物+内容）")]
+        [Header("对话内容")]
         public List<DialogueLine> lines = new()
         {
             new DialogueLine { speaker = "旁白", content = "操场边上的男孩来回踱步……" },
@@ -41,31 +39,36 @@ namespace Interact
         public string playerTag = "Player";
 
         [Header("行为")]
-        public bool blockWhenPaused = true;
         public bool destroyAfterFinish = true;
-
-        [Header("打字机参数")]
-        [Tooltip("每个字符的延时（秒）")]
-        public float typeCharDelay = 0.05f;
         
         [Header("控制选项")]
         [Tooltip("是否在对话期间锁住玩家的移动和操作（默认：是）")]
         public bool lockPlayerDuringDialogue = true;
         [Tooltip("是否允许对话在退出触发区后重置（再次进入可从头开始）")]
         public bool resetOnExit = false;
-        
-        private const KeyCode nextKey = KeyCode.E;
 
         private bool talking;
-        private int idx;
         private SaveData save;
-
         private Player player;
         private PlayerMovement playerMovement;
 
-        // 打字机状态
-        private Coroutine typeRoutine;
-        private bool lineFullyShown;
+        private bool dialogueEnded;// 对话是否已经结束
+        // 开启对话协程
+        private Coroutine talkRoutine;
+
+        private void OnDisable()
+        {
+            if (InfoDialogUI.Instance)
+                InfoDialogUI.Instance.OnLineChanged -= HandleLineChange;
+        }
+        
+        private void HandleLineChange(int idx)
+        {
+            if (SceneManager.GetActiveScene().name == "C1S3 guard")
+            {
+                ControlGif(idx);
+            }
+        }
 
         private void Reset()
         {
@@ -80,7 +83,14 @@ namespace Interact
             {
                 Destroy(gameObject);
             }
-            InitArrowBtn();
+            if (!player)
+                player = FindObjectOfType<Player>();
+            if (!playerMovement)
+                playerMovement = FindObjectOfType<PlayerMovement>();
+            
+            // 注册行变更事件
+            if (InfoDialogUI.Instance)
+                InfoDialogUI.Instance.OnLineChanged += HandleLineChange;
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -88,7 +98,8 @@ namespace Interact
             if (!other.CompareTag(playerTag)) return;
             if (!resetOnExit && save != null && save.HasSeenDialogue(dialogueId)) return;
             if (talking) return;
-            BeginTalk();
+            if (talkRoutine != null) StopCoroutine(talkRoutine);
+            talkRoutine = StartCoroutine(BeginTalkFlow());
         }
         
         private void OnTriggerExit2D(Collider2D other)
@@ -96,233 +107,107 @@ namespace Interact
             if (!resetOnExit) return;
             if (!other.CompareTag(playerTag)) return;
             if (!talking) return;
-
+            talking = false;
             // === 清空当前对话 ===
             StopAllCoroutines(); // 停止打字机协程等
-            talking = false;
-            idx = 0;
-            lineFullyShown = false;
-
-            // 恢复玩家控制
+            // 解锁玩家
             if (lockPlayerDuringDialogue)
             {
                 if (player) player.UnlockControl();
                 if (playerMovement) playerMovement.UnlockControl();
             }
 
-            // 清空 UI
+            // 清空UI
             if (InfoDialogUI.Instance)
                 InfoDialogUI.Instance.EndDialogue();
         }
-
-        private void Update()
-        {
-            if (blockWhenPaused && Time.timeScale == 0f) return;
-            if (Input.GetKeyDown(nextKey))
-            {
-                HandleNext();
-            }
-        }
         
         /// <summary>
-        /// 处理 推进对话
+        /// 主流程：触发 → 对话 → 教学或存档 → 结束
         /// </summary>
-        private void HandleNext()
+        private IEnumerator BeginTalkFlow()
         {
-            if (!talking) return;
+            talking = true;
+            // 锁定玩家
+            if (lockPlayerDuringDialogue)
+            {
+                if (player) player.LockControl();
+                if (playerMovement) playerMovement.LockControl();
+            }
 
-            if (!lineFullyShown)
+            // 准备对白数据
+            var lineData = new List<(string speaker, string content)>();
+            foreach (var l in lines)
+                lineData.Add((l.speaker, l.content));
+
+            dialogueEnded = false;
+
+            if (!InfoDialogUI.Instance)
             {
-                // 当前句还在打字 → 补全
-                ShowLineInstant();
+                Debug.LogWarning("[DialogueTrigger2D_Save] InfoDialogUI 未实例化");
+                yield break;
             }
-            else
-            {
-                if (SceneManager.GetActiveScene().name == "C1S3 guard")
-                    ControlGif();
-                NextLine();
-            }
+
+            // 调用 InfoDialogUI 开始对白
+            InfoDialogUI.Instance.BeginDialogue(lineData, OnDialogueEnd);
+
+
+            // 等待对白结束
+            yield return new WaitUntil(() => dialogueEnded);
+            talking = false;
         }
         
-        public void InitArrowBtn()
+        private void OnDialogueEnd()
         {
-            if (!InfoDialogUI.Instance.arrowImage.TryGetComponent<Button>(out var image))
-            {
-                Button btn = InfoDialogUI.Instance.arrowImage.AddComponent<Button>();
-                btn.onClick.AddListener(HandleNext);
-            }
-        }
-
-        private void BeginTalk()
-        {
-            if (lines == null || lines.Count == 0) return;
-
-            talking = true;
-            idx = 0;
-
-            // === 若启用锁定，则禁止玩家移动 ===
+            if (!this) return; // 防止对象已销毁还回调
+            dialogueEnded = true;
+            // 解锁玩家
             if (lockPlayerDuringDialogue)
             {
-                if (!player)
-                    player = FindObjectOfType<Player>();
-                if (player)
-                    player.LockControl();
-
-                if (!playerMovement)
-                    playerMovement = FindObjectOfType<PlayerMovement>();
-                if (playerMovement)
-                    playerMovement.LockControl();
+                if (player) player.UnlockControl();
+                if (playerMovement) playerMovement.UnlockControl();
             }
 
-            if (InfoDialogUI.Instance)
-            {
-                InfoDialogUI.Instance.StartDialogue();
-            }
-
-            ShowCurrentLineTyped();
+            // 存档、教学提示、销毁物体等
+            HandleSaveAndDestroy();
         }
-
-        private void NextLine()
+        
+        private void HandleSaveAndDestroy()
         {
-            idx++;
-            if (idx < lines.Count)
-            {
-                ShowCurrentLineTyped();
-            }
-            else
-            {
-                // 仅当不是教学场景时才立即 EndTalk()
-                if (SceneManager.GetActiveScene().name == "C1S1 campus" && !resetOnExit)
-                {
-                    // 显示教学提示（不要立刻 EndTalk）
-                    if (InfoDialogUI.Instance)
-                        InfoDialogUI.Instance.ShowMessage("按 “A” 或 “D” 进行移动");
-
-                    // 启动监听协程
-                    StartCoroutine(WaitForMoveInputToHideHint());
-                }
-                else
-                {
-                    // 正常对白 → 立即结束
-                    EndTalk();
-                }
-            }
-        }
-
-        private void ShowCurrentLineTyped()
-        {
-            if (!InfoDialogUI.Instance) return;
-
-            // 停掉上一次的打字协程
-            if (typeRoutine != null)
-            {
-                StopCoroutine(typeRoutine);
-                typeRoutine = null;
-            }
-
-            var line = lines[idx];
-
-            // 名字框：旁白不显示名字
-            if (string.Equals(line.speaker, "旁白"))
-                InfoDialogUI.Instance.SetNameText("");
-            else
-                InfoDialogUI.Instance.SetNameText(line.speaker);
-
-            // 按人物名称切换背景
-            InfoDialogUI.Instance.EnableCharacterBackground(line.speaker);
-
-            // 清空并开始打字
-            InfoDialogUI.Instance.textBoxText.text = "";
-            lineFullyShown = false;
-
-            // 正确：直接调用方法
-            InfoDialogUI.Instance.HideArrow();
-
-            typeRoutine = StartCoroutine(Typewriter(line.content));
-        }
-
-        private IEnumerator Typewriter(string content)
-        {
-            // 逐字输出
-            foreach (char c in content)
-            {
-                InfoDialogUI.Instance.textBoxText.text += c;
-                yield return new WaitForSeconds(typeCharDelay);
-
-                // 若在打字中按键，交由 Update 的逻辑立即补全
-                if (Input.GetKeyDown(nextKey))
-                {
-                    // 立即补全
-                    InfoDialogUI.Instance.textBoxText.text = content;
-                    break;
-                }
-            }
-
-            // 打字完成
-            lineFullyShown = true;
-
-            // 正确：直接调用方法
-            InfoDialogUI.Instance.ShowArrow();
-
-            typeRoutine = null;
-        }
-
-        private void ShowLineInstant()
-        {
-            if (!InfoDialogUI.Instance) return;
-            if (idx < 0 || idx >= lines.Count) return;
-
-            if (typeRoutine != null)
-            {
-                StopCoroutine(typeRoutine);
-                typeRoutine = null;
-            }
-
-            InfoDialogUI.Instance.textBoxText.text = lines[idx].content;
-            lineFullyShown = true;
-
-            // 正确：直接调用方法
-            InfoDialogUI.Instance.ShowArrow();
-        }
-
-        private void EndTalk()
-        {
-            talking = false;
-
-            // === 若启用锁定，则在结束时恢复移动 ===
-            if (lockPlayerDuringDialogue)
-            {
-                if (!player)
-                    player = FindObjectOfType<Player>();
-                if (player)
-                    player.UnlockControl();
-
-                if (!playerMovement)
-                    playerMovement = FindObjectOfType<PlayerMovement>();
-                if (playerMovement)
-                    playerMovement.UnlockControl();
-            }
-            
             // === 存档标记（仅当非 reset 模式时）===
             if (!resetOnExit)
             {
                 if (save == null) save = SaveManager.LoadOrDefault("Town");
                 if (save.TryMarkDialogueSeen(dialogueId))
-                {
                     SaveManager.Save(save);
-                }
+            }
+            // 特殊场景教学提示
+            if (SceneManager.GetActiveScene().name == "C1S1 campus" && !resetOnExit)
+            {
+                InfoDialogUI.Instance.ShowMessage("-按“A”“D”进行移动-");
+                StartCoroutine(WaitForMoveInputToHideHint());
             }
 
-            if (InfoDialogUI.Instance)
-                InfoDialogUI.Instance.EndDialogue();
-
+            // 销毁自身
             if (destroyAfterFinish && !resetOnExit)
                 Destroy(gameObject);
-            // else 保留在场景中（再次进入若 save 判重仍为未看过则可再次触发）
         }
-
-        // 选中时可视化触发范围
-        void OnDrawGizmosSelected()
+        
+        /// <summary>
+        /// 教学场景监听移动键
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator WaitForMoveInputToHideHint()
+        {
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D));
+            if (InfoDialogUI.Instance)
+                InfoDialogUI.Instance.ShowMessage(""); // 清空提示
+        }
+        
+        /// <summary>
+        /// 选中时可视化触发范围
+        /// </summary>
+        private void OnDrawGizmosSelected()
         {
             var col = GetComponent<Collider2D>();
             if (!col) return;
@@ -331,13 +216,23 @@ namespace Interact
             Gizmos.matrix = transform.localToWorldMatrix;
             Gizmos.color = new Color(1f, 1f, 0f, 0.25f);
 
-            if (col is BoxCollider2D b) Gizmos.DrawCube((Vector3)b.offset, (Vector3)b.size);
-            if (col is CircleCollider2D c) Gizmos.DrawSphere((Vector3)c.offset, c.radius);
+            switch (col)
+            {
+                case BoxCollider2D b:
+                    Gizmos.DrawCube((Vector3)b.offset, (Vector3)b.size);
+                    break;
+                case CircleCollider2D c:
+                    Gizmos.DrawSphere((Vector3)c.offset, c.radius);
+                    break;
+            }
 
             Gizmos.matrix = prev;
         }
 
-        private void ControlGif()
+        /// <summary>
+        /// 调用 GIF 动画控制(仅门卫室场景使用)
+        /// </summary>
+        private void ControlGif(int idx)
         {
             switch (idx)
             {
@@ -369,19 +264,6 @@ namespace Interact
                     InfoDialogUI.Instance.SpawnMultiple(false);
                     break;
             }
-        }
-        // <summary>
-        /// 等待玩家按下移动键后隐藏提示
-        /// </summary>
-        private IEnumerator WaitForMoveInputToHideHint()
-        {
-            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D));
-
-            if (InfoDialogUI.Instance)
-                InfoDialogUI.Instance.ShowMessage(""); // 清空提示
-
-            // 现在才真正结束对白
-            EndTalk();
         }
     }
 }

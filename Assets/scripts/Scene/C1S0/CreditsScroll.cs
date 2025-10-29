@@ -33,7 +33,7 @@ namespace Scene.C1S0
         private int currentLineIndex = 0;
         private TMP_Text creditsTextComponent;
 
-        void Start()
+        private void Start()
         {
             // 获取TMP_Text组件
             creditsTextComponent = GetComponent<TMP_Text>();
@@ -51,8 +51,8 @@ namespace Scene.C1S0
 
             StartCoroutine(ShowCredits());
         }
-        
-        IEnumerator ShowCredits()
+
+        private IEnumerator ShowCredits()
         {
             while (currentLineIndex < creditsTexts.Length)
             {

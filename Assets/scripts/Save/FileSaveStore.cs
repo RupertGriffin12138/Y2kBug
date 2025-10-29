@@ -6,7 +6,6 @@ namespace Save
     public class FileSaveStore : ISaveStore
     {
         private readonly string path;
-
         public FileSaveStore(string filename = "demo_save.json")
         {
             path = Path.Combine(Application.persistentDataPath, filename);

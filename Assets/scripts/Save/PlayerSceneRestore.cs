@@ -15,12 +15,12 @@ namespace Save
         [Tooltip("若仍未找到，再额外等待多少秒（例如 Addressables/异步激活场景时）")]
         public float extraWaitSeconds = 0f;
 
-        void Start()
+        private void Start()
         {
             StartCoroutine(PlaceAtTargetPortalCoroutine());
         }
 
-        IEnumerator PlaceAtTargetPortalCoroutine()
+        private IEnumerator PlaceAtTargetPortalCoroutine()
         {
             if (!PortalSpawnBuffer.Peek(out string targetPortalId) || string.IsNullOrEmpty(targetPortalId))
             {
@@ -56,7 +56,7 @@ namespace Save
             UseFallbackIfAny();
         }
 
-        bool TryPlaceAtPortal(string targetPortalId)
+        private bool TryPlaceAtPortal(string targetPortalId)
         {
 #if UNITY_2023_1_OR_NEWER
         var portals = FindObjectsByType<ScenePortal2D>(FindObjectsInactive.Include, FindObjectsSortMode.None);
@@ -65,7 +65,7 @@ namespace Save
 #endif
             foreach (var p in portals)
             {
-                if (p == null) continue;
+                if (!p) continue;
                 if (!string.Equals(p.portalId?.Trim(), targetPortalId.Trim(), System.StringComparison.Ordinal))
                     continue;
 
@@ -73,7 +73,7 @@ namespace Save
                 // —— 是否检测到 Parallax（或名为 ParallaxBackground 的脚本）？——
                 bool hasParallax =
                     p.GetComponent("ParallaxBackground") ||
-                    (p.transform.parent && p.transform.parent.GetComponent("ParallaxBackground") != null);
+                    (p.transform.parent && p.transform.parent.GetComponent("ParallaxBackground"));
 
                 // —— 选择基准：有锚点 &&（未要求自动检测 || 检测到 Parallax）——
                 Transform basis = (p.anchorOverride && (hasParallax))

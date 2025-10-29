@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Characters.PLayer_25D;
+using Characters.Player;
 using Items;
 using Save;
 using UI;
@@ -31,6 +33,9 @@ namespace Interact
         public new SaveTag tag;
         [Tooltip("拾取后是否自动保存（推荐：勾选）")]
         public bool autoSaveOnPickup = true;
+
+        private Player player;
+        private PlayerMovement playerMovement;
 
         // ========== 拾取后自动对话 ==========
         [System.Serializable]
@@ -66,12 +71,7 @@ namespace Interact
         // ===== 内部状态 =====
         private bool _playerInRange = false;
         private bool _consumed = false;           // 防止重复执行
-
-        // 打字机状态
-        private Coroutine typeRoutine;
-        private bool lineFullyShown;
-        private int idx; // 当前对话索引
-        private bool _talking = false;
+        
 
         private void Reset()
         {
@@ -95,11 +95,14 @@ namespace Interact
             {
                 gameObject.SetActive(false);
                 _consumed = true;
-                return;
             }
+            if (!player)
+                player = FindObjectOfType<Player>();
+            if (!playerMovement)
+                playerMovement = FindObjectOfType<PlayerMovement>();
         }
 
-        void OnTriggerEnter2D(Collider2D other)
+        private void OnTriggerEnter2D(Collider2D other)
         {
             if (_consumed) return;
             if (other.CompareTag("Player"))
@@ -110,7 +113,7 @@ namespace Interact
             }
         }
 
-        void OnTriggerExit2D(Collider2D other)
+        private void OnTriggerExit2D(Collider2D other)
         {
             if (_consumed) return;
             if (other.CompareTag("Player"))
@@ -121,22 +124,15 @@ namespace Interact
             }
         }
 
-        void Update()
+        private void Update()
         {
             if (_consumed) return;
 
             if (_playerInRange && Input.GetKeyDown(pickupKey))
                 TryPickup();
-
-            // 对话推进（只有在本脚本触发的对话期间才处理 Space）
-            if (_talking && Input.GetKeyDown(nextKey))
-            {
-                if (!lineFullyShown) ShowLineInstant();
-                else NextLine();
-            }
         }
 
-        void TryPickup()
+        private void TryPickup()
         {
             if (_consumed) return;
 
@@ -177,152 +173,42 @@ namespace Interact
             StartCoroutine(PickupFlow(displayName));
         }
 
-        IEnumerator PickupFlow(string displayName)
+        private IEnumerator PickupFlow(string displayName)
         {
             _consumed = true; // 防止重复触发
-
             // 清掉交互提示
-            if (InfoDialogUI.Instance)
-                InfoDialogUI.Instance.Clear();
+            InfoDialogUI.Instance?.Clear();
 
-            // （可选）先给个获得提示
+            // （1）提示获得物品
             if (showPickupToast && InfoDialogUI.Instance)
             {
                 InfoDialogUI.Instance.ShowMessage($"获得 {displayName} x{amount}");
-                yield return new WaitForSecondsRealtime(0.5f);
+                yield return new WaitForSecondsRealtime(0.8f);
             }
 
-            if (triggerDialogueOnPickup && lines != null && lines.Count > 0 && InfoDialogUI.Instance)
+            // （2）对白流程（新版 InfoDialogUI）
+            if (triggerDialogueOnPickup && lines is { Count: > 0 } && InfoDialogUI.Instance)
             {
-                // 播放对话
-                _talking = true;
-                idx = 0;
-                InfoDialogUI.Instance.StartDialogue();
-                ShowCurrentLineTyped();
+                var dialogueLines = new List<(string speaker, string content)>();
+                foreach (var l in lines)
+                    dialogueLines.Add((l.speaker, l.content));
 
-                // 等待对话结束
-                while (_talking) yield return null;
+                bool finished = false;
+                InfoDialogUI.Instance.BeginDialogue(dialogueLines, () => finished = true);
+                // 锁住玩家控制（防止对白期间移动或操作）
+                if (player) player.LockControl();
+                if (playerMovement) playerMovement.LockControl();
 
-                // 这里可不必再次 EndDialogue（EndNow 内已调用）
+                // 等待 InfoDialogUI 播放完毕
+                yield return new WaitUntil(() => finished);
+                // 解锁玩家控制
+                if (playerMovement) playerMovement.UnlockControl();
+                if (player) player.UnlockControl();
             }
 
             // 最后处理自身
             if (destroyOnPickup) Destroy(gameObject);
             else gameObject.SetActive(false);
-        }
-
-        // ====== 对话播放（最小实现，复用你的 InfoDialogUI） ======
-        void ShowCurrentLineTyped()
-        {
-            if (!InfoDialogUI.Instance) { EndNow(); return; }
-
-            // 停止上一条
-            if (typeRoutine != null)
-            {
-                StopCoroutine(typeRoutine);
-                typeRoutine = null;
-            }
-
-            var line = lines[idx];
-
-            // 显示名字（旁白则清空）
-            InfoDialogUI.Instance.SetNameText(string.Equals(line.speaker, "旁白") ? "" : line.speaker);
-
-            // 清空文本，开始打字
-            InfoDialogUI.Instance.textBoxText.text = "";
-            InfoDialogUI.Instance.HideArrow();
-            lineFullyShown = false;
-
-            typeRoutine = StartCoroutine(Typewriter(line.content));
-        }
-
-        IEnumerator Typewriter(string content)
-        {
-            foreach (char c in content)
-            {
-                InfoDialogUI.Instance.textBoxText.text += c;
-
-                // —— 使用实时计时，避免 Time.timeScale 影响 —— 
-                float t = 0f;
-                while (t < typeCharDelay)
-                {
-                    // 允许用户中途快进
-                    if (Input.GetKeyDown(nextKey))
-                    {
-                        InfoDialogUI.Instance.textBoxText.text = content;
-                        t = typeCharDelay; // 结束外层循环
-                        break;
-                    }
-                    t += Time.unscaledDeltaTime;
-                    yield return null;
-                }
-            }
-
-            lineFullyShown = true;
-
-            // —— 如果是最后一句并启用自动关闭 —— 
-            bool isLast = (idx >= lines.Count - 1);
-            if (isLast && autoCloseOnLastLine)
-            {
-                // 不再显示箭头，稍等后自动结束
-                InfoDialogUI.Instance.HideArrow();
-                if (autoCloseDelay > 0f)
-                    yield return new WaitForSecondsRealtime(autoCloseDelay);
-                EndNow();
-            }
-            else
-            {
-                InfoDialogUI.Instance.ShowArrow();
-            }
-
-            typeRoutine = null;
-        }
-
-        void ShowLineInstant()
-        {
-            if (!InfoDialogUI.Instance) { EndNow(); return; }
-
-            if (typeRoutine != null)
-            {
-                StopCoroutine(typeRoutine);
-                typeRoutine = null;
-            }
-
-            InfoDialogUI.Instance.textBoxText.text = lines[idx].content;
-            lineFullyShown = true;
-
-            bool isLast = (idx >= lines.Count - 1);
-            if (isLast && autoCloseOnLastLine)
-            {
-                InfoDialogUI.Instance.HideArrow();
-                if (autoCloseDelay > 0f)
-                    StartCoroutine(AutoCloseAfterDelay());
-                else
-                    EndNow();
-            }
-            else
-            {
-                InfoDialogUI.Instance.ShowArrow();
-            }
-        }
-
-        IEnumerator AutoCloseAfterDelay()
-        {
-            yield return new WaitForSecondsRealtime(autoCloseDelay);
-            EndNow();
-        }
-
-        void NextLine()
-        {
-            idx++;
-            if (idx < lines.Count) ShowCurrentLineTyped();
-            else EndNow();
-        }
-
-        void EndNow()
-        {
-            _talking = false;
-            if (InfoDialogUI.Instance) InfoDialogUI.Instance.EndDialogue();
         }
     }
 }

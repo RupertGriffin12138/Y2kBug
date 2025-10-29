@@ -14,22 +14,12 @@ namespace Scene
     [RequireComponent(typeof(Canvas))]
     public class SceneFadeEffect : MonoBehaviour
     {
-        public static SceneFadeEffect Instance { get; private set; }
 
         private Image fadeImage;
         private Canvas canvas;
 
         private void Awake()
         {
-            if (Instance != null && Instance != this)
-            {
-                Destroy(gameObject);
-                return;
-            }
-
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-
             // 初始化 Canvas + Image
             canvas = GetComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;

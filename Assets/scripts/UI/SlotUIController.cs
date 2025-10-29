@@ -78,7 +78,7 @@ namespace UI
             Canvas.ForceUpdateCanvases();
         }
 
-        void HandleDocClicked(string docId)
+        private void HandleDocClicked(string docId)
         {
             // 打开文本页阅读
             SetActiveSafe(textPage, true);

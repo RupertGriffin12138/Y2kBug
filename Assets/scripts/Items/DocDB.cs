@@ -24,7 +24,7 @@ namespace Items
 
         private Dictionary<string, DocDef> _map;
 
-        void OnEnable()
+        private void OnEnable()
         {
             _map = new Dictionary<string, DocDef>(StringComparer.OrdinalIgnoreCase);
             foreach (var d in docs)

@@ -11,8 +11,7 @@ namespace Items
         [Header("UI 引用")]
         public GameObject rootPanel;     // 整个 TextPage 面板（含 ScrollView）
         public TMP_Text contentText;     // ScrollView/Viewport/Content 上的 TMP_Text
-
-        void Awake()
+        private void Awake()
         {
             if (rootPanel) rootPanel.SetActive(false);
         }
@@ -68,7 +67,10 @@ namespace Items
         /// <summary>关闭阅读面板</summary>
         public void Close()
         {
-            if (rootPanel) rootPanel.SetActive(false);
+            if (rootPanel)
+            {
+                rootPanel.SetActive(false);
+            }
         }
     }
 }

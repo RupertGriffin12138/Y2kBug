@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,6 +37,19 @@ namespace UI
         public float lifetimeMax = 2f;
         public float spawnIntervalMin = 0.1f;
         public float spawnIntervalMax = 1f;
+        
+        [Header("打印机动画参数")]
+        [Tooltip("每个字符的延时（秒）")]
+        public float defaultTypeDelay = 0.05f;
+        
+        [Header("控制选项")]
+        public bool lockPlayerDuringDialogue = true;
+
+        private Coroutine typeRoutine;
+        private List<(string speaker, string content)> currentLines;
+        private int currentIndex;
+        private bool lineFullyShown;
+        private Action onDialogueEnd;
 
         private Canvas mainCanvas; // UI的主canvas
         private Coroutine spawnLoopCoroutine; // 用来保存当前协程引用
@@ -42,19 +57,171 @@ namespace UI
         private bool keepSpawning = false; // 控制是否持续生成
         
         public bool isShowingDialogue = false;
+        private const KeyCode nextKey = KeyCode.E;
         private Coroutine _dialogueRoutine;
+        
+        /// <summary>当前对白播放的索引（从 0 开始）</summary>
+        public int CurrentLineIndex => currentIndex;
+        public event Action<int> OnLineChanged;
 
         private void Awake()
         {
             if (Instance == null) Instance = this;
             else if (Instance != this) Destroy(gameObject);
+            
+            // 初始化箭头点击事件
+            if (arrowImage && !arrowImage.TryGetComponent<Button>(out _))
+                arrowImage.gameObject.AddComponent<Button>();
+
+            var button = arrowImage.GetComponent<Button>();
+            button.onClick.RemoveAllListeners();
+            button.onClick.AddListener(HandleInputAction);
+
+            HideArrow();
         }
 
         private void Start()
         {
             Clear(); // 初始显示默认提示
         }
+        
+        private void Update()
+        {
+            if (isShowingDialogue && Input.GetKeyDown(KeyCode.E))
+                HandleInputAction();
+        }
 
+        #region 控制对话流程
+        /// <summary>
+        /// 外部调用 传入段落 开启对话流程
+        /// </summary>
+        /// <param name="lines"></param>
+        /// <param name="onEnd"></param>
+        public void BeginDialogue(List<(string speaker, string content)> lines, Action onEnd = null)
+        {
+            if (lines == null || lines.Count == 0)
+                return;
+
+            currentLines = lines;
+            currentIndex = 0;
+            onDialogueEnd = onEnd;
+            StartDialogue();
+        }
+        
+        public void StartDialogue()
+        {
+            gameObject.SetActive(true);
+            isShowingDialogue = true;
+            textBoxText.text = ""; // 清除默认提示
+            nameBoxText.text = ""; // 确保名字框为空
+            HideArrow();
+            DisableCartoons();
+            DisableAllCharacterBackgrounds();
+            ShowCurrentLine();
+        }
+
+        private void ShowCurrentLine()
+        {
+            var line = currentLines[currentIndex];
+            SetNameText(line.speaker == "旁白" ? "" : line.speaker);
+            // 按人物名称切换背景
+            EnableCharacterBackground(line.speaker);
+            textBoxText.text = "";
+            lineFullyShown = false;
+            HideArrow();
+            OnLineChanged?.Invoke(currentIndex);
+
+            if (typeRoutine != null)
+                StopCoroutine(typeRoutine);
+            typeRoutine = StartCoroutine(Typewriter(line.content));
+        }
+
+        private IEnumerator Typewriter(string content)
+        {
+            foreach (char c in content)
+            {
+                textBoxText.text += c;
+                yield return new WaitForSecondsRealtime(defaultTypeDelay);
+                // 如果玩家在打字过程中按下 E，则立刻显示完整句
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    textBoxText.text = content;
+                    break;
+                }
+            }
+            lineFullyShown = true;
+            ShowArrow();
+            typeRoutine = null;
+        }
+
+        private void HandleInputAction()
+        {
+            if (!isShowingDialogue || currentLines == null || currentIndex >= currentLines.Count)
+                return;
+            
+            if (!lineFullyShown)
+            {
+                ShowLineInstant();
+            }
+            else
+            {
+                // 已经显示完 → 进入下一句
+                NextLine();
+            }
+        }
+
+        /// <summary>
+        /// 展示完整行内容（用于快进功能）
+        /// </summary>
+        private void ShowLineInstant()
+        {
+            if (currentIndex < 0 || currentIndex >= currentLines.Count) return;
+
+            if (typeRoutine != null)
+            {
+                StopCoroutine(typeRoutine);
+                typeRoutine = null;
+            }
+            textBoxText.text = currentLines[currentIndex].content;
+            lineFullyShown = true;
+
+            // 正确：直接调用方法
+            ShowArrow();
+        }
+        
+        private void NextLine()
+        {
+            currentIndex++;
+            if (currentIndex >= currentLines.Count)
+            {
+                EndDialogue();
+                return;
+            }
+            ShowCurrentLine();
+        }
+
+        public void EndDialogue()
+        {
+            HideArrow();
+            currentLines = null;
+            typeRoutine = null;
+            isShowingDialogue = false;
+            lineFullyShown = false;
+            Clear();
+            onDialogueEnd?.Invoke();
+        }
+
+        public void SetNameText(string name)
+        {
+            if (nameBoxText)
+                nameBoxText.text = name;
+        }
+
+        public void ShowArrow() => arrowImage.gameObject.SetActive(true);
+        public void HideArrow() => arrowImage.gameObject.SetActive(false);
+        #endregion
+
+        
         /// <summary>显示物品名称 + 第二行提示。</summary>
         public void ShowItem(string displayName, bool showUseTip = true)
         {
@@ -87,50 +254,7 @@ namespace UI
             DisableAllCharacterBackgrounds();
             isShowingDialogue = false;
         }
-
-        /// <summary>设置名字文本。</summary>
-        public void SetNameText(string name)
-        {
-            if (!nameBoxText) return;
-            nameBoxText.text = name;
-        }
-
-        /// <summary>开始显示对话。</summary>
-        public void StartDialogue()
-        {
-            isShowingDialogue = true;
-            textBoxText.text = ""; // 清除默认提示
-            nameBoxText.text = ""; // 确保名字框为空
-            HideArrow();
-            DisableCartoons();
-            DisableAllCharacterBackgrounds();
-        }
-
-        /// <summary>结束显示对话。</summary>
-        public void EndDialogue()
-        {
-            isShowingDialogue = false;
-            Clear();
-        }
-
-        /// <summary>显示箭头。</summary>
-        public void ShowArrow()
-        {
-            if (arrowImage)
-            {
-                arrowImage.enabled = true;
-            }
-        }
-
-        /// <summary>隐藏箭头。</summary>
-        public void HideArrow()
-        {
-            if (arrowImage)
-            {
-                arrowImage.enabled = false;
-            }
-        }
-
+        
         /// <summary>禁用所有卡通对象。</summary>
         public void DisableCartoons()
         {
@@ -226,6 +350,11 @@ namespace UI
         /// <summary>启用指定的角色背景图像。</summary>
         public void EnableCharacterBackground(string characterName)
         {
+            if (string.IsNullOrEmpty(characterName))
+            {
+                DisableAllCharacterBackgrounds();
+                return;
+            }
             Debug.Log("Enabling character background for: " + characterName);
             foreach (var background in characterBackgrounds)
             {

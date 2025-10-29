@@ -23,9 +23,9 @@ namespace Items
 
         public event Action OnChanged;
 
-        const string PREFS_KEY = "save_docs_lite";
+        private const string PREFS_KEY = "save_docs_lite";
 
-        void Start()
+        public void Start()
         {
             if (useGameStateSource) LoadFromGameState();
             else Load();
@@ -33,7 +33,7 @@ namespace Items
 
         // ====================== 运行态 API ======================
 
-        Entry FindEntry(string id)
+        private Entry FindEntry(string id)
         {
             if (string.IsNullOrWhiteSpace(id)) return null;
             return entries.Find(e => string.Equals(e.id, id, StringComparison.OrdinalIgnoreCase));
@@ -99,9 +99,8 @@ namespace Items
             var ids = GameState.Current.docCollectedIds;
             if (ids != null)
             {
-                for (int i = 0; i < ids.Length; i++)
+                foreach (var id in ids)
                 {
-                    var id = ids[i];
                     if (string.IsNullOrWhiteSpace(id)) continue;
                     entries.Add(new Entry { id = id, count = 1 });
                 }
@@ -122,9 +121,8 @@ namespace Items
 
             // 去重+有效过滤
             List<string> ids = new List<string>();
-            for (int i = 0; i < entries.Count; i++)
+            foreach (var e in entries)
             {
-                var e = entries[i];
                 if (e == null || string.IsNullOrWhiteSpace(e.id)) continue;
                 if (!ids.Contains(e.id)) ids.Add(e.id);
             }
