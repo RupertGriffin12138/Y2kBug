@@ -155,6 +155,11 @@ namespace Interact
 
             InfoDialogUI.Instance?.Clear();
             
+            foreach (var spawner in FindObjectsOfType<ConditionalSpawner>())
+            {
+                spawner.TryCheckNow();
+            }
+            
             // ====== ① 先打开文档阅读器 ======
             if (openReaderOnPickup && def != null)
             {

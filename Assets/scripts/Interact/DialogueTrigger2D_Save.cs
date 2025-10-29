@@ -68,12 +68,6 @@ namespace Interact
         
         private void HandleLineChange(int idx)
         {
-            // 特殊场景动画逻辑（保留你原来的）
-            if (SceneManager.GetActiveScene().name == "C1S3 guard")
-            {
-                ControlGif(idx);
-            }
-
             if (parsedLines == null || idx < 0 || idx >= parsedLines.Count)
                 return;
 
@@ -228,6 +222,11 @@ namespace Interact
                     GameState.SaveNow();
                 }
             }
+            
+            foreach (var spawner in FindObjectsOfType<ConditionalSpawner>())
+            {
+                spawner.TryCheckNow();
+            }
 
             // 特殊场景教学提示
             if (SceneManager.GetActiveScene().name == "C1S1 campus" && !resetOnExit)
@@ -275,43 +274,6 @@ namespace Interact
             }
 
             Gizmos.matrix = prev;
-        }
-
-        /// <summary>
-        /// 调用 GIF 动画控制(仅门卫室场景使用)
-        /// </summary>
-        private void ControlGif(int idx)
-        {
-            switch (idx)
-            {
-                case 1:
-                    InfoDialogUI.Instance.ShowGif("Dialog/gif/prefab/mouth1",new Vector2(540,370),new Vector2(545,357));
-                    InfoDialogUI.Instance.SpawnMultiple(false);
-                    break;
-                case 7:
-                    InfoDialogUI.Instance.ShowGif("Dialog/gif/prefab/heart1",new Vector2(-333,0),new Vector2(266,361));
-                    InfoDialogUI.Instance.SpawnMultiple(false);
-                    break;
-                case 9:
-                    InfoDialogUI.Instance.ShowGif("Dialog/gif/prefab/eye1",new Vector2(-345,209),new Vector2(457,262));
-                    InfoDialogUI.Instance.SpawnMultiple(false);
-                    break;
-                case 16:
-                    InfoDialogUI.Instance.ShowGif("Dialog/gif/prefab/mouth2_2",new Vector2(108,155),new Vector2(504,311));
-                    InfoDialogUI.Instance.SpawnMultiple(false);
-                    break;
-                case 20:
-                    InfoDialogUI.Instance.HideGif();
-                    InfoDialogUI.Instance.SpawnMultiple(true);
-                    break;
-                case 21:
-                    InfoDialogUI.Instance.SpawnMultiple(false);
-                    break;
-                case 29:
-                    InfoDialogUI.Instance.ShowGif("Dialog/gif/prefab/bug",new Vector2(1,1),new Vector2(1,1),true);
-                    InfoDialogUI.Instance.SpawnMultiple(false);
-                    break;
-            }
         }
     }
 }

@@ -30,10 +30,16 @@ namespace Interact
         [Tooltip("勾选 = 满足任一条件即可；不勾选 = 所有条件都需满足")]
         public bool useOrLogic = false;
 
+        [Header("高级选项")]
+        [Tooltip("勾选 = 反向控制（条件满足时隐藏 / 不满足时显示）")]
+        public bool invertCondition = false;
         [Header("是否在激活后自动标记（防止重复）")]
         public bool markOnce = true;
+        [Tooltip("是否允许在运行中动态刷新（条件变化时实时更新显示状态）")]
+        public bool enableRealtimeCheck = false;
 
         private bool hasSpawned;
+        private bool lastState;
 
         private void Start()
         {
@@ -45,12 +51,32 @@ namespace Interact
 
             // 默认先隐藏
             targetObject.SetActive(false);
+            
+            // 检查并设置初始显示状态
+            ApplyCondition(CheckConditions());
+            
+            // 如果开启实时检测，则定期刷新
+            if (enableRealtimeCheck)
+                InvokeRepeating(nameof(UpdateConditionState), 2f, 2f); // 每0.5秒检测一次
 
             // 检查是否满足条件
             if (CheckConditions())
             {
                 ActivateTarget();
             }
+        }
+        
+        public void TryCheckNow()
+        {
+            if (!this || !gameObject) return;       // 自身被销毁
+            if (!targetObject) return;              // 目标被销毁
+            UpdateConditionState();
+        }
+        
+        private void UpdateConditionState()
+        {
+            bool condition = CheckConditions();
+            ApplyCondition(condition);
         }
 
         private bool CheckConditions()
@@ -93,9 +119,38 @@ namespace Interact
                 else if (!has) allMet = false;
             }
 
-            return useOrLogic ? anyMet : allMet;
+            bool result = useOrLogic ? anyMet : allMet;
+
+            // 反向模式：条件取反
+            if (invertCondition)
+                result = !result;
+
+            return result;
         }
 
+        private void ApplyCondition(bool shouldBeActive)
+        {
+            // 如果目标物体已经被销毁或丢失，直接退出
+            if (!targetObject)
+            {
+                Debug.LogWarning($"[ConditionalSpawner] 目标对象已被销毁，跳过更新。 ({spawnerId})", this);
+                return;
+            }
+            // 如果状态没变就不用重复设置
+            if (targetObject.activeSelf == shouldBeActive && lastState == shouldBeActive)
+                return;
+
+            targetObject.SetActive(shouldBeActive);
+            lastState = shouldBeActive;
+
+            Debug.Log($"[ConditionalSpawner] {targetObject.name} 状态更新 → {(shouldBeActive ? "启用" : "隐藏")}");
+
+            if (shouldBeActive && markOnce && !string.IsNullOrEmpty(spawnerId))
+                GameState.AddDisabledObject(spawnerId);
+
+            hasSpawned = shouldBeActive;
+        }
+        
         private void ActivateTarget()
         {
             if (hasSpawned) return;
