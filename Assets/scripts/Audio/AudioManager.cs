@@ -79,7 +79,7 @@ public class AudioManager : MonoSingleton<AudioManager>
         }
     }
 
-    public void PlaySoundEffect(AudioClip clip, float duration = 2.5f)
+    public void PlaySoundEffect(AudioClip clip,bool loop)
     {
         if (clip != null /**&& Model.IsSoundOpen**/)
         {
@@ -93,8 +93,26 @@ public class AudioManager : MonoSingleton<AudioManager>
                 audioSources[clip.name].GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("pf_sfx_vol", 1f);
             else
                 audioSources[clip.name].GetComponent<AudioSource>().volume = 0;
+
+            audioSources[clip.name].GetComponent<AudioSource>().loop = loop;
             audioSources[clip.name].GetComponent<AudioSource>().Play();
 
+        }
+        else
+        {
+            Debug.LogWarning("clip  is not available.");
+        }
+    }
+    public void StopSoundEffect(AudioClip clip)
+    {
+        if (clip != null /**&& Model.IsSoundOpen**/)
+        {
+            if (!audioSources.ContainsKey(clip.name))
+            {
+                //CreatAudioObj(clip);
+            }
+
+            audioSources[clip.name].GetComponent<AudioSource>().Stop();
         }
         else
         {

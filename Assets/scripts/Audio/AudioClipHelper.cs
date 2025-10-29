@@ -28,94 +28,102 @@ public class AudioClipHelper : MonoSingleton<AudioClipHelper>
 
     public void Play_UIHover()
     {
-        if (_UIHover!=null)
+        if (_UIHover != null)
         {
             if (AudioManager.Instance != null)
-                AudioManager.Instance.PlaySoundEffect(_UIHover);
+                AudioManager.Instance.PlaySoundEffect(_UIHover, false);
         }
     }
 
     public void Play_UIClick()
     {
         if (_UIHover != null)
-            AudioManager.Instance.PlaySoundEffect(_UIClick);
+            AudioManager.Instance.PlaySoundEffect(_UIClick, false);
     }
     public void Play_Dialogue()
     {
-        AudioManager.Instance.PlaySoundEffect(_Dialogue);
+        AudioManager.Instance.PlaySoundEffect(_Dialogue, false);
     }
     public void Play_Burning()
     {
-        AudioManager.Instance.PlaySoundEffect(_Burning);
+        AudioManager.Instance.PlaySoundEffect(_Burning, true);
+    }
+    public void Stop_Burning()
+    {
+        AudioManager.Instance.StopSoundEffect(_Burning);
     }
     public void Play_PickUpItems()
     {
-        AudioManager.Instance.PlaySoundEffect(_PickUpItems);
+        AudioManager.Instance.PlaySoundEffect(_PickUpItems, false);
     }
     public void Play_PickUpPaper()
     {
-        AudioManager.Instance.PlaySoundEffect(_PickUpPaper);
+        AudioManager.Instance.PlaySoundEffect(_PickUpPaper, false);
     }
     public void Play_ClassroomLocked()
     {
-        AudioManager.Instance.PlaySoundEffect(_ClassroomLocked);
+        AudioManager.Instance.PlaySoundEffect(_ClassroomLocked, false);
     }
     public void Play_WoodenDoorLocked()
     {
-        AudioManager.Instance.PlaySoundEffect(_WoodenDoorLocked);
+        AudioManager.Instance.PlaySoundEffect(_WoodenDoorLocked, false);
     }
     public void Play_SchoolGateLocked()
     {
-        AudioManager.Instance.PlaySoundEffect(_SchoolGateLocked);
+        AudioManager.Instance.PlaySoundEffect(_SchoolGateLocked, false);
     }
     public void Play_Footsteps()
     {
-        AudioManager.Instance.PlaySoundEffect(_Footsteps);
+        AudioManager.Instance.PlaySoundEffect(_Footsteps, true);
+    }
+    public void Stop_Footsteps()
+    {
+        AudioManager.Instance.StopSoundEffect(_Footsteps);
     }
     public void Play_ManWhisper()
     {
-        AudioManager.Instance.PlaySoundEffect(_ManWhisper);
+        AudioManager.Instance.PlaySoundEffect(_ManWhisper, false);
     }
     public void Play_WoodenDoorUnlock()
     {
-        AudioManager.Instance.PlaySoundEffect(_WoodenDoorUnlock);
+        AudioManager.Instance.PlaySoundEffect(_WoodenDoorUnlock, false);
     }
     public void Play_SchoolGateUnlock()
     {
-        AudioManager.Instance.PlaySoundEffect(_SchoolGateUnlock);
+        AudioManager.Instance.PlaySoundEffect(_SchoolGateUnlock, false);
     }
     public void Play_WipeTheBlackboard()
     {
-        AudioManager.Instance.PlaySoundEffect(_WipeTheBlackboard);
+        AudioManager.Instance.PlaySoundEffect(_WipeTheBlackboard, false);
     }
 
     public void Play_ChalkWriting()
     {
-        AudioManager.Instance.PlaySoundEffect(_ChalkWriting);
+        AudioManager.Instance.PlaySoundEffect(_ChalkWriting, false);
     }
     public void Play_SuanPan()
     {
-        AudioManager.Instance.PlaySoundEffect(_SuanPan);
+        AudioManager.Instance.PlaySoundEffect(_SuanPan, false);
     }
 
     public void Play_WoodenStructure()
     {
-        AudioManager.Instance.PlaySoundEffect(_WoodenStructure);
+        AudioManager.Instance.PlaySoundEffect(_WoodenStructure, false);
     }
     public void Play_SecondHand()
     {
-        AudioManager.Instance.PlaySoundEffect(_SecondHand);
+        AudioManager.Instance.PlaySoundEffect(_SecondHand, false);
     }
     public void Play_IronCabinet()
     {
-        AudioManager.Instance.PlaySoundEffect(_IronCabinet);
+        AudioManager.Instance.PlaySoundEffect(_IronCabinet, false);
     }
 
 
 
     public void PlayMouseClick()
     {
-        AudioManager.Instance.PlaySoundEffect(_UIHover);
+        AudioManager.Instance.PlaySoundEffect(_UIHover, false);
     }
 
 

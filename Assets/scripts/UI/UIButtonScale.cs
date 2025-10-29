@@ -69,10 +69,17 @@ namespace UI
         void UpdateTargetScale()
         {
             float targetMul = 1f;
+
             if (isPointerDown)
+            {
                 targetMul = pressedScale;
+                AudioClipHelper.Instance.Play_UIClick();
+            }
             else if (isPointerOver)
+            {
                 targetMul = hoverScale;
+                AudioClipHelper.Instance.Play_UIHover(); 
+            }
 
             Vector3 target = baseScale * targetMul;
             StartTweenTo(target);

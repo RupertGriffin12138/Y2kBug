@@ -77,6 +77,11 @@ namespace Scene
 
         private IEnumerator FadeOutAndLoadCoroutine(string nextScene, float fadeDuration, float holdDuration)
         {
+            if (nextScene!="C1S1 campus")
+            {
+                AudioClipHelper.Instance.Play_Footsteps();
+            }
+
             // 渐出到全黑
             yield return StartCoroutine(FadeRoutine(0f, 1f, fadeDuration));
 
@@ -90,6 +95,9 @@ namespace Scene
             // 等待场景加载完毕（确保不会提前淡入）
             while (!async.isDone)
                 yield return null;
+
+            if (nextScene != "C1S1 campus")
+                AudioClipHelper.Instance.Stop_Footsteps();
 
             // 场景加载完成后从黑幕淡入
             yield return StartCoroutine(FadeRoutine(1f, 0f, fadeDuration));
