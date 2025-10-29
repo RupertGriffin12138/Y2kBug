@@ -9,8 +9,6 @@ public class AudioManager : MonoSingleton<AudioManager>
 
     private void Update()
     {
-        //if (Input.GetMouseButtonDown(0))
-        //    AudioClipHelper.Instance.PlayMouseClick();
 
         if (AudioClipHelper.Instance != null)
         {
@@ -104,17 +102,6 @@ public class AudioManager : MonoSingleton<AudioManager>
     //    base.HandleAwake();
     //}
 
-    private void OnEnable()
-    {
-        //Model = new AudioManagerModel();
-        //_bgmSource.enabled = Model.IsBgmOpen;
-        //Model.OnBGMSwtich += OnBGMSwtich;
-    }
-
-    private void OnDisable()
-    {
-        //Model.OnBGMSwtich -= OnBGMSwtich;
-    }
 
     private void OnBGMSwtich(bool isBGMOpen)
     {

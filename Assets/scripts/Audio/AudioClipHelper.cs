@@ -33,10 +33,6 @@ public class AudioClipHelper : MonoSingleton<AudioClipHelper>
         {
             if (AudioManager.Instance!=null)
             AudioManager.Instance.PlaySoundEffect(_UIHover);
-            else
-            {
-                Debug.LogWarning("AudioManager Instance is not available.");
-            }
         }
     }
 
@@ -136,7 +132,6 @@ public class AudioClipHelper : MonoSingleton<AudioClipHelper>
     }
     public void Play_IronCabinet()
     {
-        //Debug.Log("PlayMouseClick");
         AudioManager.Instance.PlaySoundEffect(_IronCabinet);
     }
 
