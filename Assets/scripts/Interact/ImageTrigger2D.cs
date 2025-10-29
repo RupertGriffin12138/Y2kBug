@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 using Audio;
 using Characters.PLayer_25D;
@@ -54,6 +53,7 @@ namespace Interact
         private CanvasGroup maskCanvasGroup;
         private CanvasGroup imageCanvasGroup;
 
+        private bool canPlayAudio = false;
         private void Reset()
         {
             var col = GetComponent<Collider2D>();
@@ -65,7 +65,7 @@ namespace Interact
             if (GameState.Current == null)
                 GameState.LoadGameOrNew(SceneManager.GetActiveScene().name);
 
-            if (!repeatMode && GameState.HasSeenDialogue(dialogueId))
+            if (!repeatMode && GameState.Current.HasSeenDialogue(dialogueId))
             {
                 Destroy(gameObject);
                 return;
@@ -95,30 +95,21 @@ namespace Interact
             // 用“旁白”的方式提示
             if (InfoDialogUI.Instance)
             {
-                var hintLines = new List<(string speaker, string content)>
-                {
-                    ("旁白", "按 E 交互")
-                };
-
-                InfoDialogUI.Instance.BeginDialogue(hintLines);
+                InfoDialogUI.Instance.ShowMessage("按 <b>E</b> 交互");
             }
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
             if (!other.CompareTag(playerTag)) return;
+            if (InfoDialogUI.Instance)
+                InfoDialogUI.Instance.Clear();
             if (!repeatMode)
             {
                 return;
             }
             inside = false;
-            InfoDialogUI.Instance?.Clear();
-            // === 清空当前对话 ===
-            StopAllCoroutines(); // 停止打字机协程等
-            if (InfoDialogUI.Instance)
-            {
-                InfoDialogUI.Instance.EndDialogue();
-            }
+            
         }
         
         private void OnDisable()
@@ -146,6 +137,8 @@ namespace Interact
             talking = true;
             inside = false;
             InfoDialogUI.Instance?.Clear();
+            // 玩家正式开始交互 → 开启音效许可
+            canPlayAudio = true;
 
             // 锁定玩家
             if (lockPlayerDuringDialogue)
@@ -165,8 +158,8 @@ namespace Interact
             // 播放对白
             yield return StartCoroutine(StartDialogueFlow());
 
-            // 对话结束后提示ESC
-            InfoDialogUI.Instance?.ShowMessage("- 按 ESC 退出 -");
+            // 对话结束后，自动退出而不是按 ESC
+            yield return StartCoroutine(FadeOutMaskAndImage());
         }
 
         private IEnumerator StartDialogueFlow()
@@ -187,18 +180,24 @@ namespace Interact
 
         private void HandleLineChange(int idx)
         {
-            if (idx == 1)
+            if (idx == 1 && canPlayAudio)
             {
                 // 暂停对白
                 InfoDialogUI.Instance?.PauseDialogue();
 
                 // 播放语音
                 if (AudioClipHelper.Instance)
+                {
                     AudioClipHelper.Instance.Play_ManWhisper();
+                }
 
                 // 两秒后继续对白
                 StartCoroutine(WaitForWhisperThenContinue());
+                
+                // 一次后关闭，防止重复触发
+                canPlayAudio = false;
             }
+            
         }
 
         private IEnumerator WaitForWhisperThenContinue()
@@ -299,11 +298,9 @@ namespace Interact
         {
             if (!repeatMode)
             {
-                if (!GameState.HasSeenDialogue(dialogueId))
+                // 用统一接口标记已看过
+                if (GameState.Current != null && GameState.Current.TryMarkDialogueSeen(dialogueId))
                 {
-                    var list = GameState.Current.dialogueSeenIds.ToList();
-                    list.Add(dialogueId);
-                    GameState.Current.dialogueSeenIds = list.ToArray();
                     GameState.SaveNow();
                 }
             }

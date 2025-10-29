@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using Interact;
 using Save;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -49,9 +48,6 @@ namespace UI
 
         public void Update()
         {
-            // 若 InfoDialogUI 正在显示图片，不响应暂停键
-            if (InfoDialogUI.Instance && ImageTrigger2D.imageShown)
-                return;
             
             if (Input.GetKeyDown(toggleKey))
             {

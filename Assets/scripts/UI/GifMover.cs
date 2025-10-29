@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace UI
 {
@@ -32,13 +31,7 @@ namespace UI
                 timer += Time.unscaledDeltaTime;
                 yield return null;
             }
-
-            // µ­³öÔÙÏú»Ù
-            Image img = GetComponent<Image>();
-            if (img)
-                img.CrossFadeAlpha(0f, 0.5f, false);
-
-            yield return new WaitForSeconds(0.5f);
+            
             Destroy(gameObject);
         }
     }

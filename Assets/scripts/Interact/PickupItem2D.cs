@@ -173,6 +173,11 @@ namespace Interact
             _consumed = true; // 防止重复触发
             // 清掉交互提示
             InfoDialogUI.Instance?.Clear();
+            
+            foreach (var spawner in FindObjectsOfType<ConditionalSpawner>())
+            {
+                spawner.TryCheckNow();
+            }
 
             // （1）提示获得物品
             if (showPickupToast && InfoDialogUI.Instance)

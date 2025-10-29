@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Save;
 using TMPro;
 using UI;
 using UnityEngine;
@@ -7,7 +9,7 @@ using UnityEngine.UI;
 
 namespace Items
 {
-    public class InventorySlotViewLite : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    public class InventorySlotViewLite : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,IPointerClickHandler
     {
         [Header("UI 引用")]
         public Image icon;
@@ -20,7 +22,7 @@ namespace Items
         // —— 原有显示逻辑，增加 displayName 参数 —— //
         public void Set(Sprite sprite, int count, string displayName)
         {
-            hasItem = (sprite != null && count > 0);
+            hasItem = (sprite && count > 0);
             displayNameCached = hasItem ? displayName : null;
 
             if (hasItem)
@@ -84,6 +86,29 @@ namespace Items
             if (InfoDialogUI.Instance)
             {
                 InfoDialogUI.Instance.Clear();
+            }
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (!hasItem || string.IsNullOrEmpty(displayNameCached))
+                return;
+
+            Debug.Log($"点击了物品格子: {displayNameCached}");
+
+            // 如果你有文档阅读器、道具使用逻辑，可以在这里触发
+            /*if (InfoDialogUI.Instance)
+            {
+                InfoDialogUI.Instance.ShowMessage($"使用了 {displayNameCached}");
+            }*/
+
+            if (displayNameCached == "校服" && GameState.HasSeenDialogue("dlg_guard_1001") && GameState.HasItem("key_strange_door"))
+            {
+                ItemGrantTool.GiveItem("key_strange_door",1,true,lines: new List<(string speaker, string content)>
+                {
+                    ("旁白", "（获得 奇怪的钥匙）\n"),
+                    ("姜宁", "（衣服里怎么真有东西,这是大门钥匙吗？）\n"),
+                });
             }
         }
     }

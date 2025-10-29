@@ -840,7 +840,7 @@ Transform:
   m_GameObject: {fileID: 475060941}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.124150276, y: -10.223669, z: -10}
+  m_LocalPosition: {x: 3.3444366, y: -10.227317, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9820,7 +9820,7 @@ MonoBehaviour:
   portalId: C1S2_in
   nextSceneName: C1S1 campus
   targetPortalIdInNextScene: C1S1_corridor
-  arrivalOffset: {x: 0, y: 0}
+  arrivalOffset: {x: 5, y: 0}
   overrideArrivalZ: 0
   arrivalZ: 0
   anchorOverride: {fileID: 0}

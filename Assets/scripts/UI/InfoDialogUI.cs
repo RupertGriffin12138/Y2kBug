@@ -31,12 +31,12 @@ namespace UI
         public GameObject[] characterBackgrounds; // Array of character background images
 
         [Header("GIF动画效果")]
-        public float moveSpeedMin = 60f;
-        public float moveSpeedMax = 100f;
-        public float lifetimeMin = 1f;
-        public float lifetimeMax = 2f;
+        public float moveSpeedMin = 120f;
+        public float moveSpeedMax = 170f;
+        public float lifetimeMin = 0.7f;
+        public float lifetimeMax = 1.5f;
         public float spawnIntervalMin = 0.1f;
-        public float spawnIntervalMax = 1f;
+        public float spawnIntervalMax = 0.3f;
         
         [Header("打印机动画参数")]
         [Tooltip("每个字符的延时（秒）")]
@@ -449,10 +449,6 @@ namespace UI
                 Debug.LogError("[InfoDialogUI] 场景内未发现主Canvas!");
                 return;
             }
-
-            // 清除旧 GIF（防止重复）
-            if (activeGifObj)
-                Destroy(activeGifObj);
             
             // 加载 prefab
             GameObject prefab = Resources.Load<GameObject>(resPath);
@@ -518,6 +514,53 @@ namespace UI
             }
         }
         
+        /// <summary>
+        /// 隐藏或销毁所有当前存在的 GIF（包括全屏和随机生成）
+        /// </summary>
+        public void HideAllGifs(bool destroy = true)
+        {
+            // 1. 停止循环生成
+            keepSpawning = false;
+            if (spawnLoopCoroutine != null)
+            {
+                StopCoroutine(spawnLoopCoroutine);
+                spawnLoopCoroutine = null;
+            }
+
+            // 2. 删除主动生成的主 GIF（全屏或单独 ShowGif 的）
+            if (activeGifObj)
+            {
+                if (destroy)
+                    Destroy(activeGifObj);
+                else
+                    activeGifObj.SetActive(false);
+
+                activeGifObj = null;
+            }
+
+            // 3. 删除随机生成的 GIF（SpawnMultiple / SpawnLoop 生成的）
+            if (mainCanvas)
+            {
+                // 遍历 Canvas 下的所有 GIF 对象
+                foreach (Transform child in mainCanvas.transform)
+                {
+                    // 如果对象是 GIF prefab（路径中含有 Dialog/gif/prefab/）
+                    // 你可以根据自己的命名规则更精确地过滤，比如判断名字前缀
+                    if (child.name.Contains("heart") ||
+                        child.name.Contains("mouth") ||
+                        child.name.Contains("eye") )
+                    {
+                        if (destroy)
+                            Destroy(child.gameObject);
+                        else
+                            child.gameObject.SetActive(false);
+                    }
+                }
+            }
+
+            Debug.Log("[InfoDialogUI] 所有GIF已清除");
+        }
+        
         IEnumerator DestroyAfter(float delay)
         {
             yield return new WaitForSeconds(delay);
@@ -561,10 +604,9 @@ namespace UI
             float x = Random.Range(-600f, 600f);
             float y = Random.Range(-300f, 300f);
             rect.anchoredPosition = new Vector2(x, y);
-
-            // 随机大小
-            float size = Random.Range(200f, 400f);
-            rect.sizeDelta = new Vector2(size, size);
+            
+            rect.sizeDelta = new Vector2(rect.sizeDelta.x * 2.2f, rect.sizeDelta.y * 2.2f);
+            
 
             // 开始移动协程
             float life = Random.Range(lifetimeMin, lifetimeMax);
