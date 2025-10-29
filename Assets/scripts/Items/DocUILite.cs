@@ -31,9 +31,12 @@ namespace Items
 
         void OnEnable()
         {
-            if (docInventory != null)
+            // ---- [新增] 确保数据从 GameState 同步 ----
+            if (docInventory)
+            {
+                docInventory.ReloadFromSave();  // 自动从 GameState 或 PlayerPrefs 重建 entries
                 docInventory.OnChanged += Refresh;
-
+            }
             HookSlotClicks();
             HookPageButton();
             Refresh();

@@ -124,7 +124,8 @@ namespace Interact
             PortalSpawnBuffer.SetTargetPortal(targetPortalIdInNextScene);
 
             yield return null;
-            SceneFadeEffect.Instance.FadeOutAndLoad(nextSceneName,0.5f,1f);
+            SceneFadeEffect sceneFadeEffect = FindObjectOfType<SceneFadeEffect>();
+            sceneFadeEffect.FadeOutAndLoad(nextSceneName,0.5f,1f);
         }
     }
 

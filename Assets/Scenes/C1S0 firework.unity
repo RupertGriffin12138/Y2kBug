@@ -4762,6 +4762,8 @@ MonoBehaviour:
   lifetimeMax: 2
   spawnIntervalMin: 0.1
   spawnIntervalMax: 1
+  defaultTypeDelay: 0.05
+  lockPlayerDuringDialogue: 1
   isShowingDialogue: 0
 --- !u!114 &674262910
 MonoBehaviour:
@@ -4831,6 +4833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   infoDialogUI: {fileID: 674262909}
+  jsonFileName: C1S0 firework
   loadNextSceneOnEnd: 1
   nextSceneName: C1S1 campus
   nextSceneDelay: 0

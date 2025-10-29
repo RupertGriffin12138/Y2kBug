@@ -1,9 +1,11 @@
 using System.Collections;
+using System.Collections.Generic;
+using Characters.PLayer_25D;
+using Characters.Player;
 using Items;
 using Save;
 using UI;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -17,8 +19,6 @@ namespace Interact
         [Header("文档配置")]
         public string docId = "note1";
         public bool openReaderOnPickup = true;
-        [Tooltip("阅读面板在对话之后再打开（建议开启）")]
-        public bool openReaderAfterDialogue = true;
         public bool destroyAfterPickup = false;
 
         [Header("输入")]
@@ -52,48 +52,30 @@ namespace Interact
         public bool triggerDialogueOnPickup = true;
         public bool showPickupToast = true;
 
-        public System.Collections.Generic.List<DialogueLine> lines =
-            new System.Collections.Generic.List<DialogueLine>
+        public List<DialogueLine> lines =
+            new()
             {
-                new DialogueLine{ speaker="旁白", content="你收录了一份重要的文件……" },
-                new DialogueLine{ speaker="旁白", content="也许能从中发现线索。" },
+                new DialogueLine() { speaker="旁白", content="你收录了一份重要的文件……" },
+                new DialogueLine() { speaker="旁白", content="也许能从中发现线索。" },
             };
-
-        [Header("对话参数")]
-        public KeyCode nextKey = KeyCode.Space;
-        [Tooltip("逐字机每字符延时（秒），使用实时计时")]
-        public float typeCharDelay = 0.04f;
-        [Tooltip("最后一句显示完后是否自动关闭")]
-        public bool autoCloseOnLastLine = true;
-        [Tooltip("基础自动关闭延时（秒，实时）")]
-        public float autoCloseDelay = 0.3f;
-        [Tooltip("最后一句额外最少停留时长（秒，实时），避免刚显示就关")]
-        public float lastLineMinHold = 0.7f;
-
-        [Header("推进去抖")]
-        [Tooltip("快进后一段时间内不再接受下一句输入，避免同一击空格直接结束")]
-        public float advanceCooldown = 0.15f;
-
+        
         [Header("调试")]
-        public bool logDebug = false;
+        public bool logDebug = true;
 
         // ========= 状态 =========
-        bool _inRange;
-        bool _consumed;
-        bool _talking;
-        int _idx;
-        Coroutine _typeRoutine;
-        bool _lineFullyShown;
-        float _nextAcceptTime = 0f;     // 下一次允许推进的时间（unscaled）
+        private bool _inRange;
+        private bool _consumed;
+        private Player player;
+        private PlayerMovement playerMovement;
 
-        void Reset()
+        private void Reset()
         {
             var col = GetComponent<Collider2D>();
             if (col) col.isTrigger = true;
             tag = GetComponent<SaveTag>();
         }
 
-        void Start()
+        private void Start()
         {
             if (!docInventory) docInventory = FindObjectOfType<DocInventoryLite>();
             if (!docDB && docInventory) docDB = docInventory.docDB;
@@ -106,11 +88,13 @@ namespace Interact
             {
                 gameObject.SetActive(false);
                 _consumed = true;
-                return;
             }
+
+            player = FindObjectOfType<Player>();
+            playerMovement = FindObjectOfType<PlayerMovement>();
         }
 
-        void OnTriggerEnter2D(Collider2D other)
+        private void OnTriggerEnter2D(Collider2D other)
         {
             if (_consumed) return;
             if (other.CompareTag("Player"))
@@ -120,7 +104,7 @@ namespace Interact
             }
         }
 
-        void OnTriggerExit2D(Collider2D other)
+        private void OnTriggerExit2D(Collider2D other)
         {
             if (_consumed) return;
             if (other.CompareTag("Player"))
@@ -130,25 +114,16 @@ namespace Interact
             }
         }
 
-        void Update()
+        private void Update()
         {
-            // 只有在“已消费 且 不在对话中”时才早退 —— 保证对话里还能接收按键
-            if (_consumed && !_talking) return;
+            // 只有在“已消费”时才早退 —— 保证对话里还能接收按键
+            if (_consumed) return;
 
-            // 对话期间不允许再次触发拾取
-            if (_inRange && !_talking && IsKeyPressed(pickupKey))
+            if (_inRange && Input.GetKeyDown(pickupKey))
                 TryPickupDoc();
-
-            // 推进对话（加时间门槛去抖）
-            if (_talking && Time.unscaledTime >= _nextAcceptTime && IsKeyPressed(nextKey))
-            {
-                if (logDebug) Debug.Log($"[PickupDoc2D] Detected key {nextKey}, fully={_lineFullyShown}, idx={_idx}");
-                if (!_lineFullyShown) ShowLineInstant();
-                else NextLine();
-            }
         }
 
-        void TryPickupDoc()
+        private void TryPickupDoc()
         {
             if (_consumed) return;
             if (!docInventory)
@@ -174,67 +149,129 @@ namespace Interact
             StartCoroutine(PickupFlow(def, display, isNew));
         }
 
-        IEnumerator PickupFlow(DocDB.DocDef def, string display, bool isNew)
+        private IEnumerator PickupFlow(DocDB.DocDef def, string display, bool isNew)
         {
             _consumed = true;
 
             InfoDialogUI.Instance?.Clear();
-
-            if (showPickupToast && InfoDialogUI.Instance)
-            {
-                string msg = isNew ? $"获得《{display}》" : $"已收录《{display}》";
-                InfoDialogUI.Instance.ShowMessage(msg);
-                yield return new WaitForSecondsRealtime(0.5f);
-            }
-
-            if (triggerDialogueOnPickup && lines != null && lines.Count > 0 && InfoDialogUI.Instance)
-            {
-                _talking = true;
-                _idx = 0;
-
-                InfoDialogUI.Instance.StartDialogue();
-                ShowCurrentLineTyped();
-
-                // 等待对话结束
-                while (_talking) yield return null;
-            }
-
-            // —— 关键：先切到 FileSlot，再打开 TextPage（与最初流程一致）——
+            
+            // ====== ① 先打开文档阅读器 ======
             if (openReaderOnPickup && def != null)
             {
-                if (logDebug) Debug.Log("[PickupDoc2D] OpenReader begin");
+                if (logDebug) Debug.Log("[PickupDoc2D] 打开文档阅读器");
+       
+                if (SlotUIController.Instance)
+                {
+                    SlotUIController.Instance.ShowFileSlotFromPickup();
+                    yield return null;
+                }
+                else
+                {
+                    Debug.LogError("Slot控制器不存在");
+                }
+                
+                // 锁住玩家移动
+                if (player)
+                {
+                    player.LockControl();
+                }
+                if (playerMovement)
+                {
+                    playerMovement.LockControl();
+                }
 
                 if (SlotUIController.Instance)
                 {
                     SlotUIController.Instance.ShowFileSlotFromPickup();
-                    yield return null; // 等一帧确保切页完成
+                    yield return null; // 确保界面切换完成
                 }
 
-                if (openReaderAfterDialogue)
-                {
-                    if (SlotUIController.Instance)
-                        yield return SlotUIController.Instance.StartCoroutine(OpenReaderStable(def));
-                    else
-                        yield return StartCoroutine(OpenReaderStable(def));
-                }
+                if (SlotUIController.Instance)
+                    yield return SlotUIController.Instance.StartCoroutine(OpenReaderStable(def));
                 else
+                    yield return StartCoroutine(OpenReaderStable(def));
+
+                // 等待玩家关闭阅读器（ DocReaderPanel 有一个 rootPanel）
+                if (readerPanel && readerPanel.rootPanel)
                 {
-                    if (SlotUIController.Instance)
-                        yield return SlotUIController.Instance.StartCoroutine(OpenReaderStable(def));
-                    else
-                        yield return StartCoroutine(OpenReaderStable(def));
+                    while (readerPanel.rootPanel.activeSelf)
+                        yield return null;
                 }
 
-                if (logDebug) Debug.Log("[PickupDoc2D] OpenReader end");
+                // 阅读器关闭 → 解锁玩家
+                if (playerMovement)
+                {
+                    playerMovement.UnlockControl();
+                }
+                if (player)
+                {
+                    player.UnlockControl();
+                }
+
+                if (logDebug) Debug.Log("[PickupDoc2D] 文档阅读器关闭");
+            }
+            
+            // ====== ② 显示“获得文档”提示 ======
+            if (showPickupToast && InfoDialogUI.Instance)
+            {
+                string msg = isNew ? $"获得《{display}》" : $"已收录《{display}》";
+                InfoDialogUI.Instance.ShowMessage(msg);
+                yield return new WaitForSecondsRealtime(1.5f);
+            }
+            
+            // ====== ③ 开始对白流程 ======
+            if (triggerDialogueOnPickup && lines is { Count: > 0 } && InfoDialogUI.Instance)
+            {
+                var dialogueLines = new List<(string speaker, string content)>();
+                foreach (var l in lines)
+                    dialogueLines.Add((l.speaker, l.content));
+                bool finished = false;
+                InfoDialogUI.Instance.BeginDialogue(dialogueLines, () => finished = true);
+                // 锁定玩家
+                if (player) player.LockControl();
+                if (playerMovement) playerMovement.LockControl();
+                
+                yield return new WaitUntil(() => finished);
+
+                // 解锁玩家
+                if (playerMovement) playerMovement.UnlockControl();
+                if (player) player.UnlockControl();
             }
 
             if (destroyAfterPickup) Destroy(gameObject);
         }
 
-        IEnumerator OpenReaderStable(DocDB.DocDef def)
+        /// <summary>
+        /// 打开文档阅读器流程
+        /// </summary>
+        /// <param name="def"></param>
+        /// <returns></returns>
+        private IEnumerator OpenReaderStable(DocDB.DocDef def)
         {
             if (logDebug) Debug.Log("[PickupDoc2D] OpenReaderStable invoked");
-            if (!readerPanel) yield break;
+            if (!readerPanel)
+            {
+                foreach (var r in Resources.FindObjectsOfTypeAll<DocReaderPanel>())
+                {
+                    // 这个 API 可以找到未激活的
+                    readerPanel = r;
+                    var go = r.gameObject;
+
+                    //  如果未激活，强制激活父链
+                    if (!go.activeInHierarchy)
+                    {
+                        Transform cur = go.transform;
+                        while (cur)
+                        {
+                            if (!cur.gameObject.activeSelf)
+                                cur.gameObject.SetActive(true);
+                            cur = cur.parent;
+                        }
+                    }
+                    yield break;
+                }
+               
+            }
 
             // 1) 强制激活到最上层 Canvas 的父链
             EnsureUIHierarchyActive(readerPanel.rootPanel ? readerPanel.rootPanel.transform
@@ -243,10 +280,13 @@ namespace Interact
             // 2) 恢复父链上所有 CanvasGroup 的可见/交互
             RestoreCanvasGroups(readerPanel.rootPanel ? readerPanel.rootPanel.transform
                 : readerPanel.transform);
-
-            // 3) 确保根面板可见
-            if (readerPanel.rootPanel && !readerPanel.rootPanel.activeSelf)
+            
+            if (readerPanel.rootPanel)
+            {
+                readerPanel.rootPanel.SetActive(false); // 先关一次，防止 Unity 忽略激活事件
+                yield return null;
                 readerPanel.rootPanel.SetActive(true);
+            }
 
             Canvas.ForceUpdateCanvases();
             yield return null;
@@ -263,164 +303,8 @@ namespace Interact
             if (scrollRect) scrollRect.normalizedPosition = new Vector2(0, 1);
         }
 
-        // ========== 对话播放 ==========
-        void ShowCurrentLineTyped()
-        {
-            if (!InfoDialogUI.Instance) { EndNow(); return; }
-
-            if (_typeRoutine != null) { StopCoroutine(_typeRoutine); _typeRoutine = null; }
-
-            var line = lines[_idx];
-
-            InfoDialogUI.Instance.SetNameText(string.Equals(line.speaker, "旁白") ? "" : line.speaker);
-            // 可选：InfoDialogUI.Instance.EnableCharacterBackground(line.speaker);
-
-            InfoDialogUI.Instance.textBoxText.text = "";
-            InfoDialogUI.Instance.HideArrow();
-            _lineFullyShown = false;
-
-            _typeRoutine = StartCoroutine(Typewriter(line.content));
-        }
-
-        IEnumerator Typewriter(string content)
-        {
-            if (logDebug) Debug.Log($"[PickupDoc2D] Type start idx={_idx}, len={content.Length}");
-
-            // 用 for，便于在快进时跳出外层循环
-            for (int i = 0; i < content.Length; i++)
-            {
-                // 快进：整行显示并标记完成
-                if (Input.GetKeyDown(nextKey))
-                {
-                    InfoDialogUI.Instance.textBoxText.text = content;
-                    _lineFullyShown = true;
-                    if (logDebug) Debug.Log("[PickupDoc2D] Type fast-forward (outer)");
-                    break;
-                }
-
-                InfoDialogUI.Instance.textBoxText.text += content[i];
-
-                // 实时计时，不受 timeScale 影响；等待中也允许快进
-                float t = 0f;
-                while (t < typeCharDelay)
-                {
-                    if (Input.GetKeyDown(nextKey))
-                    {
-                        InfoDialogUI.Instance.textBoxText.text = content;
-                        _lineFullyShown = true;
-                        if (logDebug) Debug.Log("[PickupDoc2D] Type fast-forward (inner)");
-                        i = content.Length; // 跳出外层 for
-                        break;
-                    }
-                    t += Time.unscaledDeltaTime;
-                    yield return null;
-                }
-
-                if (i == content.Length - 1)
-                    _lineFullyShown = true;
-            }
-
-            // 去抖：快进或行末显示完后，短时间内不接受结束/下一句
-            _nextAcceptTime = Time.unscaledTime + advanceCooldown;
-
-            bool isLast = (_idx >= lines.Count - 1);
-
-            if (isLast && autoCloseOnLastLine)
-            {
-                InfoDialogUI.Instance.HideArrow();
-
-                // 最后一行至少停留 lastLineMinHold，再叠加 autoCloseDelay
-                float finalDelay = Mathf.Max(0f, lastLineMinHold) + Mathf.Max(0f, autoCloseDelay);
-                if (finalDelay > 0f)
-                    yield return new WaitForSecondsRealtime(finalDelay);
-
-                EndNow(); // EndDialogue()
-            }
-            else
-            {
-                InfoDialogUI.Instance.ShowArrow();
-            }
-
-            _typeRoutine = null;
-        }
-
-        void ShowLineInstant()
-        {
-            if (!InfoDialogUI.Instance) { EndNow(); return; }
-
-            if (_typeRoutine != null) { StopCoroutine(_typeRoutine); _typeRoutine = null; }
-
-            InfoDialogUI.Instance.textBoxText.text = lines[_idx].content;
-            _lineFullyShown = true;
-
-            // 瞬显后也开启去抖
-            _nextAcceptTime = Time.unscaledTime + advanceCooldown;
-
-            bool isLast = (_idx >= lines.Count - 1);
-            if (isLast && autoCloseOnLastLine)
-            {
-                InfoDialogUI.Instance.HideArrow();
-
-                float finalDelay = Mathf.Max(0f, lastLineMinHold) + Mathf.Max(0f, autoCloseDelay);
-                if (finalDelay > 0f)
-                    StartCoroutine(AutoCloseAfterDelay(finalDelay));
-                else
-                    EndNow();
-            }
-            else
-            {
-                InfoDialogUI.Instance.ShowArrow();
-            }
-
-            if (logDebug) Debug.Log($"[PickupDoc2D] ShowLineInstant idx={_idx}, isLast={isLast}");
-        }
-
-        IEnumerator AutoCloseAfterDelay(float delay)
-        {
-            yield return new WaitForSecondsRealtime(delay);
-            EndNow();
-        }
-
-        void NextLine()
-        {
-            _idx++;
-            if (_idx < lines.Count)
-            {
-                if (logDebug) Debug.Log($"[PickupDoc2D] NextLine -> {_idx}");
-                ShowCurrentLineTyped();
-            }
-            else
-            {
-                if (logDebug) Debug.Log("[PickupDoc2D] NextLine -> EndNow");
-                EndNow();
-            }
-        }
-
-        void EndNow()
-        {
-            _talking = false;
-            InfoDialogUI.Instance?.EndDialogue();
-            if (logDebug) Debug.Log("[PickupDoc2D] Dialogue ended.");
-        }
-
-        // —— 输入检测（兼容 UI 焦点/暂停）——
-        bool IsKeyPressed(KeyCode key)
-        {
-            // 旧输入系统
-            bool legacy = Input.GetKeyDown(key) || Input.GetKeyUp(key);
-
-            // Space 作为兜底：UI 抢走时也推进
-            bool any = Input.anyKeyDown && key == KeyCode.Space;
-
-            // 清 UI 焦点，避免 UI 吞键
-            if (EventSystem.current && EventSystem.current.currentSelectedGameObject)
-                EventSystem.current.SetSelectedGameObject(null);
-
-            return legacy || any;
-        }
-
         // —— UI 父链激活与 CanvasGroup 恢复 —— 
-        void EnsureUIHierarchyActive(Transform t)
+        private void EnsureUIHierarchyActive(Transform t)
         {
             if (!t) return;
 
@@ -442,7 +326,7 @@ namespace Interact
             }
         }
 
-        void RestoreCanvasGroups(Transform t)
+        private void RestoreCanvasGroups(Transform t)
         {
             Transform cur = t;
             while (cur != null)
