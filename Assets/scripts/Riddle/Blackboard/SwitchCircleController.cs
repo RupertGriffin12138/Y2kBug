@@ -65,38 +65,47 @@ namespace Riddle.Blackboard
             }
             else if (Input.GetKeyDown(KeyCode.Alpha1))
             {
+                AudioClipHelper.Instance.Play_ChalkWriting();
                 ShowAnswer(1);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
+                AudioClipHelper.Instance.Play_ChalkWriting();
                 ShowAnswer(2);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha3))
             {
+                AudioClipHelper.Instance.Play_ChalkWriting();
                 ShowAnswer(3);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha4))
             {
+                AudioClipHelper.Instance.Play_ChalkWriting();
                 ShowAnswer(4);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha5))
             {
+                AudioClipHelper.Instance.Play_ChalkWriting();
                 ShowAnswer(5);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha6))
             {
+                AudioClipHelper.Instance.Play_ChalkWriting();
                 ShowAnswer(6);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha7))
             {
+                AudioClipHelper.Instance.Play_ChalkWriting();
                 ShowAnswer(7);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha8))
             {
+                AudioClipHelper.Instance.Play_ChalkWriting();
                 ShowAnswer(8);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha9))
             {
+                AudioClipHelper.Instance.Play_ChalkWriting();
                 ShowAnswer(9);
             }
         }

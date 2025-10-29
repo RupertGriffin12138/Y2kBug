@@ -85,6 +85,7 @@ namespace Riddle.Abacus
             {
                 clickCount[lineNum[frameNum], frameNum]++;
                 HandleClick();
+                AudioClipHelper.Instance.Play_SuanPan();
             }
 
             if(beadRecord != null &&
