@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Audio;
 using UnityEngine;
 
 public class AudioManager : MonoSingleton<AudioManager>
@@ -120,7 +121,7 @@ public class AudioManager : MonoSingleton<AudioManager>
         }
     }
 
-    void CreatAudioObj(AudioClip clip)
+    private void CreatAudioObj(AudioClip clip)
     {
         GameObject sourceObj = new GameObject(clip.name);
         sourceObj.transform.SetParent(this.transform);

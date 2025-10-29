@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Interact;
 using Save;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -31,9 +32,9 @@ namespace UI
         [Tooltip("如果没有从主菜单设置 SaveSlotContext.CurrentKey，则使用此默认槽键。例：SaveSlot_1")]
         public string defaultSaveKey = "SaveSlot_1";
 
-        bool isPaused;
+        private bool isPaused;
 
-        void Start()
+        public void Start()
         {
             // 初始隐藏
             if (pausePanel) pausePanel.SetActive(false);
@@ -46,19 +47,23 @@ namespace UI
             if (btnSave) btnSave.onClick.AddListener(SaveNowToCurrentSlot);
         }
 
-        void Update()
+        public void Update()
         {
+            // 若 InfoDialogUI 正在显示图片，不响应暂停键
+            if (InfoDialogUI.Instance && ImageTrigger2D.imageShown)
+                return;
+            
             if (Input.GetKeyDown(toggleKey))
             {
                 // --- 优先判断 TextPage 是否打开 ---
-                if (textPage != null && textPage.activeSelf)
+                if (textPage && textPage.activeSelf)
                 {
                     textPage.SetActive(false);
                     return; // 不再继续执行暂停逻辑
                 }
 
                 // 若当前处于设置界面，Esc 返回暂停菜单
-                if (settingsPanel != null && settingsPanel.activeSelf)
+                if (settingsPanel && settingsPanel.activeSelf)
                 {
                     BackFromSettings();
                     return;
@@ -70,7 +75,7 @@ namespace UI
             }
         }
 
-        void PauseGame()
+        public void PauseGame()
         {
             isPaused = true;
             if (pausePanel) pausePanel.SetActive(true);
@@ -103,7 +108,7 @@ namespace UI
             EventSystem.current?.SetSelectedGameObject(null);
         }
 
-        void BackToMenu()
+        private void BackToMenu()
         {
             // 确保恢复时间/音频，避免切回菜单后仍是 0
             Time.timeScale = 1f;
@@ -113,7 +118,7 @@ namespace UI
             StartCoroutine(LoadMenuAfterFrame());
         }
 
-        void OpenSettings()
+        public void OpenSettings()
         {
             if (pausePanel) pausePanel.SetActive(false);
             if (settingsPanel) settingsPanel.SetActive(true);
@@ -126,7 +131,7 @@ namespace UI
             if (pausePanel) pausePanel.SetActive(true);
         }
 
-        IEnumerator LoadMenuAfterFrame()
+        public IEnumerator LoadMenuAfterFrame()
         {
             // 等一帧，避免点击抬起事件在切场景时丢失
             yield return null;
@@ -134,7 +139,7 @@ namespace UI
         }
 
         // 若带着暂停状态离开当前场景（例如切换关卡），确保不残留暂停
-        void OnDisable()
+        private void OnDisable()
         {
             if (isPaused)
             {
@@ -146,7 +151,7 @@ namespace UI
         // =========================
         //   保存到“当前存档槽”
         // =========================
-        void SaveNowToCurrentSlot()
+        private void SaveNowToCurrentSlot()
         {
             // 1) 确保 GameState 存在
             if (GameState.Current == null)

@@ -32,7 +32,7 @@ namespace Core
         // 常量：静音时用 -80dB（接近静音）
         const float MUTE_DB = -80f;
 
-        void Awake()
+        private void Awake()
         {
             // 绑定按钮
             if (btnMusicYes) btnMusicYes.onClick.AddListener(() => SetMusicOn(true));
@@ -45,7 +45,7 @@ namespace Core
             if (sfxSlider) sfxSlider.onValueChanged.AddListener(OnSfxSlider);
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             // 读配置（默认：开；音量 0.8）
             bool musicOn = PlayerPrefs.GetInt(pfMusicOn, 1) == 1;

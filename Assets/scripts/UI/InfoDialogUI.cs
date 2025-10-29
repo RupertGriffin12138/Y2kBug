@@ -60,6 +60,9 @@ namespace UI
         private const KeyCode nextKey = KeyCode.E;
         private Coroutine _dialogueRoutine;
 
+        private bool isPaused = false;
+        private bool waitingForResume = false;
+        
         private bool isDefaultShown;
         
         public event Action<int> OnLineChanged;
@@ -163,12 +166,20 @@ namespace UI
             lineFullyShown = true;
             ShowArrow();
             typeRoutine = null;
+
+            // 如果此时处于暂停状态，则停止自动推进
+            if (isPaused)
+            {
+                waitingForResume = true;
+            }
         }
 
         private void HandleInputAction()
         {
             if (!isShowingDialogue || currentLines == null || currentIndex >= currentLines.Count)
                 return;
+            if (isPaused)
+                return; // 暂停时忽略输入
             
             if (!lineFullyShown)
             {
@@ -181,6 +192,26 @@ namespace UI
             }
         }
 
+        /// <summary>暂停对白（不会继续打字或自动进入下一句）</summary>
+        public void PauseDialogue()
+        {
+            isPaused = true;
+        }
+
+        /// <summary>继续对白（若已暂停，会继续到下一句）</summary>
+        public void ResumeDialogue()
+        {
+            if (!isPaused) return;
+            isPaused = false;
+
+            // 若是在行尾暂停的，恢复时推进到下一句
+            if (waitingForResume)
+            {
+                waitingForResume = false;
+                NextLine();
+            }
+        }
+        
         /// <summary>
         /// 展示完整行内容（用于快进功能）
         /// </summary>
