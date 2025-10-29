@@ -7,6 +7,16 @@ public class AudioManager : MonoSingleton<AudioManager>
 
     public AudioManagerModel Model { get; private set; }
 
+    public List<GameObject> soundEffect;
+    private Dictionary<string, GameObject> audioSources;
+
+    protected override void OnStart()
+    {
+        base.OnStart();
+        soundEffect.Clear();
+        audioSources = new Dictionary<string, GameObject>();
+
+    }
     private void Update()
     {
 
@@ -17,8 +27,14 @@ public class AudioManager : MonoSingleton<AudioManager>
 
             if (Input.GetKeyDown(KeyCode.J))
                 AudioClipHelper.Instance.Play_UIClick();
+
+            if (Input.GetKeyDown(KeyCode.K))
+                AudioClipHelper.Instance.Play_SuanPan();
+
+            if (Input.GetKeyDown(KeyCode.L))
+                AudioClipHelper.Instance.Play_IronCabinet();
         }
-        // 如果为 null，可以输出一个警告日志以便调试
+
         else
         {
             Debug.LogWarning("AudioClipHelper Instance is not available.");
@@ -67,19 +83,32 @@ public class AudioManager : MonoSingleton<AudioManager>
     {
         if (clip != null /**&& Model.IsSoundOpen**/)
         {
-            GameObject sourceObj = new GameObject(clip.name);
-            AudioSource audioSource = sourceObj.AddComponent<AudioSource>();
-            audioSource.clip = clip;
-            audioSource.volume = 1f;
-            audioSource.pitch = 1f;
-            audioSource.playOnAwake = false;
-            audioSource.loop = false;
-            audioSource.Play();
+            if (!audioSources.ContainsKey(clip.name))
+            {
+                CreatAudioObj(clip);
+            }
+
+            audioSources[clip.name].GetComponent<AudioSource>().Play();
+
         }
         else
         {
             Debug.LogWarning("clip  is not available.");
         }
+    }
+
+    void CreatAudioObj(AudioClip clip)
+    {
+        GameObject sourceObj = new GameObject(clip.name);
+        sourceObj.transform.SetParent(this.transform);
+        AudioSource audioSource = sourceObj.AddComponent<AudioSource>();
+        audioSource.clip = clip;
+        audioSource.volume = 1f;
+        audioSource.pitch = 1f;
+        audioSource.playOnAwake = false;
+        audioSource.loop = false;
+        soundEffect.Add(sourceObj);
+        audioSources[clip.name] = sourceObj;
     }
 
     public void PlayLoopSound(AudioClip clip)

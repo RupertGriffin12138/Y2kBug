@@ -28,106 +28,82 @@ public class AudioClipHelper : MonoSingleton<AudioClipHelper>
 
     public void Play_UIHover()
     {
-        //Debug.Log("PlayMouseClick");
         if (_UIHover!=null)
         {
-            if (AudioManager.Instance!=null)
-            AudioManager.Instance.PlaySoundEffect(_UIHover);
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlaySoundEffect(_UIHover);
         }
     }
 
     public void Play_UIClick()
     {
-        //Debug.Log("PlayMouseClick");
         if (_UIHover != null)
-        {
             AudioManager.Instance.PlaySoundEffect(_UIClick);
-        }
-        else
-        {
-            Debug.Log("_UIClick is null");
-        }
     }
     public void Play_Dialogue()
     {
-        //Debug.Log("PlayMouseClick");
         AudioManager.Instance.PlaySoundEffect(_Dialogue);
     }
     public void Play_Burning()
     {
-        //Debug.Log("PlayMouseClick");
         AudioManager.Instance.PlaySoundEffect(_Burning);
     }
     public void Play_PickUpItems()
     {
-        //Debug.Log("PlayMouseClick");
         AudioManager.Instance.PlaySoundEffect(_PickUpItems);
     }
     public void Play_PickUpPaper()
     {
-        //Debug.Log("PlayMouseClick");
         AudioManager.Instance.PlaySoundEffect(_PickUpPaper);
     }
     public void Play_ClassroomLocked()
     {
-        //Debug.Log("PlayMouseClick");
         AudioManager.Instance.PlaySoundEffect(_ClassroomLocked);
     }
     public void Play_WoodenDoorLocked()
     {
-        //Debug.Log("PlayMouseClick");
         AudioManager.Instance.PlaySoundEffect(_WoodenDoorLocked);
     }
     public void Play_SchoolGateLocked()
     {
-        //Debug.Log("PlayMouseClick");
         AudioManager.Instance.PlaySoundEffect(_SchoolGateLocked);
     }
     public void Play_Footsteps()
     {
-        //Debug.Log("PlayMouseClick");
         AudioManager.Instance.PlaySoundEffect(_Footsteps);
     }
     public void Play_ManWhisper()
     {
-        //Debug.Log("PlayMouseClick");
         AudioManager.Instance.PlaySoundEffect(_ManWhisper);
     }
     public void Play_WoodenDoorUnlock()
     {
-        //Debug.Log("PlayMouseClick");
         AudioManager.Instance.PlaySoundEffect(_WoodenDoorUnlock);
     }
     public void Play_SchoolGateUnlock()
     {
-        //Debug.Log("PlayMouseClick");
         AudioManager.Instance.PlaySoundEffect(_SchoolGateUnlock);
     }
     public void Play_WipeTheBlackboard()
     {
-        //Debug.Log("PlayMouseClick");
         AudioManager.Instance.PlaySoundEffect(_WipeTheBlackboard);
     }
 
     public void Play_ChalkWriting()
     {
-        //Debug.Log("PlayMouseClick");
         AudioManager.Instance.PlaySoundEffect(_ChalkWriting);
     }
     public void Play_SuanPan()
     {
-        //Debug.Log("PlayMouseClick");
         AudioManager.Instance.PlaySoundEffect(_SuanPan);
     }
 
     public void Play_WoodenStructure()
     {
-        //Debug.Log("PlayMouseClick");
         AudioManager.Instance.PlaySoundEffect(_WoodenStructure);
     }
     public void Play_SecondHand()
     {
-        //Debug.Log("PlayMouseClick");
         AudioManager.Instance.PlaySoundEffect(_SecondHand);
     }
     public void Play_IronCabinet()
@@ -139,7 +115,6 @@ public class AudioClipHelper : MonoSingleton<AudioClipHelper>
 
     public void PlayMouseClick()
     {
-        //Debug.Log("PlayMouseClick");
         AudioManager.Instance.PlaySoundEffect(_UIHover);
     }
 
