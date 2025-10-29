@@ -1,0 +1,30 @@
+fileFormatVersion: 2
+guid: 816dcc46376c71a488051db43d2309e0
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _UIHover: {fileID: 8300000, guid: 13d63f3c51142344382a8720443f17f9, type: 3}
+  - _UIClick: {fileID: 8300000, guid: 5dabb76f05c22ea42a7f12b78d9a790b, type: 3}
+  - _Dialogue: {fileID: 8300000, guid: f4382f51867fcac4da5e28b05efae24e, type: 3}
+  - _Burning: {fileID: 8300000, guid: 0fb3f6c70f35e5f4eb947ddd5f876ab9, type: 3}
+  - _PickUpItems: {fileID: 8300000, guid: 77b1e659b7baa3a45b6acf9051c1162a, type: 3}
+  - _PickUpPaper: {fileID: 8300000, guid: 9304a7edbad11fc4c8878908e42170be, type: 3}
+  - _ClassroomLocked: {fileID: 8300000, guid: 9c1fdbcef246ca044abf9931cfa5a096, type: 3}
+  - _WoodenDoorLocked: {fileID: 8300000, guid: 6d534c630c2612447afe48747f0979d6, type: 3}
+  - _SchoolGateLocked: {fileID: 8300000, guid: 9c1fdbcef246ca044abf9931cfa5a096, type: 3}
+  - _Footsteps: {fileID: 8300000, guid: a253e05e939380146bba0d4ade95dc88, type: 3}
+  - _ManWhisper: {fileID: 8300000, guid: cede25844d265ca42a269c72d457b8c4, type: 3}
+  - _WoodenDoorUnlock: {fileID: 8300000, guid: 7e5521bfefb350447a0ec023e3f339f5, type: 3}
+  - _SchoolGateUnlock: {fileID: 8300000, guid: fe2b0e578a5aced4a9d087790f4563a6, type: 3}
+  - _WipeTheBlackboard: {fileID: 8300000, guid: 7426aa0e8091bb74b9caaf3b476ef71d, type: 3}
+  - _ChalkWriting: {fileID: 8300000, guid: 8b4166efbec383f4e838b607fac1b7c5, type: 3}
+  - _SuanPan: {fileID: 8300000, guid: d9541218248b8c945b1c92e04b94a182, type: 3}
+  - _WoodenStructure: {fileID: 8300000, guid: 8fcfe7993c012bc4e948b34c62762a82, type: 3}
+  - _SecondHand: {fileID: 8300000, guid: f77a5b93bac1a084da13da6fc6b471bc, type: 3}
+  - _IronCabinet: {fileID: 8300000, guid: 72a3f1e1ac158ae4f8057d00068aa03c, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
