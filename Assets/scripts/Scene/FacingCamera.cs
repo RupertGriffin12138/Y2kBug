@@ -5,9 +5,11 @@ namespace Scene
     public class FacingCamera : MonoBehaviour
     {
         Transform[] childs;
-    
+        private Camera _camera;
+
         void Start()
         {
+            _camera = Camera.main;
             childs = new Transform[transform.childCount];
             for (int i = 0; i < transform.childCount; i++)
             {
@@ -18,9 +20,12 @@ namespace Scene
     
         void Update()
         {
+            if (childs == null) return;
             for(int i = 0; i < childs.Length; i++)
             {
-                childs[i].rotation = Camera.main.transform.rotation;
+                var t = childs[i];
+                if (!t) continue; // 子物体已销毁，跳过
+                t.rotation = _camera.transform.rotation;
             }
         }
     }

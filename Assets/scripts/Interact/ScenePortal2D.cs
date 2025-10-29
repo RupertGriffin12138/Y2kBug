@@ -30,7 +30,7 @@ namespace Interact
         
 
         [Header("提示文本（会显示在对话框）")]
-        [TextArea] public string hint = "按 <b>E</b> 进入";
+        [TextArea] public string hint = "按 <b>E</b> 交互";
 
         [Header("过滤")]
         public string playerTag = "Player";
