@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 477f0b5ec4f64134facfb5e7806d0b5a, type: 3}
   m_Name: GameProgress
   m_EditorClassIdentifier: 
-  _backpackUnlocked: 1
+  _backpackUnlocked: 0
