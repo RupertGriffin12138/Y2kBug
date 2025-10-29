@@ -1660,7 +1660,8 @@ GameObject:
   m_Component:
   - component: {fileID: 800856990}
   - component: {fileID: 800856991}
-  m_Layer: 0
+  - component: {fileID: 800856992}
+  m_Layer: 9
   m_Name: BlackBoardTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1727,6 +1728,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 3.7700787}
   m_EdgeRadius: 0
+--- !u!114 &800856992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800856989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3cdbf31a0979944b890c0d3a9f9bd68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nectScene: Riddle blackboard2
 --- !u!1 &944650370
 GameObject:
   m_ObjectHideFlags: 0
@@ -2180,7 +2194,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1290223469}
   - component: {fileID: 1290223470}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CJ_B_blackboard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2750,6 +2764,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1619628724}
+  - component: {fileID: 1619628725}
   m_Layer: 0
   m_Name: C1CJB classroomB_Before
   m_TagString: Untagged
@@ -2777,6 +2792,21 @@ Transform:
   - {fileID: 1172870668}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1619628725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619628723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eeb0ad043a2d694cb6cc8f0bdaf3a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameObjects:
+  - {fileID: 1619628723}
+  - {fileID: 1701494179}
 --- !u!1 &1701494179
 GameObject:
   m_ObjectHideFlags: 0
@@ -3577,6 +3607,10 @@ PrefabInstance:
     - target: {fileID: 5642649487201466506, guid: f1da7c30a2036354eb25b625e62095e0, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5666030327336575410, guid: f1da7c30a2036354eb25b625e62095e0, type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 8183
       objectReference: {fileID: 0}
     - target: {fileID: 6664420289381653836, guid: f1da7c30a2036354eb25b625e62095e0, type: 3}
       propertyPath: m_IsActive

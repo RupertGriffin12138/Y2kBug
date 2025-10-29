@@ -2168,6 +2168,9 @@ MonoBehaviour:
   lifetimeMax: 2
   spawnIntervalMin: 0.1
   spawnIntervalMax: 1
+  defaultTypeDelay: 0.05
+  lockPlayerDuringDialogue: 1
+  isShowingDialogue: 0
 --- !u!1 &1777240716350883023
 GameObject:
   m_ObjectHideFlags: 0
@@ -10411,7 +10414,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 8183
 --- !u!114 &3220643468745902141
 MonoBehaviour:
   m_ObjectHideFlags: 0

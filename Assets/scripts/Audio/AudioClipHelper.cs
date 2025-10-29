@@ -95,7 +95,11 @@ namespace Audio
         }
         public void Play_WipeTheBlackboard()
         {
-            AudioManager.Instance.PlaySoundEffect(_WipeTheBlackboard, false);
+            AudioManager.Instance.PlaySoundEffect(_WipeTheBlackboard, true);
+        }
+        public void Stop_WipeTheBlackboard()
+        {
+            AudioManager.Instance.StopSoundEffect(_WipeTheBlackboard);
         }
 
         public void Play_ChalkWriting()

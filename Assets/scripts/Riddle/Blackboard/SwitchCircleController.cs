@@ -2,6 +2,8 @@ using Audio;
 using System.Collections;
 using UnityEngine;
 #pragma warning disable CS0414 // 字段已被赋值，但它的值从未被使用
+using UnityEngine.SceneManagement;
+#pragma warning disable CS0414 // �ֶ��ѱ���ֵ��������ֵ��δ��ʹ��
 
 namespace Riddle.Blackboard
 {
@@ -13,6 +15,8 @@ namespace Riddle.Blackboard
         [SerializeField] private int count_num = 0;   // 综合计数
         [SerializeField] private float moveDistance = 1f; // 移动距离
 
+        private int progress = 0;
+
         [SerializeField] private SpriteRenderer blackboardFade;
         [SerializeField] private float fadeDuration = 2.0f;
 
@@ -21,7 +25,7 @@ namespace Riddle.Blackboard
 
         private Vector3 initialPosition; // 初始位置
 
-        // 二维数组用于映射 count_heng 和 count_zong 到 count_num
+        // 二维数组用于映射 count_heng �?count_zong �?count_num
         private int[,] circleNum = {
             { 0, 3, 6 },
             { 1, 4, 7 },
@@ -32,15 +36,15 @@ namespace Riddle.Blackboard
 
         public GameObject block; // Block 对象
 
-        private int previousCountNum = -1; // 上一个 count_num 的值
+        private int previousCountNum = -1; // 上一�?count_num 的�?
 
         void Start()
         {
             // 记录初始位置
             initialPosition = transform.position;
-            // 初始化 count_num
+            // 初始�?count_num
             UpdateCountNum();
-            // 初始化 Answer 组显示状态
+            // 初始�?Answer 组显示状�?
             InitializeAnswers();
 
 
@@ -52,7 +56,7 @@ namespace Riddle.Blackboard
             fadeMaterial = new Material(blackboardFade.material);
             blackboardFade.material = fadeMaterial;
 
-            // 初始透明度设为0
+            // 初始透明度设�?
             SetFadeProgress(0f);
         }
 
@@ -61,7 +65,7 @@ namespace Riddle.Blackboard
             // 处理按键输入
             getNumandKeyDown();
 
-            // 输出当前计数值
+            // 输出当前计数�?
             //Debug.Log($"Count Heng: {count_heng}, Count Zong: {count_zong}, Count Num: {count_num}");
         }
 
@@ -143,7 +147,7 @@ namespace Riddle.Blackboard
             if (!(count_zong == 0 && count_heng == 0))
             {
                 transform.position += Vector3.left * moveDistance;
-                count_heng = (count_heng - 1 + 3) % 3; // 使用模运算确保结果非负
+                count_heng = (count_heng - 1 + 3) % 3; // 使用模运算确保结果非�?
                 UpdateCountNum();
             }
             else
@@ -157,7 +161,7 @@ namespace Riddle.Blackboard
             if (!(count_zong == 0 && count_heng == 0))
             {
                 transform.position += Vector3.up * moveDistance;
-                count_zong = (count_zong - 1 + 3) % 3; // 使用模运算确保结果非负
+                count_zong = (count_zong - 1 + 3) % 3; // 使用模运算确保结果非�?
                 UpdateCountNum();
             }
             else
@@ -254,16 +258,21 @@ namespace Riddle.Blackboard
 
         void LateUpdate()
         {
-            // 当 count_heng == 0 时，横坐标回到初始位置
+            // �?count_heng == 0 时，横坐标回到初始位�?
             if (count_heng == 0)
             {
                 transform.position = new Vector3(initialPosition.x, transform.position.y, transform.position.z);
             }
 
-            // 当 count_zong == 0 时，纵坐标回到初始位置
+            // �?count_zong == 0 时，纵坐标回到初始位�?
             if (count_zong == 0)
             {
                 transform.position = new Vector3(transform.position.x, initialPosition.y, transform.position.z);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                SceneManager.LoadScene("C1CJB");
             }
         }
 
@@ -290,7 +299,11 @@ namespace Riddle.Blackboard
                 yield return null;
             }
 
-            SetFadeProgress(1f); // 确保最终完全显示
+            SetFadeProgress(1f); // 确保最终完全显�?
+
+            SetFadeProgress(1f); // ȷ��������ȫ��ʾ
+            progress = 4;
+            PlayerPrefs.SetInt("BoardKey_Prefab", progress);
         }
 
         private void SetFadeProgress(float progress)
@@ -299,7 +312,7 @@ namespace Riddle.Blackboard
                 fadeMaterial.SetFloat(FadeProgress, progress);
         }
 
-        // 公开方法，可从外部调用
+        // 公开方法，可从外部调�?
         public void StartFade(float duration = 0f)
         {
             if (duration > 0)
@@ -310,7 +323,7 @@ namespace Riddle.Blackboard
 
         void OnDestroy()
         {
-            // 清理创建的材质实例
+            // 清理创建的材质实�?
             if (fadeMaterial != null)
                 DestroyImmediate(fadeMaterial);
         }
