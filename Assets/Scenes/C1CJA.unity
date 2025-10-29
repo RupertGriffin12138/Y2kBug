@@ -3063,7 +3063,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.5031959, y: 0.29339695}
+  m_Offset: {x: 0.47138762, y: 0.40594864}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -3074,7 +3074,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.8848412, y: 2.4624004}
+  m_Size: {x: 2.01868, y: 1.9632568}
   m_EdgeRadius: 0
 --- !u!114 &1083970293
 MonoBehaviour:
@@ -3100,19 +3100,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2514097689317049044, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
       propertyPath: m_Size.x
-      value: 1.9097524
+      value: 2.9858828
       objectReference: {fileID: 0}
     - target: {fileID: 2514097689317049044, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
       propertyPath: m_Size.y
-      value: 1.4189644
+      value: 2.2415066
       objectReference: {fileID: 0}
     - target: {fileID: 2514097689317049044, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
       propertyPath: m_Offset.x
-      value: -0.03591132
+      value: -0.42453337
       objectReference: {fileID: 0}
     - target: {fileID: 2514097689317049044, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
       propertyPath: m_Offset.y
-      value: -0.0299263
+      value: 0.73377323
       objectReference: {fileID: 0}
     - target: {fileID: 2808267952940001299, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4408,11 +4408,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7567651378298865756, guid: deb62d56fa8969545ba988a68a90cf78, type: 3}
       propertyPath: m_Size.y
-      value: 0.80916214
+      value: 0.48363876
       objectReference: {fileID: 0}
     - target: {fileID: 7567651378298865756, guid: deb62d56fa8969545ba988a68a90cf78, type: 3}
       propertyPath: m_Offset.y
-      value: -0.09541893
+      value: -0.25818062
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7051986941150172040, guid: deb62d56fa8969545ba988a68a90cf78, type: 3}
