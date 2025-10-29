@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 using Characters.PLayer_25D;
 using Characters.Player;
 using Save;
@@ -62,12 +64,33 @@ namespace Interact
                 InfoDialogUI.Instance.OnLineChanged -= HandleLineChange;
         }
         
+        private List<(string speaker, string content)> parsedLines;
+        
         private void HandleLineChange(int idx)
         {
+            // 特殊场景动画逻辑（保留你原来的）
             if (SceneManager.GetActiveScene().name == "C1S3 guard")
             {
                 ControlGif(idx);
             }
+
+            if (parsedLines == null || idx < 0 || idx >= parsedLines.Count)
+                return;
+
+            var (speaker, _) = parsedLines[idx];
+
+            if (string.IsNullOrEmpty(speaker) || speaker == "旁白")
+                return;
+
+            // 去括号：只用于显示名字
+            string displaySpeaker = Regex.Replace(speaker, "（.*?）", "").Trim();
+
+            // 显示名字用去括号的版本
+            if (!string.IsNullOrEmpty(displaySpeaker))
+                InfoDialogUI.Instance?.SetNameText(displaySpeaker);
+
+            // 背景用完整 speaker（包含括号）
+            InfoDialogUI.Instance?.EnableCharacterBackground(speaker);
         }
 
         private void Reset()
@@ -78,10 +101,15 @@ namespace Interact
 
         private void Start()
         {
-            save = SaveManager.LoadOrDefault("Town");
-            if (!resetOnExit && save.HasSeenDialogue(dialogueId))
+            // 确保 GameState 存档已载入
+            if (GameState.Current == null)
+                GameState.LoadGameOrNew(SceneManager.GetActiveScene().name);
+            
+            // 用全局 GameState 判断是否看过该对话
+            if (!resetOnExit && GameState.HasSeenDialogue(dialogueId))
             {
                 Destroy(gameObject);
+                return;
             }
             if (!player)
                 player = FindObjectOfType<Player>();
@@ -135,10 +163,24 @@ namespace Interact
                 if (playerMovement) playerMovement.LockControl();
             }
 
-            // 准备对白数据
+            // 准备对白数据（去掉显示用名字中的括号）
             var lineData = new List<(string speaker, string content)>();
+            parsedLines = new List<(string speaker, string content)>();
+
             foreach (var l in lines)
-                lineData.Add((l.speaker, l.content));
+            {
+                string fullSpeaker = l.speaker?.Trim() ?? "";
+                string content = l.content?.Trim() ?? "";
+
+                // 去掉显示用括号内容
+                string displaySpeaker = Regex.Replace(fullSpeaker, "（.*?）", "").Trim();
+
+                // 用 displaySpeaker 传给 InfoDialogUI（用于显示）
+                lineData.Add((displaySpeaker, content));
+
+                // 保存完整 speaker 以便 HandleLineChange 用于背景加载
+                parsedLines.Add((fullSpeaker, content));
+            }
 
             dialogueEnded = false;
 
@@ -177,10 +219,16 @@ namespace Interact
             // === 存档标记（仅当非 reset 模式时）===
             if (!resetOnExit)
             {
-                if (save == null) save = SaveManager.LoadOrDefault("Town");
-                if (save.TryMarkDialogueSeen(dialogueId))
-                    SaveManager.Save(save);
+                //  统一保存到 GameState
+                if (!GameState.HasSeenDialogue(dialogueId))
+                {
+                    var list = GameState.Current.dialogueSeenIds.ToList();
+                    list.Add(dialogueId);
+                    GameState.Current.dialogueSeenIds = list.ToArray();
+                    GameState.SaveNow();
+                }
             }
+
             // 特殊场景教学提示
             if (SceneManager.GetActiveScene().name == "C1S1 campus" && !resetOnExit)
             {

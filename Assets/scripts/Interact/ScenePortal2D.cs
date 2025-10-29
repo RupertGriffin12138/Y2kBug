@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using Save;
 using Scene;
 using UI;
 using UnityEngine;
@@ -43,6 +45,17 @@ namespace Interact
         
         [Header("是否可进入（条件开关）")]
         public bool canEnter;
+        
+        // === 条件检测 ===
+        [Header("【可选】解锁条件（全部满足才可进入）")]
+        [Tooltip("必须已拥有的物品 ID 列表（全部满足）")]
+        public List<string> requiredItemIds = new();
+        [Tooltip("必须已收集的文档 ID 列表（全部满足）")]
+        public List<string> requiredDocIds = new();
+        [Tooltip("必须已看过的对白 ID 列表（全部满足，可空）")]
+        public List<string> requiredDialogueIds = new();
+        [Tooltip("是否要求背包已解锁")]
+        public bool requireBackpackUnlocked = false;
 
         private bool inside;
         private bool loading;
@@ -54,6 +67,13 @@ namespace Interact
             col.isTrigger = true; // 自动勾选触发
         }
 
+        private void Start()
+        {
+            // 在 Start 时执行一次条件检测
+            CheckUnlockCondition();
+        }
+
+        
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (!other.CompareTag(playerTag)) return;
@@ -66,6 +86,8 @@ namespace Interact
 
                 InfoDialogUI.Instance.ShowMessage(hint);
                 InfoDialogUI.Instance.ShowArrow();
+                
+                InfoDialogUI.Instance.ShowDefaultCharacter();
             }
         }
 
@@ -86,6 +108,8 @@ namespace Interact
 
             if (Input.GetKeyDown(KeyCode.E))
             {
+                // 每次交互时也再检测一次（防止中途获得条件）
+                CheckUnlockCondition();
                 if (!canEnter)
                 {
                     if (InfoDialogUI.Instance)
@@ -124,8 +148,49 @@ namespace Interact
             PortalSpawnBuffer.SetTargetPortal(targetPortalIdInNextScene);
 
             yield return null;
-            SceneFadeEffect sceneFadeEffect = FindObjectOfType<SceneFadeEffect>();
-            sceneFadeEffect.FadeOutAndLoad(nextSceneName,0.5f,1f);
+            SceneFadeEffect fade = FindObjectOfType<SceneFadeEffect>();
+            if (fade)
+                fade.FadeOutAndLoad(nextSceneName, 0.5f, 1f);
+        }
+        
+        //检测是否满足条件
+        private void CheckUnlockCondition()
+        {
+            canEnter = true;
+
+            // 背包条件
+            if (requireBackpackUnlocked && !GameState.BackpackUnlocked)
+                canEnter = false;
+
+            // 物品条件：必须全部拥有
+            foreach (var id in requiredItemIds)
+            {
+                if (!string.IsNullOrEmpty(id) && !GameState.HasItem(id))
+                {
+                    canEnter = false;
+                    break;
+                }
+            }
+
+            // 文档条件：必须全部收集
+            foreach (var id in requiredDocIds)
+            {
+                if (!string.IsNullOrEmpty(id) && !GameState.HasCollectedDoc(id))
+                {
+                    canEnter = false;
+                    break;
+                }
+            }
+
+            // 对话条件：必须全部看过
+            foreach (var id in requiredDialogueIds)
+            {
+                if (!string.IsNullOrEmpty(id) && !GameState.HasSeenDialogue(id))
+                {
+                    canEnter = false;
+                    break;
+                }
+            }
         }
     }
 
@@ -156,4 +221,5 @@ namespace Interact
             targetPortalId = null;
         }
     }
+    
 }

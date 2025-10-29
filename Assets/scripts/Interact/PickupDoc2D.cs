@@ -198,16 +198,6 @@ namespace Interact
                         yield return null;
                 }
 
-                // ÔÄ¶ÁÆ÷¹Ø±Õ ¡ú ½âËøÍæ¼Ò
-                if (playerMovement)
-                {
-                    playerMovement.UnlockControl();
-                }
-                if (player)
-                {
-                    player.UnlockControl();
-                }
-
                 if (logDebug) Debug.Log("[PickupDoc2D] ÎÄµµÔÄ¶ÁÆ÷¹Ø±Õ");
             }
             
@@ -227,9 +217,6 @@ namespace Interact
                     dialogueLines.Add((l.speaker, l.content));
                 bool finished = false;
                 InfoDialogUI.Instance.BeginDialogue(dialogueLines, () => finished = true);
-                // Ëø¶¨Íæ¼Ò
-                if (player) player.LockControl();
-                if (playerMovement) playerMovement.LockControl();
                 
                 yield return new WaitUntil(() => finished);
 

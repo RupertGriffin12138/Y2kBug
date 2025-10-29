@@ -138,6 +138,10 @@ namespace Interact
                 Debug.LogWarning("[PickupItem2D] 未找到 InventoryLite，无法拾取。", this);
                 return;
             }
+            
+            // 锁住玩家控制
+            if (player) player.LockControl();
+            if (playerMovement) playerMovement.LockControl();
 
             // 1) 更新背包
             int newCount = inventory.Add(itemId, amount);
@@ -186,9 +190,6 @@ namespace Interact
 
                 bool finished = false;
                 InfoDialogUI.Instance.BeginDialogue(dialogueLines, () => finished = true);
-                // 锁住玩家控制（防止对白期间移动或操作）
-                if (player) player.LockControl();
-                if (playerMovement) playerMovement.LockControl();
 
                 // 等待 InfoDialogUI 播放完毕
                 yield return new WaitUntil(() => finished);

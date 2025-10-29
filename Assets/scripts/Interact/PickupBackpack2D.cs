@@ -116,7 +116,10 @@ namespace Interact
                 StartCoroutine(ClearMessageAfter(1.2f));
                 return;
             }
-
+            // 锁定玩家操作
+            if (player) player.LockControl();
+            if (playerMovement) playerMovement.LockControl();
+            
             // 1) 解锁逻辑
             GameState.UnlockBackpack(autoSaveOnPickup);
             inventory?.NotifyCapacityChanged();
@@ -131,6 +134,7 @@ namespace Interact
 
         private IEnumerator PickupFlow()
         {
+            
             yield return new WaitForSecondsRealtime(1.0f);
 
             // 2) 白流程
@@ -142,9 +146,6 @@ namespace Interact
 
                 bool finished = false;
                 InfoDialogUI.Instance.BeginDialogue(dialogueLines, () => finished = true);
-
-                if (player) player.LockControl();
-                if (playerMovement) playerMovement.LockControl();
 
                 yield return new WaitUntil(() => finished);
 

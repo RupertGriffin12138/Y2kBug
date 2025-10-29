@@ -59,9 +59,9 @@ namespace UI
         public bool isShowingDialogue = false;
         private const KeyCode nextKey = KeyCode.E;
         private Coroutine _dialogueRoutine;
+
+        private bool isDefaultShown;
         
-        /// <summary>当前对白播放的索引（从 0 开始）</summary>
-        public int CurrentLineIndex => currentIndex;
         public event Action<int> OnLineChanged;
 
         private void Awake()
@@ -89,6 +89,16 @@ namespace UI
         {
             if (isShowingDialogue && Input.GetKeyDown(KeyCode.E))
                 HandleInputAction();
+
+            //如果对话没在播放，且对话框中没有字（空或仅空白），就显示默认头像
+            if (!isShowingDialogue)
+            {
+                bool noText = string.IsNullOrWhiteSpace(textBoxText.text) || textBoxText.text == idleHint;
+                if (noText)
+                {
+                    ShowDefaultCharacter();
+                }
+            }
         }
 
         #region 控制对话流程
@@ -110,6 +120,7 @@ namespace UI
         
         public void StartDialogue()
         {
+            isDefaultShown = false;
             gameObject.SetActive(true);
             isShowingDialogue = true;
             textBoxText.text = ""; // 清除默认提示
@@ -208,6 +219,7 @@ namespace UI
             isShowingDialogue = false;
             lineFullyShown = false;
             Clear();
+            ShowDefaultCharacter();
             onDialogueEnd?.Invoke();
         }
 
@@ -346,6 +358,25 @@ namespace UI
                 }
             }
         }
+        
+        /// <summary>
+        /// 当没有对话时显示默认头像（第一个）
+        /// </summary>
+        public void ShowDefaultCharacter()
+        {
+            // 防止数组为空
+            if (characterBackgrounds == null || characterBackgrounds.Length == 0)
+                return;
+            if (isDefaultShown) return;
+            // 关闭所有背景
+            foreach (var bg in characterBackgrounds)
+                if (bg) bg.SetActive(false);
+
+            // 显示第一个背景
+            var first = characterBackgrounds[0];
+            if (first)
+                first.SetActive(true);
+        }
 
         /// <summary>启用指定的角色背景图像。</summary>
         public void EnableCharacterBackground(string characterName)
@@ -358,7 +389,9 @@ namespace UI
             Debug.Log("Enabling character background for: " + characterName);
             foreach (var background in characterBackgrounds)
             {
-                if (background && background.name.Contains(characterName))
+                if (!background) continue;
+                // 精确匹配：必须名字完全相同
+                if (background.name.Equals(characterName))
                 {
                     background.SetActive(true);
                 }

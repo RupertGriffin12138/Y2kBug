@@ -117,6 +117,51 @@ namespace Save
             if (autosave) SaveManager.Save(Current);
             return true;
         }
+        
+        // ======================================================================
+        // === 通用检测 API（全局条件判定） ===
+        // ======================================================================
+
+        /// <summary>是否已经解锁背包。</summary>
+        public static bool HasBackpackUnlocked()
+        {
+            return Current != null && Current.backpackUnlocked;
+        }
+
+        /// <summary>是否拥有指定物品（默认至少 1 个）。</summary>
+        public static bool HasItem(string itemId, int needed = 1)
+        {
+            if (string.IsNullOrEmpty(itemId) || needed <= 0 || Current == null) return false;
+
+            for (int i = 0; i < Current.inventoryIds.Length; i++)
+            {
+                if (Current.inventoryIds[i] == itemId && Current.inventoryCounts[i] >= needed)
+                    return true;
+            }
+            return false;
+        }
+
+        /// <summary>是否曾经获得过指定文档。</summary>
+        public static bool HasCollectedDoc(string docId)
+        {
+            if (string.IsNullOrEmpty(docId) || Current == null) return false;
+            return Array.IndexOf(Current.docCollectedIds, docId) >= 0;
+        }
+
+        /// <summary>是否已阅读指定文档。</summary>
+        public static bool HasReadDoc(string docId)
+        {
+            if (string.IsNullOrEmpty(docId) || Current == null) return false;
+            return Array.IndexOf(Current.docReadIds, docId) >= 0;
+        }
+
+        /// <summary>是否已看过指定对话。</summary>
+        public static bool HasSeenDialogue(string dialogueId)
+        {
+            if (string.IsNullOrEmpty(dialogueId) || Current == null) return false;
+            return Array.IndexOf(Current.dialogueSeenIds, dialogueId) >= 0;
+        }
+
 
     }
 }
