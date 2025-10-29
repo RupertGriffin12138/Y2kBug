@@ -41,7 +41,7 @@ namespace UI
         private GameObject activeGifObj; // 需要激活的动图对象
         private bool keepSpawning = false; // 控制是否持续生成
         
-        private bool isShowingDialogue = false;
+        public bool isShowingDialogue = false;
         private Coroutine _dialogueRoutine;
 
         private void Awake()
