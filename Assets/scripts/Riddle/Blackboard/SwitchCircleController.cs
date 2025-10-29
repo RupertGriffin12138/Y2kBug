@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 #pragma warning disable CS0414 // 字段已被赋值，但它的值从未被使用
 
@@ -10,6 +11,12 @@ namespace Riddle.Blackboard
         [SerializeField] private int count_zong = 0;  // 纵向计数
         [SerializeField] private int count_num = 0;   // 综合计数
         [SerializeField] private float moveDistance = 1f; // 移动距离
+
+        [SerializeField] private SpriteRenderer blackboardFade;
+        [SerializeField] private float fadeDuration = 2.0f;
+
+        private Material fadeMaterial;
+        private static readonly int FadeProgress = Shader.PropertyToID("_FadeProgress");
 
         private Vector3 initialPosition; // 初始位置
 
@@ -34,6 +41,18 @@ namespace Riddle.Blackboard
             UpdateCountNum();
             // 初始化 Answer 组显示状态
             InitializeAnswers();
+
+
+            // 确保SpriteRenderer存在
+            if (blackboardFade == null)
+                blackboardFade = GetComponent<SpriteRenderer>();
+
+            // 创建材质实例
+            fadeMaterial = new Material(blackboardFade.material);
+            blackboardFade.material = fadeMaterial;
+
+            // 初始透明度设为0
+            SetFadeProgress(0f);
         }
 
         void Update()
@@ -214,6 +233,12 @@ namespace Riddle.Blackboard
                     break;
                 }
             }
+
+            if (isAnswer)
+            {
+                //Debug.Log("All right");
+                Fade();
+            }
         }
 
         GameObject GetAnswerGroup(int index)
@@ -239,6 +264,54 @@ namespace Riddle.Blackboard
             {
                 transform.position = new Vector3(transform.position.x, initialPosition.y, transform.position.z);
             }
+        }
+
+
+
+
+
+        ///
+        public void Fade()
+        {
+            StartCoroutine(FadeCoroutine());
+        }
+
+        private IEnumerator FadeCoroutine()
+        {
+            float elapsedTime = 0f;
+            SetFadeProgress(0f);
+
+            while (elapsedTime < fadeDuration)
+            {
+                elapsedTime += Time.deltaTime;
+                float progress = Mathf.Clamp01(elapsedTime / fadeDuration);
+                SetFadeProgress(progress);
+                yield return null;
+            }
+
+            SetFadeProgress(1f); // 确保最终完全显示
+        }
+
+        private void SetFadeProgress(float progress)
+        {
+            if (fadeMaterial != null)
+                fadeMaterial.SetFloat(FadeProgress, progress);
+        }
+
+        // 公开方法，可从外部调用
+        public void StartFade(float duration = 0f)
+        {
+            if (duration > 0)
+                fadeDuration = duration;
+
+            Fade();
+        }
+
+        void OnDestroy()
+        {
+            // 清理创建的材质实例
+            if (fadeMaterial != null)
+                DestroyImmediate(fadeMaterial);
         }
     }
 }
