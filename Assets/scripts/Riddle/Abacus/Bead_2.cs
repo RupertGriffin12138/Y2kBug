@@ -1,4 +1,6 @@
+using System.Collections;
 using Audio;
+using UI;
 using UnityEngine;
 #pragma warning disable CS0414 // 字段已被赋值，但它的值从未被使用
 
@@ -15,7 +17,7 @@ namespace Riddle.Abacus
         private int[] lineNum = new int[2];
 
         //算盘珠位置记录，检测是否是正确位置解密
-        private int[,] beadRecard = new int[9, 2];
+        private int[,] beadRecord = new int[9, 2];
         [SerializeField] private bool isSolved = false;
 
         private GameObject[] upperObjects;
@@ -89,15 +91,26 @@ namespace Riddle.Abacus
                 AudioClipHelper.Instance.Play_SuanPan();
             }
 
-            if (beadRecard != null &&
-                beadRecard[0, 0] == 0 && beadRecard[1, 0] == 0 && beadRecard[2, 0] == 0 &&
-                beadRecard[3, 0] == 0 && beadRecard[4, 0] == 0 && beadRecard[5, 0] == 0 &&
-                beadRecard[6, 0] == 0 && beadRecard[7, 0] == 1 && beadRecard[8, 0] == 0 &&
-                beadRecard[0, 1] == 0 && beadRecard[1, 1] == 0 && beadRecard[2, 1] == 0 &&
-                beadRecard[3, 1] == 0 && beadRecard[4, 1] == 0 && beadRecard[5, 1] == 0 &&
-                beadRecard[6, 1] == 0 && beadRecard[7, 1] == 1 && beadRecard[8, 1] == 0)
+            if (beadRecord != null &&
+                beadRecord[0,0]==0 && beadRecord[1,0]==0 && beadRecord[2,0]==0 &&
+                beadRecord[3,0]==0 && beadRecord[4,0]==0 && beadRecord[5,0]==0 &&
+                beadRecord[6,0]==0 && beadRecord[7,0]==1 && beadRecord[8,0]==0 &&
+                beadRecord[0,1]==0 && beadRecord[1,1]==0 && beadRecord[2,1]==0 &&
+                beadRecord[3,1]==0 && beadRecord[4,1]==0 && beadRecord[5,1]==0 &&
+                beadRecord[6,1]==0 && beadRecord[7,1]==1 && beadRecord[8,1]==0)
             {
-                isSolved = true;
+                if (!isSolved)  // 只在第一次解开时触发
+                {
+                    isSolved = true;
+                    InfoDialogUI.Instance.ShowMessage("答案正确！算盘已被锁定。");
+
+                    // ====== 保存进度 ======
+                    PlayerPrefs.SetInt("AbacusSolved2", 1);  // 1 表示已解开
+                    PlayerPrefs.Save(); // 立即写入硬盘
+
+                    // ====== 延迟执行换场景 ======
+                    StartCoroutine(WaitAndLoadScene());
+                }
             }
             else
             {
@@ -106,6 +119,20 @@ namespace Riddle.Abacus
 
         }
 
+        private IEnumerator WaitAndLoadScene()
+        {
+            yield return new WaitForSeconds(1f); // 等待 1 秒
+
+            var fade = FindObjectOfType<Scene.SceneFadeEffect>();
+            if (fade)
+            {
+                fade.FadeOutAndLoad("C1CJC", 0.5f, 1f); // 改成你要去的场景名
+            }
+            else
+            {
+                UnityEngine.SceneManagement.SceneManager.LoadScene("C1CJC");
+            }
+        }
         private void frameNumCount()
         {
             if (Input.GetKeyUp(KeyCode.W))
@@ -119,7 +146,7 @@ namespace Riddle.Abacus
             if (Input.GetKeyUp(KeyCode.D))
                 lineNum[frameNum] = (++lineNum[frameNum]) % 9;
             if (Input.GetKeyUp(KeyCode.A))
-                lineNum[frameNum] = (--lineNum[frameNum]) % 9;
+                lineNum[frameNum] = (lineNum[frameNum] + 8) % 9;
         }
 
         private void HandleClick()
@@ -127,7 +154,7 @@ namespace Riddle.Abacus
             if (frameNum == 0)
             {
                 clickCount[lineNum[frameNum], frameNum] %= 3;
-                beadRecard[lineNum[frameNum], frameNum] = clickCount[lineNum[frameNum], frameNum];
+                beadRecord[lineNum[frameNum], frameNum] = clickCount[lineNum[frameNum], frameNum];
 
                 switch (clickCount[lineNum[frameNum], frameNum])
                 {
@@ -145,7 +172,7 @@ namespace Riddle.Abacus
             else if (frameNum == 1)
             {
                 clickCount[lineNum[frameNum], frameNum] %= 6;
-                beadRecard[lineNum[frameNum], frameNum] = clickCount[lineNum[frameNum], frameNum];
+                beadRecord[lineNum[frameNum], frameNum] = clickCount[lineNum[frameNum], frameNum];
 
                 switch (clickCount[lineNum[frameNum], frameNum])
                 {

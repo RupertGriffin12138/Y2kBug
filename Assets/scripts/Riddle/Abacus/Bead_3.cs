@@ -1,4 +1,6 @@
+using System.Collections;
 using Audio;
+using UI;
 using UnityEngine;
 #pragma warning disable CS0414 // 字段已被赋值，但它的值从未被使用
 
@@ -97,13 +99,39 @@ namespace Riddle.Abacus
                 beadRecard[3, 1] == 0 && beadRecard[4, 1] == 0 && beadRecard[5, 1] == 0 &&
                 beadRecard[6, 1] == 0 && beadRecard[7, 1] == 1 && beadRecard[8, 1] == 0)
             {
-                isSolved = true;
+                if (!isSolved)  // 只在第一次解开时触发
+                {
+                    isSolved = true;
+                    InfoDialogUI.Instance.ShowMessage("答案正确！算盘已被锁定。");
+
+                    // ====== 保存进度 ======
+                    PlayerPrefs.SetInt("AbacusSolved3", 1);  // 1 表示已解开
+                    PlayerPrefs.Save(); // 立即写入硬盘
+
+                    // ====== 延迟执行换场景 ======
+                    StartCoroutine(WaitAndLoadScene());
+                }
             }
             else
             {
                 isSolved = false;
             }
 
+        }
+        
+        private IEnumerator WaitAndLoadScene()
+        {
+            yield return new WaitForSeconds(1f); // 等待 1 秒
+
+            var fade = FindObjectOfType<Scene.SceneFadeEffect>();
+            if (fade)
+            {
+                fade.FadeOutAndLoad("C1CJC", 0.5f, 1f); // 改成你要去的场景名
+            }
+            else
+            {
+                UnityEngine.SceneManagement.SceneManager.LoadScene("C1CJC");
+            }
         }
 
         private void frameNumCount()
@@ -119,7 +147,7 @@ namespace Riddle.Abacus
             if (Input.GetKeyUp(KeyCode.D))
                 lineNum[frameNum] = (++lineNum[frameNum]) % 9;
             if (Input.GetKeyUp(KeyCode.A))
-                lineNum[frameNum] = (--lineNum[frameNum]) % 9;
+                lineNum[frameNum] = (lineNum[frameNum] + 8) % 9;
         }
 
         private void HandleClick()
