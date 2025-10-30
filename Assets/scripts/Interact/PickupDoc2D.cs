@@ -321,7 +321,7 @@ namespace Interact
         private void RestoreCanvasGroups(Transform t)
         {
             Transform cur = t;
-            while (cur != null)
+            while (cur)
             {
                 var cg = cur.GetComponent<CanvasGroup>();
                 if (cg)

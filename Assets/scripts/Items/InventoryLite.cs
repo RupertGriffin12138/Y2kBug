@@ -235,9 +235,9 @@ namespace Items
         public int GetOccupiedStacks()
         {
             int occupied = 0;
-            for (int i = 0; i < entries.Count; i++)
+            foreach (var t in entries)
             {
-                if (!string.IsNullOrWhiteSpace(entries[i].id) && entries[i].count > 0)
+                if (!string.IsNullOrWhiteSpace(t.id) && t.count > 0)
                     occupied++;
             }
             return occupied;
@@ -330,16 +330,15 @@ namespace Items
 
             // 统计有效条目
             int n = 0;
-            for (int i = 0; i < entries.Count; i++)
-                if (!string.IsNullOrWhiteSpace(entries[i].id) && entries[i].count > 0) n++;
+            foreach (var t in entries)
+                if (!string.IsNullOrWhiteSpace(t.id) && t.count > 0) n++;
 
             GameState.Current.inventoryIds = new string[n];
             GameState.Current.inventoryCounts = new int[n];
 
             int k = 0;
-            for (int i = 0; i < entries.Count; i++)
+            foreach (var e in entries)
             {
-                var e = entries[i];
                 if (string.IsNullOrWhiteSpace(e.id) || e.count <= 0) continue;
                 GameState.Current.inventoryIds[k] = e.id;
                 GameState.Current.inventoryCounts[k] = e.count;
