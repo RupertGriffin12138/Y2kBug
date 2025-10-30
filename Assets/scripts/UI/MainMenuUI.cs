@@ -120,8 +120,11 @@ namespace UI
         }
 
         // ========= 主按钮：新游戏 =========
-        void OnNewGameClicked()
+        private void OnNewGameClicked()
         {
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.Save();
+            
             PlayerPrefs.SetInt("BoardKey_Prefab", 1);
             int slot = FindFirstEmptySlotIndex();
             if (slot == -1)

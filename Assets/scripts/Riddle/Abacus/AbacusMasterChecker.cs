@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Audio;
+using UnityEngine;
 
 namespace Riddle.Abacus
 {
@@ -39,6 +40,7 @@ namespace Riddle.Abacus
             if (allSolved && targetObject && !targetObject.activeSelf)
             {
                 Debug.Log("[AbacusMasterChecker] 全部算盘谜题已解开，激活目标对象！");
+                AudioClipHelper.Instance.Play_WoodenStructure();
                 targetObject.SetActive(true);
             }
         }

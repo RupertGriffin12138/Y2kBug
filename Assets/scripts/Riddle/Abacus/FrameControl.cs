@@ -13,6 +13,8 @@ namespace Riddle.Abacus
 
         [Header("当前行 (0~8)")]
         [SerializeField] private int lineNum = 0;
+        
+        private bool inputLocked = false;
 
         public int CurrentLine => lineNum;
         public int CurrentFrame => frame0.activeSelf ? 0 : 1;
@@ -31,6 +33,8 @@ namespace Riddle.Abacus
 
         private void Update()
         {
+            if (inputLocked) return;
+            
             HandleFrameSwitch();
             HandleLineMove();
         }
@@ -73,6 +77,22 @@ namespace Riddle.Abacus
                 else if (frame1.activeSelf)
                     frame1.transform.position = frame1StartPos + step * lineNum;
             }
+        }
+        
+        // =====================================================
+        // 外部接口
+        // =====================================================
+
+        /// <summary>锁定输入（禁用玩家控制）</summary>
+        public void LockInput()
+        {
+            inputLocked = true;
+        }
+
+        /// <summary>解锁输入（恢复控制）</summary>
+        public void UnlockInput()
+        {
+            inputLocked = false;
         }
     }
 }

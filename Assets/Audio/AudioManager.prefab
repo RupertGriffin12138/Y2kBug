@@ -81,6 +81,10 @@ MonoBehaviour:
   _WoodenStructure: {fileID: 8300000, guid: 8fcfe7993c012bc4e948b34c62762a82, type: 3}
   _SecondHand: {fileID: 8300000, guid: f77a5b93bac1a084da13da6fc6b471bc, type: 3}
   _IronCabinet: {fileID: 8300000, guid: 72a3f1e1ac158ae4f8057d00068aa03c, type: 3}
+  _Clock1: {fileID: 8300000, guid: a39f377bd22084346b07d5eab84ecb63, type: 3}
+  _Clock2: {fileID: 8300000, guid: cf9b19404f74b314e8f6e613dd0b5594, type: 3}
+  _Clock3: {fileID: 8300000, guid: 39450c36a5a98384bbf1b56b108fa3e5, type: 3}
+  _Clock4: {fileID: 8300000, guid: 3a79f8610b074b44e989297f955df1ea, type: 3}
   _mouse1: {fileID: 8300000, guid: f6a8e932a039da542b0caa9c3c386f38, type: 3}
   _mouse2: {fileID: 8300000, guid: bb77208d041dcb4458acb0f1f5426d02, type: 3}
   _eyes1: {fileID: 8300000, guid: c90caee9b89c6064ca59b44147e4fea4, type: 3}
