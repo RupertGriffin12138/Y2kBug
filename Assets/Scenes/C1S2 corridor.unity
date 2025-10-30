@@ -148,7 +148,7 @@ Transform:
   m_GameObject: {fileID: 24261303}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -22.4, y: 0.21, z: 0}
+  m_LocalPosition: {x: -22.2, y: 0.21, z: 0}
   m_LocalScale: {x: 1.3, y: 1.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1002,7 +1002,7 @@ Transform:
   m_GameObject: {fileID: 475060941}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.124150276, y: -10.223669, z: -10}
+  m_LocalPosition: {x: -0.120688915, y: -10.223673, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3791,7 +3791,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8279079002776250371, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.3299999
+      value: -2.2
       objectReference: {fileID: 0}
     - target: {fileID: 8279079002776250371, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8728,6 +8728,7 @@ MonoBehaviour:
   player: {fileID: 0}
   savePlayerPos: 1
   defaultSaveKey: SaveSlot_1
+  isBoard: 0
 --- !u!114 &3228249106894933729
 MonoBehaviour:
   m_ObjectHideFlags: 0
