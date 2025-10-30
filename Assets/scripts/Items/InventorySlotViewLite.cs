@@ -102,13 +102,16 @@ namespace Items
                 InfoDialogUI.Instance.ShowMessage($"使用了 {displayNameCached}");
             }*/
 
-            if (displayNameCached == "校服" && GameState.HasSeenDialogue("dlg_guard_1001") && GameState.HasItem("key_strange_door"))
+            if (displayNameCached == "校服" && GameState.HasSeenDialogue("dlg_guard_1001"))
             {
-                ItemGrantTool.GiveItem("key_strange_door",1,true,lines: new List<(string speaker, string content)>
+                if (!GameState.HasItem("key_strange_door"))
                 {
-                    ("旁白", "（获得 奇怪的钥匙）\n"),
-                    ("姜宁", "（衣服里怎么真有东西,这是大门钥匙吗？）\n"),
-                });
+                    ItemGrantTool.GiveItem("key_strange_door",1,true,lines: new List<(string speaker, string content)>
+                    {
+                        ("旁白", "（获得 奇怪的钥匙）\n"),
+                        ("姜宁", "（衣服里怎么真有东西,这是大门钥匙吗？）\n"),
+                    });
+                }
             }
         }
     }

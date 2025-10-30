@@ -11,7 +11,7 @@ namespace Scene.C1S0
         public float delayBetweenLines = 2f; // 每行之间的延迟时间
         public float fadeDuration = 1f; // 渐显/渐隐的时间
 
-        private string[] creditsTexts = new[]
+        private readonly string[] creditsTexts = new[]
         {
             "千年虫，一个真实存在于计算机历史上的程序错误，确切地说，一个电脑系统设计者的漏洞，也就是我们所熟知的“BUG”。",
             "这个几乎跟随计算机编程语言统一、存储系统调整同一时间诞生的“小虫子”，在未来将近四十年的时间里，始终蛰伏在暗处。",
@@ -27,7 +27,7 @@ namespace Scene.C1S0
             "千年虫再也没有任何机会了吗，那个完成自身终极任务的机会？",
             "也许是有的，在一个完全没有人注意到它的世界，在一个足够阴翳的角落获得了充分的生长和滋润后的世界。",
             "千年虫如约而至了，带着它的使命，赶赴这个千年之约。",
-            "我们要走进的就是这样一个世界，伴随跨年的钟声到来的的，不是崭新的21世纪，而是......"
+            "我们要走进的就是这样一个世界，伴随跨年的钟声到来的，不是崭新的21世纪，而是......"
         };
 
         private int currentLineIndex = 0;

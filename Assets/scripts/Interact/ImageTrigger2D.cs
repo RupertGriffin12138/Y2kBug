@@ -180,7 +180,7 @@ namespace Interact
 
         private void HandleLineChange(int idx)
         {
-            if (idx == 1 && canPlayAudio)
+            if (idx == 1)
             {
                 // 暂停对白
                 InfoDialogUI.Instance?.PauseDialogue();
