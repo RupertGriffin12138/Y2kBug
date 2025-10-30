@@ -57,6 +57,8 @@ namespace Dialog
         private PlayerMovement playerMovement;
         private List<(string speaker, string content)> parsedLines;
 
+        public GameObject second;
+
         private void Awake()
         {
             if (GameState.Current == null)
@@ -70,6 +72,7 @@ namespace Dialog
                 Destroy(gameObject);
                 return;
             }
+            second.SetActive(false);
 
             player = FindObjectOfType<Player>();
             playerMovement = FindObjectOfType<PlayerMovement>();
@@ -147,18 +150,27 @@ namespace Dialog
                         inv.SnapshotToGameState();
                         GameState.SaveNow();
                     }
+                    second.SetActive(true);
                     // 暂停对白
                     InfoDialogUI.Instance?.PauseDialogue();
                     // 播放语音
                     if (AudioClipHelper.Instance)
                     {
-                        AudioClipHelper.Instance.Play_ManWhisper();
+                        AudioClipHelper.Instance.Play_Clock1();
                     }
                     // 两秒后继续对白
                     StartCoroutine(WaitForWhisperThenContinue());
                     break;
-                case 3:
-                    InfoDialogUI.Instance?.HideGif();
+                case 2:
+                    // 暂停对白
+                    InfoDialogUI.Instance?.PauseDialogue();
+                    // 播放语音
+                    if (AudioClipHelper.Instance)
+                    {
+                        AudioClipHelper.Instance.Play_Clock2();
+                    }
+                    // 两秒后继续对白
+                    StartCoroutine(WaitForWhisperThenContinue());
                     break;
             }
         }

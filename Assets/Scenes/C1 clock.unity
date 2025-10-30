@@ -5027,10 +5027,10 @@ MonoBehaviour:
   lines:
   - speaker: "\u65C1\u767D"
     content: "\u6309 E \u4E0E\u949F\u697C\u4EA4\u4E92"
-  - speaker: "\u59DC\u5B81"
-    content: "\u2026\u2026\u7EC8\u4E8E\u5230\u4E86\u3002"
-  - speaker: "\u795D\u6986"
-    content: "\u8FD9\u5730\u65B9\uFF0C\u597D\u4E45\u6CA1\u6765\u4E86\u3002"
+  - speaker: 
+    content: "\u6B63\u5728\u8FD0\u884C"
+  - speaker: "\u65C1\u767D"
+    content: "\u4E0D\u77E5\u9053\u4ECE\u4EC0\u4E48\u5730\u65B9\u4F20\u6765\u7684\u7535\u5B50\u97F3\u6548,\u4EE3\u8868\u7740\u4EC0\u4E48\u4EBA\u7684\u4E16\u754C\u6D88\u5931\u4E86\u5417\uFF1F\u6291\u6216\u662F\uFF0C\u4EC0\u4E48\u4E8B\u7269\u88AB\u201C\u4FEE\u6B63\u201D\u4E86\u3002\n"
   playOnStart: 1
   destroyAfterFinish: 0
   skipIfSeen: 0
@@ -5038,6 +5038,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   dialogueSfx: []
   dialogueAnimations: []
+  second: {fileID: 6339184662235004950}
 --- !u!4 &883293113
 Transform:
   m_ObjectHideFlags: 0
@@ -12358,10 +12359,7 @@ MonoBehaviour:
   showToast: 1
   docId: note1
   showDocToast: 1
-  debugDialogueLines:
-  - "\u65C1\u767D: \u4F60\u83B7\u5F97\u4E86\u4E00\u4EF6\u5947\u602A\u7684\u4E1C\u897F\u2026\u2026"
-  - "\u59DC\u5B81: \u8FD9\u662F\u4EC0\u4E48\uFF1F"
-  - "\u795D\u6986: \u770B\u8D77\u6765\u50CF\u4E00\u628A\u94A5\u5319\u3002"
+  debugDialogueLines: []
   autoUnlockBackpack: 0
   clearSaveBeforeTest: 0
 --- !u!4 &1836353325
@@ -14472,6 +14470,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: clock
       objectReference: {fileID: 0}
+    - target: {fileID: 1905781188151056832, guid: 433dc688783b4c44c8d48d005effc706, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2789074979836916212, guid: 433dc688783b4c44c8d48d005effc706, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -14521,6 +14523,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 433dc688783b4c44c8d48d005effc706, type: 3}
+--- !u!1 &6339184662235004950 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1905781188151056832, guid: 433dc688783b4c44c8d48d005effc706, type: 3}
+  m_PrefabInstance: {fileID: 6339184662235004949}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

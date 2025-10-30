@@ -22,7 +22,7 @@ namespace Riddle.Abacus
 
         private GameObject[] upperObjects;
         private GameObject[] lowerObjects;
-        public int[,] clickCount = new int[10,3];
+        public int[,] clickCount = new int[10, 3];
 
 
         protected virtual void Start()
@@ -91,13 +91,13 @@ namespace Riddle.Abacus
                 AudioClipHelper.Instance.Play_SuanPan();
             }
 
-            if(beadRecord != null &&
-               beadRecord[0,0]==0 && beadRecord[1,0]==0 && beadRecord[2,0]==0 &&
-               beadRecord[3,0]==0 && beadRecord[4,0]==0 && beadRecord[5,0]==0 &&
-               beadRecord[6,0]==0 && beadRecord[7,0]==0 && beadRecord[8,0]==0 &&
-               beadRecord[0,1]==0 && beadRecord[1,1]==0 && beadRecord[2,1]==0 &&
-               beadRecord[3,1]==0 && beadRecord[4,1]==0 && beadRecord[5,1]==0 &&
-               beadRecord[6,1]==0 && beadRecord[7,1]==1 && beadRecord[8,1]==3)
+            if (beadRecord != null &&
+                beadRecord[0,0]==0 && beadRecord[1,0]==0 && beadRecord[2,0]==0 &&
+                beadRecord[3,0]==0 && beadRecord[4,0]==0 && beadRecord[5,0]==0 &&
+                beadRecord[6,0]==0 && beadRecord[7,0]==0 && beadRecord[8,0]==0 &&
+                beadRecord[0,1]==0 && beadRecord[1,1]==0 && beadRecord[2,1]==0 &&
+                beadRecord[3,1]==0 && beadRecord[4,1]==0 && beadRecord[5,1]==0 &&
+                beadRecord[6,1]==0 && beadRecord[7,1]==1 && beadRecord[8,1]==3)
             {
                 if (!isSolved)  // 只在第一次解开时触发
                 {
@@ -118,7 +118,7 @@ namespace Riddle.Abacus
             }
 
         }
-        
+
         private IEnumerator WaitAndLoadScene()
         {
             yield return new WaitForSeconds(1f); // 等待 1 秒
@@ -133,7 +133,6 @@ namespace Riddle.Abacus
                 UnityEngine.SceneManagement.SceneManager.LoadScene("C1CJC");
             }
         }
-
         private void frameNumCount()
         {
             if (Input.GetKeyUp(KeyCode.W))

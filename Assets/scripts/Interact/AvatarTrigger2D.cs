@@ -225,7 +225,7 @@ namespace Interact
                     
                     InfoDialogUI.Instance.SpawnMultiple(false);
                     // 启动协程等待 GIF 播放 1 秒后恢复对白
-                    StartCoroutine(ResumeDialogueAfterDelay(3f));
+                    StartCoroutine(ResumeDialogueAfterDelay(4.5f));
                     break;
             }
             
