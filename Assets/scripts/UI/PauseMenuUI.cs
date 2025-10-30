@@ -50,6 +50,14 @@ namespace UI
 
         public void Update()
         {
+
+            if (SceneManager.GetActiveScene().name == "Riddle abacus_1" ||
+                SceneManager.GetActiveScene().name == "Riddle abacus_2" ||
+                SceneManager.GetActiveScene().name == "Riddle abacus_3"||
+                SceneManager.GetActiveScene().name == "Riddle abacus_4")
+            {
+                return;
+            }
             if (!isBoard)
             {
                 if (Input.GetKeyDown(toggleKey))

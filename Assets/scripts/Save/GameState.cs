@@ -1,5 +1,5 @@
 using System;
-using UnityEditor;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Save
@@ -37,7 +37,9 @@ namespace Save
             Current = null;
         }
 
-        // —— 下面是几个最小操作 API（后续还会扩展） ——
+        // ------------------------------------------------------------------
+        //  以下是运行时存档修改（全部移除 ArrayUtility）
+        // ------------------------------------------------------------------
 
         public static bool IsObjectDisabled(string id)
         {
@@ -51,11 +53,11 @@ namespace Save
         {
             if (string.IsNullOrEmpty(id)) return;
             if (Current == null) Current = SaveManager.CreateDefault();
-
-            // 避免重复
             if (IsObjectDisabled(id)) return;
 
-            ArrayUtility.Add(ref Current.disabledObjectIds, id);
+            var list = new List<string>(Current.disabledObjectIds);
+            list.Add(id);
+            Current.disabledObjectIds = list.ToArray();
         }
 
         public static void AddItem(string itemId, int count)
@@ -63,22 +65,27 @@ namespace Save
             if (string.IsNullOrEmpty(itemId) || count == 0) return;
             if (Current == null) Current = SaveManager.CreateDefault();
 
-            int idx = Array.IndexOf(Current.inventoryIds, itemId);
+            var ids = new List<string>(Current.inventoryIds);
+            var counts = new List<int>(Current.inventoryCounts);
+
+            int idx = ids.IndexOf(itemId);
             if (idx >= 0)
             {
-                Current.inventoryCounts[idx] += count;
-                if (Current.inventoryCounts[idx] <= 0)
+                counts[idx] += count;
+                if (counts[idx] <= 0)
                 {
-                    // 数量为 0 时移除
-                    ArrayUtility.RemoveAt(ref Current.inventoryIds, idx);
-                    ArrayUtility.RemoveAt(ref Current.inventoryCounts, idx);
+                    ids.RemoveAt(idx);
+                    counts.RemoveAt(idx);
                 }
             }
             else if (count > 0)
             {
-                ArrayUtility.Add(ref Current.inventoryIds, itemId);
-                ArrayUtility.Add(ref Current.inventoryCounts, count);
+                ids.Add(itemId);
+                counts.Add(count);
             }
+
+            Current.inventoryIds = ids.ToArray();
+            Current.inventoryCounts = counts.ToArray();
         }
 
         public static void CollectDoc(string docId)
@@ -86,8 +93,12 @@ namespace Save
             if (string.IsNullOrEmpty(docId)) return;
             if (Current == null) Current = SaveManager.CreateDefault();
 
-            if (Array.IndexOf(Current.docCollectedIds, docId) < 0)
-                ArrayUtility.Add(ref Current.docCollectedIds, docId);
+            var list = new List<string>(Current.docCollectedIds);
+            if (!list.Contains(docId))
+            {
+                list.Add(docId);
+                Current.docCollectedIds = list.ToArray();
+            }
         }
 
         public static void MarkDocRead(string docId)
@@ -95,19 +106,20 @@ namespace Save
             if (string.IsNullOrEmpty(docId)) return;
             if (Current == null) Current = SaveManager.CreateDefault();
 
-            if (Array.IndexOf(Current.docReadIds, docId) < 0)
-                ArrayUtility.Add(ref Current.docReadIds, docId);
+            var list = new List<string>(Current.docReadIds);
+            if (!list.Contains(docId))
+            {
+                list.Add(docId);
+                Current.docReadIds = list.ToArray();
+            }
         }
 
         public static void ReplaceWith(SaveData data)
         {
-            Current = data;  // 这个类内部可以写入 private set 的属性
+            Current = data;
         }
 
-        public static bool BackpackUnlocked
-        {
-            get { return Current != null && Current.backpackUnlocked; }
-        }
+        public static bool BackpackUnlocked => Current != null && Current.backpackUnlocked;
 
         public static bool UnlockBackpack(bool autosave = true)
         {
@@ -117,22 +129,19 @@ namespace Save
             if (autosave) SaveManager.Save(Current);
             return true;
         }
-        
+
         // ======================================================================
         // === 通用检测 API（全局条件判定） ===
         // ======================================================================
 
-        /// <summary>是否已经解锁背包。</summary>
         public static bool HasBackpackUnlocked()
         {
             return Current != null && Current.backpackUnlocked;
         }
 
-        /// <summary>是否拥有指定物品（默认至少 1 个）。</summary>
         public static bool HasItem(string itemId, int needed = 1)
         {
             if (string.IsNullOrEmpty(itemId) || needed <= 0 || Current == null) return false;
-
             for (int i = 0; i < Current.inventoryIds.Length; i++)
             {
                 if (Current.inventoryIds[i] == itemId && Current.inventoryCounts[i] >= needed)
@@ -141,47 +150,40 @@ namespace Save
             return false;
         }
 
-        /// <summary>是否曾经获得过指定文档。</summary>
         public static bool HasCollectedDoc(string docId)
         {
             if (string.IsNullOrEmpty(docId) || Current == null) return false;
             return Array.IndexOf(Current.docCollectedIds, docId) >= 0;
         }
 
-        /// <summary>是否已阅读指定文档。</summary>
         public static bool HasReadDoc(string docId)
         {
             if (string.IsNullOrEmpty(docId) || Current == null) return false;
             return Array.IndexOf(Current.docReadIds, docId) >= 0;
         }
 
-        /// <summary>是否已看过指定对话。</summary>
         public static bool HasSeenDialogue(string dialogueId)
         {
             if (string.IsNullOrEmpty(dialogueId) || Current == null) return false;
             return Array.IndexOf(Current.dialogueSeenIds, dialogueId) >= 0;
         }
-        
-        /// <summary>
-        /// 从存档中彻底移除指定物品（不论数量是多少）。
-        /// 删除后该物品不会再显示在背包中。
-        /// </summary>
+
         public static void RemoveItem(string itemId)
         {
-            if (string.IsNullOrEmpty(itemId) || Current == null)
-                return;
-
-            int idx = Array.IndexOf(Current.inventoryIds, itemId);
+            if (string.IsNullOrEmpty(itemId) || Current == null) return;
+            var ids = new List<string>(Current.inventoryIds);
+            var counts = new List<int>(Current.inventoryCounts);
+            int idx = ids.IndexOf(itemId);
             if (idx >= 0)
             {
-                ArrayUtility.RemoveAt(ref Current.inventoryIds, idx);
-                ArrayUtility.RemoveAt(ref Current.inventoryCounts, idx);
+                ids.RemoveAt(idx);
+                counts.RemoveAt(idx);
+                Current.inventoryIds = ids.ToArray();
+                Current.inventoryCounts = counts.ToArray();
 #if UNITY_EDITOR
                 Debug.Log($"[GameState] 已彻底删除物品：{itemId}");
 #endif
             }
         }
-
-
     }
 }
