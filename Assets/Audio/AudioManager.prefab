@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7673013991743970817}
   - component: {fileID: 777096582806540708}
-  - component: {fileID: 7715658891619267861}
+  - component: {fileID: 3810012629352009167}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -49,7 +49,7 @@ MonoBehaviour:
   soundEffect: []
   _bgmSource: {fileID: 0}
   _loopSoundSource: {fileID: 0}
---- !u!114 &7715658891619267861
+--- !u!114 &3810012629352009167
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -81,3 +81,9 @@ MonoBehaviour:
   _WoodenStructure: {fileID: 8300000, guid: 8fcfe7993c012bc4e948b34c62762a82, type: 3}
   _SecondHand: {fileID: 8300000, guid: f77a5b93bac1a084da13da6fc6b471bc, type: 3}
   _IronCabinet: {fileID: 8300000, guid: 72a3f1e1ac158ae4f8057d00068aa03c, type: 3}
+  _mouse1: {fileID: 8300000, guid: f6a8e932a039da542b0caa9c3c386f38, type: 3}
+  _mouse2: {fileID: 8300000, guid: bb77208d041dcb4458acb0f1f5426d02, type: 3}
+  _eyes1: {fileID: 8300000, guid: c90caee9b89c6064ca59b44147e4fea4, type: 3}
+  _hreat1: {fileID: 8300000, guid: 4e5ee8f18e02d8549b9b2d8b045d0d6e, type: 3}
+  _mutiImage: {fileID: 8300000, guid: af0e85c6f3d3dfb40a1f192de68a33ce, type: 3}
+  _worm: {fileID: 8300000, guid: 54d98e9c7b223004d8acac0f4d5cdafc, type: 3}
