@@ -245,11 +245,9 @@ namespace Interact
             {
                 foreach (var r in Resources.FindObjectsOfTypeAll<DocReaderPanel>())
                 {
-                    // 这个 API 可以找到未激活的
                     readerPanel = r;
                     var go = r.gameObject;
 
-                    //  如果未激活，强制激活父链
                     if (!go.activeInHierarchy)
                     {
                         Transform cur = go.transform;
@@ -262,20 +260,31 @@ namespace Interact
                     }
                     yield break;
                 }
-               
             }
 
-            // 1) 强制激活到最上层 Canvas 的父链
-            EnsureUIHierarchyActive(readerPanel.rootPanel ? readerPanel.rootPanel.transform
-                : readerPanel.transform);
+            // === 找到阅读器外层（通常是 Canvas 或 UI 根） ===
+            Transform topParent = readerPanel.transform;
+            for (int i = 0; i < 3; i++)
+            {
+                if (topParent.parent)
+                    topParent = topParent.parent;
+                else
+                    break;
+            }
 
-            // 2) 恢复父链上所有 CanvasGroup 的可见/交互
-            RestoreCanvasGroups(readerPanel.rootPanel ? readerPanel.rootPanel.transform
-                : readerPanel.transform);
-            
+            // 记录原来的层级位置
+            int originalIndex = topParent.GetSiblingIndex();
+
+            // ↓↓↓ 关键：把它放到最底层（越上面越先渲染）
+            topParent.SetAsFirstSibling();
+
+            // === 原逻辑 ===
+            EnsureUIHierarchyActive(readerPanel.rootPanel ? readerPanel.rootPanel.transform : readerPanel.transform);
+            RestoreCanvasGroups(readerPanel.rootPanel ? readerPanel.rootPanel.transform : readerPanel.transform);
+
             if (readerPanel.rootPanel)
             {
-                readerPanel.rootPanel.SetActive(false); // 先关一次，防止 Unity 忽略激活事件
+                readerPanel.rootPanel.SetActive(false);
                 yield return null;
                 readerPanel.rootPanel.SetActive(true);
             }
@@ -283,17 +292,23 @@ namespace Interact
             Canvas.ForceUpdateCanvases();
             yield return null;
 
-            // 4) 真正打开内容
             readerPanel.Open(def);
-
             Canvas.ForceUpdateCanvases();
             yield return null;
 
-            // 5) 滚动条顶到开头
             var scrollRect = readerPanel.contentText ?
                 readerPanel.contentText.GetComponentInParent<ScrollRect>() : null;
             if (scrollRect) scrollRect.normalizedPosition = new Vector2(0, 1);
+
+            // === 等待关闭阅读器 ===
+            if (readerPanel.rootPanel)
+                yield return new WaitUntil(() => !readerPanel.rootPanel.activeSelf);
+
+            // === 恢复原来的层级 ===
+            if (topParent && topParent.parent)
+                topParent.SetSiblingIndex(originalIndex);
         }
+
 
         // —— UI 父链激活与 CanvasGroup 恢复 —— 
         private void EnsureUIHierarchyActive(Transform t)
