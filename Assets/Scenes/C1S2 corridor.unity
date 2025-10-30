@@ -148,7 +148,7 @@ Transform:
   m_GameObject: {fileID: 24261303}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -22.4, y: 0.21, z: 0}
+  m_LocalPosition: {x: -22.2, y: 0.21, z: 0}
   m_LocalScale: {x: 1.3, y: 1.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1122,7 +1122,7 @@ Transform:
   m_GameObject: {fileID: 475060941}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.124150276, y: -10.223669, z: -10}
+  m_LocalPosition: {x: -0.120688915, y: -10.223673, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4302,7 +4302,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8279079002776250371, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.3299999
+      value: -2.2
       objectReference: {fileID: 0}
     - target: {fileID: 8279079002776250371, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7694,6 +7694,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7030352196560781205}
+  - component: {fileID: 7030352196560781206}
   m_Layer: 5
   m_Name: GameUI
   m_TagString: Untagged
@@ -15557,6 +15558,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7030352196560781206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1861851584584917019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76f1b391fba59174b85c6263f6b4f677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image1: {fileID: 5167728164839236024}
+  image2: {fileID: 428903395347156591}
 --- !u!222 &7049046059097131921
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18288,7 +18303,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1d786dc04669d8242ae5cd845caa9794, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1a5b8ccca8e0c6f419fa72f9295aeb17, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
