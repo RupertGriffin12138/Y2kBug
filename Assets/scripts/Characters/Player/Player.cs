@@ -53,6 +53,22 @@ namespace Characters.Player
             // 如果处于忙碌状态（比如在某些对话中），直接不更新状态 同时也禁止移动
             if (isBusy) return;
             stateMachine.currentState.Update();
+
+#if UNITY_EDITOR
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                if (moveSpeed<10)
+                {
+                    moveSpeed = 20;
+                }
+                if (moveSpeed>10)
+                {
+                    moveSpeed = 3;
+                }
+                
+            }
+#endif
+
         }
 
         public void LockControl()

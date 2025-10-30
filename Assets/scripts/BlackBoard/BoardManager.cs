@@ -9,6 +9,7 @@ public class BoardManager : MonoBehaviour
 {
     private static string BoardKey = "BoardKey_Prefab";
     private int boardProgress;
+    private bool canCa=false;
 
     [SerializeField] private GameObject[] gameObjects;
     [SerializeField] private Dictionary<int,GameObject> boards = new Dictionary<int,GameObject>();
@@ -23,11 +24,17 @@ public class BoardManager : MonoBehaviour
 
     private void Start()
     {
-        //PlayerPrefs.SetInt(BoardKey,1);
+        PlayerPrefs.SetInt(BoardKey,4);
 
         boardErase.SetActive(false);
         boardProgress = PlayerPrefs.GetInt(BoardKey, 1);
+        for (int i = 1; i <= gameObjects.Length; i++)
+        {
+            boards[i] = gameObjects[i - 1];
+        }
+        
         ShowUI();
+        ShowBoaord();
         // 确保SpriteRenderer存在
         if (blackboardFade == null)
             blackboardFade = GetComponent<SpriteRenderer>();
@@ -42,14 +49,7 @@ public class BoardManager : MonoBehaviour
 
         
         
-        for (int i = 1; i <= gameObjects.Length; i++)
-        {
-            boards[i] = gameObjects[i - 1];
-        }
-        ShowBoaord();
         
-
-
     }
 
     void ShowBoaord()
@@ -62,6 +62,9 @@ public class BoardManager : MonoBehaviour
         for (int i = 1; i <= gameObjects.Length; i++)
         {
             boards[i].gameObject.SetActive(i== boardProgress);
+            if (i == 3 && boardProgress == 4)
+                boards[i].gameObject.SetActive(true);
+            Debug.Log("i 是"+i);
         }
     }
 
@@ -72,7 +75,8 @@ public class BoardManager : MonoBehaviour
             case 1:
                 if (InfoDialogUI.Instance)
                 {
-                    InfoDialogUI.Instance.ShowMessage("按 <b>E</b> 交互");
+                    InfoDialogUI.Instance.ShowMessage("（值日生的名字也是一团乱码，看得让人怪不舒服的，把它擦掉吧。）");
+                    InfoDialogUI.Instance.EnableCharacterBackground("姜宁");
                     Debug.Log("InfoDialogUI is null");
                 }
                 break;
@@ -93,11 +97,17 @@ public class BoardManager : MonoBehaviour
 
     private void Update()
     {
-        if (boardProgress == 1)
+        if (Input.GetKeyDown(KeyCode.E) && canCa)
+        {
+            Fade();
+        }
+        if (boardProgress == 1&&!canCa)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                Fade();
+                canCa = true;
+                InfoDialogUI.Instance.ShowMessage("按 <b>E</b> 交互");
+                InfoDialogUI.Instance.EnableCharacterBackground("旁白");
             }     
         }
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -132,6 +142,7 @@ public class BoardManager : MonoBehaviour
 
         SetFadeProgress(1f); // 确保最终完全显示
         PlayerPrefs.SetInt(BoardKey,2);
+        SceneManager.LoadScene("C1CJB");
     }
 
     private void SetFadeProgress(float progress)
