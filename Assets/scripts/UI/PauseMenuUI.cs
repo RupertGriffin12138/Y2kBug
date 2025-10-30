@@ -118,12 +118,6 @@ namespace UI
 
         private void BackToMenu()
         {
-            // 确保恢复时间/音频，避免切回菜单后仍是 0
-            Time.timeScale = 1f;
-            if (pauseAudio) AudioListener.pause = false;
-
-            // 可给 0.05–0.1s 让按钮点击动效结束（可选）
-            StartCoroutine(LoadMenuAfterFrame());
         }
 
         public void OpenSettings()
@@ -161,35 +155,6 @@ namespace UI
         // =========================
         private void SaveNowToCurrentSlot()
         {
-            // 1) 确保 GameState 存在
-            if (GameState.Current == null)
-                GameState.LoadGameOrNew(SceneManager.GetActiveScene().name);
-
-            // 2) 写入当前场景名与（可选）玩家坐标
-            GameState.Current.lastScene = SceneManager.GetActiveScene().name;
-            if (savePlayerPos && player != null)
-            {
-                GameState.Current.playerX = player.position.x;
-                GameState.Current.playerY = player.position.y;
-            }
-
-            // 3) 选择当前存档槽 Key
-            string slotKey = !string.IsNullOrEmpty(SaveSlotContext.CurrentKey)
-                ? SaveSlotContext.CurrentKey
-                : defaultSaveKey;
-
-            // 4) 切换存储后端到该槽并保存
-            SaveManager.UsePlayerPrefs(slotKey);
-            GameState.SaveNow();
-
-            // 5) 写“场景+时间”元信息（主菜单显示会用到）
-            PlayerPrefs.SetString(slotKey + "_metaScene", GameState.Current.lastScene ?? "");
-            PlayerPrefs.SetString(slotKey + "_metaTime", DateTime.Now.ToString("yyyy-MM-dd HH:mm"));
-            PlayerPrefs.Save();
-
-            // 6) 反馈提示
-            if (InfoDialogUI.Instance)
-                InfoDialogUI.Instance.ShowMessage($"已保存到当前存档：{slotKey}");
         }
     }
 }
