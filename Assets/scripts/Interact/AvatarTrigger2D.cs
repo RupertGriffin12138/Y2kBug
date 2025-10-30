@@ -8,6 +8,7 @@ using Save;
 using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Audio;
 
 namespace Interact
 {
@@ -33,7 +34,7 @@ namespace Interact
 
         [Header("人物实例")]
         public GameObject avatar;
-        
+
         [Header("对话内容")]
         public List<DialogueLine> lines = new()
         {
@@ -81,7 +82,7 @@ namespace Interact
 
             player = FindObjectOfType<Player>();
             playerMovement = FindObjectOfType<PlayerMovement>();
-            
+
             // 注册行变更事件
             if (InfoDialogUI.Instance)
                 InfoDialogUI.Instance.OnLineChanged += HandleLineChange;
@@ -105,7 +106,7 @@ namespace Interact
             if (!talking)
                 InfoDialogUI.Instance?.Clear();
         }
-        
+
         private void OnDisable()
         {
             if (InfoDialogUI.Instance)
@@ -119,7 +120,7 @@ namespace Interact
                 StartCoroutine(BeginDialogueFlow());
             }
         }
-        
+
         private void HandleLineChange(int idx)
         {
             // 特殊场景动画逻辑
@@ -186,7 +187,7 @@ namespace Interact
             if (destroyAfterFinish && !repeatMode)
                 Destroy(gameObject);
         }
-        
+
         /// <summary>
         /// 调用 GIF 动画控制(仅门卫室场景使用)
         /// </summary>
@@ -195,41 +196,61 @@ namespace Interact
             switch (idx)
             {
                 case 2:
-                    InfoDialogUI.Instance.ShowGif("Dialog/gif/prefab/mouth1",new Vector2(536,385),new Vector2(475,329));
+                    InfoDialogUI.Instance.ShowGif("Dialog/gif/prefab/mouth1", new Vector2(536, 385), new Vector2(475, 329));
+                    AudioClipHelper.Instance.Play_Mouse1();
                     InfoDialogUI.Instance.SpawnMultiple(false);
                     break;
+                case 4:
+                    AudioManager.Instance.StopLatelyAudio();
+                    break;
                 case 8:
-                    InfoDialogUI.Instance.ShowGif("Dialog/gif/prefab/heart1",new Vector2( -359,-31),new Vector2(265,357));
+                    InfoDialogUI.Instance.ShowGif("Dialog/gif/prefab/heart1", new Vector2(-359, -31), new Vector2(265, 357));
+                    AudioClipHelper.Instance.Play_hreat1();
                     InfoDialogUI.Instance.SpawnMultiple(false);
                     break;
                 case 10:
-                    InfoDialogUI.Instance.ShowGif("Dialog/gif/prefab/eye1",new Vector2(-300,256),new Vector2(412,250));
+                    AudioManager.Instance.StopLatelyAudio();
+
+                    InfoDialogUI.Instance.ShowGif("Dialog/gif/prefab/eye1", new Vector2(-300, 256), new Vector2(412, 250));
+                    AudioClipHelper.Instance.Play_Eyes1();
                     InfoDialogUI.Instance.SpawnMultiple(false);
+                    break;
+                    case 12:
+                    AudioManager.Instance.StopLatelyAudio();
                     break;
                 case 17:
                     InfoDialogUI.Instance.HideAllGifs();
-                    InfoDialogUI.Instance.ShowGif("Dialog/gif/prefab/mouth2_2",new Vector2(108,155),new Vector2(504,311));
+                    AudioManager.Instance.StopAllAudio();
+                    InfoDialogUI.Instance.ShowGif("Dialog/gif/prefab/mouth2_2", new Vector2(108, 155), new Vector2(504, 311));
+                    AudioClipHelper.Instance.Play_Mouse2();
                     InfoDialogUI.Instance.SpawnMultiple(false);
+                    break;
+                case 19:
+                    AudioManager.Instance.StopLatelyAudio();
                     break;
                 case 21:
                     InfoDialogUI.Instance.HideGif();
+                    //AudioManager.Instance.StopLatelyAudio();
                     InfoDialogUI.Instance.SpawnMultiple(true);
+                    AudioClipHelper.Instance.Play_MutiImage();
                     break;
                 case 22:
                     InfoDialogUI.Instance.SpawnMultiple(false);
+                    AudioClipHelper.Instance.Stop_MutiImage();
                     break;
                 case 30:
                     // 暂停对白输入
                     InfoDialogUI.Instance.PauseDialogue();
-                    InfoDialogUI.Instance.ShowGif("Dialog/gif/prefab/bug",new Vector2(1,1),new Vector2(1,1),true);
-                    
+                    InfoDialogUI.Instance.ShowGif("Dialog/gif/prefab/bug", new Vector2(1, 1), new Vector2(1, 1), true);
+                    AudioClipHelper.Instance.Play_Worm();
+
                     InfoDialogUI.Instance.SpawnMultiple(false);
                     // 启动协程等待 GIF 播放 1 秒后恢复对白
                     StartCoroutine(ResumeDialogueAfterDelay(4.5f));
                     break;
             }
-            
-            
+
+
         }
         private IEnumerator ResumeDialogueAfterDelay(float delay)
         {
@@ -239,5 +260,5 @@ namespace Interact
                 InfoDialogUI.Instance.ResumeDialogue();
         }
     }
-    
+
 }
