@@ -3665,6 +3665,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 610632743}
+  - component: {fileID: 610632744}
   m_Layer: 5
   m_Name: GameUI
   m_TagString: Untagged
@@ -3696,6 +3697,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &610632744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 610632742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76f1b391fba59174b85c6263f6b4f677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image1: {fileID: 1620227763}
+  image2: {fileID: 1223902116}
 --- !u!1 &610657803
 GameObject:
   m_ObjectHideFlags: 0
@@ -4832,7 +4847,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c485f1687ca730944a95c75cb8a150c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  infoDialogUI: {fileID: 674262909}
   jsonFileName: C1S0 firework
   loadNextSceneOnEnd: 1
   nextSceneName: C1S1 campus
@@ -9157,6 +9171,7 @@ MonoBehaviour:
   player: {fileID: 0}
   savePlayerPos: 1
   defaultSaveKey: SaveSlot_1
+  isBoard: 0
 --- !u!114 &1472025462
 MonoBehaviour:
   m_ObjectHideFlags: 0
