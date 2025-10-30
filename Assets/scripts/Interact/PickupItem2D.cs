@@ -7,6 +7,7 @@ using Save;
 using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Audio;
 
 namespace Interact
 {
@@ -163,6 +164,8 @@ namespace Interact
 
             if (autoSaveOnPickup)
                 GameState.SaveNow();
+
+            AudioClipHelper.Instance.Play_PickUpItems();
 
             // 4) 启动拾取后的演出：提示 + 对话（播放完再销毁/隐藏）
             StartCoroutine(PickupFlow(displayName));

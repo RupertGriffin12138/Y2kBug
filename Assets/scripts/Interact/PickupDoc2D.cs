@@ -8,6 +8,7 @@ using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Audio;
 
 // ScrollRect
 
@@ -145,6 +146,8 @@ namespace Interact
 
             if (sfxSource && pickupSfx) sfxSource.PlayOneShot(pickupSfx);
             if (autoSaveOnPickup) GameState.SaveNow();
+
+            AudioClipHelper.Instance.Play_PickUpPaper();
 
             StartCoroutine(PickupFlow(def, display, isNew));
         }
