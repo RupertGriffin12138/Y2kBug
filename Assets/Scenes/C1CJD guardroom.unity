@@ -1695,8 +1695,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 227523821}
     - target: {fileID: 7924437373647818284, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
+      propertyPath: lines.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7924437373647818284, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
       propertyPath: openReaderOnPickup
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7924437373647818284, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
+      propertyPath: lines.Array.data[0].content
+      value: "\u95E8\u536B\u7684\u4EA4\u73ED\u8BB0\u5F55\uFF0C\u90A3\u73B0\u5728\u7684\u65F6\u95F4\u662F...."
+      objectReference: {fileID: 0}
+    - target: {fileID: 7924437373647818284, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
+      propertyPath: lines.Array.data[0].speaker
+      value: "\u59DC\u5B81"
       objectReference: {fileID: 0}
     - target: {fileID: 8279079002776250371, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
       propertyPath: m_LocalScale.x

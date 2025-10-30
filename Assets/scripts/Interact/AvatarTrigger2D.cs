@@ -238,6 +238,10 @@ namespace Interact
                     InfoDialogUI.Instance.SpawnMultiple(false);
                     AudioClipHelper.Instance.Stop_MutiImage();
                     break;
+                case 24:
+                    InfoDialogUI.Instance.SpawnMultiple(false);
+                    StartCoroutine(FadeOutAvatar(avatar, 1f)); // 1f = 渐隐时间（秒）
+                    break;
                 case 30:
                     // 暂停对白输入
                     InfoDialogUI.Instance.PauseDialogue();
@@ -251,6 +255,61 @@ namespace Interact
             }
 
 
+        }
+        
+        /// <summary>
+        /// 渐隐角色并在结束后隐藏
+        /// </summary>
+        private IEnumerator FadeOutAvatar(GameObject obj, float duration)
+        {
+            if (!obj) yield break;
+
+            // 尝试获取 SpriteRenderer 或 CanvasGroup（支持2D角色或UI角色）
+            SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
+            CanvasGroup cg = obj.GetComponent<CanvasGroup>();
+
+            float t = 0f;
+
+            // 如果都没有，就尝试整个子层级
+            if (!sr && !cg)
+            {
+                sr = obj.GetComponentInChildren<SpriteRenderer>();
+                cg = obj.GetComponentInChildren<CanvasGroup>();
+            }
+
+            // 如果还没有，则直接关掉
+            if (!sr && !cg)
+            {
+                obj.SetActive(false);
+                yield break;
+            }
+
+            // 淡出逻辑
+            if (sr)
+            {
+                Color startColor = sr.color;
+                while (t < duration)
+                {
+                    float a = Mathf.Lerp(1f, 0f, t / duration);
+                    sr.color = new Color(startColor.r, startColor.g, startColor.b, a);
+                    t += Time.deltaTime;
+                    yield return null;
+                }
+                sr.color = new Color(startColor.r, startColor.g, startColor.b, 0f);
+            }
+            else if (cg)
+            {
+                while (t < duration)
+                {
+                    cg.alpha = Mathf.Lerp(1f, 0f, t / duration);
+                    t += Time.deltaTime;
+                    yield return null;
+                }
+                cg.alpha = 0f;
+            }
+
+            // 最后彻底关闭
+            obj.SetActive(false);
         }
         private IEnumerator ResumeDialogueAfterDelay(float delay)
         {
