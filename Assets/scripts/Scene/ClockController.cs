@@ -26,10 +26,9 @@ namespace Scene
         private float pauseStartTime = 0f; // 停顿开始的时间
         private float switchTime = 0f; // 切换年份的时间
 
-        void Start()
+        private void Start()
         {
-            // 初始状态下隐藏second, minute_after, hour_after, year2000, year0101
-            if (second != null) second.gameObject.SetActive(false);
+            // 初始状态下隐藏minute_after, hour_after, year2000, year0101
             if (minuteAfter != null) minuteAfter.gameObject.SetActive(false);
             if (hourAfter != null) hourAfter.gameObject.SetActive(false);
             if (year2000 != null) year2000.gameObject.SetActive(false);
@@ -43,33 +42,32 @@ namespace Scene
 
         private void Update()
         {
-            // 检查是否按下'e'键
-            if (Input.GetKeyDown(KeyCode.E) && !isRotating && !isPaused)
-            {
-                ShowSecondAndStartRotation();
-            }
 
-            // 如果正在旋转并且未完成30度，则继续旋转
-            if (isRotating && totalRotation < 30f)
+            switch (isRotating)
             {
-                float currentTime = Time.time - startTime;
-                if (currentTime >= delayBeforeRotation)
+                // 如果正在旋转并且未完成30度，则继续旋转
+                case true when totalRotation < 30f:
                 {
-                    // 获取旋转中心的世界坐标
-                    Vector3 pivotWorldPosition = pivotMarker.position;
+                    float currentTime = Time.time - startTime;
+                    if (currentTime >= delayBeforeRotation)
+                    {
+                        // 获取旋转中心的世界坐标
+                        Vector3 pivotWorldPosition = pivotMarker.position;
 
-                    // 计算旋转角度增量
-                    float rotationStep = -rotationSpeed * Time.deltaTime;
-                    totalRotation -= rotationStep;
+                        // 计算旋转角度增量
+                        float rotationStep = -rotationSpeed * Time.deltaTime;
+                        totalRotation -= rotationStep;
 
-                    // 绕旋转中心旋转物体
-                    second.RotateAround(pivotWorldPosition, Vector3.forward, rotationStep);
+                        // 绕旋转中心旋转物体
+                        second.RotateAround(pivotWorldPosition, Vector3.forward, rotationStep);
+                    }
+
+                    break;
                 }
-            }
-            else if (isRotating && totalRotation >= 30f)
-            {
-                // 旋转完成后停止旋转并开始停顿
-                StopRotationAndPause();
+                case true when totalRotation >= 30f:
+                    // 旋转完成后停止旋转并开始停顿
+                    StopRotationAndPause();
+                    break;
             }
 
             // 处理停顿逻辑
@@ -94,44 +92,43 @@ namespace Scene
             }
         }
 
-        void ShowSecondAndStartRotation()
+        public void ShowSecondAndStartRotation()
         {
-            if (second != null) second.gameObject.SetActive(true);
             isRotating = true;
             startTime = Time.time;
             totalRotation = 0f;
         }
 
-        void StopRotationAndPause()
+        public void StopRotationAndPause()
         {
             isRotating = false;
             isPaused = true;
             pauseStartTime = Time.time;
         }
 
-        void SwitchObjectsAfterPause()
+        public void SwitchObjectsAfterPause()
         {
             isPaused = false;
             switchTime = Time.time;
 
             // 隐藏minute, hour, year1999
-            if (minute != null) minute.gameObject.SetActive(false);
-            if (hour != null) hour.gameObject.SetActive(false);
-            if (year1999 != null) year1999.gameObject.SetActive(false);
+            if (minute) minute.gameObject.SetActive(false);
+            if (hour) hour.gameObject.SetActive(false);
+            if (year1999) year1999.gameObject.SetActive(false);
 
             // 显示minute_after, hour_after, year2000
-            if (minuteAfter != null) minuteAfter.gameObject.SetActive(true);
-            if (hourAfter != null) hourAfter.gameObject.SetActive(true);
-            if (year2000 != null) year2000.gameObject.SetActive(true);
+            if (minuteAfter) minuteAfter.gameObject.SetActive(true);
+            if (hourAfter) hourAfter.gameObject.SetActive(true);
+            if (year2000) year2000.gameObject.SetActive(true);
         }
 
-        void SwitchYearDisplay()
+        public void SwitchYearDisplay()
         {
             // 隐藏year2000
-            if (year2000 != null) year2000.gameObject.SetActive(false);
+            if (year2000) year2000.gameObject.SetActive(false);
 
             // 显示year0101
-            if (year0101 != null) year0101.gameObject.SetActive(true);
+            if (year0101) year0101.gameObject.SetActive(true);
         }
     }
 }

@@ -58,6 +58,7 @@ namespace Dialog
         private List<(string speaker, string content)> parsedLines;
 
         public GameObject second;
+        public ClockController clockController;
 
         private void Awake()
         {
@@ -159,25 +160,53 @@ namespace Dialog
                         AudioClipHelper.Instance.Play_Clock1();
                     }
                     // 两秒后继续对白
-                    StartCoroutine(WaitForWhisperThenContinue());
+                    StartCoroutine(WaitForWhisperThenContinue(2f));
                     break;
                 case 2:
                     // 暂停对白
                     InfoDialogUI.Instance?.PauseDialogue();
+                    clockController.ShowSecondAndStartRotation();
                     // 播放语音
                     if (AudioClipHelper.Instance)
                     {
                         AudioClipHelper.Instance.Play_Clock2();
                     }
                     // 两秒后继续对白
-                    StartCoroutine(WaitForWhisperThenContinue());
+                    StartCoroutine(WaitForWhisperThenContinue(3f));
                     break;
+                case 3:
+                    // 暂停对白
+                    InfoDialogUI.Instance?.PauseDialogue();
+                    clockController.StopRotationAndPause();
+                    clockController.SwitchYearDisplay();
+                    // 播放语音
+                    if (AudioClipHelper.Instance)
+                    {
+                        AudioClipHelper.Instance.Play_Clock3();
+                    }
+                    // 两秒后继续对白
+                    StartCoroutine(WaitForWhisperThenContinue(3f));
+                    break;
+                case 4:
+                    // 暂停对白
+                    InfoDialogUI.Instance?.PauseDialogue();
+                    clockController.ShowSecondAndStartRotation();
+                    // 播放语音
+                    if (AudioClipHelper.Instance)
+                    {
+                        AudioClipHelper.Instance.Play_Clock4(); 
+                    }
+                    // 两秒后继续对白
+                    StartCoroutine(WaitForWhisperThenContinue(2f));
+                    break;
+                    
+                    
             }
         }
         
-        private IEnumerator WaitForWhisperThenContinue()
+        private IEnumerator WaitForWhisperThenContinue(float s)
         {
-            yield return new WaitForSecondsRealtime(2f);
+            yield return new WaitForSecondsRealtime(s);
             InfoDialogUI.Instance?.ResumeDialogue();
         }
 
