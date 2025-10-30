@@ -1,5 +1,6 @@
 using Scene;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace UI
 {
@@ -10,11 +11,7 @@ namespace UI
 
         public void LoadToCreadt()
         {
-            var scene = FindObjectOfType<SceneFadeEffect>();
-            if (scene)
-            {
-                scene.FadeOutAndLoad("C0");
-            }
+            SceneManager.LoadScene("C0");
         }
     }
 }

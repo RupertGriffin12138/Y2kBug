@@ -248,12 +248,14 @@ namespace Interact
                 case 30:
                     // 暂停对白输入
                     InfoDialogUI.Instance.PauseDialogue();
-                    InfoDialogUI.Instance.ShowGif("Dialog/gif/prefab/bug", new Vector2(1, 1), new Vector2(1, 1), true);
+                    InfoDialogUI.Instance.ShowGif("Dialog/gif/prefab/bug1", new Vector2(1, 1), new Vector2(1, 1), true);
                     AudioClipHelper.Instance.Play_Worm();
+                    
 
                     InfoDialogUI.Instance.SpawnMultiple(false);
                     // 启动协程等待 GIF 播放 1 秒后恢复对白
-                    StartCoroutine(ResumeDialogueAfterDelay(4.5f));
+                    StartCoroutine(ResumeDialogueAfterDelay1(4.5f));
+                    
                     break;
             }
 
@@ -320,6 +322,15 @@ namespace Interact
 
             if (InfoDialogUI.Instance)
                 InfoDialogUI.Instance.ResumeDialogue();
+        }
+        
+        private IEnumerator ResumeDialogueAfterDelay1(float delay)
+        {
+            yield return new WaitForSecondsRealtime(delay);
+
+            if (InfoDialogUI.Instance)
+                InfoDialogUI.Instance.ResumeDialogue();
+            InfoDialogUI.Instance.HideAllGifs();
         }
     }
 
