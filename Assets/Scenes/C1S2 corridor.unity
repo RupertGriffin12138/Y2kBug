@@ -2190,6 +2190,8 @@ MonoBehaviour:
   itemId: key_strange_door
   itemAmount: 1
   showToast: 1
+  docId: diary2
+  showDocToast: 1
   debugDialogueLines:
   - "\u65C1\u767D: \u4F60\u83B7\u5F97\u4E86\u4E00\u4EF6\u5947\u602A\u7684\u4E1C\u897F\u2026\u2026"
   - "\u59DC\u5B81: \u8FD9\u662F\u4EC0\u4E48\uFF1F"
@@ -8728,6 +8730,7 @@ MonoBehaviour:
   player: {fileID: 0}
   savePlayerPos: 1
   defaultSaveKey: SaveSlot_1
+  isBoard: 0
 --- !u!114 &3228249106894933729
 MonoBehaviour:
   m_ObjectHideFlags: 0

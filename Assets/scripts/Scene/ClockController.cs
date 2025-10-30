@@ -41,7 +41,7 @@ namespace Scene
             if (year1999 != null) year1999.gameObject.SetActive(true);
         }
 
-        void Update()
+        private void Update()
         {
             // 检查是否按下'e'键
             if (Input.GetKeyDown(KeyCode.E) && !isRotating && !isPaused)

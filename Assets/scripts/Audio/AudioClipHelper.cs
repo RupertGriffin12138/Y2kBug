@@ -24,6 +24,10 @@ namespace Audio
         [SerializeField] private AudioClip _WoodenStructure = null;
         [SerializeField] private AudioClip _SecondHand = null;
         [SerializeField] private AudioClip _IronCabinet = null;
+        [SerializeField] private AudioClip _Clock1 = null;
+        [SerializeField] private AudioClip _Clock2 = null;
+        [SerializeField] private AudioClip _Clock3 = null;
+        [SerializeField] private AudioClip _Clock4 = null;
 
 
 
@@ -123,6 +127,30 @@ namespace Audio
         {
             AudioManager.Instance.PlaySoundEffect(_IronCabinet, false);
         }
+        
+        public void Play_Clock1()
+        {
+            AudioManager.Instance.PlaySoundEffect(_Clock1, false);
+        }
+
+        
+        public void Play_Clock2()
+        {
+            AudioManager.Instance.PlaySoundEffect(_Clock2, false);
+        }
+
+        
+        public void Play_Clock3()
+        {
+            AudioManager.Instance.PlaySoundEffect(_Clock3, false);
+        }
+        
+        public void Play_Clock4()
+        {
+            AudioManager.Instance.PlaySoundEffect(_Clock4, false);
+        }
+
+        
 
 
 

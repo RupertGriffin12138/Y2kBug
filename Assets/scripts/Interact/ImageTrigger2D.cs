@@ -183,7 +183,7 @@ namespace Interact
 
         private void HandleLineChange(int idx)
         {
-            if (idx == 1)
+            if (idx == 1 && gameObject.name == "ClockTrigger1")
             {
                 // 暂停对白
                 InfoDialogUI.Instance?.PauseDialogue();

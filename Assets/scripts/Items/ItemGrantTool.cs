@@ -58,7 +58,7 @@ namespace Items
             }
 
             // === 若有对白内容，启动对白系统 ===
-            if (lines != null && lines.Count > 0 && InfoDialogUI.Instance)
+            if (lines is { Count: > 0 } && InfoDialogUI.Instance)
             {
                 bool finished = false;
                 InfoDialogUI.Instance.BeginDialogue(lines, () => finished = true);

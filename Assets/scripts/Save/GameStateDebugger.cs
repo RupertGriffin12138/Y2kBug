@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Interact;
 using Items;
 using UnityEngine;
 
@@ -24,6 +25,13 @@ namespace Save
         [Tooltip("是否显示获得提示")]
         public bool showToast = true;
 
+        [Header("文档发放")]
+        [Tooltip("要发放的文档 ID（在 DocDB 中定义）")]
+        public string docId = "note1";
+
+        [Tooltip("是否显示获得提示")]
+        public bool showDocToast = true;
+
         [Header("测试对白（可选）")]
         [TextArea(2, 3)]
         public List<string> debugDialogueLines = new()
@@ -37,18 +45,13 @@ namespace Save
         public bool autoUnlockBackpack = false;
         public bool clearSaveBeforeTest = false;
         
-        
-
         private void Start()
         {
-            // 自动初始化存档
             if (GameState.Current == null)
                 GameState.LoadGameOrNew("Town");
         }
 
-        /// <summary>
-        /// 发放单个物品
-        /// </summary>
+        // ================== 发放物品 ==================
         [ContextMenu("Grant Item (单个)")]
         public void GrantItem()
         {
@@ -65,10 +68,48 @@ namespace Save
             var lines = ParseDialogueLines(debugDialogueLines);
             ItemGrantTool.GiveItem(itemId, itemAmount, showToast, lines);
         }
-        
-        /// <summary>
-        /// 将“旁白: 内容”格式的字符串列表转成对白元组
-        /// </summary>
+
+        // ================== 发放文档 ==================
+        [ContextMenu("Grant Document (单个)")]
+        public void GrantDocument()
+        {
+            if (clearSaveBeforeTest)
+            {
+                Debug.LogWarning("[GameStateDebugger] 清空存档以开始测试");
+                GameState.Wipe();
+                GameState.LoadGameOrNew("Town");
+            }
+
+            if (string.IsNullOrEmpty(docId))
+            {
+                Debug.LogWarning("[GameStateDebugger] 文档ID为空，已跳过。");
+                return;
+            }
+
+            if (GameState.Current == null)
+                GameState.LoadGameOrNew("Town");
+
+            bool isNew = System.Array.IndexOf(GameState.Current.docCollectedIds, docId) < 0;
+
+            // 发放并打开阅读器
+            DocGrantTool.GiveDoc(docId, true,showDocToast, ParseDialogueLines(debugDialogueLines));
+
+            GameState.SaveNow();
+
+            if (showDocToast && UI.InfoDialogUI.Instance)
+            {
+                string msg = isNew ? $"获得《{docId}》" : $"已收录《{docId}》";
+                UI.InfoDialogUI.Instance.ShowMessage(msg);
+            }
+
+            Debug.Log($"[GameStateDebugger] 已发放文档：{docId} ");
+            
+            // === 通知 ConditionalSpawner 更新 ===
+            foreach (var spawner in Object.FindObjectsOfType<ConditionalSpawner>())
+                spawner.TryCheckNow();
+        }
+
+        // ================== 解析对白 ==================
         private List<(string speaker, string content)> ParseDialogueLines(List<string> raw)
         {
             var result = new List<(string speaker, string content)>();
@@ -94,9 +135,6 @@ namespace Save
     }
 
 #if UNITY_EDITOR
-    /// <summary>
-    /// 自定义 Inspector 按钮
-    /// </summary>
     [CustomEditor(typeof(GameStateDebugger))]
     public class GameStateDebuggerEditor : Editor
     {
@@ -111,20 +149,23 @@ namespace Save
             if (GUILayout.Button("立即发放单个物品"))
                 dbg.GrantItem();
 
+            if (GUILayout.Button("立即发放单个文档"))
+                dbg.GrantDocument();
+
             if (GUILayout.Button("清空存档并重新加载"))
             {
                 GameState.Wipe();
                 GameState.LoadGameOrNew("Town");
                 Debug.Log("[GameStateDebugger] 存档已清空并重置。");
             }
-            
+
             if (GUILayout.Button("解密四个算盘"))
             {
-                PlayerPrefs.SetInt("AbacusSolved1", 1);  // 1 表示已解开
-                PlayerPrefs.SetInt("AbacusSolved2", 1);  // 1 表示已解开
-                PlayerPrefs.SetInt("AbacusSolved3", 1);  // 1 表示已解开
-                PlayerPrefs.SetInt("AbacusSolved4", 1);  // 1 表示已解开
-                PlayerPrefs.Save(); // 立即写入硬盘
+                PlayerPrefs.SetInt("AbacusSolved1", 1);
+                PlayerPrefs.SetInt("AbacusSolved2", 1);
+                PlayerPrefs.SetInt("AbacusSolved3", 1);
+                PlayerPrefs.SetInt("AbacusSolved4", 1);
+                PlayerPrefs.Save();
                 Debug.Log("[GameStateDebugger] 已解密算盘");
             }
         }
