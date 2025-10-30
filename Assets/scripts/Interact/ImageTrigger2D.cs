@@ -52,8 +52,7 @@ namespace Interact
         private RawImage fullScreenImage;
         private CanvasGroup maskCanvasGroup;
         private CanvasGroup imageCanvasGroup;
-
-        private bool canPlayAudio = false;
+        
         private void Reset()
         {
             var col = GetComponent<Collider2D>();
@@ -137,8 +136,6 @@ namespace Interact
             talking = true;
             inside = false;
             InfoDialogUI.Instance?.Clear();
-            // 玩家正式开始交互 → 开启音效许可
-            canPlayAudio = true;
 
             // 锁定玩家
             if (lockPlayerDuringDialogue)
@@ -162,6 +159,12 @@ namespace Interact
             yield return StartCoroutine(FadeOutMaskAndImage());
         }
 
+        private void OnEnable()
+        {
+            if (InfoDialogUI.Instance)
+                InfoDialogUI.Instance.OnLineChanged += HandleLineChange;
+        }
+        
         private IEnumerator StartDialogueFlow()
         {
             var lineData = new List<(string speaker, string content)>();
@@ -193,9 +196,6 @@ namespace Interact
 
                 // 两秒后继续对白
                 StartCoroutine(WaitForWhisperThenContinue());
-                
-                // 一次后关闭，防止重复触发
-                canPlayAudio = false;
             }
             
         }

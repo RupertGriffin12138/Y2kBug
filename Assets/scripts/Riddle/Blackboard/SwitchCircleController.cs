@@ -1,19 +1,19 @@
 using Audio;
 using System.Collections;
 using UnityEngine;
-#pragma warning disable CS0414 // å­—æ®µå·²è¢«èµ‹å€¼ï¼Œä½†å®ƒçš„å€¼ä»Žæœªè¢«ä½¿ç”¨
-using UnityEngine.SceneManagement;
 #pragma warning disable CS0414 // ×Ö¶ÎÒÑ±»¸³Öµ£¬µ«ËüµÄÖµ´ÓÎ´±»Ê¹ÓÃ
+using UnityEngine.SceneManagement;
+#pragma warning disable CS0414 // „1¤70ö6„1¤7„1¤70Ö1„1¤7„1¤7„1¤70ö5„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤70ö5„1¤7„1¤7¦Ä„1¤7„1¤70¶0„1¤7„1¤7
 
 namespace Riddle.Blackboard
 {
     public class SwitchCircleController : MonoBehaviour
     {
         [SerializeField] private bool isAnswer = false;
-        [SerializeField] private int count_heng = 0; // æ¨ªå‘è®¡æ•°
-        [SerializeField] private int count_zong = 0;  // çºµå‘è®¡æ•°
-        [SerializeField] private int count_num = 0;   // ç»¼åˆè®¡æ•°
-        [SerializeField] private float moveDistance = 1f; // ç§»åŠ¨è·ç¦»
+        [SerializeField] private int count_heng = 0; // ºáÏò¼ÆÊý
+        [SerializeField] private int count_zong = 0;  // ×ÝÏò¼ÆÊý
+        [SerializeField] private int count_num = 0;   // ×ÛºÏ¼ÆÊý
+        [SerializeField] private float moveDistance = 1f; // ÒÆ¶¯¾àÀë
 
         private int progress = 0;
 
@@ -23,9 +23,9 @@ namespace Riddle.Blackboard
         private Material fadeMaterial;
         private static readonly int FadeProgress = Shader.PropertyToID("_FadeProgress");
 
-        private Vector3 initialPosition; // åˆå§‹ä½ç½®
+        private Vector3 initialPosition; // ³õÊ¼Î»ÖÃ
 
-        // äºŒç»´æ•°ç»„ç”¨äºŽæ˜ å°„ count_heng å’?count_zong åˆ?count_num
+        // ¶þÎ¬Êý×éÓÃÓÚÓ³Éä count_heng „1¤7?count_zong „1¤7?count_num
         private int[,] circleNum = {
             { 0, 3, 6 },
             { 1, 4, 7 },
@@ -34,38 +34,38 @@ namespace Riddle.Blackboard
 
         private int[] answerNum = { 5, 1, 3, 9, 9, 6, 4, 5, 8 };
 
-        public GameObject block; // Block å¯¹è±¡
+        public GameObject block; // Block ¶ÔÏó
 
-        private int previousCountNum = -1; // ä¸Šä¸€ä¸?count_num çš„å€?
+        private int previousCountNum = -1; // ÉÏÒ»„1¤7?count_num µÄ„1¤7?
 
         void Start()
         {
-            // è®°å½•åˆå§‹ä½ç½®
+            // ¼ÇÂ¼³õÊ¼Î»ÖÃ
             initialPosition = transform.position;
-            // åˆå§‹åŒ?count_num
+            // ³õÊ¼„1¤7?count_num
             UpdateCountNum();
-            // åˆå§‹åŒ?Answer ç»„æ˜¾ç¤ºçŠ¶æ€?
+            // ³õÊ¼„1¤7?Answer ×éÏÔÊ¾×´„1¤7?
             InitializeAnswers();
 
 
-            // ç¡®ä¿SpriteRendererå­˜åœ¨
+            // È·±£SpriteRenderer´æÔÚ
             if (blackboardFade == null)
                 blackboardFade = GetComponent<SpriteRenderer>();
 
-            // åˆ›å»ºæè´¨å®žä¾‹
+            // ´´½¨²ÄÖÊÊµÀý
             fadeMaterial = new Material(blackboardFade.material);
             blackboardFade.material = fadeMaterial;
 
-            // åˆå§‹é€æ˜Žåº¦è®¾ä¸?
+            // ³õÊ¼Í¸Ã÷¶ÈÉè„1¤7?
             SetFadeProgress(0f);
         }
 
         void Update()
         {
-            // å¤„ç†æŒ‰é”®è¾“å…¥
+            // ´¦Àí°´¼üÊäÈë
             getNumandKeyDown();
 
-            // è¾“å‡ºå½“å‰è®¡æ•°å€?
+            // Êä³öµ±Ç°¼ÆÊý„1¤7?
             //Debug.Log($"Count Heng: {count_heng}, Count Zong: {count_zong}, Count Num: {count_num}");
         }
 
@@ -147,7 +147,7 @@ namespace Riddle.Blackboard
             if (!(count_zong == 0 && count_heng == 0))
             {
                 transform.position += Vector3.left * moveDistance;
-                count_heng = (count_heng - 1 + 3) % 3; // ä½¿ç”¨æ¨¡è¿ç®—ç¡®ä¿ç»“æžœéžè´?
+                count_heng = (count_heng - 1 + 3) % 3; // Ê¹ÓÃÄ£ÔËËãÈ·±£½á¹û·Ç„1¤7?
                 UpdateCountNum();
             }
             else
@@ -161,7 +161,7 @@ namespace Riddle.Blackboard
             if (!(count_zong == 0 && count_heng == 0))
             {
                 transform.position += Vector3.up * moveDistance;
-                count_zong = (count_zong - 1 + 3) % 3; // ä½¿ç”¨æ¨¡è¿ç®—ç¡®ä¿ç»“æžœéžè´?
+                count_zong = (count_zong - 1 + 3) % 3; // Ê¹ÓÃÄ£ÔËËãÈ·±£½á¹û·Ç„1¤7?
                 UpdateCountNum();
             }
             else
@@ -258,13 +258,13 @@ namespace Riddle.Blackboard
 
         void LateUpdate()
         {
-            // å½?count_heng == 0 æ—¶ï¼Œæ¨ªåæ ‡å›žåˆ°åˆå§‹ä½ç½?
+            // „1¤7?count_heng == 0 Ê±£¬ºá×ø±ê»Øµ½³õÊ¼Î»„1¤7?
             if (count_heng == 0)
             {
                 transform.position = new Vector3(initialPosition.x, transform.position.y, transform.position.z);
             }
 
-            // å½?count_zong == 0 æ—¶ï¼Œçºµåæ ‡å›žåˆ°åˆå§‹ä½ç½?
+            // „1¤7?count_zong == 0 Ê±£¬×Ý×ø±ê»Øµ½³õÊ¼Î»„1¤7?
             if (count_zong == 0)
             {
                 transform.position = new Vector3(transform.position.x, initialPosition.y, transform.position.z);
@@ -299,9 +299,9 @@ namespace Riddle.Blackboard
                 yield return null;
             }
 
-            SetFadeProgress(1f); // ç¡®ä¿æœ€ç»ˆå®Œå…¨æ˜¾ç¤?
+            SetFadeProgress(1f); // È·±£×îÖÕÍêÈ«ÏÔ„1¤7?
 
-            SetFadeProgress(1f); // È·±£×îÖÕÍêÈ«ÏÔÊ¾
+            SetFadeProgress(1f); // 0©2„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤7„1¤70¨0„1¤7„1¤70¶5
             progress = 4;
             PlayerPrefs.SetInt("BoardKey_Prefab", progress);
         }
@@ -312,7 +312,7 @@ namespace Riddle.Blackboard
                 fadeMaterial.SetFloat(FadeProgress, progress);
         }
 
-        // å…¬å¼€æ–¹æ³•ï¼Œå¯ä»Žå¤–éƒ¨è°ƒç”?
+        // ¹«¿ª·½·¨£¬¿É´ÓÍâ²¿µ÷„1¤7?
         public void StartFade(float duration = 0f)
         {
             if (duration > 0)
@@ -323,7 +323,7 @@ namespace Riddle.Blackboard
 
         void OnDestroy()
         {
-            // æ¸…ç†åˆ›å»ºçš„æè´¨å®žä¾?
+            // ÇåÀí´´½¨µÄ²ÄÖÊÊµ„1¤7?
             if (fadeMaterial != null)
                 DestroyImmediate(fadeMaterial);
         }
