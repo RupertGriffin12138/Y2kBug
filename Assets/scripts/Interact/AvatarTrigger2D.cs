@@ -240,7 +240,10 @@ namespace Interact
                     break;
                 case 24:
                     InfoDialogUI.Instance.SpawnMultiple(false);
+                    InfoDialogUI.Instance.PauseDialogue();
                     StartCoroutine(FadeOutAvatar(avatar, 1f)); // 1f = 渐隐时间（秒）
+                    // 启动协程等待 GIF 播放 1 秒后恢复对白
+                    StartCoroutine(ResumeDialogueAfterDelay(1f));
                     break;
                 case 30:
                     // 暂停对白输入
@@ -280,7 +283,7 @@ namespace Interact
             // 如果还没有，则直接关掉
             if (!sr && !cg)
             {
-                obj.SetActive(false);
+                Destroy(obj);
                 yield break;
             }
 

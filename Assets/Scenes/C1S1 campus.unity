@@ -1212,7 +1212,7 @@ MonoBehaviour:
   useOrLogic: 0
   invertCondition: 0
   markOnce: 1
-  enableRealtimeCheck: 0
+  enableRealtimeCheck: 1
 --- !u!1 &303487953
 GameObject:
   m_ObjectHideFlags: 0
@@ -1398,7 +1398,7 @@ MonoBehaviour:
   useOrLogic: 0
   invertCondition: 0
   markOnce: 1
-  enableRealtimeCheck: 0
+  enableRealtimeCheck: 1
 --- !u!4 &406516954 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1778377025715846956, guid: f66e56bf725174443806ce42dae64bc0, type: 3}
@@ -2295,7 +2295,7 @@ MonoBehaviour:
   useOrLogic: 0
   invertCondition: 0
   markOnce: 1
-  enableRealtimeCheck: 0
+  enableRealtimeCheck: 1
 --- !u!1 &760125562
 GameObject:
   m_ObjectHideFlags: 0
@@ -2543,7 +2543,7 @@ MonoBehaviour:
   useOrLogic: 0
   invertCondition: 0
   markOnce: 1
-  enableRealtimeCheck: 0
+  enableRealtimeCheck: 1
 --- !u!1001 &822914233
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2830,7 +2830,7 @@ MonoBehaviour:
   useOrLogic: 0
   invertCondition: 1
   markOnce: 1
-  enableRealtimeCheck: 0
+  enableRealtimeCheck: 1
 --- !u!1 &917252384
 GameObject:
   m_ObjectHideFlags: 0
@@ -3288,7 +3288,7 @@ MonoBehaviour:
   useOrLogic: 0
   invertCondition: 0
   markOnce: 1
-  enableRealtimeCheck: 0
+  enableRealtimeCheck: 1
 --- !u!1 &1096733961
 GameObject:
   m_ObjectHideFlags: 0
@@ -3691,7 +3691,7 @@ MonoBehaviour:
   useOrLogic: 0
   invertCondition: 0
   markOnce: 1
-  enableRealtimeCheck: 0
+  enableRealtimeCheck: 1
 --- !u!1 &1224401166
 GameObject:
   m_ObjectHideFlags: 0
@@ -4189,7 +4189,7 @@ MonoBehaviour:
   useOrLogic: 0
   invertCondition: 0
   markOnce: 1
-  enableRealtimeCheck: 0
+  enableRealtimeCheck: 1
 --- !u!1 &1512063475
 GameObject:
   m_ObjectHideFlags: 0
@@ -4736,7 +4736,7 @@ MonoBehaviour:
   useOrLogic: 0
   invertCondition: 0
   markOnce: 1
-  enableRealtimeCheck: 0
+  enableRealtimeCheck: 1
 --- !u!1 &1706931988
 GameObject:
   m_ObjectHideFlags: 0

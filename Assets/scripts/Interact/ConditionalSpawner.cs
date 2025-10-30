@@ -133,7 +133,7 @@ namespace Interact
             // 如果目标物体已经被销毁或丢失，直接退出
             if (!targetObject)
             {
-                Debug.LogWarning($"[ConditionalSpawner] 目标对象已被销毁，跳过更新。 ({spawnerId})", this);
+                Debug.Log($"[ConditionalSpawner] 目标对象已被销毁，跳过更新。 ({spawnerId})", this);
                 return;
             }
             // 如果状态没变就不用重复设置
