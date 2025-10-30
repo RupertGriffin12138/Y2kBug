@@ -36,6 +36,8 @@ namespace Save
         [Header("额外选项")]
         public bool autoUnlockBackpack = false;
         public bool clearSaveBeforeTest = false;
+        
+        
 
         private void Start()
         {
@@ -106,14 +108,24 @@ namespace Save
             GUILayout.Space(10);
             EditorGUILayout.HelpBox("调试功能区", MessageType.Info);
 
-            if (GUILayout.Button("▶ 立即发放单个物品"))
+            if (GUILayout.Button("立即发放单个物品"))
                 dbg.GrantItem();
 
-            if (GUILayout.Button("🗑 清空存档并重新加载"))
+            if (GUILayout.Button("清空存档并重新加载"))
             {
                 GameState.Wipe();
                 GameState.LoadGameOrNew("Town");
                 Debug.Log("[GameStateDebugger] 存档已清空并重置。");
+            }
+            
+            if (GUILayout.Button("解密四个算盘"))
+            {
+                PlayerPrefs.SetInt("AbacusSolved1", 1);  // 1 表示已解开
+                PlayerPrefs.SetInt("AbacusSolved2", 1);  // 1 表示已解开
+                PlayerPrefs.SetInt("AbacusSolved3", 1);  // 1 表示已解开
+                PlayerPrefs.SetInt("AbacusSolved4", 1);  // 1 表示已解开
+                PlayerPrefs.Save(); // 立即写入硬盘
+                Debug.Log("[GameStateDebugger] 已解密算盘");
             }
         }
     }

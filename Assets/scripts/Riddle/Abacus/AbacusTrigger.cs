@@ -78,6 +78,24 @@ namespace Riddle.Abacus
                 else
                     UnityEngine.SceneManagement.SceneManager.LoadScene(targetScene);
             }
+
+            if (gameObject.name == "算盘1" && PlayerPrefs.GetInt("AbacusSolved1", 0) == 1)
+            {
+                gameObject.SetActive(false);
+            }
+            if (gameObject.name == "算盘2" && PlayerPrefs.GetInt("AbacusSolved2", 0) == 1)
+            {
+                gameObject.SetActive(false);
+            }
+            if (gameObject.name == "算盘3" && PlayerPrefs.GetInt("AbacusSolved3", 0) == 1)
+            {
+                gameObject.SetActive(false);
+            }
+            if (gameObject.name == "算盘4" && PlayerPrefs.GetInt("AbacusSolved4", 0) == 1)
+            {
+                gameObject.SetActive(false);
+            }
+            
         }
     }
 }

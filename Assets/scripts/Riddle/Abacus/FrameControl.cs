@@ -2,82 +2,77 @@ using UnityEngine;
 
 namespace Riddle.Abacus
 {
-    public class FrameControl : MonoBehaviour
+    /// <summary>
+    /// 控制当前操作的行（line）与层（frame）
+    /// </summary>
+    public sealed class FrameControl : MonoBehaviour
     {
+        [Header("Frame引用")]
+        public GameObject frame0;   // 上层框
+        public GameObject frame1;   // 下层框
 
+        [Header("当前行 (0~8)")]
         [SerializeField] private int lineNum = 0;
 
-        public GameObject frame0;   // 物体 "Frame_0"
-        public GameObject frame1;   // 物体 "Frame_1"
+        public int CurrentLine => lineNum;
+        public int CurrentFrame => frame0.activeSelf ? 0 : 1;
 
+        private Vector3 frame0StartPos;
+        private Vector3 frame1StartPos;
 
-        protected virtual void Start()
+        private void Start()
         {
+            frame0StartPos = frame0.transform.position;
+            frame1StartPos = frame1.transform.position;
+
             frame0.SetActive(true);
             frame1.SetActive(false);
         }
 
-        protected virtual void Update()
+        private void Update()
         {
-            frameSetActive();
-            frameMoveControl();
-
+            HandleFrameSwitch();
+            HandleLineMove();
         }
 
-        private void frameMoveControl()
+        private void HandleFrameSwitch()
         {
-            if (Input.GetKeyUp(KeyCode.D))
-            {
-                lineNum = (++lineNum) % 9;
-
-                MoveActiveObject();
-
-            }
-            if (Input.GetKeyUp(KeyCode.A))
-            {
-                lineNum = (--lineNum) % 9;
-
-                MoveActiveObject();
-            }
-        }
-
-        private void MoveActiveObject()
-        {
-            if (frame0.activeSelf)
-            {
-                if(lineNum == 0)
-                    frame0.transform.position = new Vector3(-0.27f, 1.7955f, 0);
-                else if (Input.GetKeyUp(KeyCode.D))
-                    frame0.transform.position += new Vector3(0.3f, 0, 0);
-                else if(Input.GetKeyUp(KeyCode.A))
-                    frame0.transform.position -= new Vector3(0.3f, 0, 0);
-            }
-            else if (frame1.activeSelf)
-            {
-                if (lineNum == 0)
-                    frame1.transform.position = new Vector3(-0.28f, 0.86f, 0);
-                else if (Input.GetKeyUp(KeyCode.D))
-                    frame1.transform.position += new Vector3(0.3f, 0, 0);
-                else if (Input.GetKeyUp(KeyCode.A))
-                    frame1.transform.position -= new Vector3(0.3f, 0, 0);
-            }
-        }
-
-        private void frameSetActive()
-        {
-            if (Input.GetKeyUp(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.W))
             {
                 frame0.SetActive(true);
                 frame1.SetActive(false);
             }
-
-            if (Input.GetKeyUp(KeyCode.S))
+            else if (Input.GetKeyDown(KeyCode.S))
             {
                 frame0.SetActive(false);
                 frame1.SetActive(true);
             }
         }
 
-    
+        private void HandleLineMove()
+        {
+            bool moved = false;
+
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                lineNum = (lineNum + 1) % 9;
+                moved = true;
+            }
+            else if (Input.GetKeyDown(KeyCode.A))
+            {
+                lineNum = (lineNum + 8) % 9; // 防止负数
+                moved = true;
+            }
+
+            if (moved)
+            {
+                Vector3 step = new Vector3(0.3f, 0, 0);
+
+                if (frame0.activeSelf)
+                    frame0.transform.position = frame0StartPos + step * lineNum;
+                else if (frame1.activeSelf)
+                    frame1.transform.position = frame1StartPos + step * lineNum;
+            }
+        }
     }
 }
