@@ -554,7 +554,8 @@ namespace UI
                     // 你可以根据自己的命名规则更精确地过滤，比如判断名字前缀
                     if (child.name.Contains("heart") ||
                         child.name.Contains("mouth") ||
-                        child.name.Contains("eye") )
+                        child.name.Contains("eye") ||
+                        child.name.Contains("bug"))
                     {
                         if (destroy)
                             Destroy(child.gameObject);
