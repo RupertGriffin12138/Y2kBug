@@ -86,6 +86,10 @@ namespace Riddle.Abacus
 
             if (Input.GetKeyDown(KeyCode.E))
             {
+                if (isSolved)
+                {
+                    return;
+                }
                 clickCount[lineNum[frameNum], frameNum]++;
                 HandleClick();
                 AudioClipHelper.Instance.Play_SuanPan();
@@ -103,6 +107,12 @@ namespace Riddle.Abacus
                 {
                     isSolved = true;
                     InfoDialogUI.Instance.ShowMessage("答案正确！算盘已被锁定。");
+                    
+                    var frameCtrl = FindObjectsOfType<FrameControl>();
+                    foreach (var f in frameCtrl)
+                    {
+                        f.LockInput();
+                    }
 
                     // ====== 保存进度 ======
                     PlayerPrefs.SetInt("AbacusSolved4", 1);  // 1 表示已解开

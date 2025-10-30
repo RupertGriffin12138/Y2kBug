@@ -262,23 +262,24 @@ namespace Interact
                 }
             }
 
-            // === 找到阅读器外层（通常是 Canvas 或 UI 根） ===
-            Transform topParent = readerPanel.transform;
-            for (int i = 0; i < 3; i++)
+            // ======= 找到 GameUI 层级（父的父） =======
+            Transform slot = readerPanel.transform.parent;
+            Transform gameUI = slot ? slot.parent : null;
+            if (!gameUI)
             {
-                if (topParent.parent)
-                    topParent = topParent.parent;
-                else
-                    break;
+                Debug.LogWarning("[PickupDoc2D] 未找到 GameUI 层级，无法调整层级顺序。");
             }
 
-            // 记录原来的层级位置
-            int originalIndex = topParent.GetSiblingIndex();
+            int originalIndex = -1;
+            if (gameUI && gameUI.parent)
+            {
+                originalIndex = gameUI.GetSiblingIndex();
 
-            // ↓↓↓ 关键：把它放到最底层（越上面越先渲染）
-            topParent.SetAsFirstSibling();
+                // 关键：让 GameUI 在 Canvas 下变成最底（最下面）的位置
+                gameUI.SetAsLastSibling();
+            }
 
-            // === 原逻辑 ===
+            // ======= 原逻辑：打开阅读器 =======
             EnsureUIHierarchyActive(readerPanel.rootPanel ? readerPanel.rootPanel.transform : readerPanel.transform);
             RestoreCanvasGroups(readerPanel.rootPanel ? readerPanel.rootPanel.transform : readerPanel.transform);
 
@@ -300,14 +301,17 @@ namespace Interact
                 readerPanel.contentText.GetComponentInParent<ScrollRect>() : null;
             if (scrollRect) scrollRect.normalizedPosition = new Vector2(0, 1);
 
-            // === 等待关闭阅读器 ===
+            // ======= 等待关闭 =======
             if (readerPanel.rootPanel)
                 yield return new WaitUntil(() => !readerPanel.rootPanel.activeSelf);
 
-            // === 恢复原来的层级 ===
-            if (topParent && topParent.parent)
-                topParent.SetSiblingIndex(originalIndex);
+            // ======= 恢复原来的层级位置 =======
+            if (gameUI && gameUI.parent && originalIndex >= 0)
+            {
+                gameUI.SetSiblingIndex(originalIndex);
+            }
         }
+
 
 
         // —— UI 父链激活与 CanvasGroup 恢复 —— 
