@@ -29,6 +29,13 @@ namespace Audio
         [SerializeField] private AudioClip _Clock3 = null;
         [SerializeField] private AudioClip _Clock4 = null;
 
+        [SerializeField] private AudioClip _mouse1=null;
+        [SerializeField] private AudioClip _mouse2=null;
+        [SerializeField] private AudioClip _eyes1=null;
+        [SerializeField] private AudioClip _hreat1=null;
+        [SerializeField] private AudioClip _mutiImage=null;
+        [SerializeField] private AudioClip _worm=null;
+
 
 
         public void Play_UIHover()
@@ -151,6 +158,52 @@ namespace Audio
         }
 
         
+
+
+        public void Play_Mouse1()
+        {
+            AudioManager.Instance.PlaySoundEffect_Board(_mouse1, true,1);
+        }
+        public void Stop_Mouse1()
+        {
+            AudioManager.Instance.StopSoundEffect(_mouse1);
+        }
+        public void Play_Mouse2()
+        {
+            AudioManager.Instance.PlaySoundEffect_Board(_mouse2, true,2);
+        }
+        public void Stop_Mouse2()
+        {
+            AudioManager.Instance.StopSoundEffect(_mouse2);
+        }
+        public void Play_Eyes1()
+        {
+            AudioManager.Instance.PlaySoundEffect_Board(_eyes1, true,3);
+        }
+        public void Stop_Eyes1()
+        {
+            AudioManager.Instance.StopSoundEffect(_eyes1);
+        }
+        public void Play_hreat1()
+        {
+            AudioManager.Instance.PlaySoundEffect_Board(_hreat1, true,4);
+        }
+        public void Stop_hreat1()
+        {
+            AudioManager.Instance.StopSoundEffect(_hreat1);
+        }
+        public void Play_MutiImage()
+        {
+            AudioManager.Instance.PlaySoundEffect_Board(_mutiImage, true,5);
+        }
+        public void Stop_MutiImage()
+        {
+            AudioManager.Instance.StopSoundEffect(_mutiImage);
+        }
+        public void Play_Worm()
+        {
+            AudioManager.Instance.PlaySoundEffect(_worm, false);
+        }
 
 
 

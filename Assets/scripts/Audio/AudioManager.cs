@@ -11,6 +11,8 @@ public class AudioManager : MonoSingleton<AudioManager>
     public List<GameObject> soundEffect;
     private Dictionary<string, GameObject> audioSources;
 
+    private int nowAudio = 1;
+
     protected override void OnStart()
     {
         base.OnStart();
@@ -104,6 +106,52 @@ public class AudioManager : MonoSingleton<AudioManager>
             Debug.LogWarning("clip  is not available.");
         }
     }
+    public void PlaySoundEffect_Board(AudioClip clip, bool loop,int id)
+    {
+        nowAudio = id;
+        if (clip != null /**&& Model.IsSoundOpen**/)
+        {
+            if (!audioSources.ContainsKey(clip.name))
+            {
+                CreatAudioObj(clip);
+            }
+
+            bool canPlayAudio = PlayerPrefs.GetInt("pf_sfx_on", 1) == 1;
+            if (canPlayAudio)
+                audioSources[clip.name].GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("pf_sfx_vol", 1f);
+            else
+                audioSources[clip.name].GetComponent<AudioSource>().volume = 0;
+
+            audioSources[clip.name].GetComponent<AudioSource>().loop = loop;
+            audioSources[clip.name].GetComponent<AudioSource>().Play();
+
+        }
+        else
+        {
+            Debug.LogWarning("clip  is not available.");
+        }
+    }
+    public void StopLatelyAudio()
+    {
+        switch (nowAudio)
+        {
+            case 1:
+                AudioClipHelper.Instance.Stop_Mouse1();
+                break;
+            case 2:
+                AudioClipHelper.Instance.Stop_Mouse2();
+                break;
+            case 3:
+                AudioClipHelper.Instance.Stop_Eyes1();
+                break;
+            case 4:
+                AudioClipHelper.Instance.Stop_hreat1();
+                break;
+            case 5:
+                AudioClipHelper.Instance.Stop_MutiImage();
+                break;
+        }
+    }
     public void StopSoundEffect(AudioClip clip)
     {
         if (clip != null /**&& Model.IsSoundOpen**/)
@@ -118,6 +166,16 @@ public class AudioManager : MonoSingleton<AudioManager>
         else
         {
             Debug.LogWarning("clip  is not available.");
+        }
+    }
+    public void StopAllAudio()
+    {
+        for (int i = 0; i < soundEffect.Count; i++)
+        {
+            if (soundEffect[i].GetComponent<AudioSource>().isPlaying)
+            {
+                soundEffect[i].GetComponent<AudioSource>().Stop();
+            }
         }
     }
 
