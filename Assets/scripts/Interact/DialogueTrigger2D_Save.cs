@@ -185,6 +185,11 @@ namespace Interact
             }
 
             // 调用 InfoDialogUI 开始对白
+            if (!resetOnExit)
+                PlayerPrefs.SetInt("resetOnExit",1);
+            else
+                PlayerPrefs.SetInt("resetOnExit", 2);
+
             InfoDialogUI.Instance.BeginDialogue(lineData, OnDialogueEnd);
 
 

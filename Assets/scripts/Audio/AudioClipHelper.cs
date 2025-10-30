@@ -54,7 +54,11 @@ namespace Audio
         }
         public void Play_Dialogue()
         {
-            AudioManager.Instance.PlaySoundEffect(_Dialogue, false);
+            AudioManager.Instance.PlaySoundEffect(_Dialogue, true);
+        }
+        public void Stop_Dialogue()
+        {
+            AudioManager.Instance.StopSoundEffect(_Dialogue);
         }
         public void Play_Burning()
         {

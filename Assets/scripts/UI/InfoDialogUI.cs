@@ -1,3 +1,4 @@
+using Audio;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -93,6 +94,12 @@ namespace UI
             if (isShowingDialogue && Input.GetKeyDown(KeyCode.E))
                 HandleInputAction();
 
+            if (arrowImage.gameObject.activeSelf)
+            {
+                AudioClipHelper.Instance.Stop_Dialogue();
+            }
+            
+
             //如果对话没在播放，且对话框中没有字（空或仅空白），就显示默认头像
             if (!isShowingDialogue)
             {
@@ -154,15 +161,19 @@ namespace UI
         {
             foreach (char c in content)
             {
+                if (PlayerPrefs.GetInt("resetOnExit", 1) == 1)
+                    AudioClipHelper.Instance.Play_Dialogue();
                 textBoxText.text += c;
                 yield return new WaitForSecondsRealtime(defaultTypeDelay);
                 // 如果玩家在打字过程中按下 E，则立刻显示完整句
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     textBoxText.text = content;
+                    AudioClipHelper.Instance.Stop_Dialogue();
                     break;
                 }
             }
+            AudioClipHelper.Instance.Stop_Dialogue();
             lineFullyShown = true;
             ShowArrow();
             typeRoutine = null;
