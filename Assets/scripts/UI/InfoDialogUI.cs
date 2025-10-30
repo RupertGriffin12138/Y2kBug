@@ -204,12 +204,7 @@ namespace UI
             if (!isPaused) return;
             isPaused = false;
 
-            // 若是在行尾暂停的，恢复时推进到下一句
-            if (waitingForResume)
-            {
-                waitingForResume = false;
-                NextLine();
-            }
+            waitingForResume = false; // 只是清除标志位
         }
         
         /// <summary>
