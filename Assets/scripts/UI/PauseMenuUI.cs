@@ -33,6 +33,8 @@ namespace UI
 
         private bool isPaused;
 
+        public bool isBoard=false;
+
         public void Start()
         {
             // 初始隐藏
@@ -48,26 +50,28 @@ namespace UI
 
         public void Update()
         {
-            
-            if (Input.GetKeyDown(toggleKey))
+            if (!isBoard)
             {
-                // --- 优先判断 TextPage 是否打开 ---
-                if (textPage && textPage.activeSelf)
+                if (Input.GetKeyDown(toggleKey))
                 {
-                    textPage.SetActive(false);
-                    return; // 不再继续执行暂停逻辑
-                }
+                    // --- 优先判断 TextPage 是否打开 ---
+                    if (textPage && textPage.activeSelf)
+                    {
+                        textPage.SetActive(false);
+                        return; // 不再继续执行暂停逻辑
+                    }
 
-                // 若当前处于设置界面，Esc 返回暂停菜单
-                if (settingsPanel && settingsPanel.activeSelf)
-                {
-                    BackFromSettings();
-                    return;
-                }
+                    // 若当前处于设置界面，Esc 返回暂停菜单
+                    if (settingsPanel && settingsPanel.activeSelf)
+                    {
+                        BackFromSettings();
+                        return;
+                    }
 
-                // 其他情况，控制暂停与恢复
-                if (isPaused) ResumeGame();
-                else PauseGame();
+                    // 其他情况，控制暂停与恢复
+                    if (isPaused) ResumeGame();
+                    else PauseGame();
+                }
             }
         }
 

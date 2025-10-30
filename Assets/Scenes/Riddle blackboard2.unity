@@ -391,8 +391,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3220643468745902141, guid: f1da7c30a2036354eb25b625e62095e0, type: 3}
+      propertyPath: isBoard
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3220643468745902141, guid: f1da7c30a2036354eb25b625e62095e0, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3801093956238995326, guid: f1da7c30a2036354eb25b625e62095e0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4329068269156396570, guid: f1da7c30a2036354eb25b625e62095e0, type: 3}
       propertyPath: m_AnchorMax.y

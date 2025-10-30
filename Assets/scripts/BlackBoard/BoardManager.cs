@@ -24,7 +24,7 @@ public class BoardManager : MonoBehaviour
 
     private void Start()
     {
-        PlayerPrefs.SetInt(BoardKey,4);
+        //PlayerPrefs.SetInt(BoardKey,4);
 
         boardErase.SetActive(false);
         boardProgress = PlayerPrefs.GetInt(BoardKey, 1);
