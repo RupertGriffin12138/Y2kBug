@@ -145,48 +145,21 @@ namespace UI
         // ========= 主按钮：继续游戏（打开槽位面板/读取） =========
         void OnContinueClicked()
         {
-            if (bottomGroup) bottomGroup.SetActive(false);
-            if (loadPanel) loadPanel.SetActive(true);
-            RefreshSlotsUI();
         }
 
         // ========= 清档：示例全清 =========
         void OnClearSaveClicked()
         {
-            for (int i = 0; i < 8; i++) WipeSlot(i);
-            RefreshContinueButtonState();
-            RefreshSlotsUI();
-            Debug.Log("[MainMenuUI] 已清除所有存档。");
         }
 
         // ========= 槽位按钮点击 =========
         void OnClickSlot(int index)
         {
-            if (!HasExistingSave(index)) return; // 空槽被禁用了，这里通常进不来；再防御一次
-            pendingIndex = index;
-
-            string info = GetSlotInfo(index);
-            if (confirmPanel) confirmPanel.SetActive(true);
-            if (confirmText) confirmText.text = $"读取槽位 {index + 1}？\n{info}";
         }
 
         // ========= 确认：读取并进入存档 =========
         void OnConfirmYes()
         {
-            if (pendingIndex < 0) { if (confirmPanel) confirmPanel.SetActive(false); return; }
-
-            UseSlot(pendingIndex);
-
-            var data = SaveManager.LoadOrDefault(firstSceneName);
-            GameState.LoadGameOrNew(firstSceneName);
-            GameState.ReplaceWith(data);
-
-            SaveSlotContext.CurrentKey = GetSlotKey(pendingIndex);
-
-            string scene = string.IsNullOrEmpty(GameState.Current.lastScene) ? firstSceneName : GameState.Current.lastScene;
-            StartCoroutine(LoadSceneAfterDelay(scene, 0.1f));
-
-            if (confirmPanel) confirmPanel.SetActive(false);
         }
 
         // ========= 设置面板 =========

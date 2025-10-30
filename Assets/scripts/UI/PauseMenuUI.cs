@@ -118,12 +118,7 @@ namespace UI
 
         private void BackToMenu()
         {
-            // 确保恢复时间/音频，避免切回菜单后仍是 0
-            Time.timeScale = 1f;
-            if (pauseAudio) AudioListener.pause = false;
 
-            // 可给 0.05–0.1s 让按钮点击动效结束（可选）
-            StartCoroutine(LoadMenuAfterFrame());
         }
 
         public void OpenSettings()
