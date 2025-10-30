@@ -161,6 +161,26 @@ namespace Save
             if (string.IsNullOrEmpty(dialogueId) || Current == null) return false;
             return Array.IndexOf(Current.dialogueSeenIds, dialogueId) >= 0;
         }
+        
+        /// <summary>
+        /// 从存档中彻底移除指定物品（不论数量是多少）。
+        /// 删除后该物品不会再显示在背包中。
+        /// </summary>
+        public static void RemoveItem(string itemId)
+        {
+            if (string.IsNullOrEmpty(itemId) || Current == null)
+                return;
+
+            int idx = Array.IndexOf(Current.inventoryIds, itemId);
+            if (idx >= 0)
+            {
+                ArrayUtility.RemoveAt(ref Current.inventoryIds, idx);
+                ArrayUtility.RemoveAt(ref Current.inventoryCounts, idx);
+#if UNITY_EDITOR
+                Debug.Log($"[GameState] 已彻底删除物品：{itemId}");
+#endif
+            }
+        }
 
 
     }

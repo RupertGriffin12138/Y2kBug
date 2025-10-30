@@ -416,8 +416,7 @@ Transform:
   m_LocalPosition: {x: -0.83, y: -0.28, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 713585173}
+  m_Children: []
   m_Father: {fileID: 1206839383}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &142151055
@@ -1988,11 +1987,23 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 142151054}
+    m_TransformParent: {fileID: 1206839383}
     m_Modifications:
     - target: {fileID: 1565346779440378044, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
       propertyPath: m_Sprite
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1565346779440378044, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1565346779440378044, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
+      propertyPath: m_SortingOrder
+      value: -19
+      objectReference: {fileID: 0}
+    - target: {fileID: 1565346779440378044, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1565346779440378044, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
       propertyPath: m_WasSpriteAssigned
@@ -2028,7 +2039,7 @@ PrefabInstance:
       objectReference: {fileID: 1964482064}
     - target: {fileID: 7924437373647818284, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
       propertyPath: docId
-      value: diary1
+      value: diary2
       objectReference: {fileID: 0}
     - target: {fileID: 7924437373647818284, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
       propertyPath: readerPanel
@@ -2044,19 +2055,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7924437373647818284, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
       propertyPath: lines.Array.data[0].content
-      value: "\uFF08\u8C01\u7684\u65E5\u8BB0\u5417\uFF0C\u6628\u5929\u624D\u5199\u7684\uFF0C\u600E\u4E48\u4F1A\u51FA\u73B0\u5728\u8FD9\u91CC\uFF0C\u8FD9\u4E48\u5947\u602A\u7684\u5730\u65B9\u3002\uFF09"
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7924437373647818284, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
       propertyPath: lines.Array.data[0].speaker
-      value: "\u59DC\u5B81"
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7924437373647818284, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
+      propertyPath: lines.Array.data[1].content
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7924437373647818284, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
+      propertyPath: lines.Array.data[1].speaker
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8279079002776250371, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.2386936
+      value: 0.23869361
       objectReference: {fileID: 0}
     - target: {fileID: 8279079002776250371, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.2386936
+      value: 0.23869361
       objectReference: {fileID: 0}
     - target: {fileID: 8279079002776250371, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
       propertyPath: m_LocalScale.z
@@ -2064,11 +2083,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8279079002776250371, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.162
+      value: 0.527
       objectReference: {fileID: 0}
     - target: {fileID: 8279079002776250371, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.447
+      value: 0.06
       objectReference: {fileID: 0}
     - target: {fileID: 8279079002776250371, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2489,7 +2508,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -3044,6 +3063,7 @@ Transform:
   - {fileID: 246237994}
   - {fileID: 87154286}
   - {fileID: 142151054}
+  - {fileID: 713585173}
   m_Father: {fileID: 1701494180}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1206839384
@@ -3767,6 +3787,59 @@ MonoBehaviour:
   gameObjects:
   - {fileID: 1619628723}
   - {fileID: 1701494179}
+--- !u!1 &1691090496
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1691090497}
+  - component: {fileID: 1691090498}
+  m_Layer: 0
+  m_Name: debugger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1691090497
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1691090496}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1691090498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1691090496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18acd6f75684d72b52eda0596f612a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: key_strange_door
+  itemAmount: 1
+  showToast: 1
+  debugDialogueLines:
+  - "\u65C1\u767D: \u4F60\u83B7\u5F97\u4E86\u4E00\u4EF6\u5947\u602A\u7684\u4E1C\u897F\u2026\u2026"
+  - "\u59DC\u5B81: \u8FD9\u662F\u4EC0\u4E48\uFF1F"
+  - "\u795D\u6986: \u770B\u8D77\u6765\u50CF\u4E00\u628A\u94A5\u5319\u3002"
+  autoUnlockBackpack: 0
+  clearSaveBeforeTest: 0
 --- !u!1 &1701494179
 GameObject:
   m_ObjectHideFlags: 0
@@ -4887,3 +4960,4 @@ SceneRoots:
   - {fileID: 1952914133}
   - {fileID: 159994723}
   - {fileID: 17983098}
+  - {fileID: 1691090497}

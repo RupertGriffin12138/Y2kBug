@@ -2,13 +2,12 @@
 using UI;
 using UnityEngine;
 
-namespace Riddle.Abacus
+namespace Interact
 {
-    [RequireComponent(typeof(Collider2D))]
-    public class AbacusTrigger : MonoBehaviour
+    public class SceneTrigger : MonoBehaviour
     {
-        [Header("目标场景名")]
-        public string targetScene = "AbacusPuzzle";
+         [Header("目标场景名")]
+        public string targetScene = "";
 
         [Header("提示文本")]
         [TextArea] public string interactHint = "按 <b>E</b> 交互";
@@ -77,23 +76,11 @@ namespace Riddle.Abacus
                     fade.FadeOutAndLoad(targetScene, 0.5f, 1f);
                 else
                     UnityEngine.SceneManagement.SceneManager.LoadScene(targetScene);
-            }
 
-            if (gameObject.name == "算盘1" && PlayerPrefs.GetInt("AbacusSolved1", 0) == 1)
-            {
-                gameObject.SetActive(false);
-            }
-            if (gameObject.name == "算盘2" && PlayerPrefs.GetInt("AbacusSolved2", 0) == 1)
-            {
-                gameObject.SetActive(false);
-            }
-            if (gameObject.name == "算盘3" && PlayerPrefs.GetInt("AbacusSolved3", 0) == 1)
-            {
-                gameObject.SetActive(false);
-            }
-            if (gameObject.name == "算盘4" && PlayerPrefs.GetInt("AbacusSolved4", 0) == 1)
-            {
-                gameObject.SetActive(false);
+                if (PlayerPrefs.GetInt("clock_complete",0) == 1)
+                {
+                    
+                }
             }
             
         }
