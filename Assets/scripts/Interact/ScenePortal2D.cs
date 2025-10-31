@@ -60,6 +60,7 @@ namespace Interact
         private bool inside;
         private bool loading;
         private bool doorLockedHintShown = false; // 是否已经显示过锁住提示
+        private float checkTimer;
 
         private void Reset()
         {
@@ -105,6 +106,15 @@ namespace Interact
         {
             if (!inside || loading) return;
             if (blockWhenPaused && Time.timeScale == 0f) return;
+            
+            // 每0.3秒自动检测一次解锁状态
+            checkTimer += Time.deltaTime;
+            if (checkTimer >= 0.3f)
+            {
+                checkTimer = 0f;
+                CheckUnlockCondition();
+            }
+
 
             if (Input.GetKeyDown(KeyCode.E))
             {

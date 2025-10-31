@@ -134,6 +134,7 @@ namespace Interact
             if (!targetObject)
             {
                 Debug.Log($"[ConditionalSpawner] 目标对象已被销毁，跳过更新。 ({spawnerId})", this);
+                Destroy(this);
                 return;
             }
             // 如果状态没变就不用重复设置

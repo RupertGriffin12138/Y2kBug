@@ -1,4 +1,5 @@
 ﻿using Audio;
+using Save;
 using UnityEngine;
 
 namespace Riddle.Abacus
@@ -37,11 +38,16 @@ namespace Riddle.Abacus
 
             bool allSolved = (s1 == 1 && s2 == 1 && s3 == 1 && s4 == 1);
 
-            if (allSolved && targetObject && !targetObject.activeSelf)
+            if (allSolved && targetObject && !targetObject.activeSelf && !GameState.HasReadDoc("teach"))
             {
                 Debug.Log("[AbacusMasterChecker] 全部算盘谜题已解开，激活目标对象！");
                 AudioClipHelper.Instance.Play_WoodenStructure();
                 targetObject.SetActive(true);
+            }
+
+            if (GameState.HasReadDoc("teach"))
+            {
+                targetObject.SetActive(false);
             }
         }
     }

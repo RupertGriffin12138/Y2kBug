@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,6 +29,16 @@ namespace Items
         private int _currentPage = 0;  // 0-based
         private int PageSize => Mathf.Max(0, slots?.Count ?? 0);
         private int TotalPages => PageSize == 0 ? 0 : Mathf.CeilToInt((_docList.Count) / (float)PageSize);
+
+        private void Start()
+        {
+            if (!docInventory)
+            {
+                docInventory = FindObjectOfType<DocInventoryLite>(true);
+            }
+            
+            Refresh();
+        }
 
         void OnEnable()
         {

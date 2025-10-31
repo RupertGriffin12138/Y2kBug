@@ -1,6 +1,7 @@
 using System.Collections;
 using Interact;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Save
 {
@@ -106,10 +107,24 @@ namespace Save
             return false;
         }
 
-        void UseFallbackIfAny()
+        private void UseFallbackIfAny()
         {
             if (fallbackSpawnPoint)
+            {
                 transform.position = fallbackSpawnPoint.position;
+                return;
+            }
+                
+            
+            if (GameState.Current != null)
+            {
+                var data = GameState.Current;
+                if (data.lastScene == SceneManager.GetActiveScene().name && data.playerX != 0 && data.playerY != 0)
+                {
+                    transform.position = new Vector3(data.playerX, data.playerY, transform.position.z);
+                    Debug.Log($"[PlayerSceneRestore] ¥”¥Êµµª÷∏¥ÕÊº“Œª÷√ {transform.position}");
+                }
+            }
         }
     }
 }

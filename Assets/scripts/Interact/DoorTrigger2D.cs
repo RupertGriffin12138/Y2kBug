@@ -28,7 +28,8 @@ namespace Interact
 
         [Header("获得文档 ID（会自动打开阅读界面）")]
         public string docId = "doc_final";
-        
+
+        public GameObject trigger;
         private bool triggered;
         private DocInventoryLite docInventory;
         private DocDB docDB;
@@ -51,6 +52,9 @@ namespace Interact
 
         private IEnumerator MainFlow()
         {
+            
+            Destroy(trigger);
+            
             if (player)
             {
                 player.LockControl();

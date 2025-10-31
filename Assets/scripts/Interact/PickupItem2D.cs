@@ -83,10 +83,11 @@ namespace Interact
                 GameState.LoadGameOrNew(SceneManager.GetActiveScene().name);
 
             // 读档应用：若该对象已被禁用，直接隐藏并不再工作
-            if (tag && !string.IsNullOrEmpty(tag.id) && GameState.IsObjectDisabled(tag.id))
+            if (GameState.HasItem(itemId))
             {
-                gameObject.SetActive(false);
+                Destroy(gameObject);
                 _consumed = true;
+                return;
             }
             if (!player)
                 player = FindObjectOfType<Player>();

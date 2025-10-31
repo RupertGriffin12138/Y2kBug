@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,7 +23,12 @@ namespace Items
         //[Header("Debug")]
         //public bool debugLog = true; // [DBG]
 
-        void OnEnable()
+        private void Start()
+        {
+            if (!inventory) inventory = FindObjectOfType<InventoryLite>(true);
+        }
+
+        private void OnEnable()
         {
             if (!inventory) inventory = FindObjectOfType<InventoryLite>();
             if (!itemDB && inventory) itemDB = inventory.itemDB;
@@ -48,7 +54,7 @@ namespace Items
             Refresh();
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             if (inventory) inventory.OnChanged -= Refresh;     // [MOD]
         }

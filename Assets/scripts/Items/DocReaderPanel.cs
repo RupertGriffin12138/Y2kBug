@@ -1,3 +1,6 @@
+using System;
+using Characters.PLayer_25D;
+using Characters.Player;
 using TMPro;
 using UnityEngine;
 
@@ -11,9 +14,42 @@ namespace Items
         [Header("UI 引用")]
         public GameObject rootPanel;     // 整个 TextPage 面板（含 ScrollView）
         public TMP_Text contentText;     // ScrollView/Viewport/Content 上的 TMP_Text
+        
+        private Player player;
+        private PlayerMovement playerMovement;
         private void Awake()
         {
             if (rootPanel) rootPanel.SetActive(false);
+        }
+
+        private void Start()
+        {
+            // 自动查找玩家
+            player = FindObjectOfType<Player>();
+            playerMovement = FindObjectOfType<PlayerMovement>();
+
+            rootPanel = gameObject;
+        }
+        
+        private void Update()
+        {
+            // ESC 自动关闭
+            if (rootPanel && rootPanel.activeSelf && Input.GetKeyDown(KeyCode.Escape))
+            {
+                Close();
+            }
+        }
+
+        private void OnEnable()
+        {
+            if (player) player.LockControl();
+            if (playerMovement) playerMovement.LockControl();
+        }
+
+        private void OnDisable()
+        {
+            if (player) player.UnlockControl();
+            if (playerMovement) playerMovement.UnlockControl(); 
         }
 
         /// <summary>通过 id 打开（供 DocUI、拾取脚本等调用）</summary>
