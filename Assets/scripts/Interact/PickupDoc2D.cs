@@ -207,6 +207,16 @@ namespace Interact
                     while (readerPanel.rootPanel.activeSelf)
                         yield return null;
                 }
+                
+                // 锁住玩家移动
+                if (player)
+                {
+                    player.LockControl();
+                }
+                if (playerMovement)
+                {
+                    playerMovement.LockControl();
+                }
 
                 if (logDebug) Debug.Log("[PickupDoc2D] 文档阅读器关闭");
             }

@@ -728,7 +728,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &204295614
 Transform:
   m_ObjectHideFlags: 0
@@ -2328,13 +2328,13 @@ MonoBehaviour:
   itemId: second_hand
   itemAmount: 1
   showToast: 1
-  docId: note1
+  docId: teach
   showDocToast: 1
   debugDialogueLines:
   - "\u65C1\u767D: \u4F60\u83B7\u5F97\u4E86\u4E00\u4EF6\u5947\u602A\u7684\u4E1C\u897F\u2026\u2026"
   - "\u59DC\u5B81: \u8FD9\u662F\u4EC0\u4E48\uFF1F"
   - "\u795D\u6986: \u770B\u8D77\u6765\u50CF\u4E00\u628A\u94A5\u5319\u3002"
-  autoUnlockBackpack: 0
+  autoUnlockBackpack: 1
   clearSaveBeforeTest: 0
 --- !u!4 &760125564
 Transform:
@@ -2365,7 +2365,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 882246101725789790, guid: f66e56bf725174443806ce42dae64bc0, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1778377025715846956, guid: f66e56bf725174443806ce42dae64bc0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2562,7 +2562,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2442323815896114703, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6608310405445564695, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
       propertyPath: m_Size.x
@@ -2892,7 +2892,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &936400990
 Transform:
   m_ObjectHideFlags: 0
@@ -4015,7 +4015,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entries:
   - id: second_hand
-    count: 1
+    count: 3
   itemDB: {fileID: 11400000, guid: 7b1b3d2fd4a6c2a46a4463c4eacc5404, type: 2}
   totalSlotCount: 6
   progress: {fileID: 11400000, guid: c10ef93731561c946846b50d79c73a82, type: 2}
@@ -4034,7 +4034,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96a86e11b19b3484eb92930d9d18026f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entries: []
+  entries:
+  - id: note1
+    count: 1
+  - id: note2
+    count: 1
+  - id: diary1
+    count: 1
+  - id: diary2
+    count: 1
+  - id: notice
+    count: 1
+  - id: teach
+    count: 1
   docDB: {fileID: 11400000, guid: a122c4447f9aefd4c9a79aa9f14434b6, type: 2}
   useGameStateSource: 1
 --- !u!114 &1407957341
@@ -5229,7 +5241,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1894339270
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7302,7 +7314,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &897338257048599469
 RectTransform:
   m_ObjectHideFlags: 0
