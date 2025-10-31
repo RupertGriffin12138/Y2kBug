@@ -1387,7 +1387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cb03e964b0647f39602269ed382b526, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnerId: campus_spawn_006
+  spawnerId: campus_spawn_0012312
   targetObject: {fileID: 1105283849}
   requiredItemIds:
   - key_school_door
@@ -2325,7 +2325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18acd6f75684d72b52eda0596f612a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: key001
+  itemId: second_hand
   itemAmount: 1
   showToast: 1
   docId: note1
@@ -2362,6 +2362,10 @@ PrefabInstance:
     - target: {fileID: 882246101725789790, guid: f66e56bf725174443806ce42dae64bc0, type: 3}
       propertyPath: m_Name
       value: second_hand
+      objectReference: {fileID: 0}
+    - target: {fileID: 882246101725789790, guid: f66e56bf725174443806ce42dae64bc0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1778377025715846956, guid: f66e56bf725174443806ce42dae64bc0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2556,6 +2560,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Doc_PickupNote2
       objectReference: {fileID: 0}
+    - target: {fileID: 2442323815896114703, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6608310405445564695, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
       propertyPath: m_Size.x
       value: 2.1080127
@@ -2706,7 +2714,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc96f4212144cfc46aae86aaa96bd2b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: c1s1_campus.pickup.Doc_note1112_(2af9bf)
+  id: c1s1_campus.pickup.Doc_note1231112_(2af9bf)
   categoryHint: pickup
 --- !u!1 &900858566
 GameObject:
@@ -2820,7 +2828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cb03e964b0647f39602269ed382b526, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnerId: campus_spawn_005
+  spawnerId: campus_spawn_00877
   targetObject: {fileID: 1894339269}
   requiredItemIds: []
   requiredDocIds: []
@@ -3278,7 +3286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cb03e964b0647f39602269ed382b526, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnerId: campus_spawn_006
+  spawnerId: campus_spawn_00567
   targetObject: {fileID: 550480204}
   requiredItemIds:
   - second_hand
@@ -3390,7 +3398,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &1105283850
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3622,6 +3630,7 @@ MonoBehaviour:
     content: "\uFF08\u5E0C\u671B\u63A5\u4E0B\u6765\u7684\u8DEF\uFF0C\u4E0D\u8981\u518D\u9047\u4E0A\u4EC0\u4E48\u602A\u4E1C\u897F\u4E86......\uFF09"
   toggleObjectTrigger: {fileID: 1105283852}
   docId: service
+  trigger: {fileID: 1105283849}
 --- !u!4 &1198593645
 Transform:
   m_ObjectHideFlags: 0
@@ -3678,20 +3687,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1221566465}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cb03e964b0647f39602269ed382b526, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a7dee853dea49a9ab7e3597de49f5a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnerId: campus_spawn_006
-  targetObject: {fileID: 1850017002}
-  requiredItemIds: []
-  requiredDocIds: []
-  requiredDialogueIds:
-  - img_0011
-  requireBackpackUnlocked: 1
-  useOrLogic: 0
-  invertCondition: 0
-  markOnce: 1
-  enableRealtimeCheck: 1
+  guard: {fileID: 1850017002}
+  guardTrigger: {fileID: 936400989}
 --- !u!1 &1224401166
 GameObject:
   m_ObjectHideFlags: 0
@@ -4013,7 +4013,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8606b5768c0dcb94caca32c793f02429, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entries: []
+  entries:
+  - id: second_hand
+    count: 1
   itemDB: {fileID: 11400000, guid: 7b1b3d2fd4a6c2a46a4463c4eacc5404, type: 2}
   totalSlotCount: 6
   progress: {fileID: 11400000, guid: c10ef93731561c946846b50d79c73a82, type: 2}
@@ -4724,7 +4726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cb03e964b0647f39602269ed382b526, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnerId: campus_spawn_002
+  spawnerId: campus_spawn_002aa
   targetObject: {fileID: 822914235}
   requiredItemIds: []
   requiredDocIds:
@@ -7300,7 +7302,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &897338257048599469
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8502,7 +8504,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7030352197115808518}
-  - component: {fileID: 7030352197115808519}
   m_Layer: 5
   m_Name: GameUI
   m_TagString: Untagged
@@ -10336,7 +10337,7 @@ MonoBehaviour:
   menuSceneName: MainMenu
   toggleKey: 27
   pauseAudio: 0
-  player: {fileID: 0}
+  playerPos: {fileID: 0}
   savePlayerPos: 1
   defaultSaveKey: SaveSlot_1
   isBoard: 0
@@ -12638,6 +12639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7baf0ddcb9a7e074eb01bf690e5655df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mode: 0
   saveDetailPanel: {fileID: 8680262869852629650}
   saveButtons:
   - {fileID: 180862021233162894}
@@ -15818,12 +15820,12 @@ MonoBehaviour:
   - {fileID: 7358662612212925754}
   - {fileID: 4039871711516158937}
   - {fileID: 102716977}
-  moveSpeedMin: 60
-  moveSpeedMax: 100
-  lifetimeMin: 1
-  lifetimeMax: 2
-  spawnIntervalMin: 0.1
-  spawnIntervalMax: 1
+  moveSpeedMin: 100
+  moveSpeedMax: 150
+  lifetimeMin: 0.5
+  lifetimeMax: 1.2
+  spawnIntervalMin: 0.3
+  spawnIntervalMax: 0.6
   defaultTypeDelay: 0.05
   lockPlayerDuringDialogue: 1
   isShowingDialogue: 0
@@ -16393,18 +16395,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7030352197115808519
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1861851585071764616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76f1b391fba59174b85c6263f6b4f677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!222 &7049046059649597186
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18251,7 +18241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc96f4212144cfc46aae86aaa96bd2b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: c1s1_campus.pickup.Item_uniform_(e4f2ac)
+  id: c1s1_campus.pickup.Item_unifo11rm_(e4f2ac)
   categoryHint: pickup
 --- !u!114 &8130607895543277825
 MonoBehaviour:

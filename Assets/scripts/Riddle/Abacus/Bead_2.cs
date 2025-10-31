@@ -39,6 +39,9 @@ namespace Riddle.Abacus
                     clickCount[i, j] = 0;
                 }
             }
+            
+            InfoDialogUI.Instance.ShowMessage("（桌子上好像刻着什么东西，要试试拨算盘吗。）");
+            InfoDialogUI.Instance.ShowDefaultCharacter();
 
 
         }

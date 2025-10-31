@@ -85,10 +85,12 @@ namespace Interact
             if (GameState.Current == null)
                 GameState.LoadGameOrNew(SceneManager.GetActiveScene().name);
 
-            if (tag && !string.IsNullOrEmpty(tag.id) && GameState.IsObjectDisabled(tag.id))
+            // 如果存档中已收录该文档，就直接销毁
+            if (GameState.HasCollectedDoc(docId))
             {
-                gameObject.SetActive(false);
+                Destroy(gameObject);
                 _consumed = true;
+                return;
             }
 
             player = FindObjectOfType<Player>();

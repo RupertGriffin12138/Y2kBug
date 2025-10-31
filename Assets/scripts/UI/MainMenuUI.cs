@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.IO;
 using Save;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -18,7 +19,7 @@ namespace UI
         public GameObject settingsPanel;   // 设置菜单面板
         public GameObject loadPanel;       // 槽位选择面板（8槽）
         public GameObject confirmPanel;    // 确认对话框（Yes/No）
-        public Text confirmText;           // 确认提示文本
+        public TextMeshProUGUI confirmText;           // 确认提示文本
 
         [Header("Buttons")]
         public Button newGameButton;
@@ -93,6 +94,10 @@ namespace UI
 
             RefreshContinueButtonState();
             RefreshSlotsUI();
+            
+            // 检查是否有存档
+            bool hasSave = HasExistingSave(0);
+            continueButton.interactable = hasSave;
         }
 
         void Update()
@@ -145,21 +150,93 @@ namespace UI
         // ========= 主按钮：继续游戏（打开槽位面板/读取） =========
         void OnContinueClicked()
         {
+            if (loadPanel)
+            {
+                loadPanel.SetActive(true);
+                if (bottomGroup) bottomGroup.SetActive(false);
+                RefreshSlotsUI();
+            }
         }
 
         // ========= 清档：示例全清 =========
         void OnClearSaveClicked()
         {
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.Save();
         }
 
         // ========= 槽位按钮点击 =========
         void OnClickSlot(int index)
         {
+            bool has = HasExistingSave(index);
+            pendingIndex = index;
+
+            if (has)
+            {
+                // 已有存档 → 询问是否读取
+                string info = GetSlotInfo(index);
+                confirmText.text = $"确定读取此存档？\n{info}";
+                confirmPanel.SetActive(true);
+            }
+            else
+            {
+                // 无存档 → 询问是否开始新游戏
+                confirmText.text = $"该槽为空，是否开始新游戏？";
+                confirmPanel.SetActive(true);
+            }
         }
 
         // ========= 确认：读取并进入存档 =========
+        // ========= 确认 Yes 按钮逻辑 =========
         void OnConfirmYes()
         {
+            confirmPanel.SetActive(false);
+            
+
+
+            // --- 特殊情况：全清 ---
+            if (pendingIndex == -99)
+            {
+                for (int i = 0; i < 8; i++)
+                    WipeSlot(i);
+                PlayerPrefs.Save();
+                RefreshSlotsUI();
+                ShowTransientMessage("所有存档已清除。");
+                pendingIndex = -1;
+                return;
+            }
+
+            int idx = pendingIndex;
+            if (idx < 0 || idx >= 8)
+            {
+                Debug.LogWarning("[MainMenuUI] 无效槽位索引。");
+                return;
+            }
+
+            UseSlot(idx); // 切换后端指向该槽位
+
+            bool has = HasExistingSave(idx);
+            if (has)
+            {
+                // === 加载旧档 ===
+                GameState.LoadGameOrNew(firstSceneName);
+                string scene = GameState.Current?.lastScene ?? firstSceneName;
+
+                SaveSlotContext.CurrentKey = GetSlotKey(idx);
+                ShowTransientMessage($"正在载入存档槽 {idx + 1}...");
+                StartCoroutine(LoadSceneAfterDelay(scene, 0.2f));
+            }
+            else
+            {
+                // === 新游戏 ===
+                GameState.NewGame(firstSceneName);
+                GameState.SaveNow();
+                SaveMeta(idx, firstSceneName, DateTime.Now);
+
+                SaveSlotContext.CurrentKey = GetSlotKey(idx);
+                ShowTransientMessage($"正在创建新游戏（槽 {idx + 1}）...");
+                StartCoroutine(LoadSceneAfterDelay(firstSceneName, 0.2f));
+            }
         }
 
         // ========= 设置面板 =========

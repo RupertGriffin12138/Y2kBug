@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Save;
 using Scene;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -81,6 +82,10 @@ public class Final : MonoBehaviour
 
         // Step 3: 停留几秒
         yield return new WaitForSeconds(waitAfterText);
+        
+        //  清空存档
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
         
         SceneManager.LoadScene(targetScene);
         

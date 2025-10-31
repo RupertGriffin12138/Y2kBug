@@ -20,30 +20,7 @@ namespace Audio
             audioSources = new Dictionary<string, GameObject>();
 
         }
-        private void Update()
-        {
-
-            if (AudioClipHelper.Instance != null)
-            {
-                if (Input.GetKeyDown(KeyCode.H))
-                    AudioClipHelper.Instance.Play_UIHover();
-
-                if (Input.GetKeyDown(KeyCode.J))
-                    AudioClipHelper.Instance.Play_UIClick();
-
-                if (Input.GetKeyDown(KeyCode.K))
-                    AudioClipHelper.Instance.Play_SuanPan();
-
-                if (Input.GetKeyDown(KeyCode.L))
-                    AudioClipHelper.Instance.Play_IronCabinet();
-            }
-
-            else
-            {
-                Debug.LogWarning("AudioClipHelper Instance is not available.");
-            }
-
-        }
+ 
 
         public void StopBGM()
         {

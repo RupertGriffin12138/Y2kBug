@@ -1,9 +1,13 @@
 using System;
 using System.Collections;
+using Characters.PLayer_25D;
+using Characters.Player;
 using Save;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UI
@@ -26,12 +30,14 @@ namespace UI
         public bool pauseAudio = true;
 
         [Header("Save Config")]
-        public Transform player;          // 可选：保存玩家坐标
+        public Transform playerPos;          // 可选：保存玩家坐标
         public bool savePlayerPos = true; // 勾选则保存玩家2D坐标
         [Tooltip("如果没有从主菜单设置 SaveSlotContext.CurrentKey，则使用此默认槽键。例：SaveSlot_1")]
         public string defaultSaveKey = "SaveSlot_1";
 
         private bool isPaused;
+        private Player player;
+        private PlayerMovement playerMovement;
 
         public bool isBoard=false;
 
@@ -40,6 +46,26 @@ namespace UI
             // 初始隐藏
             if (pausePanel) pausePanel.SetActive(false);
             if (settingsPanel) settingsPanel.SetActive(false);
+
+            if (!player)
+            {
+                player = FindObjectOfType<Player>();
+            }
+
+            if (!playerMovement)
+            {
+                playerMovement = FindObjectOfType<PlayerMovement>();
+            }
+
+            if (player)
+            {
+                playerPos = player.transform;
+            }
+
+            if (playerMovement)
+            {
+                playerPos = playerMovement.transform;
+            }
 
             // 绑定按钮
             if (btnBackToGame) btnBackToGame.onClick.AddListener(ResumeGame);
@@ -118,7 +144,44 @@ namespace UI
 
         private void BackToMenu()
         {
+            // 1) 若当前正暂停，则先恢复时间流动
+            Time.timeScale = 1f;
+            if (pauseAudio) AudioListener.pause = false;
+            isPaused = false;
 
+            // 2) 隐藏所有暂停界面
+            if (pausePanel) pausePanel.SetActive(false);
+            if (settingsPanel) settingsPanel.SetActive(false);
+
+            // 3) 自动保存一次当前进度（避免退出前丢进度）
+            if (GameState.Current == null)
+                GameState.LoadGameOrNew(SceneManager.GetActiveScene().name);
+
+            GameState.Current.lastScene = SceneManager.GetActiveScene().name;
+            if (savePlayerPos && playerPos != null)
+            {
+                GameState.Current.playerX = playerPos.position.x;
+                GameState.Current.playerY = playerPos.position.y;
+            }
+
+            string slotKey = !string.IsNullOrEmpty(SaveSlotContext.CurrentKey)
+                ? SaveSlotContext.CurrentKey
+                : defaultSaveKey;
+
+            SaveManager.UsePlayerPrefs(slotKey);
+            GameState.SaveNow();
+
+            PlayerPrefs.SetString(slotKey + "_metaScene", GameState.Current.lastScene ?? "");
+            PlayerPrefs.SetString(slotKey + "_metaTime", DateTime.Now.ToString("yyyy-MM-dd HH:mm"));
+            PlayerPrefs.Save();
+
+            // 4) 清理鼠标状态
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+
+            // 直接切换
+            SceneManager.LoadScene(menuSceneName);
+                
         }
 
         public void OpenSettings()
@@ -156,16 +219,21 @@ namespace UI
         // =========================
         private void SaveNowToCurrentSlot()
         {
+            if (SceneManager.GetActiveScene().name == "MainMenu")
+            {
+                Debug.LogWarning("[SavePanelUI] 主菜单中禁止存档。");
+                return;
+            }
             // 1) 确保 GameState 存在
             if (GameState.Current == null)
                 GameState.LoadGameOrNew(SceneManager.GetActiveScene().name);
 
             // 2) 写入当前场景名与（可选）玩家坐标
             GameState.Current.lastScene = SceneManager.GetActiveScene().name;
-            if (savePlayerPos && player != null)
+            if (savePlayerPos && playerPos != null)
             {
-                GameState.Current.playerX = player.position.x;
-                GameState.Current.playerY = player.position.y;
+                GameState.Current.playerX = playerPos.position.x;
+                GameState.Current.playerY = playerPos.position.y;
             }
 
             // 3) 选择当前存档槽 Key
@@ -181,10 +249,7 @@ namespace UI
             PlayerPrefs.SetString(slotKey + "_metaScene", GameState.Current.lastScene ?? "");
             PlayerPrefs.SetString(slotKey + "_metaTime", DateTime.Now.ToString("yyyy-MM-dd HH:mm"));
             PlayerPrefs.Save();
-
-            // 6) 反馈提示
-            if (InfoDialogUI.Instance)
-                InfoDialogUI.Instance.ShowMessage($"已保存到当前存档：{slotKey}");
+            
         }
     }
 }
