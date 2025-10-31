@@ -2733,7 +2733,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -8880,7 +8880,7 @@ MonoBehaviour:
   menuSceneName: MainMenu
   toggleKey: 27
   pauseAudio: 0
-  player: {fileID: 0}
+  playerPos: {fileID: 0}
   savePlayerPos: 1
   defaultSaveKey: SaveSlot_1
   isBoard: 0
@@ -11153,6 +11153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7baf0ddcb9a7e074eb01bf690e5655df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mode: 0
   saveDetailPanel: {fileID: 8680262871183571157}
   saveButtons:
   - {fileID: 180862020471138505}

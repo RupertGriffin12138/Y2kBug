@@ -2,6 +2,7 @@ using System;
 using Characters.PLayer_25D;
 using Characters.Player;
 using TMPro;
+using UI;
 using UnityEngine;
 
 namespace Items
@@ -48,6 +49,7 @@ namespace Items
 
         private void OnDisable()
         {
+          
             if (player) player.UnlockControl();
             if (playerMovement) playerMovement.UnlockControl(); 
         }
