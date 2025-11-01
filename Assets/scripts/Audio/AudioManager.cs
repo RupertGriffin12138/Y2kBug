@@ -131,27 +131,28 @@ namespace Audio
         }
         public void StopSoundEffect(AudioClip clip)
         {
-            if (clip != null /**&& Model.IsSoundOpen**/)
+            if (!clip)
             {
-                if (!audioSources.ContainsKey(clip.name))
-                {
-                    //CreatAudioObj(clip);
-                }
-
-                audioSources[clip.name].GetComponent<AudioSource>().Stop();
+                Debug.LogWarning("[AudioManager] StopSoundEffect: clip is null.");
+                return;
             }
-            else
+            string key = clip.name;
+            if (!audioSources.ContainsKey(key))
             {
-                Debug.LogWarning("clip  is not available.");
+                Debug.Log($"[AudioManager] StopSoundEffect: 无法找到音效 '{key}'。");
+                return; 
             }
+            var src = audioSources[key].GetComponent<AudioSource>();
+            if (src.isPlaying)
+                src.Stop();
         }
         public void StopAllAudio()
         {
-            for (int i = 0; i < soundEffect.Count; i++)
+            foreach (var t in soundEffect)
             {
-                if (soundEffect[i].GetComponent<AudioSource>().isPlaying)
+                if (t.GetComponent<AudioSource>().isPlaying)
                 {
-                    soundEffect[i].GetComponent<AudioSource>().Stop();
+                    t.GetComponent<AudioSource>().Stop();
                 }
             }
         }
@@ -191,7 +192,7 @@ namespace Audio
         //}
 
 
-        private void OnBGMSwtich(bool isBGMOpen)
+        private void OnBGMSwitch(bool isBGMOpen)
         {
             _bgmSource.enabled = isBGMOpen;
         }

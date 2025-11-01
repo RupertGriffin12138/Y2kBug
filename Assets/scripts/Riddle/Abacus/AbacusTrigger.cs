@@ -36,6 +36,8 @@ namespace Riddle.Abacus
             {
                 playerMovement = FindObjectOfType<PlayerMovement>();
             }
+
+            CheckSolvedStatus();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -78,7 +80,30 @@ namespace Riddle.Abacus
                     InfoDialogUI.Instance.HideArrow();
                     InfoDialogUI.Instance.ShowMessage("正在进入…");
                 }
+                
+                //  根据触发器名字或自定义字段写入 ID
+                string id = gameObject.name switch
+                {
+                    "算盘1" => "1",
+                    "算盘2" => "2",
+                    "算盘3" => "3",
+                    "算盘4" => "4",
+                    _ => "1"
+                };
+                
+                // 对应回教室坐标（将来返回点）
+                Vector3 backPos = id switch
+                {
+                    "1" => new Vector3(1.7f, 2.62f),
+                    "2" => new Vector3(4.22f, -1.3f),
+                    "3" => new Vector3(9.38f, 2.62f),
+                    "4" => new Vector3(12.18f, 0.54f),
+                    _ => Vector3.zero
+                };
+                
+                AbacusBuffer.Set(id, backPos); // 写入缓冲器
 
+                // 切换场景
                 var fade = FindObjectOfType<SceneFadeEffect>();
                 if (fade)
                     fade.FadeOutAndLoad(targetScene, 0.5f, 1f);
@@ -86,39 +111,26 @@ namespace Riddle.Abacus
                     UnityEngine.SceneManagement.SceneManager.LoadScene(targetScene);
             }
 
-            if (gameObject.name == "算盘1" && PlayerPrefs.GetInt("AbacusSolved1", 0) == 1)
+            // 隐藏已完成的算盘
+            CheckSolvedStatus();
+        }
+        
+        private void CheckSolvedStatus()
+        {
+            string id = gameObject.name switch
             {
+                "算盘1" => "1",
+                "算盘2" => "2",
+                "算盘3" => "3",
+                "算盘4" => "4",
+                _ => "1"
+            };
+
+            if (PlayerPrefs.GetInt($"AbacusSolved_{id}", 0) == 1)
+            {
+                Debug.Log($"[AbacusTrigger] 算盘{id} 已解锁，自动隐藏。");
                 gameObject.SetActive(false);
             }
-            if (gameObject.name == "算盘2" && PlayerPrefs.GetInt("AbacusSolved2", 0) == 1)
-            {
-                gameObject.SetActive(false);
-            }
-            if (gameObject.name == "算盘3" && PlayerPrefs.GetInt("AbacusSolved3", 0) == 1)
-            {
-                gameObject.SetActive(false);
-            }
-            if (gameObject.name == "算盘4" && PlayerPrefs.GetInt("AbacusSolved4", 0) == 1)
-            {
-                gameObject.SetActive(false);
-            }
-            /*if (gameObject.name == "算盘1")
-            {
-                playerMovement.transform.position = new Vector3(1.7f,2.62f);
-            }
-            if (gameObject.name == "算盘2")
-            {
-                playerMovement.transform.position = new Vector3(4.22f,-1.3f);
-            }
-            if (gameObject.name == "算盘3")
-            {
-                playerMovement.transform.position = new Vector3(9.38f,2.62f);
-            }
-            if (gameObject.name == "算盘4")
-            {
-                playerMovement.transform.position = new Vector3(12.18f,0.54f);
-            }*/
-            
         }
     }
 }

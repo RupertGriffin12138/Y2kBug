@@ -1198,7 +1198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f13e41a815a4d3e819348aebfe907de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetScene: Riddle abacus_3
+  targetScene: Riddle abacus
   interactHint: "\u6309 <b>E</b> \u4EA4\u4E92"
   playerTag: Player
 --- !u!61 &562324029
@@ -3508,7 +3508,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f13e41a815a4d3e819348aebfe907de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetScene: Riddle abacus_4
+  targetScene: Riddle abacus
   interactHint: "\u6309 <b>E</b> \u4EA4\u4E92"
   playerTag: Player
 --- !u!61 &1679533963
@@ -3712,7 +3712,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f13e41a815a4d3e819348aebfe907de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetScene: Riddle abacus_1
+  targetScene: Riddle abacus
   interactHint: "\u6309 <b>E</b> \u4EA4\u4E92"
   playerTag: Player
 --- !u!61 &1823278934
@@ -5062,7 +5062,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f13e41a815a4d3e819348aebfe907de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetScene: Riddle abacus_2
+  targetScene: Riddle abacus
   interactHint: "\u6309 <b>E</b> \u4EA4\u4E92"
   playerTag: Player
 --- !u!61 &2146429000
