@@ -40,8 +40,14 @@ namespace Riddle.Abacus
 
             if (allSolved && targetObject && !targetObject.activeSelf && !GameState.HasReadDoc("teach"))
             {
-                Debug.Log("[AbacusMasterChecker] 全部算盘谜题已解开，激活目标对象！");
-                AudioClipHelper.Instance.Play_WoodenStructure();
+                // --- 防止重复播放（永久） ---
+                if (PlayerPrefs.GetInt("AbacusMaster_WoodenPlayed", 0) == 0)
+                {
+                    Debug.Log("[AbacusMasterChecker] 全部算盘谜题已解开，激活目标对象并播放音效！");
+                    AudioClipHelper.Instance.Play_WoodenStructure();
+                    PlayerPrefs.SetInt("AbacusMaster_WoodenPlayed", 1); // 标记已播放
+                    PlayerPrefs.Save();
+                }
                 targetObject.SetActive(true);
             }
 
