@@ -161,10 +161,10 @@ namespace Save
 
             if (GUILayout.Button("解密四个算盘"))
             {
-                PlayerPrefs.SetInt("AbacusSolved1", 1);
-                PlayerPrefs.SetInt("AbacusSolved2", 1);
-                PlayerPrefs.SetInt("AbacusSolved3", 1);
-                PlayerPrefs.SetInt("AbacusSolved4", 1);
+                PlayerPrefs.SetInt("AbacusSolved_1", 1);
+                PlayerPrefs.SetInt("AbacusSolved_2", 1);
+                PlayerPrefs.SetInt("AbacusSolved_3", 1);
+                PlayerPrefs.SetInt("AbacusSolved_4", 1);
                 PlayerPrefs.Save();
                 Debug.Log("[GameStateDebugger] 已解密算盘");
             }
