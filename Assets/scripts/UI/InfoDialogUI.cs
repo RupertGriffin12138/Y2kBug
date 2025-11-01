@@ -42,9 +42,6 @@ namespace UI
         [Header("打印机动画参数")]
         [Tooltip("每个字符的延时（秒）")]
         public float defaultTypeDelay = 0.05f;
-        
-        [Header("控制选项")]
-        public bool lockPlayerDuringDialogue = true;
 
         private Coroutine typeRoutine;
         private List<(string speaker, string content)> currentLines;
@@ -62,7 +59,6 @@ namespace UI
         private Coroutine _dialogueRoutine;
 
         private bool isPaused = false;
-        private bool waitingForResume = false;
         
         private bool isDefaultShown;
         
@@ -177,12 +173,6 @@ namespace UI
             lineFullyShown = true;
             ShowArrow();
             typeRoutine = null;
-
-            // 如果此时处于暂停状态，则停止自动推进
-            if (isPaused)
-            {
-                waitingForResume = true;
-            }
         }
 
         private void HandleInputAction()
@@ -214,8 +204,6 @@ namespace UI
         {
             if (!isPaused) return;
             isPaused = false;
-
-            waitingForResume = false; // 只是清除标志位
         }
         
         /// <summary>

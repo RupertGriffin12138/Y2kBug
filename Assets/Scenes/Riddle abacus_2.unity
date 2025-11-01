@@ -184,6 +184,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f635f22e8894a47acc487593d5a272, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  backScene: C1CJC
+  returnPosition: {x: 4.22, y: -1.3, z: 0}
 --- !u!4 &82527149
 Transform:
   m_ObjectHideFlags: 0

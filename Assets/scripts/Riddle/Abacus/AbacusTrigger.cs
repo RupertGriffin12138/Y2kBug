@@ -1,5 +1,4 @@
 ﻿using Characters.PLayer_25D;
-using Characters.Player;
 using Scene;
 using UI;
 using UnityEngine;
@@ -90,23 +89,35 @@ namespace Riddle.Abacus
             if (gameObject.name == "算盘1" && PlayerPrefs.GetInt("AbacusSolved1", 0) == 1)
             {
                 gameObject.SetActive(false);
-                playerMovement.transform.position = new Vector3(1.7f,2.62f);
             }
             if (gameObject.name == "算盘2" && PlayerPrefs.GetInt("AbacusSolved2", 0) == 1)
             {
                 gameObject.SetActive(false);
-                playerMovement.transform.position = new Vector3(4.22f,-1.3f);
             }
             if (gameObject.name == "算盘3" && PlayerPrefs.GetInt("AbacusSolved3", 0) == 1)
             {
                 gameObject.SetActive(false);
-                playerMovement.transform.position = new Vector3(9.38f,2.62f);
             }
             if (gameObject.name == "算盘4" && PlayerPrefs.GetInt("AbacusSolved4", 0) == 1)
             {
                 gameObject.SetActive(false);
-                playerMovement.transform.position = new Vector3(12.18f,0.54f);
             }
+            /*if (gameObject.name == "算盘1")
+            {
+                playerMovement.transform.position = new Vector3(1.7f,2.62f);
+            }
+            if (gameObject.name == "算盘2")
+            {
+                playerMovement.transform.position = new Vector3(4.22f,-1.3f);
+            }
+            if (gameObject.name == "算盘3")
+            {
+                playerMovement.transform.position = new Vector3(9.38f,2.62f);
+            }
+            if (gameObject.name == "算盘4")
+            {
+                playerMovement.transform.position = new Vector3(12.18f,0.54f);
+            }*/
             
         }
     }

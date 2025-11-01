@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Riddle.Abacus
 {
-    public class Bead_1 : MonoBehaviour
+    public sealed class Bead_1 : MonoBehaviour
     {
         #region Components
         public Animator anim { get; private set; }
@@ -14,10 +14,10 @@ namespace Riddle.Abacus
         #endregion
 
         private int frameNum;
-        private int[] lineNum = new int[2];
+        private readonly int[] lineNum = new int[2];
 
         //算盘珠位置记录，检测是否是正确位置解密
-        private int[,] beadRecord = new int[9, 2];
+        private readonly int[,] beadRecord = new int[9, 2];
         [SerializeField] private bool isSolved = false;
 
         private GameObject[] upperObjects;
@@ -25,7 +25,7 @@ namespace Riddle.Abacus
         public int[,] clickCount = new int[10, 3];
 
 
-        protected virtual void Start()
+        private void Start()
         {
             anim = GetComponentInChildren<Animator>();
 
@@ -79,7 +79,7 @@ namespace Riddle.Abacus
             }
         }
 
-        protected virtual void Update()
+        private void Update()
         {
             lineNumCount();
             frameNumCount();
@@ -134,13 +134,16 @@ namespace Riddle.Abacus
         {
             yield return new WaitForSeconds(1f); // 等待 1 秒
 
-            var fade = FindObjectOfType<Scene.SceneFadeEffect>();
-            if (fade)
+            // 找到 AbacusBack 并让它统一处理回去
+            var back = FindObjectOfType<AbacusBack>();
+            if (back)
             {
-                fade.FadeOutAndLoad("C1CJC", 0.5f, 1f); // 改成你要去的场景名
+                // 如果不同算盘要不同落点，可以改成 back.ReturnToClassroom(某个自定义坐标);
+                back.ReturnToClassroom(back.returnPosition);
             }
             else
             {
+                // 兜底：找不到就直接载入
                 UnityEngine.SceneManagement.SceneManager.LoadScene("C1CJC");
             }
         }
