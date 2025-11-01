@@ -1,13 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Characters.PLayer_25D;
 using Characters.Player;
-using Items;
-using Save;
 using Scene;
 using UI;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Interact
 {
@@ -30,18 +26,11 @@ namespace Interact
         public string docId = "doc_final";
 
         public GameObject trigger;
-        private bool triggered;
-        private DocInventoryLite docInventory;
-        private DocDB docDB;
-        private DocReaderPanel readerPanel;
 
         private Player player;
 
         private void Start()
         {
-            docInventory = FindObjectOfType<DocInventoryLite>();
-            docDB = docInventory ? docInventory.docDB : FindObjectOfType<DocDB>();
-            readerPanel = FindObjectOfType<DocReaderPanel>(true);
             player = FindObjectOfType<Player>();
         }
 
@@ -62,7 +51,6 @@ namespace Interact
             
             toggleObjectTrigger.gameObject.SetActive(false);
             
-            triggered = true;
             InfoDialogUI.Instance?.HideArrow();
 
             // === 播放对白 ===

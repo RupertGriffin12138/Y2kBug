@@ -49,10 +49,7 @@ namespace Dialog
         public AudioSource audioSource;
         public AudioClip[] dialogueSfx;
         public Animation[] dialogueAnimations;
-
-        private bool talking;
         private bool dialogueEnded;
-        private Coroutine routine;
         private Player player;
         private PlayerMovement playerMovement;
         private List<(string speaker, string content)> parsedLines;
@@ -79,7 +76,7 @@ namespace Dialog
             playerMovement = FindObjectOfType<PlayerMovement>();
 
             if (playOnStart)
-                routine = StartCoroutine(BeginDialogueFlow());
+                StartCoroutine(BeginDialogueFlow());
 
             if (InfoDialogUI.Instance)
                 InfoDialogUI.Instance.OnLineChanged += HandleLineChanged;
@@ -96,8 +93,6 @@ namespace Dialog
         /// </summary>
         private IEnumerator BeginDialogueFlow()
         {
-            talking = true;
-
             if (lockPlayerDuringDialogue)
             {
                 player?.LockControl();
@@ -118,8 +113,6 @@ namespace Dialog
 
             InfoDialogUI.Instance?.BeginDialogue(parsedLines, OnDialogueEnd);
             yield return new WaitUntil(() => dialogueEnded);
-
-            talking = false;
         }
 
         /// <summary>

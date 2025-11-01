@@ -31,10 +31,10 @@ namespace Riddle.Abacus
         private void CheckAllSolved()
         {
             // 从 PlayerPrefs 读取四个标志（默认为 0）
-            int s1 = PlayerPrefs.GetInt("AbacusSolved1", 0);
-            int s2 = PlayerPrefs.GetInt("AbacusSolved2", 0);
-            int s3 = PlayerPrefs.GetInt("AbacusSolved3", 0);
-            int s4 = PlayerPrefs.GetInt("AbacusSolved4", 0);
+            int s1 = PlayerPrefs.GetInt("AbacusSolved_1", 0);
+            int s2 = PlayerPrefs.GetInt("AbacusSolved_2", 0);
+            int s3 = PlayerPrefs.GetInt("AbacusSolved_3", 0);
+            int s4 = PlayerPrefs.GetInt("AbacusSolved_4", 0);
 
             bool allSolved = (s1 == 1 && s2 == 1 && s3 == 1 && s4 == 1);
 
