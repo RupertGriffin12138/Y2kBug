@@ -4667,6 +4667,7 @@ GameObject:
   m_Component:
   - component: {fileID: 883293113}
   - component: {fileID: 883293112}
+  - component: {fileID: 883293114}
   m_Layer: 0
   m_Name: Scene Dialogue
   m_TagString: Untagged
@@ -4722,6 +4723,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &883293114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883293111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc96f4212144cfc46aae86aaa96bd2b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: scene_dlg_00121123scene_dlg_001
+  categoryHint: pickup
 --- !u!1 &901541546
 GameObject:
   m_ObjectHideFlags: 0
@@ -9191,7 +9206,6 @@ MonoBehaviour:
   spawnIntervalMin: 0.1
   spawnIntervalMax: 1
   defaultTypeDelay: 0.05
-  lockPlayerDuringDialogue: 1
   isShowingDialogue: 0
 --- !u!114 &1482836635
 MonoBehaviour:

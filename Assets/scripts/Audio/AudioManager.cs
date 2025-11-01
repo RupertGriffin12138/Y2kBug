@@ -139,7 +139,6 @@ namespace Audio
             string key = clip.name;
             if (!audioSources.ContainsKey(key))
             {
-                Debug.Log($"[AudioManager] StopSoundEffect: 无法找到音效 '{key}'。");
                 return; 
             }
             var src = audioSources[key].GetComponent<AudioSource>();

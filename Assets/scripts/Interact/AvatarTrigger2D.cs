@@ -9,6 +9,7 @@ using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Audio;
+using Condition;
 
 namespace Interact
 {

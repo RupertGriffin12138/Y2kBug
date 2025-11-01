@@ -8,6 +8,7 @@ using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Audio;
+using Condition;
 
 namespace Interact
 {
@@ -71,7 +72,29 @@ namespace Interact
             if (col) col.isTrigger = true;
             tag = GetComponent<SaveTag>(); // 方便自动挂上
         }
+        
+        private void OnEnable()
+        {
+            // 防重复（防止Destroy后启用）
+            if (_consumed) return;
 
+            // 读档应用：若该对象已被禁用，直接隐藏并不再工作
+            if (GameState.HasItem(itemId))
+            {
+                Destroy(gameObject);
+                _consumed = true;
+                return;
+            }
+
+            if (tag && !string.IsNullOrEmpty(tag.id) && GameState.IsObjectDisabled(tag.id))
+            {
+                gameObject.SetActive(false);
+                _consumed = true;
+            }
+        }
+
+        
+        
         private void Start()
         {
             // 自动补引用
@@ -88,6 +111,16 @@ namespace Interact
                 Destroy(gameObject);
                 _consumed = true;
                 return;
+            }
+
+            if (itemId == "second_hand")
+            {
+                if (tag && !string.IsNullOrEmpty(tag.id) && GameState.IsObjectDisabled(tag.id))
+                {
+                    gameObject.SetActive(false);
+                    _consumed = true;
+                    return;
+                }
             }
             if (!player)
                 player = FindObjectOfType<Player>();
@@ -123,6 +156,16 @@ namespace Interact
 
             if (_playerInRange && Input.GetKeyDown(pickupKey))
                 TryPickup();
+
+            if (PlayerPrefs.GetInt("Clock_2_Seen",0) == 1)
+            {
+                if (itemId == "second_hand")
+                {
+                    PlayerPrefs.SetInt("Clock_2_Seen",0);
+                    Destroy(gameObject);
+                    
+                }
+            }
         }
 
         private void TryPickup()

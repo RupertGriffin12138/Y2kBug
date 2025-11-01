@@ -238,7 +238,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.7855172}
+  m_Offset: {x: 0, y: -0.7768583}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -249,7 +249,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.02, y: 0.6889658}
+  m_Size: {x: 2.02, y: 0.671648}
   m_EdgeRadius: 0
 --- !u!212 &198074556
 SpriteRenderer:
@@ -6942,7 +6942,7 @@ MonoBehaviour:
   menuSceneName: MainMenu
   toggleKey: 27
   pauseAudio: 0
-  player: {fileID: 0}
+  playerPos: {fileID: 0}
   savePlayerPos: 1
   defaultSaveKey: SaveSlot_1
   isBoard: 0
@@ -9215,6 +9215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7baf0ddcb9a7e074eb01bf690e5655df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mode: 0
   saveDetailPanel: {fileID: 8680262871209860143}
   saveButtons:
   - {fileID: 180862020430318643}
@@ -12382,7 +12383,6 @@ MonoBehaviour:
   spawnIntervalMin: 0.1
   spawnIntervalMax: 1
   defaultTypeDelay: 0.05
-  lockPlayerDuringDialogue: 1
   isShowingDialogue: 0
 --- !u!222 &6511526389384485079
 CanvasRenderer:
@@ -14750,7 +14750,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc96f4212144cfc46aae86aaa96bd2b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: c1cja.pickup.CJ_keyschool_(c94a02)
+  id: c1cja.pickup.CJ_keysc222hoo12l_(c94a02)
   categoryHint: pickup
 --- !u!114 &8130607896858337212
 MonoBehaviour:

@@ -393,7 +393,7 @@ Transform:
   m_GameObject: {fileID: 168410365}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15.31, y: 0.5700005, z: -10}
+  m_LocalPosition: {x: 9.98, y: 0.5700005, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2562,7 +2562,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2442323815896114703, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6608310405445564695, guid: 50e29a4320c324442afc9d2d9f17d405, type: 3}
       propertyPath: m_Size.x
@@ -2716,6 +2716,59 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: c1s1_campus.pickup.Doc_note1231112_(2af9bf)
   categoryHint: pickup
+--- !u!1 &864999175
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 864999176}
+  - component: {fileID: 864999177}
+  m_Layer: 0
+  m_Name: "\u79D2\u9488\u5224\u65AD"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &864999176
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864999175}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1048290842}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &864999177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864999175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d52a9719f8074ffe81e77271d0cbfe3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  secondHandObject: {fileID: 806105892}
+  requireTeachDoc: 1
+  requireDiary2Doc: 1
+  requireBackpackUnlocked: 1
+  destroyAfterDialogueSeen: 1
+  destroyIfClock2Seen: 1
+  destroyIfReturnSpawnValid: 1
+  enableRealtimeCheck: 1
+  checkInterval: 1
 --- !u!1 &900858566
 GameObject:
   m_ObjectHideFlags: 0
@@ -3232,7 +3285,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 815128271}
-  - {fileID: 1486029210}
   - {fileID: 1672275699}
   - {fileID: 752967577}
   - {fileID: 303283920}
@@ -3240,6 +3292,7 @@ Transform:
   - {fileID: 1221566466}
   - {fileID: 1076597061}
   - {fileID: 396453672}
+  - {fileID: 864999176}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1076597060
@@ -3924,7 +3977,7 @@ Transform:
   m_GameObject: {fileID: 1407957333}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15.31, y: -0.9, z: 0}
+  m_LocalPosition: {x: 9.98, y: -0.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3952,7 +4005,7 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
-  moveSpeed: 3
+  moveSpeed: 4.6
   frontSpeed: 0
   belowSpeed: 0
   dashCooldown: 0
@@ -4015,7 +4068,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entries:
   - id: second_hand
-    count: 3
+    count: 5
   itemDB: {fileID: 11400000, guid: 7b1b3d2fd4a6c2a46a4463c4eacc5404, type: 2}
   totalSlotCount: 6
   progress: {fileID: 11400000, guid: c10ef93731561c946846b50d79c73a82, type: 2}
@@ -4062,7 +4115,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallbackSpawnPoint: {fileID: 0}
-  maxWaitFrames: 30
   extraWaitSeconds: 0
 --- !u!1 &1465524022
 GameObject:
@@ -4148,62 +4200,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1486029209
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1486029210}
-  - component: {fileID: 1486029211}
-  m_Layer: 0
-  m_Name: "\u5224\u65AD\u5668 (9)"
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1486029210
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1486029209}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1048290842}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1486029211
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1486029209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cb03e964b0647f39602269ed382b526, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnerId: campus_spawn_0011112
-  targetObject: {fileID: 806105892}
-  requiredItemIds: []
-  requiredDocIds:
-  - teach
-  - diary2
-  requiredDialogueIds: []
-  requireBackpackUnlocked: 1
-  useOrLogic: 0
-  invertCondition: 0
-  markOnce: 1
-  enableRealtimeCheck: 1
 --- !u!1 &1512063475
 GameObject:
   m_ObjectHideFlags: 0
@@ -5497,7 +5493,7 @@ Transform:
   m_GameObject: {fileID: 1927331252}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.957831, y: -0.0069930553, z: -10}
+  m_LocalPosition: {x: 0.04561138, y: -0.020982504, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7358,7 +7354,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &897338257048599469
 RectTransform:
   m_ObjectHideFlags: 0

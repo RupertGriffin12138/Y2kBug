@@ -3985,7 +3985,7 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
-  moveSpeed: 3
+  moveSpeed: 3.8
   frontSpeed: 0
   belowSpeed: 0
   dashCooldown: 0
@@ -9514,7 +9514,7 @@ MonoBehaviour:
   menuSceneName: MainMenu
   toggleKey: 27
   pauseAudio: 0
-  player: {fileID: 0}
+  playerPos: {fileID: 0}
   savePlayerPos: 1
   defaultSaveKey: SaveSlot_1
   isBoard: 0
@@ -11837,6 +11837,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7baf0ddcb9a7e074eb01bf690e5655df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mode: 0
   saveDetailPanel: {fileID: 8680262870372048385}
   saveButtons:
   - {fileID: 180862021819682333}
@@ -15042,7 +15043,6 @@ MonoBehaviour:
   spawnIntervalMin: 0.1
   spawnIntervalMax: 1
   defaultTypeDelay: 0.05
-  lockPlayerDuringDialogue: 1
   isShowingDialogue: 0
 --- !u!222 &6511526388601199353
 CanvasRenderer:
