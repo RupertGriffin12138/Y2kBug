@@ -76,8 +76,9 @@ namespace UI
 
         public void Update()
         {
+            
 
-            if (SceneManager.GetActiveScene().name == "Riddle abacus")
+            if (SceneManager.GetActiveScene().name == "Riddle abacus" || SceneManager.GetActiveScene().name == "C1S0 firework")
             {
                 return;
             }
