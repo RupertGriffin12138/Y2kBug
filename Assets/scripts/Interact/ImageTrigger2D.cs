@@ -110,6 +110,15 @@ namespace Interact
             inside = false;
             
         }
+
+        private void OnTriggerStay2D(Collider2D other)
+        {
+            if (!other.CompareTag(playerTag)) return;
+            if (Input.GetKeyDown(KeyCode.E) && !talking)
+            {
+                StartCoroutine(BeginSequence());
+            }
+        }
         
         private void OnDisable()
         {
@@ -119,9 +128,17 @@ namespace Interact
 
         private void Update()
         {
-            if (inside && !talking && Input.GetKeyDown(KeyCode.E))
+            // 若 InfoDialogUI 正在播放对白，则不允许再触发图片
+            if (InfoDialogUI.Instance && InfoDialogUI.Instance.isShowingDialogue)
+                return;
+
+            // 若玩家正处于传送门交互状态，也不触发图片
+            if (FindObjectOfType<ScenePortal2D>() is { enabled: true } portal)
             {
-                StartCoroutine(BeginSequence());
+                // 如果玩家在传送门触发区中，则禁止图片触发
+                var field = typeof(ScenePortal2D).GetField("inside", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                if (field != null && field.GetValue(portal) is bool and true)
+                    return;
             }
 
             // ESC 退出全屏

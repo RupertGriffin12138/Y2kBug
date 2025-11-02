@@ -221,6 +221,9 @@ namespace Dialog
                 GameState.SaveNow();
             }
             
+            
+            PlayerPrefs.SetInt("Clock_2_Seen", 1);
+            
             // 写入一次性出生点
             PlayerPrefs.SetFloat("Clock_ReturnSpawn_X", 15.31f);   // ← 你希望回到的 X 坐标
             PlayerPrefs.SetFloat("Clock_ReturnSpawn_Y", -0.9f);   // ← 你希望回到的 Y 坐标

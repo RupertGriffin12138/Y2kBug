@@ -1,5 +1,6 @@
 using System.Collections;
 using Interact;
+using Scene;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,9 +11,9 @@ namespace Save
         [Tooltip("如果没有缓冲目标或找不到对应传送门，就用这个备选出生点")]
         public Transform fallbackSpawnPoint;
 
-        [Header("定位重试")]
-        [Tooltip("最多等待多少帧以等场景对象初始化（0 表示不等待）")]
-        public int maxWaitFrames = 30;
+        [Header("定位重试")] [Tooltip("最多等待多少帧以等场景对象初始化（0 表示不等待）")]
+        private const int maxWaitFrames = 90;
+
         [Tooltip("若仍未找到，再额外等待多少秒（例如 Addressables/异步激活场景时）")]
         public float extraWaitSeconds = 0f;
 
@@ -73,8 +74,8 @@ namespace Save
                 
                 // —— 是否检测到 Parallax（或名为 ParallaxBackground 的脚本）？——
                 bool hasParallax =
-                    p.GetComponent("ParallaxBackground") ||
-                    (p.transform.parent && p.transform.parent.GetComponent("ParallaxBackground"));
+                    p.GetComponent<ParallaxBackground>() ||
+                    (p.transform.parent && p.transform.parent.GetComponent<ParallaxBackground>());
 
                 // —— 选择基准：有锚点 &&（未要求自动检测 || 检测到 Parallax）——
                 Transform basis = (p.anchorOverride && (hasParallax))
@@ -121,8 +122,11 @@ namespace Save
                 var data = GameState.Current;
                 if (data.lastScene == SceneManager.GetActiveScene().name && data.playerX != 0 && data.playerY != 0)
                 {
-                    transform.position = new Vector3(data.playerX, data.playerY, transform.position.z);
-                    Debug.Log($"[PlayerSceneRestore] 从存档恢复玩家位置 {transform.position}");
+                    if (SceneManager.GetActiveScene().name != "C1CJB")
+                    {
+                        transform.position = new Vector3(data.playerX, data.playerY, transform.position.z);
+                        Debug.Log($"[PlayerSceneRestore] 从存档恢复玩家位置 {transform.position}");
+                    }
                 }
             }
         }

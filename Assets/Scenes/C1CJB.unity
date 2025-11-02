@@ -552,7 +552,7 @@ MonoBehaviour:
   - key_strange_door
   requiredDocIds: []
   requiredDialogueIds: []
-  requireBackpackUnlocked: 0
+  requireBackpackUnlocked: 1
   useOrLogic: 0
   invertCondition: 0
   markOnce: 1
@@ -3371,7 +3371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallbackSpawnPoint: {fileID: 0}
-  maxWaitFrames: 30
+  maxWaitFrames: 90
   extraWaitSeconds: 0
 --- !u!1 &1357179151
 GameObject:
@@ -14321,7 +14321,6 @@ MonoBehaviour:
   spawnIntervalMin: 0.1
   spawnIntervalMax: 1
   defaultTypeDelay: 0.05
-  lockPlayerDuringDialogue: 1
   isShowingDialogue: 0
 --- !u!222 &6511526389408693293
 CanvasRenderer:

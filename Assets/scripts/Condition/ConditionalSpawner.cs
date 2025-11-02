@@ -2,7 +2,7 @@
 using Save;
 using UnityEngine;
 
-namespace Interact
+namespace Condition
 {
     /// <summary>
     /// 条件生成控制器（列表版）：
