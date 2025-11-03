@@ -185,5 +185,19 @@ namespace Save
 #endif
             }
         }
+        
+        public static bool TryMarkDialogueSeen(string dialogueId)
+        {
+            if (string.IsNullOrEmpty(dialogueId)) return false;
+            if (Current == null) Current = SaveManager.CreateDefault();
+
+            bool added = Current.TryMarkDialogueSeen(dialogueId);
+            if (added)
+            {
+                SaveNow();
+                return true;
+            }
+            return false;
+        }
     }
 }

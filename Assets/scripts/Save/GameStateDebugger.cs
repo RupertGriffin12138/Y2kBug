@@ -1,61 +1,81 @@
 ﻿using System.Collections.Generic;
 using Condition;
-using Interact;
-using Items;
 using UnityEngine;
-
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
+using Items;
 
 namespace Save
 {
     /// <summary>
-    /// 调试器：允许开发者在运行时一键发任意物品、文档、对话、背包等状态。
+    /// 调试器：允许开发者在运行时一键发任意物品、文档或对白已读。
     /// 可直接挂在场景中的空物体上。
     /// </summary>
     public class GameStateDebugger : MonoBehaviour
     {
-        [Header("物品发放")]
-        [Tooltip("要发放的物品 ID（在 ItemDB 中定义）")]
-        public string itemId = "key001";
-
-        [Tooltip("发放数量")]
-        public int itemAmount = 1;
-
-        [Tooltip("是否显示获得提示")]
-        public bool showToast = true;
-
-        [Header("文档发放")]
-        [Tooltip("要发放的文档 ID（在 DocDB 中定义）")]
-        public string docId = "note1";
-
-        [Tooltip("是否显示获得提示")]
-        public bool showDocToast = true;
-
-        [Header("测试对白（可选）")]
-        [TextArea(2, 3)]
-        public List<string> debugDialogueLines = new()
+        [System.Serializable]
+        public class ItemGrant
         {
-            "旁白: 你获得了一件奇怪的东西……",
-            "姜宁: 这是什么？",
-            "祝榆: 看起来像一把钥匙。"
+            public string itemId = "key001";
+            public int amount = 1;
+            public bool showToast = true;
+        }
+
+        [System.Serializable]
+        public class DocGrant
+        {
+            public string docId = "note1";
+            public bool showToast = true;
+        }
+
+        [Header("物品发放（最多5个）")]
+        public List<ItemGrant> items = new()
+        {
+            new ItemGrant { itemId = "key_strange_door", amount = 1 },
+            new ItemGrant { itemId = "sparkler", amount = 1 },
+            new ItemGrant { itemId = "key_school_door", amount = 1 },
+            new ItemGrant { itemId = "second_hand", amount = 1 },
+            new ItemGrant { itemId = "school_uniform", amount = 1 }
         };
 
-        [Header("额外选项")]
+        [Header("文档发放（最多7个）")]
+        public List<DocGrant> docs = new()
+        {
+            new DocGrant { docId = "note1" },
+            new DocGrant { docId = "note2" },
+            new DocGrant { docId = "notice" },
+            new DocGrant { docId = "teach" },
+            new DocGrant { docId = "diary1" },
+            new DocGrant { docId = "diary2" },
+            new DocGrant { docId = "guard" },
+        };
+
+        [Header("对白标记")]
+        public string dialogueIdToMark = "dlg_001";
+
+        [Header("全局选项")]
         public bool autoUnlockBackpack = false;
         public bool clearSaveBeforeTest = false;
-        
+
         private void Start()
         {
             if (GameState.Current == null)
                 GameState.LoadGameOrNew("Town");
         }
 
-        // ================== 发放物品 ==================
-        [ContextMenu("Grant Item (单个)")]
-        public void GrantItem()
+        private List<(string speaker, string content)> DefaultLines()
         {
+            return new()
+            {
+                ("旁白", "你获得了一件奇怪的东西……"),
+                ("姜宁", "这是什么？"),
+                ("祝榆", "看起来像一把钥匙。")
+            };
+        }
+
+        private void GrantItem(string id, int amount, bool showToast)
+        {
+            if (string.IsNullOrEmpty(id)) return;
+
             if (clearSaveBeforeTest)
             {
                 Debug.LogWarning("[GameStateDebugger] 清空存档以开始测试");
@@ -66,14 +86,14 @@ namespace Save
             if (autoUnlockBackpack)
                 GameState.UnlockBackpack();
 
-            var lines = ParseDialogueLines(debugDialogueLines);
-            ItemGrantTool.GiveItem(itemId, itemAmount, showToast, lines);
+            ItemGrantTool.GiveItem(id, amount, showToast, DefaultLines());
+            Debug.Log($"[GameStateDebugger] 已发放物品：{id} x{amount}");
         }
 
-        // ================== 发放文档 ==================
-        [ContextMenu("Grant Document (单个)")]
-        public void GrantDocument()
+        private void GrantDoc(string id, bool showToast)
         {
+            if (string.IsNullOrEmpty(id)) return;
+
             if (clearSaveBeforeTest)
             {
                 Debug.LogWarning("[GameStateDebugger] 清空存档以开始测试");
@@ -81,57 +101,38 @@ namespace Save
                 GameState.LoadGameOrNew("Town");
             }
 
-            if (string.IsNullOrEmpty(docId))
-            {
-                Debug.LogWarning("[GameStateDebugger] 文档ID为空，已跳过。");
-                return;
-            }
-
-            if (GameState.Current == null)
-                GameState.LoadGameOrNew("Town");
-
-            bool isNew = System.Array.IndexOf(GameState.Current.docCollectedIds, docId) < 0;
-
-            // 发放并打开阅读器
-            DocGrantTool.GiveDoc(docId, true,showDocToast, ParseDialogueLines(debugDialogueLines));
-
+            bool isNew = System.Array.IndexOf(GameState.Current.docCollectedIds, id) < 0;
+            DocGrantTool.GiveDoc(id, true, showToast, DefaultLines());
             GameState.SaveNow();
 
-            if (showDocToast && UI.InfoDialogUI.Instance)
+            if (showToast && UI.InfoDialogUI.Instance)
             {
-                string msg = isNew ? $"获得《{docId}》" : $"已收录《{docId}》";
+                string msg = isNew ? $"获得《{id}》" : $"已收录《{id}》";
                 UI.InfoDialogUI.Instance.ShowMessage(msg);
             }
 
-            Debug.Log($"[GameStateDebugger] 已发放文档：{docId} ");
-            
-            // === 通知 ConditionalSpawner 更新 ===
             foreach (var spawner in Object.FindObjectsOfType<ConditionalSpawner>())
                 spawner.TryCheckNow();
+
+            Debug.Log($"[GameStateDebugger] 已发放文档：{id}");
         }
 
-        // ================== 解析对白 ==================
-        private List<(string speaker, string content)> ParseDialogueLines(List<string> raw)
+        private void MarkDialogueSeen(string dialogueId)
         {
-            var result = new List<(string speaker, string content)>();
-            if (raw == null) return result;
-
-            foreach (var line in raw)
+            if (string.IsNullOrEmpty(dialogueId))
             {
-                if (string.IsNullOrWhiteSpace(line)) continue;
-                int colon = line.IndexOf(':');
-                if (colon > 0)
-                {
-                    string speaker = line[..colon].Trim();
-                    string content = line[(colon + 1)..].Trim();
-                    result.Add((speaker, content));
-                }
-                else
-                {
-                    result.Add(("旁白", line.Trim()));
-                }
+                Debug.LogWarning("[GameStateDebugger] 对话ID为空，已跳过。");
+                return;
             }
-            return result;
+
+            bool added = GameState.TryMarkDialogueSeen(dialogueId);
+            if (added)
+                Debug.Log($"[GameStateDebugger] 已标记对白已读：{dialogueId}");
+            else
+                Debug.Log($"[GameStateDebugger] 白已存在：{dialogueId}");
+
+            foreach (var spawner in Object.FindObjectsOfType<ConditionalSpawner>())
+                spawner.TryCheckNow();
         }
     }
 
@@ -142,32 +143,39 @@ namespace Save
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
-
             var dbg = (GameStateDebugger)target;
+
             GUILayout.Space(10);
             EditorGUILayout.HelpBox("调试功能区", MessageType.Info);
 
-            if (GUILayout.Button("立即发放单个物品"))
-                dbg.GrantItem();
+            GUILayout.Label("=== 物品发放 ===", EditorStyles.boldLabel);
+            foreach (var it in dbg.items)
+            {
+                if (GUILayout.Button($"发放物品 {it.itemId} x{it.amount}"))
+                    dbg.GetType().GetMethod("GrantItem", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                        ?.Invoke(dbg, new object[] { it.itemId, it.amount, it.showToast });
 
-            if (GUILayout.Button("立即发放单个文档"))
-                dbg.GrantDocument();
+            }
 
+            GUILayout.Space(5);
+            GUILayout.Label("=== 文档发放 ===", EditorStyles.boldLabel);
+            foreach (var d in dbg.docs)
+            {
+                if (GUILayout.Button($"发放文档 {d.docId}"))
+                    dbg.SendMessage("GrantDoc", new object[] { d.docId, d.showToast });
+            }
+
+            GUILayout.Space(5);
+            GUILayout.Label("=== 白标记 ===", EditorStyles.boldLabel);
+            if (GUILayout.Button("标记对白为已读"))
+                dbg.SendMessage("MarkDialogueSeen", dbg.dialogueIdToMark);
+
+            GUILayout.Space(10);
             if (GUILayout.Button("清空存档并重新加载"))
             {
                 GameState.Wipe();
                 GameState.LoadGameOrNew("Town");
                 Debug.Log("[GameStateDebugger] 存档已清空并重置。");
-            }
-
-            if (GUILayout.Button("解密四个算盘"))
-            {
-                PlayerPrefs.SetInt("AbacusSolved_1", 1);
-                PlayerPrefs.SetInt("AbacusSolved_2", 1);
-                PlayerPrefs.SetInt("AbacusSolved_3", 1);
-                PlayerPrefs.SetInt("AbacusSolved_4", 1);
-                PlayerPrefs.Save();
-                Debug.Log("[GameStateDebugger] 已解密算盘");
             }
         }
     }
