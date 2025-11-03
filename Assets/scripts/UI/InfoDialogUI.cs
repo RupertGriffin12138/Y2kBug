@@ -468,6 +468,8 @@ namespace UI
                 rect.anchorMax = Vector2.one;      // 右上角 (1, 1)
                 rect.offsetMin = Vector2.zero;     // 左下角偏移清零
                 rect.offsetMax = Vector2.zero;     // 右上角偏移清零
+                rect.localScale = Vector3.one;     // 强制归一缩放
+                rect.localPosition = Vector3.zero; // 确保居中
 
                 // 确保在最上层（如果想压过别的 UI）
                 rect.SetAsLastSibling();
@@ -505,6 +507,8 @@ namespace UI
             {
                 Destroy(activeGifObj);
                 activeGifObj = null;
+                // 播放完后强制刷新 Canvas 布局
+                Canvas.ForceUpdateCanvases();
             }
         }
         
