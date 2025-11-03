@@ -393,7 +393,7 @@ Transform:
   m_GameObject: {fileID: 168410365}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.98, y: 0.5700005, z: -10}
+  m_LocalPosition: {x: 96.39, y: 0.5700005, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1117,7 +1117,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.010009766, y: -0.0025024414}
+  m_AnchoredPosition: {x: 0.010009766, y: -0.0024414062}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &286291164
@@ -1793,7 +1793,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &550480207
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2305,7 +2305,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 760125564}
-  - component: {fileID: 760125563}
+  - component: {fileID: 760125565}
   m_Layer: 0
   m_Name: debugger
   m_TagString: Untagged
@@ -2313,29 +2313,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &760125563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 760125562}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18acd6f75684d72b52eda0596f612a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: second_hand
-  itemAmount: 1
-  showToast: 1
-  docId: teach
-  showDocToast: 1
-  debugDialogueLines:
-  - "\u65C1\u767D: \u4F60\u83B7\u5F97\u4E86\u4E00\u4EF6\u5947\u602A\u7684\u4E1C\u897F\u2026\u2026"
-  - "\u59DC\u5B81: \u8FD9\u662F\u4EC0\u4E48\uFF1F"
-  - "\u795D\u6986: \u770B\u8D77\u6765\u50CF\u4E00\u628A\u94A5\u5319\u3002"
-  autoUnlockBackpack: 1
-  clearSaveBeforeTest: 0
 --- !u!4 &760125564
 Transform:
   m_ObjectHideFlags: 0
@@ -2351,6 +2328,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &760125565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 760125562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18acd6f75684d72b52eda0596f612a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - itemId: key_strange_door
+    amount: 1
+    showToast: 1
+  - itemId: sparkler
+    amount: 1
+    showToast: 1
+  - itemId: key_school_door
+    amount: 1
+    showToast: 1
+  - itemId: second_hand
+    amount: 1
+    showToast: 1
+  - itemId: school_uniform
+    amount: 1
+    showToast: 1
+  docs:
+  - docId: note1
+    showToast: 1
+  - docId: note2
+    showToast: 1
+  - docId: notice
+    showToast: 1
+  - docId: teach
+    showToast: 1
+  - docId: diary1
+    showToast: 1
+  - docId: diary2
+    showToast: 1
+  - docId: guard
+    showToast: 1
+  dialogueIdToMark: img_0011
+  autoUnlockBackpack: 1
+  clearSaveBeforeTest: 0
 --- !u!1001 &806105890
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3977,7 +4000,7 @@ Transform:
   m_GameObject: {fileID: 1407957333}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.98, y: -0.9, z: 0}
+  m_LocalPosition: {x: 96.39, y: -0.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5493,7 +5516,7 @@ Transform:
   m_GameObject: {fileID: 1927331252}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.04561138, y: -0.020982504, z: -10}
+  m_LocalPosition: {x: 86.036934, y: 0.10509896, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15874,10 +15897,10 @@ MonoBehaviour:
   - {fileID: 102716977}
   moveSpeedMin: 100
   moveSpeedMax: 150
-  lifetimeMin: 0.5
-  lifetimeMax: 1.2
-  spawnIntervalMin: 0.3
-  spawnIntervalMax: 0.6
+  lifetimeMin: 0.4
+  lifetimeMax: 1.1
+  spawnIntervalMin: 0.1
+  spawnIntervalMax: 0.3
   defaultTypeDelay: 0.05
   isShowingDialogue: 0
 --- !u!222 &6511526388048457322

@@ -555,8 +555,8 @@ namespace UI
 
             Debug.Log("[InfoDialogUI] 所有GIF已清除");
         }
-        
-        IEnumerator DestroyAfter(float delay)
+
+        private IEnumerator DestroyAfter(float delay)
         {
             yield return new WaitForSeconds(delay);
             HideGif();
@@ -601,14 +601,10 @@ namespace UI
             rect.anchoredPosition = new Vector2(x, y);
             
             rect.sizeDelta = new Vector2(rect.sizeDelta.x * 2.2f, rect.sizeDelta.y * 2.2f);
-            
 
-            // 开始移动协程
+            // 开始执行生命周期协程
             float life = Random.Range(lifetimeMin, lifetimeMax);
-            Vector2 moveDir = Random.insideUnitCircle.normalized; // 随机方向
-            float moveSpeed = Random.Range(moveSpeedMin, moveSpeedMax);
-
-            obj.AddComponent<GifMover>().Init(moveDir, moveSpeed, life);
+            obj.AddComponent<GifMover>().Init(life);
         }
 
         /// <summary>
@@ -644,7 +640,6 @@ namespace UI
                     spawnLoopCoroutine = null;
                 }
             }
-            
         }
 
         private IEnumerator SpawnMultipleRoutine(int count)
@@ -660,7 +655,9 @@ namespace UI
         {
             while (keepSpawning)
             {
-                SpawnRandomGif(); // 生成一个随机 GIF
+                int count = Random.Range(1, 4); // 每次生成 2~12 个
+                for (int i = 0; i < count; i++)
+                    SpawnRandomGif();
                 yield return new WaitForSeconds(Random.Range(spawnIntervalMin, spawnIntervalMax));
             }
         }

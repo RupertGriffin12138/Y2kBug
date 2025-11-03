@@ -197,43 +197,66 @@ namespace Interact
             switch (idx)
             {
                 case 2:
-                    InfoDialogUI.Instance.ShowGif("Dialog/gif/prefab/mouth1", new Vector2(536, 385), new Vector2(475, 329));
+                    InfoDialogUI.Instance.HideAllGifs();
+                    InfoDialogUI.Instance.PauseDialogue();
+                    InfoDialogUI.Instance.ShowGif("Dialog/gif/prefab/mouth1", new Vector2(117.4846f, 175.9694f), new Vector2(298.9178f, 217));
                     AudioClipHelper.Instance.Play_Mouse1();
                     InfoDialogUI.Instance.SpawnMultiple(false);
+                    StartCoroutine(ResumeDialogueAfterDelay(2f));
+                    break;
+                case 3:
+                    InfoDialogUI.Instance.HideAllGifs();
                     break;
                 case 4:
                     AudioManager.Instance.StopLatelyAudio();
                     break;
                 case 8:
-                    InfoDialogUI.Instance.ShowGif("Dialog/gif/prefab/heart1", new Vector2(-359, -31), new Vector2(265, 357));
+                    InfoDialogUI.Instance.HideAllGifs();
+                    InfoDialogUI.Instance.PauseDialogue();
+                    InfoDialogUI.Instance.ShowGif("Dialog/gif/prefab/heart1", new Vector2(128.7101f, 139.1072f), new Vector2(257.4203f, 361.7856f));
                     AudioClipHelper.Instance.Play_hreat1();
                     InfoDialogUI.Instance.SpawnMultiple(false);
+                    StartCoroutine(ResumeDialogueAfterDelay(2f));
+                    break;
+                case 9:
+                    InfoDialogUI.Instance.HideAllGifs();
                     break;
                 case 10:
+                    InfoDialogUI.Instance.HideAllGifs();
+                    InfoDialogUI.Instance.PauseDialogue();
                     AudioManager.Instance.StopLatelyAudio();
-
-                    InfoDialogUI.Instance.ShowGif("Dialog/gif/prefab/eye1", new Vector2(-300, 256), new Vector2(412, 250));
+                    InfoDialogUI.Instance.ShowGif("Dialog/gif/prefab/eye1", new Vector2(107.7318f, 135.63f), new Vector2(371.4636f, 271.26f));
                     AudioClipHelper.Instance.Play_Eyes1();
                     InfoDialogUI.Instance.SpawnMultiple(false);
+                    StartCoroutine(ResumeDialogueAfterDelay(2f));
                     break;
-                    case 12:
+                case 11:
+                    InfoDialogUI.Instance.HideAllGifs();
+                    break;
+                case 12:
                     AudioManager.Instance.StopLatelyAudio();
                     break;
                 case 17:
                     InfoDialogUI.Instance.HideAllGifs();
+                    InfoDialogUI.Instance.PauseDialogue();
                     AudioManager.Instance.StopAllAudio();
-                    InfoDialogUI.Instance.ShowGif("Dialog/gif/prefab/mouth2_2", new Vector2(108, 155), new Vector2(504, 311));
+                    InfoDialogUI.Instance.ShowGif("Dialog/gif/prefab/mouth2_2", new Vector2(100, 120), new Vector2(450, 333));
                     AudioClipHelper.Instance.Play_Mouse2();
                     InfoDialogUI.Instance.SpawnMultiple(false);
+                    StartCoroutine(ResumeDialogueAfterDelay(2f));
+                    break;
+                case 18:
+                    InfoDialogUI.Instance.HideAllGifs();
                     break;
                 case 19:
                     AudioManager.Instance.StopLatelyAudio();
                     break;
                 case 21:
-                    InfoDialogUI.Instance.HideGif();
-                    //AudioManager.Instance.StopLatelyAudio();
+                    InfoDialogUI.Instance.HideAllGifs();
+                    InfoDialogUI.Instance.PauseDialogue();
                     InfoDialogUI.Instance.SpawnMultiple(true);
                     AudioClipHelper.Instance.Play_MutiImage();
+                    StartCoroutine(ResumeDialogueAfterDelay(3f));
                     break;
                 case 22:
                     InfoDialogUI.Instance.SpawnMultiple(false);
