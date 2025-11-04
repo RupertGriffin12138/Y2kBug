@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Mobile;
 using Save;
 using Scene;
 using UI;
@@ -116,7 +117,7 @@ namespace Interact
             }
 
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (GlobalInput.GetEKeyDown())
             {
                 // 每次交互时也再检测一次（防止中途获得条件）
                 CheckUnlockCondition();

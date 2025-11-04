@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace Riddle.Abacus
 {
@@ -24,6 +25,11 @@ namespace Riddle.Abacus
         public int CurrentLine => lineNum[frameNum];
         public int CurrentFrame => frameNum;
 
+        public Button up;
+        public Button down;
+        public Button left;
+        public Button right;
+
         private void Awake()
         {
             Instance = this;
@@ -34,6 +40,23 @@ namespace Riddle.Abacus
             frame0StartPos = frame0.transform.position;
             frame1StartPos = frame1.transform.position;
             SetFrame(0); // 默认在上层
+            
+            up.onClick.AddListener(() =>
+            {
+                SetFrame(0);
+            });
+            down.onClick.AddListener(() =>
+            {
+                SetFrame(1);
+            });
+            left.onClick.AddListener(() =>
+            {
+                MoveLine(-1);
+            });
+            right.onClick.AddListener(() =>
+            {
+                MoveLine(1);
+            });
         }
 
         private void Update()

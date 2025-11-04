@@ -1,3 +1,4 @@
+using Mobile;
 using UnityEngine;
 
 namespace Scene.C1S2_corridor
@@ -34,7 +35,7 @@ namespace Scene.C1S2_corridor
             {
                 //Debug.Log("Player is within the range.");
                 // 如果玩家按下E键
-                if (Input.GetKeyDown(KeyCode.E))
+                if (GlobalInput.GetEKeyDown())
                 {
                     ToggleDisplay();
                 }

@@ -10,6 +10,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Audio;
 using Condition;
+using Mobile;
 
 namespace Interact
 {
@@ -116,7 +117,7 @@ namespace Interact
 
         private void Update()
         {
-            if (inside && !talking && Input.GetKeyDown(KeyCode.E))
+            if (inside && !talking && GlobalInput.GetEKeyDown())
             {
                 StartCoroutine(BeginDialogueFlow());
             }

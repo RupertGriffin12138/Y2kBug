@@ -3,11 +3,9 @@ using System.Collections;
 using Characters.PLayer_25D;
 using Characters.Player;
 using Save;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UI
@@ -78,7 +76,7 @@ namespace UI
         {
             
 
-            if (SceneManager.GetActiveScene().name == "Riddle abacus" || SceneManager.GetActiveScene().name == "C1S0 firework")
+            if (SceneManager.GetActiveScene().name == "Riddle abacus" || SceneManager.GetActiveScene().name == "C1S0 firework"|| SceneManager.GetActiveScene().name == "Riddle blackboard"|| SceneManager.GetActiveScene().name == "Riddle blackboard2" )
             {
                 return;
             }
@@ -109,6 +107,10 @@ namespace UI
 
         public void PauseGame()
         {
+            if (SceneManager.GetActiveScene().name == "Riddle abacus" || SceneManager.GetActiveScene().name == "C1S0 firework"|| SceneManager.GetActiveScene().name == "Riddle blackboard"|| SceneManager.GetActiveScene().name == "Riddle blackboard2" )
+            {
+                return;
+            }
             isPaused = true;
             if (pausePanel) pausePanel.SetActive(true);
             if (settingsPanel) settingsPanel.SetActive(false);

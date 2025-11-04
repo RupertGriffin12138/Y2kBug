@@ -2,6 +2,7 @@ using Audio;
 using System.Collections;
 using UI;
 using UnityEngine;
+using UnityEngine.UI;
 #pragma warning disable CS0414 // 字段已被赋值，但它的值从未被使用
 using UnityEngine.SceneManagement;
 #pragma warning disable CS0414 // ????????????????????????????????????????δ??????????
@@ -15,6 +16,20 @@ namespace Riddle.Blackboard
         [SerializeField] private int count_zong = 0;  // 纵向计数
         [SerializeField] private int count_num = 0;   // 综合计数
         [SerializeField] private float moveDistance = 1f; // 移动距离
+
+        [SerializeField] private Button up;
+        [SerializeField] private Button left;
+        [SerializeField] private Button down;
+        [SerializeField] private Button right;
+        [SerializeField] private Button btn1;
+        [SerializeField] private Button btn2;
+        [SerializeField] private Button btn3;
+        [SerializeField] private Button btn4;
+        [SerializeField] private Button btn5;
+        [SerializeField] private Button btn6;
+        [SerializeField] private Button btn7;
+        [SerializeField] private Button btn8;
+        [SerializeField] private Button btn9;
 
         private int progress = 0;
 
@@ -39,13 +54,13 @@ namespace Riddle.Blackboard
 
         private int previousCountNum = -1; // 上一???count_num 的???
 
-        void Start()
+        private void Start()
         {
             InfoDialogUI.Instance.ShowMessage("（这是，数独，让我想想）");
             InfoDialogUI.Instance.EnableCharacterBackground("姜宁");
 
-             // 记录初始位置
-             initialPosition = transform.position;
+            // 记录初始位置
+            initialPosition = transform.position;
             // 初始???count_num
             UpdateCountNum();
             // 初始???Answer 组显示状???
@@ -62,9 +77,52 @@ namespace Riddle.Blackboard
 
             // 初始透明度设???
             SetFadeProgress(0f);
-        }
 
-        void Update()
+            up.onClick.AddListener(MoveUp);
+            down.onClick.AddListener(MoveDown);
+            left.onClick.AddListener(MoveLeft);
+            right.onClick.AddListener(MoveRight);
+
+            btn1.onClick.AddListener(() =>{
+                AudioClipHelper.Instance.Play_ChalkWriting();
+                ShowAnswer(1);
+            });
+            btn2.onClick.AddListener(() =>{
+                AudioClipHelper.Instance.Play_ChalkWriting();
+                ShowAnswer(2);
+            });
+            btn3.onClick.AddListener(() =>{
+                AudioClipHelper.Instance.Play_ChalkWriting();
+                ShowAnswer(3);
+            });
+            btn4.onClick.AddListener(() =>{
+                AudioClipHelper.Instance.Play_ChalkWriting();
+                ShowAnswer(4);
+            });
+            btn5.onClick.AddListener(() =>{
+                AudioClipHelper.Instance.Play_ChalkWriting();
+                ShowAnswer(5);
+            });
+            btn6.onClick.AddListener(() =>{
+                AudioClipHelper.Instance.Play_ChalkWriting();
+                ShowAnswer(6);
+            });
+            btn7.onClick.AddListener(() =>{
+                AudioClipHelper.Instance.Play_ChalkWriting();
+                ShowAnswer(7);
+            });
+            btn8.onClick.AddListener(() =>{
+                AudioClipHelper.Instance.Play_ChalkWriting();
+                ShowAnswer(8);
+            });
+            btn9.onClick.AddListener(() =>{
+                AudioClipHelper.Instance.Play_ChalkWriting();
+                ShowAnswer(9);
+            });
+            
+    }
+
+        private void Update()
         {
             // 处理按键输入
             getNumandKeyDown();
@@ -316,7 +374,7 @@ namespace Riddle.Blackboard
 
         private void SetFadeProgress(float progress)
         {
-            if (fadeMaterial != null)
+            if (fadeMaterial)
                 fadeMaterial.SetFloat(FadeProgress, progress);
         }
 

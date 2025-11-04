@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Audio;
 using Condition;
+using Mobile;
 
 // ScrollRect
 
@@ -22,9 +23,7 @@ namespace Interact
         public string docId = "note1";
         public bool openReaderOnPickup = true;
         public bool destroyAfterPickup = false;
-
-        [Header("输入")]
-        public KeyCode pickupKey = KeyCode.E;
+        
 
         [Header("提示UI（世界空间）")]
         [TextArea] public string promptString = "按 <b>E</b> 阅读/收录";
@@ -123,7 +122,7 @@ namespace Interact
             // 只有在“已消费”时才早退 —— 保证对话里还能接收按键
             if (_consumed) return;
 
-            if (_inRange && Input.GetKeyDown(pickupKey))
+            if (_inRange && GlobalInput.GetEKeyDown())
                 TryPickupDoc();
         }
 

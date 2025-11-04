@@ -2,6 +2,7 @@ using Audio;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Mobile;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -87,7 +88,7 @@ namespace UI
         
         private void Update()
         {
-            if (isShowingDialogue && Input.GetKeyDown(KeyCode.E))
+            if (isShowingDialogue && GlobalInput.GetEKeyDown())
                 HandleInputAction();
 
             if (arrowImage.gameObject.activeSelf)
@@ -162,7 +163,7 @@ namespace UI
                 textBoxText.text += c;
                 yield return new WaitForSecondsRealtime(defaultTypeDelay);
                 // 如果玩家在打字过程中按下 E，则立刻显示完整句
-                if (Input.GetKeyDown(KeyCode.E))
+                if (GlobalInput.GetEKeyDown())
                 {
                     textBoxText.text = content;
                     AudioClipHelper.Instance.Stop_Dialogue();

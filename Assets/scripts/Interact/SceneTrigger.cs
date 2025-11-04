@@ -1,4 +1,5 @@
-﻿using Scene;
+﻿using Mobile;
+using Scene;
 using UI;
 using UnityEngine;
 
@@ -60,7 +61,7 @@ namespace Interact
         {
             if (!inside || sceneLoaded) return;
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (GlobalInput.GetEKeyDown())
             {
                 sceneLoaded = true;
 

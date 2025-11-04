@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Mobile;
 using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -42,7 +43,7 @@ public class BoardTrigger : MonoBehaviour
     {
         if (!inside) return;
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (GlobalInput.GetEKeyDown())
         {
             SceneManager.LoadScene(nectScene);
         }

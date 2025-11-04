@@ -1,6 +1,7 @@
 using Items;
 using Scene;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Riddle.Abacus
 {
@@ -12,18 +13,34 @@ namespace Riddle.Abacus
         private SceneFadeEffect sceneFadeEffect;
         private DocReaderPanel docReaderPanel;
 
+        public Button back;
         private void Start()
         {
             sceneFadeEffect = FindObjectOfType<SceneFadeEffect>(true);
             docReaderPanel = FindObjectOfType<DocReaderPanel>(true);
+            
+            back.onClick.AddListener(BackScene);
         }
 
         private void Update()
         {
             // 按下 ESC 返回（关闭文档界面时）
-            if (Input.GetKeyDown(KeyCode.Escape) && (!docReaderPanel || !docReaderPanel.gameObject.activeSelf))
+            if (Input.GetKeyDown(KeyCode.Escape) )
             {
-                // ✅ 不用 Inspector 里的 returnPosition，直接从缓存取
+                // 不用 Inspector 里的 returnPosition，直接从缓存取
+                if (!docReaderPanel || !docReaderPanel.gameObject.activeSelf)
+                {
+                    ReturnToClassroom(AbacusBuffer.returnPosition);
+                }
+                
+            }
+        }
+
+        private void BackScene()
+        {
+            // 不用 Inspector 里的 returnPosition，直接从缓存取
+            if (!docReaderPanel || !docReaderPanel.gameObject.activeSelf)
+            {
                 ReturnToClassroom(AbacusBuffer.returnPosition);
             }
         }

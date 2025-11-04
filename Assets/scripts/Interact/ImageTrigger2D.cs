@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using Audio;
 using Characters.PLayer_25D;
 using Characters.Player;
+using Mobile;
 using Save;
 using UI;
 using UnityEngine;
@@ -40,9 +41,7 @@ namespace Interact
 
         [Header("遮罩（外部设置好的UI物体）")]
         public GameObject mask;
-
-        private bool inside;
-        private bool talking;
+        
         public static bool imageShown;
         private bool dialogueEnded;
 
@@ -89,7 +88,6 @@ namespace Interact
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (!other.CompareTag(playerTag)) return;
-            inside = true;
 
             // 用“旁白”的方式提示
             if (InfoDialogUI.Instance)
@@ -103,18 +101,12 @@ namespace Interact
             if (!other.CompareTag(playerTag)) return;
             if (InfoDialogUI.Instance)
                 InfoDialogUI.Instance.Clear();
-            if (!repeatMode)
-            {
-                return;
-            }
-            inside = false;
-            
         }
 
         private void OnTriggerStay2D(Collider2D other)
         {
             if (!other.CompareTag(playerTag)) return;
-            if (Input.GetKeyDown(KeyCode.E))
+            if (GlobalInput.GetEKeyDown())
             {
                 StartCoroutine(BeginSequence());
             }
@@ -150,8 +142,6 @@ namespace Interact
 
         private IEnumerator BeginSequence()
         {
-            talking = true;
-            inside = false;
             InfoDialogUI.Instance?.Clear();
 
             // 锁定玩家
@@ -269,7 +259,6 @@ namespace Interact
             fullScreenImage.gameObject.SetActive(false);
             mask.SetActive(false);
             imageShown = false;
-            talking = false;
 
             // 解锁玩家
             if (lockPlayerDuringDialogue)

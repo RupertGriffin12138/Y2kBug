@@ -1,3 +1,4 @@
+using Mobile;
 using UnityEngine;
 
 namespace Characters.Player
@@ -37,8 +38,27 @@ namespace Characters.Player
         {
             stateTimer -= Time.deltaTime;
 
+#if UNITY_ANDROID || UNITY_IOS
+            // “∆∂Ø∂À£∫¥” Joystick ªÒ»° ‰»Î
+            if (GlobalInput.joystick)
+            {
+                xInput = GlobalInput.joystick.Horizontal;
+                yInput = GlobalInput.joystick.Vertical;
+
+                // À¿«¯π˝¬À£¨∑¿÷π«·Œ¢∆Ø“∆
+                if (Mathf.Abs(xInput) < 0.1f) xInput = 0f;
+                if (Mathf.Abs(yInput) < 0.1f) yInput = 0f;
+            }
+            else
+            {
+                xInput = 0;
+                yInput = 0;
+            }
+#else
+            // PC / ±‡º≠∆˜£∫º¸≈Ã ‰»Î
             xInput = Input.GetAxisRaw("Horizontal");
             yInput = Input.GetAxisRaw("Vertical");
+#endif
 
         }
 

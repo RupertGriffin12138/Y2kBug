@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Audio;
 using Condition;
+using Mobile;
 
 namespace Interact
 {
@@ -19,7 +20,6 @@ namespace Interact
         [Tooltip("ItemDB 里的物品 id")]
         public string itemId = "sparkler";
         public int amount = 1;
-        public KeyCode pickupKey = KeyCode.E;
         [Tooltip("拾取后销毁该物体；否则仅 SetActive(false)（会在对话播放完后执行）")]
         public bool destroyOnPickup = true;
 
@@ -154,7 +154,7 @@ namespace Interact
         {
             if (_consumed) return;
 
-            if (_playerInRange && Input.GetKeyDown(pickupKey))
+            if (_playerInRange && GlobalInput.GetEKeyDown())
                 TryPickup();
 
             if (PlayerPrefs.GetInt("Clock_2_Seen",0) == 1)

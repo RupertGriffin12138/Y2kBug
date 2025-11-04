@@ -4,12 +4,12 @@
 public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     public bool global = true;
-    static T instance;
+    private static T instance;
     public static T Instance
     {
         get
         {
-            if (instance == null)
+            if (!instance)
             {
                 instance =(T)FindAnyObjectByType<T>();
             }
@@ -18,7 +18,7 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 
     }
 
-    void Awake()
+    private void Awake()
     {
         if (global)
         {

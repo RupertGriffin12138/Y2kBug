@@ -1,4 +1,5 @@
 ﻿using Characters.PLayer_25D;
+using Mobile;
 using Scene;
 using UI;
 using UnityEngine;
@@ -70,7 +71,7 @@ namespace Riddle.Abacus
         {
             if (!inside || sceneLoaded) return;
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (GlobalInput.GetEKeyDown())
             {
                 sceneLoaded = true;
 

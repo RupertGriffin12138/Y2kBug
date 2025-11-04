@@ -1,4 +1,5 @@
 ﻿using Characters.Player;
+using Mobile;
 using UI;
 using UnityEngine;
 
@@ -61,7 +62,7 @@ namespace Interact
         {
             if (!inside) return;
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (GlobalInput.GetEKeyDown())
             {
                 if (targetObject)
                     targetObject.SetActive(true);

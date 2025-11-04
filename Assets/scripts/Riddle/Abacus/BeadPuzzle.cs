@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using Audio;
+using Mobile;
 using UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 #pragma warning disable CS0414 // 字段已被赋值，但它的值从未被使用
 
@@ -29,8 +31,11 @@ namespace Riddle.Abacus
         public int[,] clickCount = new int[10, 3];
         private bool isSolved = false;
 
+        public Button push_btn;
+
         private void Start()
         {
+            push_btn.onClick.AddListener(Push);
             // === 从缓冲器读取当前算盘 ID ===
             string id = AbacusBuffer.currentId;
             puzzleId = id;
@@ -72,6 +77,11 @@ namespace Riddle.Abacus
             }
         }
 
+        private void Push()
+        {
+            GlobalInput.SimulateEPress();
+        }
+
         private void Update()
         {
             var ctrl = AbacusControl.Instance;
@@ -82,7 +92,7 @@ namespace Riddle.Abacus
             
             lineFind(currentLine);
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (GlobalInput.GetEKeyDown())
             {
                 if (isSolved) return;
                 clickCount[currentLine, currentFrame]++;

@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Mobile;
 using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace BlackBoard
 {
@@ -25,6 +27,8 @@ namespace BlackBoard
         
         private bool hasLoadedScene = false;
 
+        public Button back;
+
         private void LoadSceneOnce(string name)
         {
             if (hasLoadedScene) return;
@@ -35,6 +39,7 @@ namespace BlackBoard
         private void Start()
         {
             //PlayerPrefs.SetInt(BoardKey,4);
+            back.onClick.AddListener(BackScene);
 
             boardErase.SetActive(false);
             boardProgress = PlayerPrefs.GetInt(BoardKey, 1);
@@ -102,13 +107,13 @@ namespace BlackBoard
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.E) && canCa)
+            if (GlobalInput.GetEKeyDown() && canCa)
             {
                 Fade();
             }
             if (boardProgress == 1&&!canCa)
             {
-                if (Input.GetKeyDown(KeyCode.E))
+                if (GlobalInput.GetEKeyDown())
                 {
                     canCa = true;
                     InfoDialogUI.Instance.ShowMessage("°´ <b>E</b> ½»»¥");
@@ -117,10 +122,15 @@ namespace BlackBoard
             }
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                if (boardProgress==2)
-                    PlayerPrefs.SetInt(BoardKey, 3);
-                SceneManager.LoadScene("C1CJB");
+                BackScene();
             }
+        }
+
+        private void BackScene()
+        {
+            if (boardProgress==2)
+                PlayerPrefs.SetInt(BoardKey, 3);
+            SceneManager.LoadScene("C1CJB");
         }
 
 
