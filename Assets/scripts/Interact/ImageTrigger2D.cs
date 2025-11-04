@@ -114,7 +114,7 @@ namespace Interact
         private void OnTriggerStay2D(Collider2D other)
         {
             if (!other.CompareTag(playerTag)) return;
-            if (Input.GetKeyDown(KeyCode.E) && !talking)
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 StartCoroutine(BeginSequence());
             }

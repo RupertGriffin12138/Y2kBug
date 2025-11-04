@@ -162,7 +162,8 @@ namespace Save
             foreach (var d in dbg.docs)
             {
                 if (GUILayout.Button($"发放文档 {d.docId}"))
-                    dbg.SendMessage("GrantDoc", new object[] { d.docId, d.showToast });
+                    DocGrantTool.GiveDoc(d.docId,true,d.showToast);
+                    
             }
 
             GUILayout.Space(5);

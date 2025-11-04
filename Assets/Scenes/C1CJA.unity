@@ -385,7 +385,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.0248338, y: 0.4956781}
+  m_Size: {x: 1.0248338, y: 0.46}
   m_EdgeRadius: 0
 --- !u!212 &64153609
 SpriteRenderer:
@@ -676,7 +676,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallbackSpawnPoint: {fileID: 0}
-  maxWaitFrames: 30
   extraWaitSeconds: 0
 --- !u!1 &134472925
 GameObject:
@@ -867,7 +866,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.0176609, y: 0.42706493}
+  m_Size: {x: 1.0176609, y: 0.46}
   m_EdgeRadius: 0
 --- !u!212 &261505889
 SpriteRenderer:
@@ -997,7 +996,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.11, y: 0.39410022}
+  m_Size: {x: 1.11, y: 0.44}
   m_EdgeRadius: 0
 --- !u!212 &265572972
 SpriteRenderer:
@@ -1967,7 +1966,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.004788, y: 0.419047}
+  m_Size: {x: 1.004788, y: 0.44}
   m_EdgeRadius: 0
 --- !u!212 &805008945
 SpriteRenderer:
@@ -2232,7 +2231,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.1765337, y: -0.15145725}
+  m_Offset: {x: 1.1966724, y: -0.15145725}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -2243,7 +2242,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.12540722, y: 1.2929145}
+  m_Size: {x: 0.08512974, y: 1.2929145}
   m_EdgeRadius: 0
 --- !u!1 &960493440
 GameObject:
@@ -2759,7 +2758,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.0504571, y: 0.45224065}
+  m_Size: {x: 1.0504571, y: 0.44}
   m_EdgeRadius: 0
 --- !u!212 &998062354
 SpriteRenderer:
@@ -3205,7 +3204,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2514097689317049044, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
       propertyPath: m_Size.y
-      value: 1.51894
+      value: 1.403141
       objectReference: {fileID: 0}
     - target: {fileID: 2514097689317049044, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
       propertyPath: m_Offset.x
@@ -3213,7 +3212,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2514097689317049044, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
       propertyPath: m_Offset.y
-      value: 1.0950565
+      value: 1.152956
       objectReference: {fileID: 0}
     - target: {fileID: 2808267952940001299, guid: b734b3b8cac05b34e9eee789d009a45a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3501,7 +3500,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.0188885, y: 0.45400798}
+  m_Size: {x: 1.0188885, y: 0.46}
   m_EdgeRadius: 0
 --- !u!212 &1230192134
 SpriteRenderer:
@@ -3783,7 +3782,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.0353643, y: 0.54602313}
+  m_Size: {x: 1.0353643, y: 0.46}
   m_EdgeRadius: 0
 --- !u!212 &1403092316
 SpriteRenderer:
@@ -3982,7 +3981,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.11, y: 0.42971468}
+  m_Size: {x: 1.11, y: 0.44}
   m_EdgeRadius: 0
 --- !u!212 &1668202639
 SpriteRenderer:
@@ -4063,7 +4062,7 @@ Transform:
   m_GameObject: {fileID: 1854949568}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.7418187, y: -1.454544, z: 0}
+  m_LocalPosition: {x: 1.7418187, y: -1.427272, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4112,7 +4111,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.0410033, y: 0.43810958}
+  m_Size: {x: 1.0410033, y: 0.44}
   m_EdgeRadius: 0
 --- !u!212 &1854949571
 SpriteRenderer:
@@ -4396,7 +4395,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7567651378298865756, guid: deb62d56fa8969545ba988a68a90cf78, type: 3}
       propertyPath: m_Size.y
-      value: 0.4859619
+      value: 0.4678669
       objectReference: {fileID: 0}
     - target: {fileID: 7567651378298865756, guid: deb62d56fa8969545ba988a68a90cf78, type: 3}
       propertyPath: m_Offset.x
@@ -4404,7 +4403,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7567651378298865756, guid: deb62d56fa8969545ba988a68a90cf78, type: 3}
       propertyPath: m_Offset.y
-      value: -0.25701904
+      value: -0.26606655
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7051986941150172040, guid: deb62d56fa8969545ba988a68a90cf78, type: 3}
@@ -4493,7 +4492,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9955452, y: 0.4618519}
+  m_Size: {x: 0.9955452, y: 0.46}
   m_EdgeRadius: 0
 --- !u!212 &2024219064
 SpriteRenderer:
@@ -8780,7 +8779,7 @@ MonoBehaviour:
   menuSceneName: MainMenu
   toggleKey: 27
   pauseAudio: 0
-  player: {fileID: 107007605}
+  playerPos: {fileID: 0}
   savePlayerPos: 1
   defaultSaveKey: SaveSlot_1
   isBoard: 0
@@ -11954,6 +11953,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7baf0ddcb9a7e074eb01bf690e5655df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mode: 0
   saveDetailPanel: {fileID: 9035732731938178774}
   saveButtons:
   - {fileID: 545409513661503178}
@@ -14797,7 +14797,6 @@ MonoBehaviour:
   spawnIntervalMin: 0.1
   spawnIntervalMax: 1
   defaultTypeDelay: 0.05
-  lockPlayerDuringDialogue: 1
   isShowingDialogue: 0
 --- !u!222 &6867625342382260782
 CanvasRenderer:
