@@ -13,5 +13,10 @@ namespace UI
         {
             SceneManager.LoadScene("C0");
         }
+
+        public void ExitGame()
+        {
+            Application.Quit();
+        }
     }
 }

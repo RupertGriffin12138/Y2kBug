@@ -27,8 +27,11 @@ public class Final : MonoBehaviour
 
     private bool pressed;
 
+    public Button btn;
+
     private void Start()
     {
+        btn.onClick.AddListener(SkipNext);
         // 初始化 CanvasGroup（确保两者存在）
         if (imagePanel)
         {
@@ -63,7 +66,15 @@ public class Final : MonoBehaviour
 
     private void Update()
     {
-        if (!pressed && Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            SkipNext();
+        }
+    }
+
+    public void SkipNext()
+    {
+        if (!pressed)
         {
             pressed = true;
             StartCoroutine(SwitchFlow());
