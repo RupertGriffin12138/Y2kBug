@@ -62,8 +62,8 @@ namespace Characters.PLayer_25D
             }
 #else
             // PC / 编辑器：键盘输入
-            xInput = Input.GetAxisRaw("Horizontal");
-            yInput = Input.GetAxisRaw("Vertical");
+            inputX = Input.GetAxisRaw("Horizontal");
+            inputY = Input.GetAxisRaw("Vertical");
 #endif
             Vector2 input = new Vector2(inputX, inputY).normalized;
             rb.velocity = input * speed;

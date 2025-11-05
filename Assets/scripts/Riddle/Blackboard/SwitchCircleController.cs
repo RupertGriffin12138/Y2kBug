@@ -159,6 +159,12 @@ namespace Riddle.Blackboard
 #endif
         }
 
+        private void PlayAndShow(int num)
+        {
+            AudioClipHelper.Instance.Play_ChalkWriting();
+            ShowAnswer(num);
+        }
+
         private void getNumandKeyDown()
         {
             if (Input.GetKeyDown(KeyCode.D))
