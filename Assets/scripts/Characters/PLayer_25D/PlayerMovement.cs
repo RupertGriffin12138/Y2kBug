@@ -1,4 +1,5 @@
 using System.Collections;
+using Mobile;
 using UnityEngine;
 
 namespace Characters.PLayer_25D
@@ -43,8 +44,27 @@ namespace Characters.PLayer_25D
             }
 
             // === 正常输入逻辑 ===
-            inputX = Input.GetAxisRaw("Horizontal");
-            inputY = Input.GetAxisRaw("Vertical");
+#if UNITY_ANDROID || UNITY_IOS
+            // 移动端：从 Joystick 获取输入
+            if (GlobalInput.joystick)
+            {
+                inputX = GlobalInput.joystick.Horizontal;
+                inputY = GlobalInput.joystick.Vertical;
+
+                // 死区过滤，防止轻微漂移
+                if (Mathf.Abs(inputX) < 0.1f) inputX = 0f;
+                if (Mathf.Abs(inputY) < 0.1f) inputY = 0f;
+            }
+            else
+            {
+                inputX = 0;
+                inputY = 0;
+            }
+#else
+            // PC / 编辑器：键盘输入
+            xInput = Input.GetAxisRaw("Horizontal");
+            yInput = Input.GetAxisRaw("Vertical");
+#endif
             Vector2 input = new Vector2(inputX, inputY).normalized;
             rb.velocity = input * speed;
 

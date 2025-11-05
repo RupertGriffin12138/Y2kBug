@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-
+﻿using Mobile;
+using UnityEngine;
 namespace Riddle.Abacus
 {
     public sealed class AbacusControl : MonoBehaviour
@@ -24,11 +23,11 @@ namespace Riddle.Abacus
 
         public int CurrentLine => lineNum[frameNum];
         public int CurrentFrame => frameNum;
-
-        public Button up;
-        public Button down;
-        public Button left;
-        public Button right;
+        
+        private float xInput;
+        private float yInput;
+        private float moveTimer = 0f;
+        private const float moveCooldown = 0.25f; // 防止连续移动太快
 
         private void Awake()
         {
@@ -40,28 +39,43 @@ namespace Riddle.Abacus
             frame0StartPos = frame0.transform.position;
             frame1StartPos = frame1.transform.position;
             SetFrame(0); // 默认在上层
-            
-            up.onClick.AddListener(() =>
-            {
-                SetFrame(0);
-            });
-            down.onClick.AddListener(() =>
-            {
-                SetFrame(1);
-            });
-            left.onClick.AddListener(() =>
-            {
-                MoveLine(-1);
-            });
-            right.onClick.AddListener(() =>
-            {
-                MoveLine(1);
-            });
         }
 
         private void Update()
         {
             if (inputLocked) return;
+            
+            moveTimer -= Time.deltaTime;
+            
+#if UNITY_ANDROID || UNITY_IOS
+            if (GlobalInput.joystick)
+            {
+                xInput = GlobalInput.joystick.Horizontal;
+                yInput = GlobalInput.joystick.Vertical;
+
+                if (Mathf.Abs(xInput) < 0.3f) xInput = 0f;
+                if (Mathf.Abs(yInput) < 0.3f) yInput = 0f;
+
+                if (moveTimer <= 0f)
+                {
+                    if (xInput > 0.5f) { MoveLine(1); moveTimer = moveCooldown; }
+                    else if (xInput < -0.5f) { MoveLine(-1); moveTimer = moveCooldown; }
+                    else if (yInput > 0.5f) { SetFrame(0);moveTimer = moveCooldown; }
+                    else if (yInput < -0.5f) { SetFrame(1); moveTimer = moveCooldown; }
+                }
+            }
+#else
+            // PC 键盘
+            if (Input.GetKeyDown(KeyCode.W))
+                SetFrame(0);
+            else if (Input.GetKeyDown(KeyCode.S))
+                SetFrame(1);
+
+            if (Input.GetKeyDown(KeyCode.D))
+                MoveLine(1);
+            else if (Input.GetKeyDown(KeyCode.A))
+                MoveLine(-1);
+#endif
 
             if (Input.GetKeyDown(KeyCode.W))
                 SetFrame(0);

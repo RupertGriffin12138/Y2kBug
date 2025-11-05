@@ -1,5 +1,6 @@
 using Audio;
 using System.Collections;
+using Mobile;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,11 +17,7 @@ namespace Riddle.Blackboard
         [SerializeField] private int count_zong = 0;  // 纵向计数
         [SerializeField] private int count_num = 0;   // 综合计数
         [SerializeField] private float moveDistance = 1f; // 移动距离
-
-        [SerializeField] private Button up;
-        [SerializeField] private Button left;
-        [SerializeField] private Button down;
-        [SerializeField] private Button right;
+        
         [SerializeField] private Button btn1;
         [SerializeField] private Button btn2;
         [SerializeField] private Button btn3;
@@ -42,15 +39,20 @@ namespace Riddle.Blackboard
         private Vector3 initialPosition; // 初始位置
 
         // 二维数组用于映射 count_heng ???count_zong ???count_num
-        private int[,] circleNum = {
+        private readonly int[,] circleNum = {
             { 0, 3, 6 },
             { 1, 4, 7 },
             { 2, 5, 8 }
         };
 
-        private int[] answerNum = { 5, 1, 3, 9, 9, 6, 4, 5, 8 };
+        private readonly int[] answerNum = { 5, 1, 3, 9, 9, 6, 4, 5, 8 };
 
         public GameObject block; // Block 对象
+        
+        private float xInput;
+        private float yInput;
+        private float moveTimer = 0f;
+        private const float moveCooldown = 0.25f; // 防止连续移动太快
 
         private int previousCountNum = -1; // 上一???count_num 的???
 
@@ -77,12 +79,7 @@ namespace Riddle.Blackboard
 
             // 初始透明度设???
             SetFadeProgress(0f);
-
-            up.onClick.AddListener(MoveUp);
-            down.onClick.AddListener(MoveDown);
-            left.onClick.AddListener(MoveLeft);
-            right.onClick.AddListener(MoveRight);
-
+            
             btn1.onClick.AddListener(() =>{
                 AudioClipHelper.Instance.Play_ChalkWriting();
                 ShowAnswer(1);
@@ -124,11 +121,42 @@ namespace Riddle.Blackboard
 
         private void Update()
         {
-            // 处理按键输入
-            getNumandKeyDown();
+            moveTimer -= Time.deltaTime;
+            
+#if UNITY_ANDROID || UNITY_IOS
+            if (GlobalInput.joystick)
+            {
+                xInput = GlobalInput.joystick.Horizontal;
+                yInput = GlobalInput.joystick.Vertical;
 
-            // 输出当前计数???
-            //Debug.Log($"Count Heng: {count_heng}, Count Zong: {count_zong}, Count Num: {count_num}");
+                if (Mathf.Abs(xInput) < 0.3f) xInput = 0f;
+                if (Mathf.Abs(yInput) < 0.3f) yInput = 0f;
+
+                if (moveTimer <= 0f)
+                {
+                    if (xInput > 0.5f) { MoveRight(); moveTimer = moveCooldown; }
+                    else if (xInput < -0.5f) { MoveLeft(); moveTimer = moveCooldown; }
+                    else if (yInput > 0.5f) { MoveUp(); moveTimer = moveCooldown; }
+                    else if (yInput < -0.5f) { MoveDown(); moveTimer = moveCooldown; }
+                }
+            }
+#else
+            // PC 键盘
+            if (Input.GetKeyDown(KeyCode.D)) MoveRight();
+            else if (Input.GetKeyDown(KeyCode.A)) MoveLeft();
+            else if (Input.GetKeyDown(KeyCode.W)) MoveUp();
+            else if (Input.GetKeyDown(KeyCode.S)) MoveDown();
+
+            if (Input.GetKeyDown(KeyCode.Alpha1)) PlayAndShow(1);
+            else if (Input.GetKeyDown(KeyCode.Alpha2)) PlayAndShow(2);
+            else if (Input.GetKeyDown(KeyCode.Alpha3)) PlayAndShow(3);
+            else if (Input.GetKeyDown(KeyCode.Alpha4)) PlayAndShow(4);
+            else if (Input.GetKeyDown(KeyCode.Alpha5)) PlayAndShow(5);
+            else if (Input.GetKeyDown(KeyCode.Alpha6)) PlayAndShow(6);
+            else if (Input.GetKeyDown(KeyCode.Alpha7)) PlayAndShow(7);
+            else if (Input.GetKeyDown(KeyCode.Alpha8)) PlayAndShow(8);
+            else if (Input.GetKeyDown(KeyCode.Alpha9)) PlayAndShow(9);
+#endif
         }
 
         private void getNumandKeyDown()
@@ -241,12 +269,12 @@ namespace Riddle.Blackboard
 
         #endregion
 
-        void UpdateCountNum()
+        private void UpdateCountNum()
         {
             if (circleNum != null) count_num = circleNum[count_heng, count_zong];
         }
 
-        void InitializeAnswers()
+        private void InitializeAnswers()
         {
             for (int i = 0; i < 9; i++)
             {
@@ -261,7 +289,7 @@ namespace Riddle.Blackboard
             }
         }
 
-        void ShowAnswer(int number)
+        private void ShowAnswer(int number)
         {
             GameObject answerGroup = GetAnswerGroup(count_num);
             if (answerGroup != null)
@@ -279,7 +307,7 @@ namespace Riddle.Blackboard
             CheckAllAnswers();
         }
 
-        void CheckAllAnswers()
+        private void CheckAllAnswers()
         {
             isAnswer = true;
             for (int i = 0; i < 9; i++)
@@ -310,7 +338,7 @@ namespace Riddle.Blackboard
             }
         }
 
-        GameObject GetAnswerGroup(int index)
+        private GameObject GetAnswerGroup(int index)
         {
             Transform blockChild = block.transform.GetChild(index);
             if (blockChild != null)
@@ -320,7 +348,7 @@ namespace Riddle.Blackboard
             return null;
         }
 
-        void LateUpdate()
+        private void LateUpdate()
         {
             // ???count_heng == 0 时，横坐标回到初始位???
             if (count_heng == 0)
